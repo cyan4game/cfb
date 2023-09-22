@@ -1,171 +1,130 @@
 <template>
-  <view class="login-page">
-    <u-navbar
-      title="登录"
-      height="50px"
-      :titleStyle="{ color: '#fff' }"
-      placeholder
-      bgColor="#505bde"
-    >
-      <view class="u-nav-slot" slot="left"></view>
-      <view class="u-nav-slot" slot="right">
-        <u-image
+  <view class="main-page">
+
+    <view class="login-bg">
+      <u-image src="/static/images/login/hello.png" width="143rpx" height="41rpx" class="hello-icon"></u-image>
+      <u-image src="/static/images/login/welcome.png" width="299rpx" height="42rpx" class="welcome-icon"></u-image>
+      <u-image
           @click="pageTo"
           :showLoading="true"
           src="/static/icons/customer.svg"
           width="24px"
           height="24px"
+          class="service-icon"
         ></u-image>
-      </view>
-    </u-navbar>
-    <u-image
-      :showLoading="true"
-      src="/static/images/logo.png"
-      width="160px"
-      height="64px"
-      class="flex-box login-logo"
-    ></u-image>
-    <radio-tab :value.sync="menuName" :menuList="menuList"></radio-tab>
-    <template v-if="menuName === 'mobile'">
-      <mobile>
-        <template slot-scope="{ isDisabled, form }">
-          <u-button
-            :disabled="isDisabled"
-            class="login-button"
-            @click="toLogin(isDisabled, form)"
-            type="primary"
-            text="登录"
-          ></u-button>
-        </template>
-      </mobile>
-    </template>
-    <template v-else-if="menuName === 'email'">
-      <email>
-        <template slot-scope="{ isDisabled, form }">
-          <u-button
-            :disabled="isDisabled"
-            class="login-button"
-            @click="toLogin(isDisabled, form)"
-            type="primary"
-            text="登录"
-          ></u-button>
-        </template>
-      </email>
-    </template>
+    </view>
 
-    <u-button
-      @click="router('pages/register/index')"
-      class="register-button mt-20 mb-20"
-      type="primary"
-      text="注册"
-    ></u-button>
-    <u-text align="center" type="primary" color="#505bde" text="忘记密码?" @click="router('pages/retrievePassword/index')"></u-text>
+    <view class="login-box">
+      <radio-tab :value.sync="menuName" :menuList="menuList"></radio-tab>
+      <!--    <component :showTip="showTip" :is="menuName"></component>-->
+      <mobile
+        :inviteCode="inviteCode"
+        :showTip="showTip"
+        v-if="menuName === 'mobile'"
+      ></mobile>
+      <email
+        :inviteCode="inviteCode"
+        :showTip="showTip"
+        v-if="menuName === 'email'"
+      ></email>
+      <u-text
+        align="center"
+        @click="router('pages/login/index')"
+        type="primary"
+        text="接收不到短信？"
+      ></u-text>
+    </view>
+    
   </view>
 </template>
 
 <script>
-import radioTab from "./components/radio-tab"
-import mobile from "./components/mobile"
-import email from "./components/email"
-import {login} from "../../api/api"
-import storage from "../../utils/storage"
-import {mapActions} from "vuex"
+import radioTab from "./components/radio-tab";
+import mobile from "./components/mobile";
+import email from "./components/email";
 
 export default {
   name: "index",
-  components: {radioTab, mobile, email},
-  data () {
+  components: { radioTab, mobile, email },
+  data() {
     return {
-      title: "",
-      menuName: "mobile",
       menuList: [
         {
           label: "手机登录",
           key: "mobile",
-          icon: require("@/static/icons/mobile-default.svg"),
-          active: require("@/static/icons/mobile.svg"),
         },
         {
           label: "邮箱登录",
           key: "email",
-          icon: require("@/static/icons/email-default.svg"),
-          active: require("@/static/icons/email.svg"),
         },
       ],
+      menuName: "mobile",
       currentView: "mobile",
-    }
+      inviteCode: "",
+    };
   },
-  onLoad (option) {
-    const {type, mobile} = option
-    if (type === "email") {
-      this.menuName = "email"
-    } else {
-      this.menuName = "mobile"
+  onLoad(option) {
+    if (option.code) {
+      this.inviteCode = option.code;
     }
   },
   methods: {
-    ...mapActions("socket", ["INIT_SOCKET"]),
-    ...mapActions("user", ["GET_USER_INFO"]),
-    toLogin (isDisabled, form) {
-      if (isDisabled) return
-      login({terminal: "C", ...form}).then((res) => {
-        if (res.code.toString() === "0" && res.data) {
-          const {data} = res
-          storage.set("token", data.token)
-          storage.set("pushToken", data.pushToken)
-          storage.set("memberLevel", data.userInfo.memberLevel)
-          this.GET_USER_INFO()
-          if (data.isFirstLogin) {
-            uni.reLaunch({
-              url: "/pages/login/first",
-            })
-          } else {
-            this.router({
-              type: "switchTab",
-              url: "pages/index/index",
-            })
-          }
-        }
-      })
-      // console.log(form);
+    routeBack() {
+      this.router({ type: "back" });
     },
-    pageTo () {
-      this.router("pages/customer/index")
+    toNext(isDisabled, form) {
+      console.log(isDisabled, form);
     },
-    To (url) {
-      this.router(url)
+    showTip(message) {
+      uni.showToast({
+        title: message,
+        icon: 'none',
+        duration: 1700
+      });
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.login-page {
-  padding: 40px 20px;
+.main-page {
   height: 100%;
   box-sizing: border-box;
   background: #fff;
 
+  .login-bg {
+    height: 588rpx;
+    background-color: #111;
+    position: relative;
+    background-image: url('../../static/images/login/login-bg.png');
+    background-size: 100% 100%;
+    .service-icon {
+      top: 44rpx;
+      right: 40rpx;
+      position: absolute;
+    }
+    .hello-icon {
+      position: absolute;
+      top: 140rpx;
+      left: 100rpx;
+    }
+    .welcome-icon {
+      position: absolute;
+      top: 200rpx;
+      left: 100rpx;
+    }
+  }
+  .login-box {
+    position: relative;
+    margin: 30rpx;
+    border-radius: 6rpx;
+    background-color: #fff;
+    top: -300rpx;
+    overflow: hidden;
+  }
+
   .login-logo {
     margin-bottom: 40px;
-  }
-
-  .login-button {
-    background: #505bde;
-    border-color: #505bde;
-    margin-top: 30px;
-  }
-
-  .u-button--disabled {
-    background: #cccccc 0 0 no-repeat padding-box;
-    border: none;
-    opacity: 1;
-  }
-
-  .register-button {
-    background: #ffffff 0 0 no-repeat padding-box;
-    border: 1px solid #505bde;
-    color: #505bde;
   }
 }
 </style>

@@ -9,17 +9,30 @@ module.exports = {
     inline: true, // 实时刷新
     disableHostCheck: process.env.NODE_ENV === "development", // 关闭 host check，方便使用 ngrok 之类的内网转发工具
     proxy: {
-      "/market": {
-        target: "https://test-marketmaker-api.zhbtest.com", // gogo
-        changeOrigin: true, // api对应域名
-        secure: true, // 支持Https协议
-      },
-      "/uploadFile": {
-        target: "https://test-marketmaker-api.zhbtest.com", // gogo
+      "/": {
+        target: "http://dev-app.cfbaopay.com", // gogo
+        bypass: function (req, res, proxyOptions) {
+          if (req.url.startsWith('/pages')) {
+            // 如果请求的路径以/pages开头，则不进行代理，保持原样
+            return req.url;
+          }
+        },
         changeOrigin: true, // api对应域名
         secure: true, // 支持Https协议
       },
     },
+    // {
+    //   "/market": {
+    //     target: "https://test-marketmaker-api.zhbtest.com", // gogo
+    //     changeOrigin: true, // api对应域名
+    //     secure: true, // 支持Https协议
+    //   },
+    //   "/uploadFile": {
+    //     target: "https://test-marketmaker-api.zhbtest.com", // gogo
+    //     changeOrigin: true, // api对应域名
+    //     secure: true, // 支持Https协议
+    //   },
+    // },
     historyApiFallback: true,
   },
   configureWebpack: {

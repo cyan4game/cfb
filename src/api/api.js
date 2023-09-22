@@ -1,4 +1,38 @@
 const http = uni.$u.http;
+
+// 请求发送验证短信
+export const sendSMS = (data) => {
+  return http.post("/verify/sms", data, {
+    custom: { toast: true, auth: false },
+  });
+};
+/**
+ * 请求发送邮箱验证码
+ * @param data
+ * @returns {Promise<any>}
+ */
+export const sendEmailCode = (data) => {
+  return http.post("/verify/mail", data, {
+    custom: { toast: true, auth: false },
+  });
+};
+// 手机注册登录 
+export const phoneRegister = (data) => {
+  return http.post("/member/phoneRegister", data, {
+    custom: { toast: true, auth: false },
+  });
+};
+// 邮件注册登录  
+export const emailRegister = (data) => {
+  return http.post("/member/emailRegister", data, {
+    custom: { toast: true, auth: false },
+  });
+};
+
+
+//  ---------------------------------------------------------------
+
+
 // console.log(http.get, "http");
 // 做市商账号密码登录
 export const login = (data) =>
@@ -445,22 +479,8 @@ export const captcha = () => {
   const r = Math.random().toFixed(3) * 100;
   return "/market/register/captcha?r=" + r;
 };
-// /register/sendSMS 请求发送验证短信
-export const sendSMS = (data) => {
-  return http.post("/market/security/sendSMS", data, {
-    custom: { toast: true, auth: false },
-  });
-};
-/**
- * 请求发送邮箱验证码
- * @param data
- * @returns {Promise<any>}
- */
-export const sendEmailCode = (data) => {
-  return http.post("/market/security/sendEmailCode", data, {
-    custom: { toast: true, auth: false },
-  });
-};
+
+
 // /register/apply C端用户注册
 export const register = (data) => {
   return http.post("/market/register/apply", data, {

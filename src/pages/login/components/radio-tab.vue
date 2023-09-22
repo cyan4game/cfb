@@ -10,11 +10,11 @@
       v-for="(item, index) in menuList"
       :key="index"
     >
-      <u-image
+      <!-- <u-image
         :src="item.key === value ? item.active : item.icon"
         width="24px"
         height="24px"
-      ></u-image>
+      ></u-image> -->
       <text class="flex-label">{{ item.label }}</text>
     </view>
     <div class="bg-shadow" :class="showClass"></div>
@@ -59,23 +59,21 @@ export default {
 
 <style lang="scss" scoped>
 .menu-title {
-  background: #fff;
+  background: #f0f0f0;
   box-sizing: border-box;
-  border-radius: 5px;
-  height: 40px;
-  border: 1px solid #505bde;
+  height: 110rpx;
   position: relative;
-  box-shadow: 5px 6px 24px 0px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+  font-size: 30rpx;
+  color: #343434;
   .bg-shadow {
     width: 50%;
-    height: 40px;
-
+    height: 110rpx;
     position: absolute;
     top: 0px;
     left: 0px;
     z-index: 1;
-    background: #505bde;
+    background: #fff;
     transition: all 0.5s;
   }
   .is-default {
@@ -87,8 +85,6 @@ export default {
   .title-list {
     width: 50%;
     height: 100%;
-
-    color: #505bde;
     justify-content: center;
     position: relative;
     z-index: 2;
@@ -97,9 +93,6 @@ export default {
     .flex-label {
       font-size: 15px;
       margin-left: 5px;
-    }
-    &-active {
-      color: #fff;
     }
   }
 }

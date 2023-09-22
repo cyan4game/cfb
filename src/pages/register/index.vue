@@ -1,6 +1,6 @@
 <template>
   <view class="main-page">
-    <u-navbar
+    <!-- <u-navbar
       title="注册"
       height="50px"
       :titleStyle="{ color: '#fff' }"
@@ -21,32 +21,47 @@
           height="24px"
         ></u-image>
       </view>
-    </u-navbar>
-    <u-image
+    </u-navbar> -->
+    <!-- <u-image
       :showLoading="true"
       src="/static/images/logo.png"
       width="160px"
       height="64px"
       class="flex-box login-logo"
-    ></u-image>
-    <radio-tab :value.sync="menuName" :menuList="menuList"></radio-tab>
-    <!--    <component :showTip="showTip" :is="menuName"></component>-->
-    <mobile
-      :inviteCode="inviteCode"
-      :showTip="showTip"
-      v-if="menuName === 'mobile'"
-    ></mobile>
-    <email
-      :inviteCode="inviteCode"
-      :showTip="showTip"
-      v-if="menuName === 'email'"
-    ></email>
-    <u-text
-      align="center"
-      @click="router('pages/login/index')"
-      type="primary"
-      text="已有账号去登录"
-    ></u-text>
+    ></u-image> -->
+
+    <view class="login-bg">
+      <u-image
+          @click="pageTo"
+          :showLoading="true"
+          src="/static/icons/customer.svg"
+          width="24px"
+          height="24px"
+          class="service-icon"
+        ></u-image>
+    </view>
+
+    <view class="login-box">
+      <radio-tab :value.sync="menuName" :menuList="menuList"></radio-tab>
+      <!--    <component :showTip="showTip" :is="menuName"></component>-->
+      <mobile
+        :inviteCode="inviteCode"
+        :showTip="showTip"
+        v-if="menuName === 'mobile'"
+      ></mobile>
+      <email
+        :inviteCode="inviteCode"
+        :showTip="showTip"
+        v-if="menuName === 'email'"
+      ></email>
+      <u-text
+        align="center"
+        @click="router('pages/login/index')"
+        type="primary"
+        text="已有账号去登录"
+      ></u-text>
+    </view>
+    
     <u-notify ref="uNotify"></u-notify>
   </view>
 </template>
@@ -110,10 +125,29 @@ export default {
 
 <style lang="scss" scoped>
 .main-page {
-  padding: 40px 20px;
   height: 100%;
   box-sizing: border-box;
   background: #fff;
+
+  .login-bg {
+    height: 588rpx;
+    background-color: #111;
+    position: relative;
+    .service-icon {
+      top: 44rpx;
+      right: 40rpx;
+      position: absolute;
+
+    }
+  }
+  .login-box {
+    position: relative;
+    margin: 30rpx;
+    border-radius: 6rpx;
+    background-color: #fff;
+    top: -288rpx;
+    overflow: hidden;
+  }
 
   .login-logo {
     margin-bottom: 40px;

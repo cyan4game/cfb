@@ -1,10 +1,10 @@
 <template>
   <view class="mobile-view">
     <u-form labelWidth="0" class="form" :model="form" ref="form" :rules="rules">
-      <u-form-item prop="phone" borderBottom>
+      <u-form-item prop="phone" class="item-box">
         <view class="item">
-          <u-text color="#505bde" text="手机号码"></u-text>
-          <u-row>
+          <!-- <u-text color="#505bde" text="手机号码"></u-text> -->
+          <u-row class="item-content">
             <u-col span="2">
               <u-text
                 :text="form.areaCode"
@@ -28,10 +28,10 @@
           </u-row>
         </view>
       </u-form-item>
-      <u-form-item prop="selfCaptcha" borderBottom>
+      <u-form-item prop="selfCaptcha" class="item-box"> 
         <view class="item">
-          <u-text color="#505bde" text="验证码"></u-text>
-          <u-input clearable type="text" placeholder="请输入右方验证码" v-model="form.selfCaptcha">
+          <!-- <u-text color="#505bde" text="验证码"></u-text> -->
+          <u-input class="item-content" clearable type="text" placeholder="请输入右方验证码" v-model="form.selfCaptcha">
             <template slot="suffix">
               <view class="flex-box" @click="getCaptcha">
                 <u-image
@@ -50,10 +50,10 @@
           </u-input>
         </view>
       </u-form-item>
-      <u-form-item borderBottom prop="captcha">
+      <u-form-item prop="captcha" class="item-box">
         <view class="item">
-          <u-text color="#505bde" text="手机验证码"></u-text>
-          <u-input clearable type="number" v-model="form.captcha" placeholder="请输入手机验证码">
+          <!-- <u-text color="#505bde" text="手机验证码"></u-text> -->
+          <u-input class="item-content" clearable type="number" v-model="form.captcha" placeholder="请输入手机验证码">
             <template slot="suffix">
               <u-code
                 ref="uCode"
@@ -66,6 +66,7 @@
               <u-button
                 :disabled="buttonDisabled"
                 class="get-button"
+                :style="{color: buttonDisabled?'#999':'#3A9861'}"
                 @tap="getCode"
                 type="success"
                 size="small"
@@ -277,26 +278,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.item {
+.item-box {
+  padding: 0 36rpx 0;
   width: 100%;
+  box-sizing: border-box;
 }
-
+.item {
+  width: 603rpx;
+  height: 112rpx;
+  background-color: #f0f0f0;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding-left: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 6rpx;
+  .item-content {
+    flex: 1;
+  }
+}
 .mobile-view {
   margin: 20px 0 30px;
 }
 
 .get-button {
-  width: 136px;
-  height: 35px;
-  font-size: 15px;
-  background: #505bde;
-  border-color: #505bde;
+  width: 202rpx;
+  height: 67rpx;
+  font-size: 28rpx;
+  background: #FFFFFD;
+  border-color: #FFFFFD;
 }
 
 .login-button {
-  background: #505bde;
-  border-color: #505bde;
+  background: #449367;
+  border-color: #449367;
   margin-top: 30px;
+  width: 450rpx;
+  height: 112rpx;
 }
 
 .u-button--disabled {
