@@ -1,0 +1,304 @@
+{
+    "name" : "财富宝",
+    "appid" : "__UNI__4E7FF13",
+    "description" : "用户端APP",
+    "versionName" : "3.1.0",
+    "versionCode" : 3001000,
+    "transformPx" : false,
+    "app-plus" : {
+        "compatible" : {
+            "ignoreVersion" : true,
+            "runtimeVersion" : "3.4.15",
+            "compilerVersion" : "3.4.18"
+        },
+        /* 5+App特有相关 */
+        "usingComponents" : true,
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : true,
+            "autoclose" : true,
+            "delay" : 0
+        },
+        "modules" : {},
+        /* 模块配置 */
+        "distribute" : {
+            /* 应用发布信息 */
+            "android" : {
+                /* android打包配置 */
+                "permissions" : [
+                    "<uses-feature android:name=\"android.hardware.camera\"/>",
+                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+                ],
+                "minSdkVersion" : 27,
+                "targetSdkVersion" : "29s",
+                "abiFilters" : [ "armeabi-v7a", "arm64-v8a", "x86" ]
+            },
+            "ios" : {
+                "idfa" : false,
+                "dSYMs" : false
+            },
+            /* ios打包配置 */
+            "sdkConfigs" : {
+                "ad" : {}
+            },
+            "icons" : {
+                "android" : {
+                    "hdpi" : "unpackage/res/icons/72x72.png",
+                    "xhdpi" : "unpackage/res/icons/96x96.png",
+                    "xxhdpi" : "unpackage/res/icons/144x144.png",
+                    "xxxhdpi" : "unpackage/res/icons/192x192.png"
+                },
+                "ios" : {
+                    "appstore" : "unpackage/res/icons/1024x1024.png",
+                    "ipad" : {
+                        "app" : "unpackage/res/icons/76x76.png",
+                        "app@2x" : "unpackage/res/icons/152x152.png",
+                        "notification" : "unpackage/res/icons/20x20.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "proapp@2x" : "unpackage/res/icons/167x167.png",
+                        "settings" : "unpackage/res/icons/29x29.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "spotlight" : "unpackage/res/icons/40x40.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png"
+                    },
+                    "iphone" : {
+                        "app@2x" : "unpackage/res/icons/120x120.png",
+                        "app@3x" : "unpackage/res/icons/180x180.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "notification@3x" : "unpackage/res/icons/60x60.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "settings@3x" : "unpackage/res/icons/87x87.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png",
+                        "spotlight@3x" : "unpackage/res/icons/120x120.png"
+                    }
+                }
+            },
+            "splashscreen" : {
+                "useOriginalMsgbox" : true,
+                "iosStyle" : "common",
+                "androidStyle" : "default",
+                "android" : {
+                    "hdpi" : "src/assets/splash/鍟熷嫊闋_480.9.png",
+                    "xhdpi" : "src/assets/splash/鍟熷嫊闋_720.9.png",
+                    "xxhdpi" : "src/assets/splash/鍟熷嫊闋_1080.9.png"
+                }
+            }
+        },
+        "nativePlugins" : {
+            "JG-JCore" : {
+                "JPUSH_APPKEY_IOS" : "d36a7d05d38b4d77db9f933e",
+                "JPUSH_CHANNEL_IOS" : "developer-default",
+                "JPUSH_APPKEY_ANDROID" : "d36a7d05d38b4d77db9f933e",
+                "JPUSH_CHANNEL_ANDROID" : "developer-default",
+                "__plugin_info__" : {
+                    "name" : "JG-JCore",
+                    "description" : "极光推送JCore插件",
+                    "platforms" : "Android,iOS",
+                    "url" : "",
+                    "android_package_name" : "com.cfb.app",
+                    "ios_bundle_id" : "",
+                    "isCloud" : false,
+                    "bought" : -1,
+                    "pid" : "",
+                    "parameters" : {
+                        "JPUSH_APPKEY_IOS" : {
+                            "des" : "[iOS]极光portal配置应用信息时分配的AppKey",
+                            "key" : "JCore:APP_KEY",
+                            "value" : "d36a7d05d38b4d77db9f933e"
+                        },
+                        "JPUSH_CHANNEL_IOS" : {
+                            "des" : "[iOS]用于统计分发渠道，不需要可填默认值developer-default",
+                            "key" : "JCore:CHANNEL",
+                            "value" : "developer-default"
+                        },
+                        "JPUSH_APPKEY_ANDROID" : {
+                            "des" : "[Android]极光portal配置应用信息时分配的AppKey",
+                            "key" : "JPUSH_APPKEY",
+                            "value" : "d36a7d05d38b4d77db9f933e"
+                        },
+                        "JPUSH_CHANNEL_ANDROID" : {
+                            "des" : "[Android]用于统计分发渠道，不需要可填默认值developer-default",
+                            "key" : "JPUSH_CHANNEL",
+                            "value" : "developer-default"
+                        }
+                    }
+                }
+            },
+            "JG-JPush" : {
+                "JPUSH_ISPRODUCTION_IOS" : "",
+                "JPUSH_ADVERTISINGID_IOS" : "",
+                "JPUSH_DEFAULTINITJPUSH_IOS" : "",
+                "JPUSH_OPPO_APPKEY" : "",
+                "JPUSH_OPPO_APPID" : "",
+                "JPUSH_OPPO_APPSECRET" : "",
+                "JPUSH_VIVO_APPKEY" : "",
+                "JPUSH_VIVO_APPID" : "",
+                "JPUSH_MEIZU_APPKEY" : "",
+                "JPUSH_MEIZU_APPID" : "",
+                "JPUSH_XIAOMI_APPKEY" : "",
+                "JPUSH_XIAOMI_APPID" : "",
+                "JPUSH_HUAWEI_APPID" : "",
+                "__plugin_info__" : {
+                    "name" : "JG-JPush",
+                    "description" : "极光推送Hbuilder插件",
+                    "platforms" : "Android,iOS",
+                    "url" : "",
+                    "android_package_name" : "com.cfb.app",
+                    "ios_bundle_id" : "",
+                    "isCloud" : false,
+                    "bought" : -1,
+                    "pid" : "",
+                    "parameters" : {
+                        "JPUSH_ISPRODUCTION_IOS" : {
+                            "des" : "[iOS]是否是生产环境，是填true，不是填false或者不填",
+                            "key" : "JPush:ISPRODUCTION",
+                            "value" : ""
+                        },
+                        "JPUSH_ADVERTISINGID_IOS" : {
+                            "des" : "[iOS]广告标识符（IDFA）如果不需要使用IDFA，可不填",
+                            "key" : "JPush:ADVERTISINGID",
+                            "value" : ""
+                        },
+                        "JPUSH_DEFAULTINITJPUSH_IOS" : {
+                            "des" : "[iOS]是否默认初始化，是填true，不是填false或者不填",
+                            "key" : "JPush:DEFAULTINITJPUSH",
+                            "value" : ""
+                        },
+                        "JPUSH_OPPO_APPKEY" : {
+                            "des" : "厂商OPPO-appkey,示例：OP-12345678",
+                            "key" : "OPPO_APPKEY",
+                            "value" : ""
+                        },
+                        "JPUSH_OPPO_APPID" : {
+                            "des" : "厂商OPPO-appId,示例：OP-12345678",
+                            "key" : "OPPO_APPID",
+                            "value" : ""
+                        },
+                        "JPUSH_OPPO_APPSECRET" : {
+                            "des" : "厂商OPPO-appSecret,示例：OP-12345678",
+                            "key" : "OPPO_APPSECRET",
+                            "value" : ""
+                        },
+                        "JPUSH_VIVO_APPKEY" : {
+                            "des" : "厂商VIVO-appkey,示例：12345678",
+                            "key" : "com.vivo.push.api_key",
+                            "value" : ""
+                        },
+                        "JPUSH_VIVO_APPID" : {
+                            "des" : "厂商VIVO-appId,示例：12345678",
+                            "key" : "com.vivo.push.app_id",
+                            "value" : ""
+                        },
+                        "JPUSH_MEIZU_APPKEY" : {
+                            "des" : "厂商MEIZU-appKey,示例：MZ-12345678",
+                            "key" : "MEIZU_APPKEY",
+                            "value" : ""
+                        },
+                        "JPUSH_MEIZU_APPID" : {
+                            "des" : "厂商MEIZU-appId,示例：MZ-12345678",
+                            "key" : "MEIZU_APPID",
+                            "value" : ""
+                        },
+                        "JPUSH_XIAOMI_APPKEY" : {
+                            "des" : "厂商XIAOMI-appKey,示例：MI-12345678",
+                            "key" : "XIAOMI_APPKEY",
+                            "value" : ""
+                        },
+                        "JPUSH_XIAOMI_APPID" : {
+                            "des" : "厂商XIAOMI-appId,示例：MI-12345678",
+                            "key" : "XIAOMI_APPID",
+                            "value" : ""
+                        },
+                        "JPUSH_HUAWEI_APPID" : {
+                            "des" : "厂商HUAWEI-appId,示例：appid=12346578",
+                            "key" : "com.huawei.hms.client.appid",
+                            "value" : ""
+                        }
+                    }
+                }
+            },
+            "MeiQia-ChatPlugin" : {
+                "MEIQIA_APPKEY_IOS" : "",
+                "MEIQIA_APPKEY_ANDROID" : "",
+                "__plugin_info__" : {
+                    "name" : "MeiQiaChatPlugin",
+                    "description" : "美洽官方 Hbuilder 插件",
+                    "platforms" : "Android,iOS",
+                    "url" : "",
+                    "android_package_name" : "",
+                    "ios_bundle_id" : "",
+                    "isCloud" : false,
+                    "bought" : -1,
+                    "pid" : "",
+                    "parameters" : {
+                        "MEIQIA_APPKEY_IOS" : {
+                            "des" : "美洽平台的Appkey_iOS",
+                            "key" : "95bc71c509db4578d47b831dd2bfdb18",
+                            "value" : ""
+                        },
+                        "MEIQIA_APPKEY_ANDROID" : {
+                            "des" : "美洽平台的Appkey_Android",
+                            "key" : "95bc71c509db4578d47b831dd2bfdb18",
+                            "value" : ""
+                        }
+                    }
+                }
+            }
+        }
+    },
+    /* SDK配置 */
+    "quickapp" : {},
+    /* 快应用特有相关 */
+    "mp-weixin" : {
+        /* 微信小程序特有相关 */
+        "appid" : "",
+        "setting" : {
+            "urlCheck" : false
+        },
+        "usingComponents" : true
+    },
+    "mp-alipay" : {
+        "usingComponents" : true
+    },
+    "mp-baidu" : {
+        "usingComponents" : true
+    },
+    "mp-toutiao" : {
+        "usingComponents" : true
+    },
+    "mp-qq" : {
+        "usingComponents" : true
+    },
+    "h5" : {
+        "router" : {
+            "mode" : "history",
+            "base" : "/"
+        },
+        "title" : "财富宝",
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        },
+        "template" : "public/index.html"
+    }
+}

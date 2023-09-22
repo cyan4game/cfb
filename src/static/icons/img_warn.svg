@@ -1,0 +1,7 @@
+<svg id="img_warn" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+  <rect id="矩形_3654" data-name="矩形 3654" width="15" height="15" fill="#fff" opacity="0"/>
+  <g id="组_49793" data-name="组 49793" transform="translate(1.25 1.25)">
+    <circle id="椭圆_19" data-name="椭圆 19" cx="6.25" cy="6.25" r="6.25" fill="#ef3c3c"/>
+    <path id="联合_27" data-name="联合 27" d="M0,6.377A1.016,1.016,0,0,1,1.049,5.4,1.018,1.018,0,0,1,2.1,6.377a1.017,1.017,0,0,1-1.053.98A1.015,1.015,0,0,1,0,6.377ZM.524,3.925,0,.982A1.016,1.016,0,0,1,1.049,0,1.018,1.018,0,0,1,2.1.982L1.577,3.925c0,.541.055.981-.528.981S.524,4.466.524,3.925Z" transform="translate(5.2 2.571)" fill="#fff"/>
+  </g>
+</svg>

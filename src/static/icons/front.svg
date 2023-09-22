@@ -1,0 +1,20 @@
+<svg id="组_49354" data-name="组 49354" xmlns="http://www.w3.org/2000/svg" width="100" height="65" viewBox="0 0 100 65">
+  <g id="矩形_3293" data-name="矩形 3293" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+    <rect width="100" height="65" stroke="none"/>
+    <rect x="0.5" y="0.5" width="99" height="64" fill="none"/>
+  </g>
+  <g id="组_49350" data-name="组 49350" transform="translate(5 5)">
+    <g id="矩形_3201" data-name="矩形 3201" fill="#fff" stroke="#ccc" stroke-width="1">
+      <rect width="90" height="56" rx="3" stroke="none"/>
+      <rect x="0.5" y="0.5" width="89" height="55" rx="2.5" fill="none"/>
+    </g>
+    <g id="组_49348" data-name="组 49348" transform="translate(58.185 9.44)">
+      <ellipse id="椭圆_79" data-name="椭圆 79" cx="8.127" cy="8.21" rx="8.127" ry="8.21" transform="translate(2.758)" fill="#ccc"/>
+      <path id="路径_86" data-name="路径 86" d="M8.127,0A8.169,8.169,0,0,0,0,8.21c8.354,3.248,5.6-2.753,9.844-2.7,3.883.049,6.41,5.019,6.41,2.7A8.169,8.169,0,0,0,8.127,0Z" transform="translate(2.758)" fill="#ccc"/>
+      <path id="路径_102" data-name="路径 102" d="M13.476,0H8.293A8.293,8.293,0,0,0,0,8.293v2.654H21.768V8.293A8.293,8.293,0,0,0,13.476,0Z" transform="translate(0 17.788)" fill="#ccc"/>
+    </g>
+    <rect id="矩形_3248" data-name="矩形 3248" width="36.001" height="2.54" rx="1.27" transform="translate(9.889 17.519)" fill="#ccc"/>
+    <rect id="矩形_3289" data-name="矩形 3289" width="70.328" height="2.54" rx="1.27" transform="translate(9.625 45.207)" fill="#ccc"/>
+    <rect id="矩形_3249" data-name="矩形 3249" width="21.601" height="2.54" rx="1.27" transform="translate(9.889 24.715)" fill="#ccc"/>
+  </g>
+</svg>

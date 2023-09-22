@@ -1,0 +1,100 @@
+
+.flex-box {
+  display: flex;
+  align-items: center;
+}
+
+.is-center {
+  justify-content: center;
+}
+
+.flex-box-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content-box {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border-radius: 5px;
+}
+
+.label {
+  color: #333333;
+  font-size: 28rpx;
+}
+
+.value {
+  color: #666;
+  font-size: 28rpx;
+  text-align: right;
+}
+
+.login-button {
+  background: #505bde;
+  border-color: #505bde;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+.u-button--disabled {
+  background: #cccccc 0% 0% no-repeat padding-box;
+  border: none;
+  opacity: 1;
+}
+
+// 边距相关
+$sizes: (0, 5, 10, 15, 20);
+$success-color: #63B72E;
+$primary-color: #0277FF;
+$info-color: #999999;
+$warming-color: #FF8000;
+$error-color: #EF3C3C;
+@for $index from 1 to 6 {
+  .m-#{nth($sizes, $index)} {
+    margin: #{nth($sizes, $index)}px;
+  }
+  .mt-#{nth($sizes, $index)} {
+    margin-top: #{nth($sizes, $index)}px;
+  }
+  .mr-#{nth($sizes, $index)} {
+    margin-right: #{nth($sizes, $index)}px;
+  }
+  .mb-#{nth($sizes, $index)} {
+    margin-bottom: #{nth($sizes, $index)}px;
+  }
+  .ml-#{nth($sizes, $index)} {
+    margin-left: #{nth($sizes, $index)}px;
+  }
+
+  .p-#{nth($sizes, $index)} {
+    padding: #{nth($sizes, $index)}px;
+  }
+  .pt-#{nth($sizes, $index)} {
+    padding-top: #{nth($sizes, $index)}px;
+  }
+  .pr-#{nth($sizes, $index)} {
+    padding-right: #{nth($sizes, $index)}px;
+  }
+  .pb-#{nth($sizes, $index)} {
+    padding-bottom: #{nth($sizes, $index)}px;
+  }
+  .pl-#{nth($sizes, $index)} {
+    padding-left: #{nth($sizes, $index)}px;
+  }
+}
+
+$colors: (success, primary, info, warming, error);
+$main-color: ($success-color, $primary-color, $info-color, $warming-color, $error-color);
+@for $index from 1 to 6 {
+  .#{nth($colors, $index)} {
+    color: #{nth($main-color, $index)}
+  }
+}
+
+$fonts: (12, 13, 14, 15, 16, 17, 18);
+@for $index from 1 to 8 {
+  .fs-#{nth($fonts,$index)} {
+    font-size: #{nth($fonts,$index)}px
+  }
+}

@@ -1,0 +1,11 @@
+<svg id="组_49346" data-name="组 49346" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <rect id="矩形_3127" data-name="矩形 3127" width="60" height="60" fill="#fff" opacity="0"/>
+  <g id="组_49345" data-name="组 49345" transform="translate(5 5)">
+    <g id="椭圆_51" data-name="椭圆 51" fill="#ef3c3c" stroke="#822621" stroke-width="1">
+      <circle cx="25" cy="25" r="25" stroke="none"/>
+      <circle cx="25" cy="25" r="24.5" fill="none"/>
+    </g>
+  </g>
+  <path id="椭圆_51-2" data-name="椭圆 51" d="M24,2a22.006,22.006,0,0,0-8.563,42.272A22.006,22.006,0,0,0,32.563,3.728,21.86,21.86,0,0,0,24,2m0-2A24,24,0,1,1,0,24,24,24,0,0,1,24,0Z" transform="translate(6 6)" fill="#fff"/>
+  <path id="联合_49" data-name="联合 49" d="M24.661,26.776l-9.683-9.683L5.306,26.764a1.939,1.939,0,1,1-2.741-2.742l9.671-9.671L2.565,4.68a1.952,1.952,0,0,1,2.76-2.759L15,11.591l9.681-9.68a1.938,1.938,0,1,1,2.741,2.741l-9.681,9.681,9.683,9.683a1.952,1.952,0,1,1-2.76,2.76Z" transform="translate(15.006 15.658)" fill="#fff"/>
+</svg>

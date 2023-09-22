@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="组_49167" data-name="组 49167" transform="translate(2 2)">
+    <rect id="矩形_3087" data-name="矩形 3087" width="24" height="24" transform="translate(-2 -2)" fill="#fff" opacity="0"/>
+    <g id="eye-slash-fill" transform="translate(2 3.7)">
+      <path id="路径_47" data-name="路径 47" d="M10.79,16.037,9.176,14.422A3.5,3.5,0,0,1,4.7,9.948l-2.06-2.06A13.553,13.553,0,0,0,0,11.125s3,5.5,8,5.5a7.029,7.029,0,0,0,2.79-.588ZM5.21,6.213A7.028,7.028,0,0,1,8,5.625c5,0,8,5.5,8,5.5a13.62,13.62,0,0,1-2.641,3.238L11.3,12.3A3.5,3.5,0,0,0,6.823,7.827L5.21,6.214Z" transform="translate(0 -4.771)" fill="#fff"/>
+      <path id="路径_48" data-name="路径 48" d="M12.4,14.519a2.5,2.5,0,0,0,2.829,2.829L12.4,14.519Zm4.95.708L14.521,12.4a2.5,2.5,0,0,1,2.829,2.829Z" transform="translate(-6.875 -8.519)" fill="#fff"/>
+      <path id="路径_49" data-name="路径 49" d="M15.7,16.411l-12-12L4.412,3.7l12,12Z" transform="translate(-2.058 -3.703)" fill="#fff" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

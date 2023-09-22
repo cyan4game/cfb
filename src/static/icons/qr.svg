@@ -1,0 +1,17 @@
+<svg id="组_49444" data-name="组 49444" xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 58 58">
+  <rect id="矩形_3059" data-name="矩形 3059" width="58" height="58" fill="#505bde" opacity="0"/>
+  <g id="组_49440" data-name="组 49440" transform="translate(5 5)">
+    <rect id="矩形_3329" data-name="矩形 3329" width="32.455" height="32.455" rx="3" transform="translate(8.545 9.318)" fill="#505bde"/>
+    <rect id="矩形_3330" data-name="矩形 3330" width="29.364" height="29.364" transform="translate(10.091 10.864)" fill="#fff"/>
+    <rect id="矩形_3099" data-name="矩形 3099" width="29.364" height="32.455" rx="3" transform="translate(9.318 7)" fill="#505bde"/>
+    <path id="路径_70" data-name="路径 70" d="M11.021,15.455V14.281h2.2v1.174Zm2.2-.081V14.2h1.1V13.107h1.1v1.174h-1.1v1.092Zm-6.588,0V14.2H7.686V13.189h-1.1V9.83h1.1V8.779h1.18V11h-1.1v1.011h3.008v1.174H8.866v2.185ZM0,15.373V9.83H5.572v5.543ZM1.18,14.2H4.392V11H1.18Zm8.5.163V13.189h1.1v1.174Zm2.441-1.174V12.015h2.2V10.923h1.1V12.1h-1.1v1.092Zm-9.882,0V12.015h1.1v1.174ZM9.923,11V9.83h3.294V8.82H8.866V7.646h1.252V6.635H11.3V7.646h3.017V6.554h1.1V8.82h-1.1V11ZM.075,9.014V6.594h1.18V7.84H2.272V9.014ZM4.156,8.82V7.809H2.272V6.635H6.588V7.809H5.336V8.82ZM6.588,6.594V4.369h1.1V3.358h-1.1V0H8.825V1.174H7.768V2.185h1.1V5.543h-1.1V6.594ZM9.882,5.543V0h5.572V5.543Zm1.18-1.174h3.212v-3.2H11.062ZM0,5.543V0H5.572V5.543ZM1.18,4.369H4.392v-3.2H1.18ZM12.119,3.358V2.185h1.1V3.358Zm-9.882,0V2.185h1.1V3.358Z" transform="translate(17.045 15.5)" fill="#fff"/>
+    <circle id="椭圆_94" data-name="椭圆 94" cx="1.159" cy="1.159" r="1.159" transform="translate(10.864 10.477)" fill="#fff"/>
+    <circle id="椭圆_95" data-name="椭圆 95" cx="1.159" cy="1.159" r="1.159" transform="translate(10.864 18.205)" fill="#fff"/>
+    <circle id="椭圆_96" data-name="椭圆 96" cx="1.159" cy="1.159" r="1.159" transform="translate(10.864 25.932)" fill="#fff"/>
+    <circle id="椭圆_97" data-name="椭圆 97" cx="1.159" cy="1.159" r="1.159" transform="translate(10.864 33.659)" fill="#fff"/>
+    <rect id="矩形_3325" data-name="矩形 3325" width="5.409" height="1.545" rx="0.773" transform="translate(7 10.864)" fill="#505bde"/>
+    <rect id="矩形_3326" data-name="矩形 3326" width="5.409" height="1.545" rx="0.773" transform="translate(7 18.591)" fill="#505bde"/>
+    <rect id="矩形_3327" data-name="矩形 3327" width="5.409" height="1.545" rx="0.773" transform="translate(7 26.318)" fill="#505bde"/>
+    <rect id="矩形_3328" data-name="矩形 3328" width="5.409" height="1.545" rx="0.773" transform="translate(7 34.045)" fill="#505bde"/>
+  </g>
+</svg>

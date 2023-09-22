@@ -1,0 +1,65 @@
+{
+    "name": "MeiQiaChatPlugin",
+    "id": "MeiQia-ChatPlugin",
+    "version": "1.0.5",
+    "description": "美洽官方 Hbuilder 插件",
+    "_dp_type": "nativeplugin",
+    "_dp_nativeplugin": {
+        "ios": {
+            "plugins": [{
+                "type": "module",
+                "name": "MeiQia-ChatPlugin",
+                "class": "MeiQiaChatModule"
+            }],
+            "hooksClass": "MeiQiaChatPluginProxy",
+            "integrateType": "framework",
+            "deploymentTarget": "9.0",
+            "frameworks": [
+                "MeiQiaSDK.framework"
+            ],
+            "embedFrameworks": [
+                "MeiQiaSDK.framework"
+            ],
+            "resources": [
+                "MQChatViewAsset.bundle"
+            ],
+            "parameters": {
+                "MEIQIA_APPKEY_IOS": {
+                    "des": "美洽平台的Appkey_iOS",
+                    "key": "MeiQiaChatPlugin:appkey"
+                }
+            }
+        },
+        "android": {
+            "plugins": [{
+                "type": "module",
+                "name": "MeiQia-ChatPlugin",
+                "class": "com.meiqia.uniplugin_meiqia.MeiQiaChatPlugin"
+            }],
+            "parameters": {
+                "MEIQIA_APPKEY_ANDROID": {
+                    "des": "美洽平台的Appkey_Android",
+                    "key": "meiqia_appkey"
+                }
+            },
+            "dependencies": [
+                "com.meiqia:meiqiasdk:3.8.4",
+                "com.squareup.okhttp3:okhttp:3.5.0"
+            ],
+            "abis": [
+                "armeabi-v7a",
+                "arm64-v8a",
+                "x86"
+            ],
+            "integrateType": "aar",
+            "minSdkVersion": 19,
+            "permissions": [
+                "android.permission.INTERNET",
+                "android.permission.WRITE_EXTERNAL_STORAGE",
+                "android.permission.ACCESS_NETWORK_STATE",
+                "android.permission.CAMERA",
+                "android.permission.RECORD_AUDIO"
+            ]
+        }
+    }
+}

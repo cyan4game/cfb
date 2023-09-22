@@ -1,0 +1,13 @@
+<svg id="组_49163" data-name="组 49163" xmlns="http://www.w3.org/2000/svg" width="60" height="44" viewBox="0 0 60 44">
+  <g id="矩形_3077" data-name="矩形 3077" fill="#fff" stroke="#707070" stroke-width="1" opacity="0">
+    <rect width="60" height="44" stroke="none"/>
+    <rect x="0.5" y="0.5" width="59" height="43" fill="none"/>
+  </g>
+  <g id="组_49162" data-name="组 49162" transform="translate(-8 1.891)">
+    <path id="路径_40" data-name="路径 40" d="M119.477,302.371a2.42,2.42,0,0,0-3.133.049c-.868.723-5.256,3.62-5.256,3.62h-7.214l-.023.012a.688.688,0,1,1,.045-1.376h5.293a1.939,1.939,0,0,0,0-3.877H101.46c-4.832,0-5.836,2.03-6.676,3.424v7.984l9.052.933c3.406.186,5.039,0,7.465-2.052,0,0,7.246-5.294,8.118-6.019A1.821,1.821,0,0,0,119.477,302.371Z" transform="translate(-74.045 -275.975)" fill="#ffce8b"/>
+    <rect id="矩形_3084" data-name="矩形 3084" width="4.199" height="10.218" transform="translate(15 26.363)" fill="#505bde"/>
+    <circle id="椭圆_33" data-name="椭圆 33" cx="3.103" cy="3.103" r="3.103" transform="translate(27.877 16.309)" fill="#ccc"/>
+    <path id="路径_41" data-name="路径 41" d="M344.619,97.1a2.646,2.646,0,1,0-2.646-2.646A2.647,2.647,0,0,0,344.619,97.1Z" transform="translate(-306.268 -79.639)" fill="#ccc"/>
+    <path id="路径_42" data-name="路径 42" d="M242.688,10.97a2.263,2.263,0,1,0-2.262-2.262A2.263,2.263,0,0,0,242.688,10.97Z" transform="translate(-210.869 0.557)" fill="#ccc"/>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg id="组_49441" data-name="组 49441" xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 58 58">
+  <rect id="矩形_3059" data-name="矩形 3059" width="58" height="58" fill="#505bde" opacity="0"/>
+  <g id="组_49437" data-name="组 49437" transform="translate(7 7)">
+    <rect id="矩形_3336" data-name="矩形 3336" width="32" height="33.419" rx="3" transform="translate(6 6.388)" fill="#505bde"/>
+    <rect id="矩形_3337" data-name="矩形 3337" width="28.444" height="30.236" transform="translate(7.777 7.978)" fill="#fff"/>
+    <rect id="矩形_3338" data-name="矩形 3338" width="29.333" height="33.419" rx="3" transform="translate(6 4)" fill="#505bde"/>
+    <circle id="椭圆_98" data-name="椭圆 98" cx="6.366" cy="6.366" r="6.366" transform="translate(14.302 12.753)" fill="#fff" opacity="0.948"/>
+    <g id="椭圆_99" data-name="椭圆 99" transform="translate(12.71 11.161)" fill="none" stroke="#fff" stroke-width="1" opacity="0.622">
+      <circle cx="7.957" cy="7.957" r="7.957" stroke="none"/>
+      <circle cx="7.957" cy="7.957" r="7.457" fill="none"/>
+    </g>
+    <path id="路径_507" data-name="路径 507" d="M5.064-17.136,7.1-13.669H5.723v.612H7.47l.01.01v.85H5.723v.612H7.48v1.5H8.693v-1.5h1.768V-12.2H8.693v-.85l.01-.01h1.757v-.612H9.07l2.04-3.467H9.729L8.087-14.1,6.445-17.136Z" transform="translate(12.58 33.018)" fill="#505bde"/>
+  </g>
+</svg>

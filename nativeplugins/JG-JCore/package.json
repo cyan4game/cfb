@@ -1,0 +1,58 @@
+{
+    "name": "JG-JCore",
+    "id": "JG-JCore",
+    "version": "1.0.1",
+    "description": "极光推送JCore插件",
+    "_dp_type":"nativeplugin",
+    "_dp_nativeplugin":{
+        "ios": {
+            "plugins": [
+                {
+                    "type": "module",
+                    "name": "JG-JCore",
+                    "class": "JCoreModule"
+                }
+            ],
+            "integrateType": "framework",
+            "deploymentTarget": "9.0",
+            "parameters": {
+                "JPUSH_APPKEY_IOS": {
+                    "des": "d36a7d05d38b4d77db9f933e",
+                    "key": "JCore:APP_KEY"
+                },
+                "JPUSH_CHANNEL_IOS": {
+                    "des": "developer-default",
+                    "key": "JCore:CHANNEL"
+                }
+            }
+        },
+        "android": {
+            "plugins": [
+                {
+                    "type": "module",
+                    "name": "JG-JCore",
+                    "class": "cn.jiguang.uniplugin_jcore.JCoreModule"
+                }
+            ],
+            "integrateType": "aar",
+            "minSdkVersion": "19",
+            "permissions": [
+            ],
+            "abis": [
+                "armeabi-v7a",
+                "arm64-v8a",
+                "x86"
+            ],
+            "parameters": {
+                "JPUSH_APPKEY_ANDROID": {
+                    "des": "d36a7d05d38b4d77db9f933e",
+                    "key": "JPUSH_APPKEY"
+                },
+                "JPUSH_CHANNEL_ANDROID":{
+                    "des": "developer-default",
+                    "key": "JPUSH_CHANNEL"
+                }
+            }
+        }
+    }
+}
