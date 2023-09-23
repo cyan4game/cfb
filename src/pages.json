@@ -316,20 +316,6 @@
       }
     },
     {
-      "path": "pages/login/first",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
-      }
-    },
-    {
-      "path": "pages/login/success",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
-      }
-    },
-    {
       "path": "pages/register/index",
       "style": {
         "navigationStyle": "custom",
