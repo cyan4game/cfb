@@ -1,6 +1,7 @@
 /**
  * 储存数据到本地
  */
+
 export default {
   // 存储
   set(KEY, DATA) {

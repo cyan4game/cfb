@@ -63,6 +63,9 @@ import storage from "../../../utils/storage";
 export default {
   name: "mobile",
   props: {
+    protocol: {
+      type: Boolean,
+    },
     showTip: {
       type: Function,
     },
@@ -117,7 +120,8 @@ export default {
         captcha &&
         areaCode &&
         phoneReg.test(phone) &&
-        !this.loading
+        !this.loading &&
+        this.protocol
       );
     },
     // 获取验证码按钮禁用
@@ -173,16 +177,13 @@ export default {
       phoneRegister(params)
         .then((res) => {
           console.error('登录', res)
+          this.router("pages/index/index")
           if (res.code.toString() === '200') {
-            // const data = {
-            //   type: "mobile", // 注册类型
-            //   captcha: form.captcha,
-            //   internationalCode: form.areaCode,
-            //   mobilePhone: form.phone,
-            //   inviteCode: this.inviteCode,
-            // };
-            // storage.set("REGISTER_INFO", JSON.stringify(data));
-            // this.router("pages/register/next");
+            const data = {
+              ...params,
+              ...res.data
+            }
+            this.$emit('loginSuccess', data)
           }
         }).finally(() => {
           this.loading = false;

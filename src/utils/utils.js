@@ -1,3 +1,48 @@
+import { memberInfo } from "@/api/api";
+import storage from "./storage";
+
+// 更新用户信息
+export const updatUserInfo = () => {
+  memberInfo().then((res) => {
+    if (res.code == 200) {
+      storage.set("userInfo", res.data);
+    }
+  });
+};
+// 清除缓存的信息-退出登录
+export const clearAllStorage = () => {
+  storage.set("userInfo", {});
+  storage.set("tokenName", "");
+  storage.set("token", "");
+  storage.set("LOGIN_INFO", "");
+};
+
+// 复制
+export function copyTxt(txt) {
+  txt += "";
+  if (txt == "null" || txt == "undefined" || txt == "") {
+    return;
+  }
+  // #ifdef APP-PLUS
+  uni.setClipboardData({
+    data: txt,
+  });
+  // #endif
+  // #ifdef H5
+  if (document.queryCommandSupported("copy")) {
+    let textarea = document.createElement("textarea");
+    textarea.value = txt;
+    textarea.readOnly = "readOnly";
+    document.body.appendChild(textarea);
+    textarea.select(); // 选中文本内容
+    textarea.setSelectionRange(0, txt.length);
+    let result = document.execCommand("copy");
+    textarea.remove();
+  }
+
+  // #endif
+}
+
 export const formatTime = (time) => {
   let hours = Math.floor(time / 3600);
   let minute = Math.floor(Math.floor(time % 3600) / 60);

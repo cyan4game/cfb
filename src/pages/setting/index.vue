@@ -1,58 +1,115 @@
+<!-- 设置 -->
 <template>
-  <view class="setting-page">
-    <view class="flex-box-between set-item">
-      <text class="set-label">音效通知</text>
-      <u-switch
-        activeColor="#62CE3A"
-        style="margin-left: auto"
-        v-model="isMuted"
-      ></u-switch>
+    <view class="page-setting">
+        
+        <!-- 背景色 -->
+        <view class="top-bg"></view>
+
+        <!-- 开关 -->
+        <view class="switch-box">
+            <text>音效通知</text>
+            <switch class="switch" :checked="checked" @change="switchChange" />
+            <view class="line"></view>
+        </view>
+
+        <!-- 退出登录 -->
+        <view class="loginout" @click="loginout">退出登录</view>
+
     </view>
-    <!-- #ifdef APP-PLUS -->
-    <u-line></u-line>
-    <view class="flex-box-between set-item" @click="toUpdate">
-      <text class="set-label">版本更新</text>
-      <u-icon size="54rpx" name="/static/icons/right.svg"></u-icon>
-    </view>
-    <!-- #endif -->
-  </view>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { soundNotificationSettings, logout } from '@/api/api'
+import storage from '@/utils/storage'
+import { updatUserInfo, clearAllStorage } from '@/utils/utils'
 
 export default {
-  name: "index",
-  computed: {
-    isMuted: {
-      get() {
-        return !this.$store.state.socket.isMuted;
-      },
-      set(val) {
-        this.SWITCH_MUTED(!val);
-      },
+    data() {
+        return {
+            checked: false,
+        }
     },
-  },
-  methods: {
-    ...mapMutations("socket", ["SWITCH_MUTED"]),
-    toUpdate() {
-      uni.navigateTo({
-        url: '/pages/update'
-      })
+    created() {
+        this.checked = (storage.get('userInfo') || {}).soundNotification
+    },
+    methods: {
+        // 开关音效
+        switchChange(e) {
+            uni.showLoading({
+                title: ''
+            });
+            soundNotificationSettings(e.target.value).then(res => {
+                console.error(res)
+                if (res.code != 200) {
+                    checked = !e.target.value
+                } else {
+                    updatUserInfo()
+                }
+            }).finally(() => {
+                uni.hideLoading();
+            })
+        },
+        // 退出登录
+        loginout() {
+            logout()
+            setTimeout(() => {
+                clearAllStorage()
+                uni.reLaunch({
+                    url: `/pages/login/index`
+                })
+            }, 100)
+        }
     }
-  },
-};
+}
+
 </script>
 
 <style lang="scss" scoped>
-.setting-page {
-  background: #fff;
-  .set-item {
-    padding: 19px 16px;
-    .set-label {
-      color: #333333;
-      font-size: 16px;
+.page-setting {
+    background-color: #fff;
+    height: 100%;
+    .top-bg {
+        background-color: #0D1116;
+        height: 100rpx;
     }
-  }
+    .switch-box {
+        border-radius: 22rpx;
+        background-color: #fff;
+        width: 100%;
+        height: 200rpx;
+        position: relative;
+        box-sizing: border-box;
+        padding: 20rpx 40rpx 10rpx 40rpx;
+        top: -80rpx;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        font-size: 32rpx;
+        color: #454545;
+        .switch {
+            transform: scale(0.7);
+        }
+        .line {
+            width: 100%;
+            height: 1px;
+            background-color: #CECECE;
+        }
+    }
+    .loginout {
+        position: fixed;
+        bottom: 100rpx;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #449367;
+        width: 451rpx;
+        height: 96rpx;
+        font-size: 30rpx;
+        color: #FFFFFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6rpx;
+    }
 }
 </style>

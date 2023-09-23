@@ -46,6 +46,9 @@ import storage from "../../../utils/storage";
 export default {
   name: "email",
   props: {
+    protocol: {
+      type: Boolean,
+    },
     showTip: {
       type: Function,
     },
@@ -97,7 +100,7 @@ export default {
     isDisabled() {
       let phoneReg = /^\d*$/g;
       const { email, captcha } = this.form;
-      return !(captcha && emailReg.test(email) && !this.loading);
+      return !(captcha && emailReg.test(email) && !this.loading && this.protocol);
     },
     // 获取验证码按钮禁用
     buttonDisabled() {
@@ -148,15 +151,12 @@ export default {
       emailRegister(params)
         .then((res) => {
           console.error('登录', res)
-          if (res.code.toString() === '2000') {
-            // const data = {
-            //   type: "email", // 注册类型
-            //   captcha: form.captcha,
-            //   email: form.email,
-            //   inviteCode: this.inviteCode,
-            // };
-            // storage.set("REGISTER_INFO", JSON.stringify(data));
-            // this.router("pages/register/next");
+          if (res.code.toString() === '200') {
+            const data = {
+              ...params,
+              ...res.data
+            }
+            this.$emit('loginSuccess', data)
           }
         }).finally(() => {
           this.loading = false

@@ -1,173 +1,174 @@
+<!-- 用户资产 -->
 <template>
-  <view class="user-balance" :class="[isDetails ? 'user-balance-details' : '']">
-    <view class="view-top flex-box-between">
-      <view class="flex-box" v-if="isDetails">
-        <u-image
-          :showLoading="true"
-          src="/static/icons/wallet.svg"
-          width="24px"
-          height="24px"
-        ></u-image>
-        <text class="b-text">钱包资产</text>
-      </view>
-      <view class="flex-box" v-else>
-        <text class="b-text-green">余额(CFB)</text>
-      </view>
+    <view class="user-banlance">
 
-      <view
-        class="flex-box"
-        v-if="!isDetails"
-        @click="router('pages/balanceDetails/index')"
-      >
-        <text class="b-text-blue">资产详情</text>
-        <u-image
-          :showLoading="true"
-          src="/static/icons/right.svg"
-          width="20px"
-          height="20px"
-        ></u-image>
-      </view>
-    </view>
-    <view class="flex-box-between" v-if="isDetails">
-      <view class="b-list" v-for="(item, index) in balanceList" :key="index">
-        <view class="b-list-balance"
-          >￥{{ (+memberAssets[item.key]).toFixed(2) || "0.00" }}
+        <!-- 顶部 -->
+        <view class="title">
+            <text>CFB资产</text>
+            <u-image class="eye" v-show="showMoney" @click="showMoney=false" src="/static/images/index/eye-open.png" width="33rpx" height="23rpx"></u-image>
+            <u-image class="eye" v-show="!showMoney" @click="showMoney=true" src="/static/images/index/eye-close.png" width="33rpx" height="23rpx"></u-image>
+            
+            <u-image class="time" src="/static/images/index/time.png" width="34rpx" height="34rpx"></u-image>
         </view>
-        <view class="b-list-text">{{ item.label }}</view>
-      </view>
-    </view>
-    <view class="cfb-balance" v-else>
-      {{ memberAssets["memberHomeCNFBO"].availableAssets }}
-    </view>
 
-    <view class="view-bottom flex-box" v-if="!isDetails">
-      <view class="flex-box">
-        <u-image
-          :showLoading="true"
-          src="/static/icons/wallet.svg"
-          width="20px"
-          height="20px"
-        ></u-image>
-        <text class="b-text">钱包地址：</text>
-      </view>
-      <view class="flex-box">
-        <text class="b-address">ABCDE*****FGHIJ</text>
-        <u-image
-          :showLoading="true"
-          src="/static/icons/icon_copy.svg"
-          width="20px"
-          height="20px"
-          @click="handleCopy('ABCDE*****FGHIJ')"
-        ></u-image>
-      </view>
+        <!-- 余额 -->
+        <view class="amount">
+            <view>≈</view>
+            <view class="num">234.32</view>
+            <view class="select">
+                <u-image class="icon" src="/static/images/index/usdt.png" width="34rpx" height="34rpx"></u-image>
+                <view>USDT</view>
+                <u-image class="more" src="/static/images/index/more.png" width="13rpx" height="8rpx"></u-image>
+            </view>
+        </view>
+
+        <!-- 详情 -->
+        <view class="detail">
+            <view class="item">
+                <view>可售(CFB)</view>
+                <view class="num">400.00</view>
+            </view>
+            <view class="line"></view>
+            <view class="item">
+                <view>不可售(CFB)</view>
+                <view class="num">400.00</view>
+            </view>
+            <view class="line"></view>
+            <view class="item">
+                <view>已上架(CFB)</view>
+                <view class="num">400.00</view>
+            </view>
+        </view>
+
+        <!-- 收益 -->
+        <view class="income">
+            <view class="item">
+                <view class="ball"></view>
+                <view>今日收益</view>
+                <view class="num">1.88</view>
+            </view>
+            <view class="item item2">
+                <view class="ball"></view>
+                <view>累计收益</view>
+                <view class="num">8.88</view>
+            </view>
+        </view>
     </view>
-  </view>
 </template>
 
-<script>
-import { mapState } from "vuex";
 
+<script>
 export default {
-  name: "user-balance",
-  props: {
-    isDetails: {
-      type: Boolean,
-      default: false,
+    name: "user-banlance",
+    data() {
+        return {
+            showMoney: true, // 是否展示数字
+        };
     },
-  },
-  data() {
-    return {
-      balanceList: [
-        { label: "总资产", key: "totalAssets", value: "9999999" },
-        { label: "可用资产", key: "availableAssets", value: "9999999" },
-        { label: "冻结资产", key: "freezingAssets", value: "9999999" },
-      ],
-    };
-  },
-  computed: {
-    ...mapState("user", ["memberAssets"]),
-  },
-  created() {
-    console.warn(this.memberAssets);
-  },
-  methods: {
-    handleCopy(value) {
-      uni.setClipboardData({
-        data: value,
-        success: () => {},
-      });
-    },
-  },
 };
 </script>
 
 <style lang="scss" scoped>
-.user-balance {
-  margin: 10px 10px 25px 10px;
-  padding: 10px;
-  background: #ffffff 0% 0% no-repeat padding-box;
-  box-shadow: 0px 0px 10px #0000003d;
-  border-radius: 5px;
-
-  .view-top {
-    margin-bottom: 13px;
-
-    .b-text {
-      font-size: 14px;
-      color: #666;
-      margin-left: 5px;
-
-      &-blue {
-        font-size: 14px;
-        color: #0277ff;
-        margin-right: 5px;
-      }
+.user-banlance {
+    width: 100%;
+    margin-top: 20rpx;
+    border-radius: 6rpx;
+    border: 1px solid #D7D7D7;
+    padding: 48rpx;
+    background-color: #fff;
+    box-sizing: border-box;
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #606060;
+        font-size: 28rpx;
+        .eye {
+            margin-left: 20rpx;
+        }
+        .time {
+            margin-left: auto;
+        }
     }
-    .b-text-green {
-      font-size: 14px;
-      color: #505bde;
+    .amount {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        color: #343635;
+        font-weight: bold;
+        font-weight: 66rpx;
+        margin: 40rpx 0;
+        .num {
+            font-size: 72rpx;
+            margin: 0 50rpx 0 10rpx;
+        }
+        .select {
+            display: flex;
+            align-items: center;
+            height: 55rpx;
+            background-color: #F0F0F0;
+            border-radius: 6rpx;
+            font-size: 22rpx;
+            font-weight: 400;
+            padding: 0 20rpx;
+            .icon {
+                margin-right: 10rpx;
+            }
+            .more {
+                margin-left: 10rpx;
+            }
+        }
     }
-  }
-}
-.user-balance-details {
-  margin: 0 10px;
-}
-.flex-box-between {
-  align-items: flex-end;
-  gap: 4rpx;
-}
-
-.b-list {
-  text-align: center;
-  width: 33.3333%;
-
-  &-balance {
-    font-size: 24rpx;
-    color: #333333;
-    margin-bottom: 4rpx;
-    font-weight: bold;
-    //word-break: break-all;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  &-text {
-    color: #999999;
-    font-size: 12px;
-  }
-}
-.cfb-balance {
-  color: #333333;
-  font-size: 24px;
-  padding: 0 0 10px 0;
-}
-.view-bottom {
-  font-size: 14px;
-  border-top: 1px solid #eee;
-  padding: 10px 0 5px 0;
-  .b-text {
-    color: #505bde;
-  }
+    .detail {
+        color: #8C8C8C;
+        font-size: 22rpx;
+        display: flex;
+        align-items: center;
+        padding: 20rpx 0 35rpx 0;
+        justify-content: space-between;
+        border-bottom: 1px solid #CECECE;
+        .item {
+            text-align: center;
+            .num {
+                color: #262626;
+                font-size: 33rpx;
+                margin-top: 10rpx;
+            }
+        }
+        .line {
+            width: 1px;
+            height: 40rpx;
+            background-color: #CECECE;
+        }
+    }
+    .income {
+        margin-top: 50rpx;
+        display: flex;
+        align-items: center;
+        .item {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            color: #404040;
+            font-size: 26rpx;
+            .ball {
+                width: 20rpx;
+                height: 20rpx;
+                border-radius: 50%;
+                background-color: #4AE421;
+                margin-right: 20rpx;
+            }
+            .num {
+                margin-left: 20rpx;
+            }
+        }
+        .item2 {
+            justify-content: flex-end;
+            .ball {
+                background-color: #FFD146;
+            }
+        }
+    }
 }
 </style>

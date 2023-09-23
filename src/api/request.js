@@ -77,7 +77,7 @@ module.exports = (vm) => {
     const res = response.data
     // 自定义参数
     const custom = response.config?.custom
-    if (res.code !== "0") {
+    if (res.code !== 200) {
       if (Number(res.code) === 1001) {
         uni.reLaunch({
           url: `/pages/ip-limit?ip=${res.data.ip}&address=${res.data.address}`

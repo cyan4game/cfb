@@ -1,4 +1,20 @@
 const http = uni.$u.http;
+import {BASE_ADDRESS} from "../config/api"
+
+
+// 上传文件
+export const _upload = (file, successFunc, errorFunc, finishFunc) => {
+  return uni.uploadFile({
+    url: BASE_ADDRESS + 'file/upload',
+    name: 'file',
+    formData: {
+      file: file
+    },
+    success: successFunc,
+    fail: errorFunc,
+    complete: finishFunc
+  })
+}
 
 // 请求发送验证短信
 export const sendSMS = (data) => {
@@ -28,9 +44,53 @@ export const emailRegister = (data) => {
     custom: { toast: true, auth: false },
   });
 };
+/**
+ * 获取个人信息
+ * @returns {Promise<any>}
+ */
+export const memberInfo = () => {
+  return http.get("/member/info", {
+    custom: { auth: true, toast: true },
+  });
+};
+// 音效通知设置  
+export const soundNotificationSettings = (enabled) => {
+  return http.post(`/member/soundNotificationSettings/${enabled}`, null, {
+    custom: { toast: true, auth: false },
+  });
+};
+// 退出登录 
+export const logout = () => {
+  return http.post(`/member/logout`, null, {
+    custom: { toast: true, auth: false },
+  });
+};
+// 设置昵称 
+export const nicknameSettings = (data) => {
+  return http.post("/member/nicknameSettings", data, {
+    custom: { toast: true, auth: false },
+  });
+};
+// 头像设置
+export const avatarSettings = (data) => {
+  return http.post("/member/avatarSettings", data, {
+    custom: { toast: true, auth: false },
+  });
+};
+
+
+
+
+
+
 
 
 //  ---------------------------------------------------------------
+
+
+
+
+
 
 
 // console.log(http.get, "http");
@@ -376,12 +436,7 @@ export const updatePhone = (data) => {
     custom: { auth: true, toast: true },
   });
 };
-// 退出登录 /login/logout
-export const logout = () => {
-  return http.get("/market/login/logout", {
-    custom: { auth: true, toast: true },
-  });
-};
+
 
 // 修改登录密码 security/updateLoginPwd
 export const updateLoginPwd = (data) => {
