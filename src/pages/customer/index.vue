@@ -1,134 +1,124 @@
+<!-- 客服 -->
 <template>
-  <view class="show-customer">
-    <view @click="openMeiQiaChatView" class="customer-list flex-box-between">
-      <view class="flex-box">
-        <u-image width="40px" height="40px" src="/static/images/meiqia.png"></u-image>
-        <text class="cus-label">网页客服</text>
-      </view>
-      <u-text
-        size="14"
-        align="right"
-        :iconStyle="{ color: '#999' }"
-        color="#505bde"
-        suffixIcon="arrow-right"
-        text="立即联系"
-      ></u-text>
+    <view class="page-customer">
+        <view class="content-box">
+            
+            <view class="top">您好，很抱歉我们暂时无法为您提供服务，如需帮助， 请留言，我们将尽快联系并解决您的问题 </view>
+            <view class="title">
+                电话<text class="red">*</text>
+            </view>
+            <input type="text" class="ipt" placeholder="请输入">
+            <view class="title">
+                留言内容<text class="red">*</text>
+            </view>
+            <textarea class="ipt textarea" auto-height placeholder="请输入" />
+
+            <view class="upload-box">
+                <view class="upload-item upload">
+                    <view class="icon">+</view>
+                    <text>上传图片</text>
+                </view>
+            </view>
+            <view class="top">支持jpg 、png、gif、bmp格式的图片，可上传5张， 单张最大5M </view>
+
+        </view>
+
+        <view class="btn">提交</view>
     </view>
-    <view
-      @click="openUrl(item)"
-      class="customer-list flex-box-between"
-      v-for="(item, index) in customerList"
-      :key="index"
-    >
-      <view class="flex-box">
-        <u-image
-          width="40px"
-          height="40px"
-          :src="returnUrl(item.accountType)"
-        ></u-image>
-        <text class="cus-label">{{ item.accountTypeName }}</text>
-      </view>
-      <u-text
-        size="14"
-        align="right"
-        :iconStyle="{ color: '#999' }"
-        color="#505bde"
-        suffixIcon="arrow-right"
-        text="立即联系"
-      ></u-text>
-    </view>
-  </view>
 </template>
 
+
 <script>
-import { getCustomerList } from "../../api/api";
-// #ifdef APP-PLUS
-const MeiQia = uni.requireNativePlugin("MeiQia-ChatPlugin");
-// #endif
+
 export default {
-  name: "index",
+  name: "pageCustomer",
   data() {
     return {
-      customerList: [],
-      accountType: [
-        // 1QQ 2skype 3telegram
-        { label: "QQ", key: "1", url: "/static/common/qq.svg" },
-        { label: "skype", key: "2", url: "/static/common/skype.svg" },
-        {
-          label: "telegram",
-          key: "3",
-          url: "/static/common/telegram.svg",
-        },
-      ],
-    };
-  },
-  created() {
-    this.getCustomerList();
-  },
-  methods: {
-    openMeiQiaChatView() {
-      // // #ifdef APP-PLUS
-      // MeiQia.initChatViewManger();
-      // MeiQia.configChatViewStyle({
-      //   "navBarBackgroundColor": "rgb(80, 91, 222)", // 设置导航栏的背景色；
-      //   "navBarTitleTxtColor": "#ffffff", // 设置导航栏上的 title 的颜色；
-      //   "enableShowClientAvatar": true, // 是否支持当前用户头像的显示
-      // });
-      // MeiQia.showMeiQiaChatView();
-      // // #endif
-      // // #ifdef H5
-      // this.openUrl({ accountUrl: 'https://chatlink.mstatik.com/widget/standalone.html?eid=070fd279148125c1796c0bbb30697df1' })
-      // // #endif
-      this.page()
-    },
-    page() {
-      uni.$u.route('/pages/customer/meiqia')
-    },
-    open() {
-      this.$refs.popup.open('top')
-    },
-    getCustomerList() {
-      getCustomerList().then((res) => {
-        if (res.code.toString() === '0') {
-          // this.customerList = res.data;
-        }
-      });
-    },
-    returnUrl(accountType) {
-      let url = "";
-      try {
-        url = this.accountType.find((item) => item.key === accountType).url;
-      } catch (e) {
-        console.log(e);
-      }
-      return url;
-    },
-    openUrl({ accountUrl }) {
-      if (accountUrl) {
-        const tempWindow = window.open();
-        tempWindow.location.href = accountUrl;
-      }
-    },
-  },
+
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.show-customer {
-  padding: 10px;
-  .web {
-    height: 500px;
-  }
-  .customer-list {
-    padding: 15px;
-    border-radius: 10px;
-    background: #fff;
-    margin-bottom: 6px;
-    .cus-label {
-      font-size: 16px;
-      color: #333333;
-      margin-left: 16px;
+.page-customer {
+    background-color: #0e1216;
+    padding-top: 20rpx;
+    height: 100%;
+    box-sizing: border-box;
+    .content-box {
+        box-sizing: border-box;
+        border-top-left-radius: 22rpx;
+        border-top-right-radius: 22rpx;
+        background-color: #fff;
+        padding: 100rpx 28rpx 180rpx 28rpx;
+        font-size: 26rpx;
+        color: #433F48;
+        min-height: 100vh;
+        .top {
+            padding: 0 44rpx 80rpx 44rpx;
+        }
+        .title {
+            color: #7A7A7A ;
+            font-size: 28rpx;
+            margin-bottom: 34rpx;
+            .red {
+                color: #EB3131;
+            }
+        }
+        .ipt {
+            border-radius: 6rpx;
+            min-height: 72rpx;
+            background-color: #F1F1F1;
+            padding: 0 40rpx;
+            margin-bottom: 40rpx;
+        }
+        .textarea {
+            padding: 20rpx 40rpx;
+            min-height: 200rpx;
+        }
+        .upload-box {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            margin-bottom: 40rpx;
+            .upload-item {
+                width: 236rpx;
+                height: 236rpx;
+                margin: 0 20rpx 20rpx 0;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .upload {
+                background-color: #F1F1F1;
+                border: 1px dashed #999;
+                font-size: 28rpx;
+                color: #433F48;
+                .icon {
+                    font-size: 100rpx;
+                    line-height: 90rpx;
+                    font-weight: 200;
+                }
+            }
+        }
     }
-  }
+    .btn {
+        width: 451rpx;
+        height: 96rpx;
+        background-color: #449367;
+        border-radius: 6rpx;
+        color: #fff;
+        font-size: 30rpx;
+        position: fixed;
+        bottom: 80rpx;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
 </style>

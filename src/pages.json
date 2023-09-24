@@ -373,15 +373,17 @@
     {
       "path": "pages/safety/mobile",
       "style": {
-        "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "绑定手机号"
       }
     },
     {
       "path": "pages/safety/email",
       "style": {
-        "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "绑定邮箱"
       }
     },
     {
@@ -428,17 +430,7 @@
       "style": {
         "navigationBarBackgroundColor": "#0E1216",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "设置支付密码",
-        "app-plus": {
-          "titleNView": {
-            "autoBackButton": false
-          }
-        },
-        "h5": {
-          "titleNView": {
-            "autoBackButton": false
-          }
-        }
+        "navigationBarTitleText": "设置支付密码"
       }
     },
     {

@@ -6,7 +6,7 @@
         <u-sticky  offsetTop="0" customNavHeight="0">
             <view class="top">
                 <view>我的</view>
-                <u-image class="icon" src="/static/images/index/kefu.png" width="46rpx" height="40rpx"></u-image>
+                <u-image @click="navClick({ route: '/pages/customer/index' })" class="icon" src="/static/images/index/kefu.png" width="46rpx" height="40rpx"></u-image>
                 <u-image class="icon icon2" src="/static/images/index/msg.png" width="40rpx" height="36rpx"></u-image>
             </view>
         </u-sticky>
@@ -61,8 +61,8 @@ export default {
             navs: [
                 { key: 1, name: 'USDT钱包', icon: '/static/images/mine/nav-1.png' },
                 { key: 2, name: '实名认证', icon: '/static/images/mine/nav-2.png' },
-                { key: 3, name: '账户安全', icon: '/static/images/mine/nav-3.png' },
-                { key: 4, name: '帮助中心', icon: '/static/images/mine/nav-4.png' },
+                { key: 3, name: '账户安全', icon: '/static/images/mine/nav-3.png', route: '/pages/safety/index' },
+                { key: 4, name: '帮助中心', icon: '/static/images/mine/nav-4.png', route: '/pages/helpInfo/index' },
                 { key: 5, name: '设置', icon: '/static/images/mine/nav-5.png', route: '/pages/setting/index' },
                 { key: 6, name: '当前版本', icon: '/static/images/mine/nav-6.png' },
             ],

@@ -1,63 +1,56 @@
+<!-- 客服 -->
 <template>
-  <view>
-    <view
-      class="help-list flex-box-between"
-      v-for="(item, index) in list"
-      :key="index"
-      @click="pageTo(item)"
-    >
-      <view class="help-label">{{ item.name }}</view>
-      <u-image
-        width="24px"
-        height="24px"
-        src="/static/icons/right.svg"
-      ></u-image>
+  <view class="page-customer">
+    <view class="content-box">
+      <uni-collapse accordion>
+        <uni-collapse-item :title="item.title" v-for="(item, i) in list" :key="i">
+          <view class="info">
+            {{ item.content }}
+          </view>
+        </uni-collapse-item>
+      </uni-collapse>
     </view>
   </view>
 </template>
 
+
 <script>
-import { getArticleList } from "../../api/api";
 
 export default {
-  name: "index",
+  name: "pageCustomer",
   data() {
     return {
-      list: [],
-    };
-  },
-  created() {
-    this.getList();
-  },
-  methods: {
-    getList() {
-      getArticleList().then((res) => {
-        if (res.code.toString() === '0') {
-          this.list = res.data;
-        }
-      });
-    },
-    pageTo(item) {
-      this.router({
-        url: "pages/helpInfo/details",
-        params: { name: item.name, id: item.id },
-      });
-    },
-  },
+      list: [
+        { title: '常见问题', content: '这是内容' },
+        { title: '转币与收币', content: '这是内容' },
+        { title: 'OTC交易', content: '这是内容' },
+        { title: '收银与支付', content: '这是内容' },
+        { title: '新手指导', content: '这是内容' },
+      ]
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.help-list {
-  padding: 19px 16px;
-  color: #333333;
-  border-bottom: 1px solid #f8f8f8;
-  background: #ffffff;
-  min-height: 100%;
+.page-customer {
+  background-color: #0e1216;
+  padding-top: 20rpx;
+  height: 100%;
   box-sizing: border-box;
 
-  .help-label {
-    font-size: 16px;
+  .content-box {
+    box-sizing: border-box;
+    border-top-left-radius: 22rpx;
+    border-top-right-radius: 22rpx;
+    background-color: #fff;
+    padding: 60rpx;
+    font-size: 26rpx;
+    color: #433F48;
+    min-height: 100vh;
+    .info {
+      padding: 60rpx;
+    }
   }
 }
 </style>

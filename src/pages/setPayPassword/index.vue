@@ -1,41 +1,44 @@
 <template>
   <view class="mobile-view">
-    <u-form class="form" :model="form" ref="form" :rules="rules">
-      <u-form-item prop="password" borderBottom>
-        <view class="item">
-          <u-text color="#505bde" text="密码"></u-text>
-          <u-input :type="showPassWord ? 'text' : 'password'" placeholder="请输入支付密码,6位数字" v-model="form.password">
-            <template slot="suffix">
-              <u-icon @click="showPassWord = !showPassWord" :name="showPassWord ? 'eye-off' : 'eye-fill'" size="24"></u-icon>
-            </template>
-          </u-input>
-        </view>
-      </u-form-item>
-      <u-form-item prop="confirmPassword" borderBottom>
-        <view class="item">
-          <u-text color="#505bde" text="确认密码"></u-text>
-          <u-input type="number" :type="showConfirmPassWord ? 'text' : 'password'" placeholder="请再次输入密码" v-model="form.confirmPassword">
-            <template slot="suffix">
-              <u-icon @click="showConfirmPassWord = !showConfirmPassWord" :name="showConfirmPassWord ? 'eye-off' : 'eye-fill'" size="24"></u-icon>
-            </template>
-          </u-input>
-        </view>
-      </u-form-item>
-    </u-form>
 
-    <u-button
-      :disabled="isDisabled"
-      class="login-button"
-      @click="toNext"
-      type="primary"
-    >
-      下一步
-    </u-button>
+    <view class="page-box">
+      <u-form class="form" :model="form" ref="form" :rules="rules">
+        <u-form-item prop="password" >
+          <view class="item">
+            <u-text color="#7A7A7A" text="支付密码 "></u-text>
+            <u-input class="ipt" :type="showPassWord ? 'text' : 'password'" placeholder="请输入支付密码,6位数字" v-model="form.password">
+              <template slot="suffix">
+                <u-icon @click="showPassWord = !showPassWord" :name="showPassWord ? 'eye-off' : 'eye-fill'"
+                  size="24"></u-icon>
+              </template>
+            </u-input>
+          </view>
+        </u-form-item>
+        <u-form-item prop="confirmPassword" >
+          <view class="item">
+            <u-text color="#7A7A7A" text="确认密码"></u-text>
+            <u-input class="ipt" type="number" :type="showConfirmPassWord ? 'text' : 'password'" placeholder="请确认支付密码"
+              v-model="form.confirmPassword">
+              <template slot="suffix">
+                <u-icon @click="showConfirmPassWord = !showConfirmPassWord"
+                  :name="showConfirmPassWord ? 'eye-off' : 'eye-fill'" size="24"></u-icon>
+              </template>
+            </u-input>
+          </view>
+        </u-form-item>
+      </u-form>
+
+      <u-button :disabled="isDisabled" class="login-button" @click="toNext" type="primary">
+        确认
+      </u-button>
+    </view>
+
+
   </view>
 </template>
 
 <script>
-import {register, firstLoginRestPwd} from "../../api/api";
+import { register, firstLoginRestPwd } from "../../api/api";
 
 const pawReg = /^[0-9]{6}$/
 export default {
@@ -93,20 +96,16 @@ export default {
   },
   computed: {
     isDisabled() {
-      const {loading} = this
-      const {password, confirmPassword} = this.form;
+      const { loading } = this
+      const { password, confirmPassword } = this.form;
       if (pawReg.test(password) && pawReg.test(confirmPassword) && password === confirmPassword && !loading) return false
       else return true
     }
   },
-  mounted() {
-    var a = document.getElementsByClassName("uni-page-head-hd")[0];
-    a.style.display = "none";
-  },
   methods: {
     toNext() {
       this.loading = true
-      const {form: {password, confirmPassword}} = this
+      const { form: { password, confirmPassword } } = this
       const params = {
         "payPwd": password,
         "confirmPayPwd": confirmPassword
@@ -129,16 +128,36 @@ export default {
 
 <style lang="scss" scoped>
 .mobile-view {
-  padding: 45px 20px;
+  padding-top: 20rpx;
   height: 100%;
-  background: #fff;
+  background: #0e1216;
   box-sizing: border-box;
 }
 
+.page-box {
+  background: #fff;
+  border-top-left-radius: 22rpx;
+  border-top-right-radius: 22rpx;
+  padding: 52rpx 28rpx;
+  height: 100%;
+}
+
+.ipt {
+  background-color: #F1F1F1;
+  height: 72rpx;
+  border-radius: 6rpx;
+  margin-top: 35rpx;
+}
+
 .login-button {
-  background: #505bde;
-  border-color: #505bde;
-  margin-top: 30px;
+  background: #449367;
+  border-color: #449367;
+  position: fixed;
+  bottom: 100rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 451rpx;
+  height: 96rpx;
 }
 
 .u-button--disabled {
