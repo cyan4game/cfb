@@ -303,9 +303,17 @@
     {
       "path": "pages/message/index",
       "style": {
-        "enablePullDownRefresh": true,
-        "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "消息"
+      }
+    },
+    {
+      "path": "pages/message/list",
+      "style": {
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "消息列表"
       }
     },
     {

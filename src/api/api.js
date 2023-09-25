@@ -77,7 +77,12 @@ export const avatarSettings = (data) => {
     custom: { toast: true, auth: false },
   });
 };
-
+// 消息列表
+export const notification = (num=1,size=20,notificationType='') => {
+  return http.get(`/notification/page?num=${num}&size=${size}&notificationType=${notificationType}`, {
+    custom: { auth: true, toast: true },
+  });
+};
 
 
 

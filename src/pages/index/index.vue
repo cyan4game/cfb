@@ -7,7 +7,7 @@
             <view class="top">
                 <u-image class="icon" src="/static/images/index/kefu.png" width="46rpx" height="40rpx"></u-image>
                 <view>财富宝</view>
-                <u-image class="icon" src="/static/images/index/msg.png" width="40rpx" height="36rpx"></u-image>
+                <u-image @click="jump('/pages/message/index')" class="icon" src="/static/images/index/msg.png" width="40rpx" height="36rpx"></u-image>
             </view>
         </u-sticky>
 
@@ -53,6 +53,13 @@ export default {
         indexBanner,
         userBalance,
         indexMenu,
+    },
+    methods: {
+        jump(name) {
+            uni.navigateTo({
+                 url: name
+            })
+        }
     }
 }
 
