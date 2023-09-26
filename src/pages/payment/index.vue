@@ -55,11 +55,11 @@ export default {
       return data && Number(data.availableQuantity) || 0
     }
   },
-  watch: {
-    model () {
-      this.getBalance()
-    }
-  },
+  // watch: {
+  //   model () {
+  //     this.getBalance()
+  //   }
+  // },
   onLoad (query) {
     if (query) this.model = query
   },

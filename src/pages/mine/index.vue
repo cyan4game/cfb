@@ -7,7 +7,7 @@
             <view class="top">
                 <view>我的</view>
                 <u-image @click="navClick({ route: '/pages/customer/index' })" class="icon" src="/static/images/index/kefu.png" width="46rpx" height="40rpx"></u-image>
-                <u-image class="icon icon2" src="/static/images/index/msg.png" width="40rpx" height="36rpx"></u-image>
+                <u-image @click="navClick({ route: '/pages/message/index' })" class="icon icon2" src="/static/images/index/msg.png" width="40rpx" height="36rpx"></u-image>
             </view>
         </u-sticky>
 
@@ -18,7 +18,7 @@
 
            <!-- 导航 -->
            <view class="tabs">
-                <view class="tab" v-for="item in tabs" :key="item.key">
+                <view class="tab" v-for="item in tabs" :key="item.key" @click="navClick(item)">
                     <u-image class="icon" :src="item.icon" width="62rpx" height="58rpx"></u-image>
                     <text>{{ item.name }}</text>
                 </view>
@@ -56,7 +56,7 @@ export default {
             tabs: [
                 { key: 1, name: '资金明细', icon: '/static/images/mine/tab-1.png', route: '' },
                 { key: 2, name: '收款方式', icon: '/static/images/mine/tab-2.png', route: '' },
-                { key: 3, name: '地址管理', icon: '/static/images/mine/tab-3.png', route: '' },
+                { key: 3, name: '地址管理', icon: '/static/images/mine/tab-3.png', route: '/pages/coinAddress/index' },
             ],
             navs: [
                 { key: 1, name: 'USDT钱包', icon: '/static/images/mine/nav-1.png' },

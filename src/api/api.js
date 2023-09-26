@@ -83,11 +83,31 @@ export const notification = (num=1,size=20,notificationType='') => {
     custom: { auth: true, toast: true },
   });
 };
+// 添加提现地址
+export const addAddress = (data) => {
+  return http.post("/member-address/add", data, {
+    custom: { toast: true, auth: false },
+  });
+};
+// 编辑提现地址
+export const modifyAddress = (data) => {
+  return http.post("/member-address/modify", data, {
+    custom: { toast: true, auth: false },
+  });
+};
+// 查询提现地址-根据memberId和币种类型
+export const queryByMemberAndCoin = (data) => {
+  return http.post("/member-address/queryByMemberAndCoin", data, {
+    custom: { toast: true, auth: false },
+  });
+};
 
-
-
-
-
+// 删除提现地址
+export const delAddress = (id) => {
+  return http.post(`/member-address/delete/${id}`, null, {
+    custom: { toast: true, auth: false },
+  });
+};
 
 
 //  ---------------------------------------------------------------

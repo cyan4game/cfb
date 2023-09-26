@@ -1,15 +1,14 @@
-<!-- 用于提示的弹框 -->
-<!-- 提示内容插槽 #content -->
+<!-- 确认弹窗 -->
 <template>
-    <uni-popup ref="popup" type="center" :is-mask-click="maskClick" :mask-click="maskClick">
+    <uni-popup ref="popup" type="center" :is-mask-click="false" :mask-click="false">
         <view class="tip-dialog-content">
             <view class="close" @click="close">×</view>
-            <view class="title">{{ title }}</view>
-            <view class="content">
-                <slot name="content" v-if="$slots.content"></slot>
+            <view class="title">{{ title || '提示' }}</view>
+            <view class="content" v-html="content"></view>
+            <view class="btns">
+                <view class="btn border-btn" v-if="borderBtn" @click="borderBtnHandleClick">{{ borderBtn }}</view>
+                <view class="btn" v-if="btn" @click="btnHandleClick">{{ btn }}</view>
             </view>
-            <view class="btn border-btn" v-if="borderBtn" @click="borderBtnHandleClick">{{ borderBtn }}</view>
-            <view class="btn" v-if="btn" @click="btnHandleClick">{{ btn }}</view>
         </view>
     </uni-popup>
 </template>
@@ -21,13 +20,13 @@ export default {
   props: {
     title: { // 弹窗标题
         type: String,
-        default: '标题'
-    },
-    maskClick: { // 点击遮罩关闭
-      type: Boolean,
-      default: false
+        default: ''
     },
     btn: { // 主按钮的名字，如果有就显示按钮
+        type: String,
+        default: ''
+    },
+    content: { // 内容
         type: String,
         default: ''
     },
@@ -41,11 +40,6 @@ export default {
     borderBtnHandle: { // 边框按钮回调
         type: Function
     },
-  },
-  data() {
-    return {
-      count: 0,
-    };
   },
   methods: {
     open() {
@@ -85,15 +79,24 @@ export default {
         text-align: center;
     }
     .content {
-        font-size: 26rpx;
+        font-size: 34rpx;
         color: #323232;
         font-weight: 400;
         text-align: left;
         width: 100%;
         margin: 60rpx 0 40rpx 0;
+        text-align: center;
+    }
+    .btns {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        .btn:nth-child(2) {
+            margin-left: 20rpx;
+        }
     }
     .btn {
-        width: 372rpx;
+        flex: 1;
         height: 100rpx;
         background-color: #449367;
         color: #fff;

@@ -111,8 +111,8 @@ export default {
   onShow: function () {
     const token = storage.get("token");
     if (token) {
-      this.GET_MEMBER_ASSETS();
-      this.GET_USER_INFO();
+      // this.GET_MEMBER_ASSETS();
+      // this.GET_USER_INFO();
     }
     this.INIT_SOCKET();
   },
@@ -212,5 +212,19 @@ page,
 uni-modal,
 uni-toast {
   z-index: 999999;
+}
+.info-page-bg { /* 详情页背景 */
+  height: 100%;
+  background-color: #0e1216;
+  box-sizing: border-box;
+  padding-top: 20rpx;
+}
+.info-page-content { /* 详情页内容 */
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-top-right-radius: 22rpx;
+  border-top-left-radius: 22rpx;
+  padding: 40rpx;
 }
 </style>

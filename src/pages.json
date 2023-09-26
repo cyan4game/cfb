@@ -55,10 +55,19 @@
     {
       "path": "pages/coinAddress/index",
       "style": {
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
         "navigationBarTitleText": "地址簿",
-        "enablePullDownRefresh": true,
-        "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/coinAddress/item",
+      "style": {
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "地址",
+        "enablePullDownRefresh": true
       }
     },
     {
