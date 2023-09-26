@@ -60,7 +60,9 @@ module.exports = (vm) => {
       // 可以在此通过vm引用vuex中的变量，具体值在vm.$store.state中
       const token = uni.getStorageSync("token")
       if (token) {
-        config.header.ugtoken = uni.getStorageSync("token")
+        config.header.ugtoken = token
+        config.header.token = token
+        config.header['cfb-app'] = token
       } else {
         throw new Error("当前token已失效,请重新登录")
       }

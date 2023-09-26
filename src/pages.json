@@ -71,6 +71,42 @@
       }
     },
     {
+      "path": "pages/collection/index",
+      "style": {
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "收款方式",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/collection/alipay",
+      "style": {
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "支付宝",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/collection/wechat",
+      "style": {
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "微信",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/collection/bank",
+      "style": {
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "银行卡",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
       "path": "pages/payOrder/index",
       "style": {
         "navigationBarBackgroundColor": "#0E1216",
