@@ -5,7 +5,7 @@ import {BASE_ADDRESS} from "../config/api"
 // 上传文件
 export const _upload = (file, successFunc, errorFunc, finishFunc) => {
   return uni.uploadFile({
-    url: BASE_ADDRESS + 'app/file/upload',
+    url: BASE_ADDRESS + 'file/upload',
     name: 'file',
     formData: {
       file: file
@@ -18,7 +18,7 @@ export const _upload = (file, successFunc, errorFunc, finishFunc) => {
 
 // 请求发送验证短信
 export const sendSMS = (data) => {
-  return http.post("/app/verify/sms", data, {
+  return http.post("/verify/sms", data, {
     custom: { toast: true, auth: false },
   });
 };
@@ -28,19 +28,19 @@ export const sendSMS = (data) => {
  * @returns {Promise<any>}
  */
 export const sendEmailCode = (data) => {
-  return http.post("/app/verify/mail", data, {
+  return http.post("/verify/mail", data, {
     custom: { toast: true, auth: false },
   });
 };
 // 手机注册登录 
 export const phoneRegister = (data) => {
-  return http.post("/app/member/phoneRegister", data, {
+  return http.post("/member/phoneRegister", data, {
     custom: { toast: true, auth: false },
   });
 };
 // 邮件注册登录  
 export const emailRegister = (data) => {
-  return http.post("/app/member/emailRegister", data, {
+  return http.post("/member/emailRegister", data, {
     custom: { toast: true, auth: false },
   });
 };
@@ -49,7 +49,7 @@ export const emailRegister = (data) => {
  * @returns {Promise<any>}
  */
 export const memberInfo = () => {
-  return http.get("/app/member/info", {
+  return http.get("/member/info", {
     custom: { auth: true, toast: true },
   });
 };
@@ -67,13 +67,13 @@ export const logout = () => {
 };
 // 设置昵称 
 export const nicknameSettings = (data) => {
-  return http.post("/app/member/nicknameSettings", data, {
+  return http.post("/member/nicknameSettings", data, {
     custom: { toast: true, auth: true },
   });
 };
 // 头像设置
 export const avatarSettings = (data) => {
-  return http.post("/app/member/avatarSettings", data, {
+  return http.post("/member/avatarSettings", data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -85,19 +85,19 @@ export const notification = (num=1,size=20,notificationType='') => {
 };
 // 添加提现地址
 export const addAddress = (data) => {
-  return http.post("/app/member-address/add", data, {
+  return http.post("/member-address/add", data, {
     custom: { toast: true, auth: true },
   });
 };
 // 编辑提现地址
 export const modifyAddress = (data) => {
-  return http.post("/app/member-address/modify", data, {
+  return http.post("/member-address/modify", data, {
     custom: { toast: true, auth: true },
   });
 };
 // 查询提现地址-根据memberId和币种类型
 export const queryByMemberAndCoin = (data) => {
-  return http.post("/app/member-address/queryByMemberAndCoin", data, {
+  return http.post("/member-address/queryByMember", data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -126,17 +126,17 @@ export const login = (data) =>
   });
 // 首次登录重置密码/设置支付密码
 export const firstLoginRestPwd = (data) =>
-  http.post("/app/market/login/firstLoginRestPwd", data, {
+  http.post("/market/login/firstLoginRestPwd", data, {
     custom: { auth: true, toast: true },
   });
 // 生成谷歌验证码
 export const googleQR = (data) =>
-  http.post("/app/market/login/google/sendgoogle", data, {
+  http.post("/market/login/google/sendgoogle", data, {
     custom: { auth: true, toast: true },
   });
 // 绑定谷歌验证并授权
 export const googleAuth = (data) =>
-  http.post("/app/market/login/google/googleAuth", data, {
+  http.post("/market/login/google/googleAuth", data, {
     custom: { auth: true, toast: true },
   });
 /**
@@ -145,7 +145,7 @@ export const googleAuth = (data) =>
  * @returns {Promise<any>}
  */
 export const checkGoogle = (data) =>
-  http.post("/app/market/security/checkGoogle", data, {
+  http.post("/market/security/checkGoogle", data, {
     custom: { auth: true, toast: true },
   });
 /**
@@ -154,155 +154,155 @@ export const checkGoogle = (data) =>
  * @returns {Promise<any>}
  */
 export const updateEmail = (data) =>
-  http.post("/app/market/security/updateEmail", data, {
+  http.post("/market/security/updateEmail", data, {
     custom: { auth: true, toast: true },
   });
 // 获取币种接口
 export const getCurrency = (data) =>
-  http.post("/app/market/otc/getCurrency", data, {
+  http.post("/market/otc/getCurrency", data, {
     custom: { auth: true, toast: true },
   });
 // 获取交易列表接口
 export const getTradeList = (data) =>
-  http.post("/app/market/otc/queryOtcTradeList", data, {
+  http.post("/market/otc/queryOtcTradeList", data, {
     custom: { toast: true, auth: true },
   });
 // 获取汇率接口 /otc/queryExchangeRate
 export const getRate = (data) =>
-  http.post("/app/market/otc/queryExchangeRate", data, {
+  http.post("/market/otc/queryExchangeRate", data, {
     custom: { auth: true, toast: true },
   });
 // 发布交易 /otc/createTrade
 export const createTrade = (data) =>
-  http.post("/app/market/otc/createTrade", data, {
+  http.post("/market/otc/createTrade", data, {
     custom: { auth: true, toast: true },
   });
 // 获取快捷金额接口 /otc/fastAmount
 export const getFastAmount = (data) =>
-  http.post("/app/market/otc/fastAmount", data, {
+  http.post("/market/otc/fastAmount", data, {
     custom: { auth: true, toast: true },
   });
 // 获取银行卡列表 /payModel/getPayModelList
 export const getBankList = (data) =>
-  http.post("/app/market/payModel/getPayModelList", data, {
+  http.post("/market/payModel/getPayModelList", data, {
     custom: { auth: true, toast: true },
   });
 // 购买下单前校验 //otc/order/buyBefoerCheck
 export const beforeBuyCheck = (data) =>
-  http.post("/app/market/otc/order/buyBeforeCheck", data, {
+  http.post("/market/otc/order/buyBeforeCheck", data, {
     custom: { auth: true, toast: true },
   });
 // 获取订单详情 /otc/getOtcTradeListeDetails
 export const getTradeDetails = (data) => {
-  return http.post("/app/market/otc/getOtcTradeListDetails", data, {
+  return http.post("/market/otc/getOtcTradeListDetails", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 购买下单 //otc/order/buy
 export const buyNow = (data) => {
-  return http.post("/app/market/otc/order/buy", data, {
+  return http.post("/market/otc/order/buy", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 出售下单前校验 //otc/order/sellBefoerCheck
 export const beforeSellCheck = (data) => {
-  return http.post("/app/market/otc/order/sellBeforeCheck", data, {
+  return http.post("/market/otc/order/sellBeforeCheck", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 出售下单 //otc/order/sell
 export const sellNow = (data) => {
-  return http.post("/app/market//otc/order/sell", data, {
+  return http.post("/market//otc/order/sell", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 新增银行卡 /payModel/savePayModel
 export const savePayModel = (data) => {
-  return http.post("/app/market/payModel/savePayModel", data, {
+  return http.post("/market/payModel/savePayModel", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 获取我的发布记录 /otc/queryOtcTradeListByMemberId
 export const queryTrade = (data) => {
-  return http.post("/app/market/otc/queryOtcTradeListByMemberId", data, {
+  return http.post("/market/otc/queryOtcTradeListByMemberId", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 获取订单详情 //otc/order/getDetail
 export const getDetail = (data) => {
-  return http.post("/app/market//otc/order/getDetail", data, {
+  return http.post("/market//otc/order/getDetail", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 下架交易 /otc/shoutDownOtcTrade
 export const cancelPost = (data) => {
-  return http.post("/app/market/otc/shoutDownOtcTrade", data, {
+  return http.post("/market/otc/shoutDownOtcTrade", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 获取我的订单列表 //otc/order/getMyOrders
 export const getMyOrders = (data) => {
-  return http.post("/app/market//otc/order/getMyOrders", data, {
+  return http.post("/market//otc/order/getMyOrders", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 获取累计取消 //otc/order/getCancelCount
 export const getCancelCount = (data) => {
-  return http.post("/app/market//otc/order/getCancelCount", data, {
+  return http.post("/market//otc/order/getCancelCount", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 取消订单 //otc/order/cancel
 export const orderCancel = (data) => {
-  return http.post("/app/market/otc/order/cancel", data, {
+  return http.post("/market/otc/order/cancel", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 确认付款 //otc/order/userPayment
 export const payConfirm = (data) => {
-  return http.post("/app/market/otc/order/userPayment", data, {
+  return http.post("/market/otc/order/userPayment", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 放币 //otc/order/releaseCoins
 export const releaseCoins = (data) => {
-  return http.post("/app/market/otc/order/releaseCoins", data, {
+  return http.post("/market/otc/order/releaseCoins", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 验证交易密码 security/member/checkTxPassword
 export const checkTxPassword = (data) => {
-  return http.post("/app/market/security/member/checkTxPassword", data, {
+  return http.post("/market/security/member/checkTxPassword", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 获取申诉详情 //otc/order/getAppealInfo
 export const getAppealInfo = (data) => {
-  return http.post("/app/market/otc/order/getAppealInfo", data, {
+  return http.post("/market/otc/order/getAppealInfo", data, {
     custom: { auth: true, toast: true },
   });
 };
-// 提交申诉 //otc/order/appeal
+// 提交申诉 //otc/ordereal
 export const appeal = (data) => {
-  return http.post("/app/market//otc/order/appeal", data, {
+  return http.post("/market//otc/ordereal", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 设置为默认银行卡 /payModel/updateDefaultPayModel
 export const updateDefaultPayModel = (data) => {
-  return http.post("/app/market/payModel/updateDefaultPayModel", data, {
+  return http.post("/market/payModel/updateDefaultPayModel", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 删除银行卡 /payModel/deletePayModel
 export const deletePayModel = (data) => {
-  return http.post("/app/market/payModel/deletePayModel", data, {
+  return http.post("/market/payModel/deletePayModel", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 上传 uploadFile
 export const uploadFile = (data) => {
-  return http.post("/app/uploadFile", data, {
+  return http.post("/uploadFile", data, {
     custom: { auth: true, toast: true },
   });
 };
@@ -312,7 +312,7 @@ export const uploadFile = (data) => {
  * @returns {Promise<any>}
  */
 export const getMemberTransferInfo = (data) => {
-  return http.post("/app/market/transfer/getMemberTransferInfo", data, {
+  return http.post("/market/transfer/getMemberTransferInfo", data, {
     custom: { auth: true, toast: true },
   });
 };
@@ -321,7 +321,7 @@ export const getMemberTransferInfo = (data) => {
  * @returns {Promise<any>}
  */
 export const getTransferCoinInfo = () => {
-  return http.get("/app/market/transfer/getTransferCoinInfo", {
+  return http.get("/market/transfer/getTransferCoinInfo", {
     custom: { auth: true, toast: true },
   });
 };
@@ -331,67 +331,67 @@ export const getTransferCoinInfo = () => {
  * @returns {*}
  */
 export const getOtcCoinList = (data) => {
-  return http.post("/app/market/addressBook/otcCoinList", data, {
+  return http.post("/market/addressBook/otcCoinList", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 地址簿 获取地址簿列表 addressBook/getAddressBookList
 export const getAddressBookList = (data) => {
-  return http.post("/app/market/addressBook/getAddressBookList", data, {
+  return http.post("/market/addressBook/getAddressBookList", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 新增地址簿 /addressBook/saveAddressBook
 export const saveAddressBook = (data) => {
-  return http.post("/app/market/addressBook/saveAddressBook", data, {
+  return http.post("/market/addressBook/saveAddressBook", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 删除地址簿 /addressBook/deleteAddressBook
 export const deleteAddressBook = (data) => {
-  return http.post("/app/market/addressBook/deleteAddressBook", data, {
+  return http.post("/market/addressBook/deleteAddressBook", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 身份证认证状态查询 /identity/queryIdentityInfo
 export const queryIdentityInfo = (data) => {
-  return http.post("/app/market/identity/queryIdentityInfo", data, {
+  return http.post("/market/identity/queryIdentityInfo", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 实名认证 /identity/realIdentity
 export const realIdentity = (data) => {
-  return http.post("/app/market/identity/realIdentity", data, {
+  return http.post("/market/identity/realIdentity", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 高级认证 /identity/seniorIdentity
 export const seniorIdentity = (data) => {
-  return http.post("/app/market/identity/seniorIdentity", data, {
+  return http.post("/market/identity/seniorIdentity", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 获取首页资产明细 /home/getMemberAssets
 export const getMemberAssets = (data) => {
-  return http.post("/app/market/home/getMemberAssets", data, {
+  return http.post("/market/home/getMemberAssets", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 获取账变记录 /home/getFlowPageList
 export const getFlowPageList = (data) => {
-  return http.post("/app/market/home/getFlowPageList", data, {
+  return http.post("/market/home/getFlowPageList", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 帮助中心文章列表 /article/getArticleList
 export const getArticleList = (data) => {
-  return http.post("/app/market/article/getArticleList", data, {
+  return http.post("/market/article/getArticleList", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 获取转账手续费以及实际到账 /transfer/getMemberAmountInfo
 export const getMemberAmountInfo = (data) => {
-  return http.post("/app/market/transfer/getMemberAmountInfo", data, {
+  return http.post("/market/transfer/getMemberAmountInfo", data, {
     custom: { auth: true, toast: true },
   });
 };
@@ -401,7 +401,7 @@ export const getMemberAmountInfo = (data) => {
  * @param params
  */
 export const getAddressInfo = (params) => {
-  return http.get("/app/market/transfer/getAddressInfo", {
+  return http.get("/market/transfer/getAddressInfo", {
     custom: { auth: true, toast: true },
     params,
   });
@@ -412,7 +412,7 @@ export const getAddressInfo = (params) => {
  * @param params
  */
 export const getTransferOrderDetail = (params) => {
-  return http.get("/app/market/transfer/getTransferOrderDetail", {
+  return http.get("/market/transfer/getTransferOrderDetail", {
     custom: { auth: true, toast: true },
     params,
   });
@@ -423,7 +423,7 @@ export const getTransferOrderDetail = (params) => {
  * @param data
  */
 export const getTransferOrderList = (data) => {
-  return http.post("/app/market/transfer/getTransferOrderList", data, {
+  return http.post("/market/transfer/getTransferOrderList", data, {
     custom: { auth: true, toast: true },
   });
 };
@@ -433,31 +433,31 @@ export const getTransferOrderList = (data) => {
  * @param data
  */
 export const getMemberReceiveList = (data) => {
-  return http.post("/app/market/transfer/getMemberReceiveList", data, {
+  return http.post("/market/transfer/getMemberReceiveList", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 转账 /transfer/submit
 export const transferSubmit = (data) => {
-  return http.post("/app/market/transfer/submit", data, {
+  return http.post("/market/transfer/submit", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 发送验证码 /login/sms/sendVerificationCode
 export const sendVerificationCode = (data) => {
-  return http.post("/app/market/login/sms/sendVerificationCode", data, {
+  return http.post("/market/login/sms/sendVerificationCode", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 验证验证码 /login/sms/checkVerificationCode
 export const checkVerificationCode = (data) => {
-  return http.post("/app/market/login/sms/checkVerificationCode", data, {
+  return http.post("/market/login/sms/checkVerificationCode", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 修改手机号 /security/updatePhone
 export const updatePhone = (data) => {
-  return http.post("/app/market/security/updatePhone", data, {
+  return http.post("/market/security/updatePhone", data, {
     custom: { auth: true, toast: true },
   });
 };
@@ -465,45 +465,45 @@ export const updatePhone = (data) => {
 
 // 修改登录密码 security/updateLoginPwd
 export const updateLoginPwd = (data) => {
-  return http.post("/app/market/security/updateLoginPwd", data, {
+  return http.post("/market/security/updateLoginPwd", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 首页查询我的代付订单 //otc/order/getMyDispatchOrders
 export const getMyDispatchOrders = (data) => {
-  return http.post("/app/market//otc/order/getMyDispatchOrders", data, {
+  return http.post("/market//otc/order/getMyDispatchOrders", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 安全中心修改支付密码 /security/updateTxPassword
 export const updateTxPassword = (data) => {
-  return http.post("/app/market/security/updateTxPassword", data, {
+  return http.post("/market/security/updateTxPassword", data, {
     custom: { auth: true, toast: true },
   });
 };
 // 客服中心 /market/customer/getCustomerList
 export const getCustomerList = (data) => {
-  return http.post("/app/market/customer/getCustomerList", data, {
+  return http.post("/market/customer/getCustomerList", data, {
     custom: { toast: true, auth: true },
   });
 };
 // //otc/order/getAutoOrderSummary 查询接单摘要
 export const getAutoOrderSummary = (data) => {
-  return http.get("/app/market//otc/order/getAutoOrderSummary", {
+  return http.get("/market//otc/order/getAutoOrderSummary", {
     ...data,
     custom: { toast: true, auth: true },
   });
 };
 // //otc/order/getMemberPayModelList 获取银行卡列表
 export const getMemberPayModelList = (data) => {
-  return http.get("/app/market//otc/order/getMemberPayModelList", {
+  return http.get("/market//otc/order/getMemberPayModelList", {
     ...data,
     custom: { toast: true, auth: true },
   });
 };
 // //otc/order/openAutoOrder 开启接单
 export const openAutoOrder = (data) => {
-  return http.post("/app/market//otc/order/openAutoOrder ", data, {
+  return http.post("/market//otc/order/openAutoOrder ", data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -517,37 +517,37 @@ export const startProcessOrder = (data) => {
 };
 // //otc/order/postPaymentVoucher 上传支付凭证
 export const postPaymentVoucher = (data) => {
-  return http.post("/app/market//otc/order/postPaymentVoucher", data, {
+  return http.post("/market//otc/order/postPaymentVoucher", data, {
     custom: { toast: true, auth: true },
   });
 };
 // /market/otcIncome/getMyPagesList 收益报表
 export const getMyPagesList = (data) => {
-  return http.post("/app/market/otcIncome/getMyPagesList", data, {
+  return http.post("/market/otcIncome/getMyPagesList", data, {
     custom: { toast: true, auth: true },
   });
 };
 // transfer/qrcode 收款地址
 export const getQrcode = (data) => {
-  return http.post("/app/market/transfer/qrcode", data, {
+  return http.post("/market/transfer/qrcode", data, {
     custom: { toast: true, auth: true },
   });
 };
 // updateTxPasswordJudge
 export const updateTxPasswordJudge = (data) => {
-  return http.post("/app/market/security/updateTxPasswordJudge", data, {
+  return http.post("/market/security/updateTxPasswordJudge", data, {
     custom: { toast: true, auth: true },
   });
 };
 // /market/eBank/getQrCodeUrl 网银充值地址
 export const getQrCodeUrl = (data) => {
-  return http.post("/app/market/eBank/getQrCodeUrl", data, {
+  return http.post("/market/eBank/getQrCodeUrl", data, {
     custom: { toast: true, auth: true },
   });
 };
 // //otc/order/getMemberLimitAmount 获取限制额度
 export const getMemberLimitAmount = (data) => {
-  return http.get("/app/market/otc/order/getMemberLimitAmount", {
+  return http.get("/market/otc/order/getMemberLimitAmount", {
     custom: { toast: true, auth: true },
   });
 };
@@ -561,21 +561,21 @@ export const captcha = () => {
 };
 
 
-// /register/apply C端用户注册
+// /registerly C端用户注册
 export const register = (data) => {
-  return http.post("/app/market/register/apply", data, {
+  return http.post("/market/registerly", data, {
     custom: { toast: true, auth: false },
   });
 };
 // /security/member/getOneById 获取用户信息
 export const getOneById = (data) => {
-  return http.post("/app/market/security/member/getOneById", data, {
+  return http.post("/market/security/member/getOneById", data, {
     custom: { toast: true, auth: true },
   });
 };
 // /register/verifySMS 请求验证短信
 export const verifySMS = (data) => {
-  return http.post("/app/market/security/verifySMS", data, {
+  return http.post("/market/security/verifySMS", data, {
     custom: { toast: true },
   });
 };
@@ -585,25 +585,25 @@ export const verifySMS = (data) => {
  * @returns {Promise<any>}
  */
 export const verifyEmailCode = (data) => {
-  return http.post("/app/market/security/verifyEmailCode", data, {
+  return http.post("/market/security/verifyEmailCode", data, {
     custom: { toast: true },
   });
 };
 // /identity/initH5FaceIdInfo 初始化人脸比对参数
 export const initH5FaceIdInfo = (data) => {
-  return http.post("/app/market/identity/initH5FaceIdInfo", data, {
+  return http.post("/market/identity/initH5FaceIdInfo", data, {
     custom: { toast: true, auth: true },
   });
 };
 // /identity/faceIdentity 人脸认证
 export const faceIdentity = (data) => {
-  return http.post("/app/market/identity/faceIdentity", data, {
+  return http.post("/market/identity/faceIdentity", data, {
     custom: { toast: true, auth: true },
   });
 };
 // market/otc/config/getOtcGlobalConfigByType
 export const getOtcGlobalConfigByType = (data) => {
-  return http.post("/app/market/otc/config/getOtcGlobalConfigByType", data, {
+  return http.post("/market/otc/config/getOtcGlobalConfigByType", data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -613,7 +613,7 @@ export const getOtcGlobalConfigByType = (data) => {
  * @returns {Promise<any>}
  */
 export const stationletterList = (data) => {
-  return http.post("/app/market/stationletter/list", data, {
+  return http.post("/market/stationletter/list", data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -623,7 +623,7 @@ export const stationletterList = (data) => {
  * @returns {Promise<any>}
  */
 export const stationletterRead = (data) => {
-  return http.post("/app/market/stationletter/read", data, {
+  return http.post("/market/stationletter/read", data, {
     custom: { toast: false, auth: true },
   });
 };
@@ -646,7 +646,7 @@ export const stationletterReadAll = () => {
  * @returns {Promise<any>}
  */
 export const stationletterDelete = (data) => {
-  return http.post("/app/market/stationletter/delete", data, {
+  return http.post("/market/stationletter/delete", data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -656,7 +656,7 @@ export const stationletterDelete = (data) => {
  * @returns {Promise<any>}
  */
 export const pushMsgDelete = (data) => {
-  return http.post("/app/market/pushMsg/delete", data, {
+  return http.post("/market/pushMsg/delete", data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -666,7 +666,7 @@ export const pushMsgDelete = (data) => {
  * @returns {Promise<any>}
  */
 export const pushMsgList = (data) => {
-  return http.post("/app/market/pushMsg/list", data, {
+  return http.post("/market/pushMsg/list", data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -676,7 +676,7 @@ export const pushMsgList = (data) => {
  * @returns {Promise<any>}
  */
 export const pushMsgRead = (data) => {
-  return http.post("/app/market/pushMsg/read", data, {
+  return http.post("/market/pushMsg/read", data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -724,7 +724,7 @@ export const quotationList = () => {
  * @returns {Promise<any>}
  */
 export const checkQrAddressType = (data) => {
-  return http.post("/app/market/scanCode/checkQrAddressType", data, {
+  return http.post("/market/scanCode/checkQrAddressType", data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -733,7 +733,7 @@ export const checkQrAddressType = (data) => {
  * @returns {Promise<any>}
  */
 export const getScanCodeOrder = (data) => {
-  return http.post("/app/market/scanCode/getScanCodeOrder", data, {
+  return http.post("/market/scanCode/getScanCodeOrder", data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -742,7 +742,7 @@ export const getScanCodeOrder = (data) => {
  * @returns {Promise<any>}
  */
 export const scanCodePay = (data) => {
-  return http.post("/app/market/scanCode/scanCodePay", data, {
+  return http.post("/market/scanCode/scanCodePay", data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -751,7 +751,7 @@ export const scanCodePay = (data) => {
  * @returns {Promise<any>}
  */
 export const scanCodePayOrderQuery = (data) => {
-  return http.post("/app/market/scanCode/scanCodePayOrderQuery", data, {
+  return http.post("/market/scanCode/scanCodePayOrderQuery", data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -799,7 +799,7 @@ export const queryAdvertiseList = (data) => {
  * @returns {Promise<any>}
  */
 export const queryBankList = () => {
-  return http.get("/app/market/eBank/system/queryBankList", {
+  return http.get("/market/eBank/system/queryBankList", {
     custom: { toast: true, auth: true },
   });
 };
@@ -808,7 +808,7 @@ export const queryBankList = () => {
  * @returns {Promise<any>}
  */
 export const querySysAdvertiseList = (params) => {
-  return http.get("/app/market/otc/querySysAdvertiseList", {
+  return http.get("/market/otc/querySysAdvertiseList", {
     custom: { toast: true, auth: true },
     params
   });
@@ -842,13 +842,13 @@ export const resetPwdByCaptcha = ({
 };
 // /otc/order/isPostPaymentVoucher 确认是否需要上传付款凭证
 export const getVoucher = () => {
-  return http.get("/app/market/otc/order/isPostPaymentVoucher", {
+  return http.get("/market/otc/order/isPostPaymentVoucher", {
     custom: { toast: true, auth: true },
   });
 };
 // /otc/order/postPaymentVoucher 上传订单支付凭证
 export const uploadVoucher = (data) => {
-  return http.post("/app/market/otc/order/postPaymentVoucher", data, {
+  return http.post("/market/otc/order/postPaymentVoucher", data, {
     custom: { toast: true, auth: true },
   });
 };

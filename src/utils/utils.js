@@ -1,6 +1,27 @@
 import { memberInfo } from "@/api/api";
 import storage from "./storage";
 
+/* ---------------------- 地址校验 --------------------------- */
+
+export const  isValidTRONAddress = (address) => { // 波场地址校验  trc20
+  // 长度检查
+  if (address.length !== 34) {
+      return false;
+  }
+  // 字符集检查
+  const validChars = /^[A-HJ-NP-Za-km-z0-9]+$/;
+  if (!validChars.test(address)) {
+      return false;
+  }
+  // 首字符检查
+  if (address[0] !== 'T') {
+      return false;
+  }
+  return true;
+}
+
+/* ---------------------- 地址校验结束 --------------------------- */
+
 // 更新用户信息
 export const updatUserInfo = () => {
   memberInfo().then((res) => {

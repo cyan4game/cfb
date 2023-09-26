@@ -31,10 +31,11 @@
                 <view class="form-item">
                     <view class="item-title">提现地址</view>
                     <view class="item-content">
-                        <input v-model.trim="form.address" type="text" class="ipt">
+                        <input @input="checkAddress" v-model.trim="form.address" type="text" class="ipt">
                         <u-image @click="scan" class="content-icon" src="@/static/images/index/nav-1.png" width="36rpx"
                             height="33rpx"></u-image>
                     </view>
+                    <view class="item-tip" v-if="form.address && !passAddress">无效的地址</view>
                 </view>
 
                 <!-- 备注(选填) -->
@@ -103,6 +104,7 @@
 
 import { addAddress, modifyAddress } from '@/api/api'
 import storage from "@/utils/storage";
+import { isValidTRONAddress } from '@/utils/utils'
 
 export default {
     name: 'addressList',
@@ -117,11 +119,12 @@ export default {
             },
             loading: false,
             userInfo: {},
+            passAddress: false, // 是否通过地址格式校验
         }
     },
     computed: {
         disabled() {
-            return !(this.form.address && this.form.currency && this.form.chain) || this.loading
+            return !(this.form.address && this.form.currency && this.form.chain && this.passAddress) || this.loading
         }
     },
     onLoad(data) {
@@ -135,9 +138,30 @@ export default {
         }
     },
     methods: {
+        // 校验地址是否合法
+        checkAddress() {
+            let pass = this.form.address && this.form.chain
+            if (pass) {
+                switch(this.form.chain) {
+                    case 'TRC20':
+                        pass = isValidTRONAddress(this.form.address)
+                        break
+                }
+            }
+            this.passAddress = pass
+            return pass
+        },
         // 提交
         submit() {
             if (this.disabled) return
+            // 同一条链同一币种只能有一个地址的校验
+            const list = storage.get('coin_address_list') || []
+            const stop = list.some(item => item.coin == `${this.form.currency}_${this.form.chain}`)
+            if (stop) return uni.showToast({
+                icon: 'none',
+                title: `${this.form.currency}_${this.form.chain} 地址已存在`,
+                duration: 2000
+            });
             this.$refs.vd.open()
         },
         successHandle() {
@@ -151,7 +175,6 @@ export default {
                 ...this.form,
                 memberId: this.userInfo.id
             }).then(res => {
-                console.error('res', res)
                 if (res.code == 200) {
                     uni.showToast({
                         title: this.type == 1 ? '添加成功' : '编辑成功',
@@ -179,6 +202,7 @@ export default {
         // 选择网络
         clickChain() {
             this.$refs.chainPopup.close()
+            this.checkAddress()
         },
         // 扫码
         scan() {
@@ -223,7 +247,13 @@ export default {
 
                     .ipt {
                         flex: 1;
+                        margin-right: 20rpx;
                     }
+                }
+                .item-tip {
+                    color: #DC2727;
+                    font-size: 24rpx;
+                    margin-top: 20rpx;
                 }
             }
         }
