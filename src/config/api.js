@@ -1,6 +1,6 @@
 // pre
 export const BASE_SOCKET = "wss://pre-marketmaker-api.zhbtest.com/"
-export const BASE_ADDRESS = "http://dev-app.cfbaopay.com/app/"
+export const BASE_ADDRESS = "http://dev-app.cfbaopay.com/"
 
 // test
 // export const BASE_SOCKET = "wss://test-marketmaker-api.zhbtest.com/"

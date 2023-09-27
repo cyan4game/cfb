@@ -38,7 +38,7 @@
 
 
             <scroll-view class="list" scroll-y="true" @scrolltolower="loadMore">
-                <view class="item" v-for="i in 20">
+                <view class="item" v-for="i in 20" :key="i">
                     <u-image class="item-icon" src="@/static/images/funds/icon-1.png" width="90rpx" height="90rpx"></u-image>
                     <view class="info">
                         <view class="title">

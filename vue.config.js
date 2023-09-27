@@ -9,8 +9,8 @@ module.exports = {
     inline: true, // 实时刷新
     disableHostCheck: process.env.NODE_ENV === "development", // 关闭 host check，方便使用 ngrok 之类的内网转发工具
     proxy: {
-      "/": {
-        target: "http://dev-app.cfbaopay.com/app/", // gogo
+      "/app": {
+        target: "http://dev-app.cfbaopay.com", // gogo
         bypass: function (req, res, proxyOptions) {
           if (req.url.startsWith('/pages')) {
             // 如果请求的路径以/pages开头，则不进行代理，保持原样
