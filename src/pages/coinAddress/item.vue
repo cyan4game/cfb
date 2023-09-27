@@ -134,7 +134,12 @@ export default {
             title: this.type == 1 ? '添加地址' : '修改地址'
         })
         if (this.type == 2) { // 编辑时初始化数据
-            Object.assign(this.form, data)
+            this.form.address = data.address
+            this.form.currency = data.currency
+            this.form.chain = data.chain
+            this.form.name = data.name
+            this.form.id = data.id
+            this.checkAddress()
         }
     },
     methods: {
@@ -142,7 +147,7 @@ export default {
         checkAddress() {
             let pass = this.form.address && this.form.chain
             if (pass) {
-                switch(this.form.chain) {
+                switch (this.form.chain) {
                     case 'TRC20':
                         pass = isValidTRONAddress(this.form.address)
                         break
@@ -154,17 +159,19 @@ export default {
         // 提交
         submit() {
             if (this.disabled) return
-            // 同一条链同一币种只能有一个地址的校验
-            const list = storage.get('coin_address_list') || []
-            const stop = list.some(item => item.coin == `${this.form.currency}_${this.form.chain}`)
-            if (stop) return uni.showToast({
-                icon: 'none',
-                title: `${this.form.currency}_${this.form.chain} 地址已存在`,
-                duration: 2000
-            });
+            if (this.type == 1) {
+                // 同一条链同一币种只能有一个地址的校验
+                const list = storage.get('coin_address_list') || []
+                const stop = list.some(item => item.coin == `${this.form.currency}_${this.form.chain}`)
+                if (stop) return uni.showToast({
+                    icon: 'none',
+                    title: `${this.form.currency}_${this.form.chain} 地址已存在`,
+                    duration: 2000
+                });
+            }
             this.$refs.vd.open()
         },
-        successHandle() {
+        successHandle(codes) {
             const req = {
                 1: addAddress,
                 2: modifyAddress,
@@ -173,6 +180,7 @@ export default {
             this.loading = true
             req({
                 ...this.form,
+                ...codes,
                 memberId: this.userInfo.id
             }).then(res => {
                 if (res.code == 200) {
@@ -250,6 +258,7 @@ export default {
                         margin-right: 20rpx;
                     }
                 }
+
                 .item-tip {
                     color: #DC2727;
                     font-size: 24rpx;
@@ -311,11 +320,13 @@ export default {
             color: #888;
         }
     }
+
     .scroll-Y {
         flex: 1;
         box-sizing: border-box;
         padding: 24rpx 54rpx;
         overflow: hidden;
+
         .select-item {
             margin-bottom: 28rpx;
             border-radius: 6rpx;
@@ -323,11 +334,13 @@ export default {
             padding: 40rpx;
             display: flex;
             align-items: center;
+
             .icon {
                 margin-right: 28rpx;
             }
         }
     }
+
     .tip {
         background-color: #F0F0F0;
         border-radius: 6rpx;
@@ -337,6 +350,7 @@ export default {
         font-size: 26rpx;
         color: #3B3B3B;
         margin-bottom: 40rpx;
+
         .icon {
             margin-right: 30rpx;
             position: relative;

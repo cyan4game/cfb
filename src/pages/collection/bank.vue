@@ -1,22 +1,27 @@
-<!-- 收款方式-银行卡 -->
+<!-- 收款方式-支付宝 -->
 <template>
-    <view class="info-page-bg page-collection-wechat">
+    <view class="info-page-bg page-collection-alipay">
         
         <view class="info-page-content content-box">
 
             <view class="item">
-                <text>开户姓名</text>
-                <input class="item-ipt" placeholder="请输入开户姓名" type="text" v-model.trim="form.name">
+                <text>真实姓名</text>
+                <input class="item-ipt" placeholder="请输入真实姓名" type="text" v-model.trim="form.realName">
             </view>
 
             <view class="item">
                 <text>银行名称</text>
-                <input class="item-ipt" placeholder="请输入银行名称" type="text" v-model.trim="form.account">
+                <input class="item-ipt" placeholder="请输入银行名称" type="text" v-model.trim="form.bankName">
             </view>
 
             <view class="item">
                 <text>银行卡号</text>
-                <input class="item-ipt" placeholder="请输入银行卡号" type="text" v-model.trim="form.code">
+                <input class="item-ipt" placeholder="请输入银行卡号" type="text" v-model.trim="form.accountName">
+            </view>
+
+            <view class="item">
+                <text>支行名称</text>
+                <input class="item-ipt" placeholder="请输入支行名称" type="text" v-model.trim="form.branchName">
             </view>
 
 
@@ -24,36 +29,76 @@
 
         </view>
 
-
-        <view class="btn">确定</view>
+        <u-button @click="submit" :disabled="!(form.realName && form.bankName && form.accountName && form.branchName)" class="btn" type="primary" text="确定"></u-button>
 
     </view>
 </template>
 
 <script>
 import storage from "@/utils/storage";
+import { _upload, memberPaymodelBind, queryByMemberAndPaytype } from '@/api/api'
 
 export default {
-    name: 'collectionWechat',
+    name: 'collectionBank',
     data() {
         return {
             userInfo: {},
             form: {
-                name: '',
-                account: '',
-                code: ''
+                payType: 3,
+                realName: '', // 真实姓名
+                bankName: '', // 银行名称
+                accountName: '', // 账号 银行卡是卡号；微信是微信号；支付宝是支付宝账号；云闪付是
+                branchName: '', // 支行名称
             }
         }
     },
     onShow() {
         this.userInfo = storage.get('userInfo') || {}
+        this.getInfo()
     },
+    methods: {
+        // 获取绑定详情
+        getInfo() {
+            queryByMemberAndPaytype({
+                memberId: this.userInfo.id,
+                payType: this.form.payType,
+            }).then(res => {
+                console.error(res)
+                if (res.code == 200) {
+                    this.form.id = res.data.id
+                    this.form.realName = res.data.realName
+                    this.form.bankName = res.data.bankName
+                    this.form.accountName = res.data.accountName
+                    this.form.branchName = res.data.branchName
+                }
+            })
+        },
+        // 提交
+        submit() {
+            memberPaymodelBind({
+                ...this.form,
+                memberId: this.userInfo.id
+            }).then(res => {
+                console.error('绑定', res)
+                if (res.code == 200) {
+                    uni.showToast({
+                        title: '绑定成功',
+                        icon: 'none',
+                        duration: 2000
+                    });
+                    setTimeout(() => {
+                        uni.navigateBack();
+                    }, 500)
+                }
+            })
+        },
+    }
 }
 
 </script>
 
 <style scoped lang="scss">
-.page-collection-wechat {
+.page-collection-alipay {
     .content-box {
         .item {
             height: 134rpx;

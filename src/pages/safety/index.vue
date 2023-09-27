@@ -30,7 +30,7 @@
         <view class="item">
           <text>手机号</text>
           <view class="item-right">
-            <text>184****8888</text>
+            <text>{{ userInfo.phoneNumber ? hiddenPhone(userInfo.phoneNumber) : '未绑定' }}</text>
             <u-image class="icon" src="/static/images/mine/right.png" width="10rpx" height="18rpx"></u-image>
           </view>
         </view>
@@ -41,7 +41,7 @@
         <view class="item">
           <text>邮箱</text>
           <view class="item-right">
-            <text>1*****Dooker.com</text>
+            <text>{{ userInfo.email ? hiddenEmail(userInfo.email) : '未绑定' }}</text>
             <u-image class="icon" src="/static/images/mine/right.png" width="10rpx" height="18rpx"></u-image>
           </view>
         </view>
@@ -62,13 +62,25 @@
 </template>
 
 <script>
+import { hiddenEmail, hiddenPhone } from '@/utils/utils'
+import storage from '@/utils/storage'
 
 export default {
   name: "safety",
+  data() {
+    return {
+      userInfo: {},
+    }
+  },
+  onShow() {
+    this.userInfo = storage.get('userInfo') || {}
+  },
   methods: {
+    hiddenEmail,
+    hiddenPhone,
     pageTo(name) {
       uni.navigateTo({
-         url: name
+        url: name
       });
     },
   },
@@ -114,6 +126,7 @@ export default {
         align-items: center;
         color: #757575;
         font-size: 22rpx;
+
         .icon {
           margin-left: 12rpx;
           position: relative;

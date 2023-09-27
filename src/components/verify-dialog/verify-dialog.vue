@@ -7,48 +7,77 @@
                 <view class="close" @click="close">×</view>
             </view>
 
-            <u-form :model="checkForm" ref="form2" class="form2">
-                <u-form-item class="item" prop="codeEmail">
-                    <view class="item">
-                        <u-text text="邮箱验证"></u-text>
-                        <u-input class="ipt" :type="'text'" placeholder="请输入邮箱验证码" v-model="checkForm.codeEmail">
-                            <template slot="suffix">
-                                <view class="code-btn" :class="{ 'dis-btn': emailTimedown }" @click="sendCode('email')">{{
-                                    emailTimedown ? `${emailTimedown}秒` : '发送验证码' }}</view>
-                            </template>
-                        </u-input>
-                    </view>
-                </u-form-item>
-                <u-form-item class="item" prop="codePhone">
-                    <view class="item">
-                        <u-text text="手机验证"></u-text>
-                        <u-input class="ipt" :type="'text'" placeholder="请输入手机验证码" v-model="checkForm.codePhone">
-                            <template slot="suffix">
-                                <view class="code-btn" :class="{ 'dis-btn': phoneTimedown }" @click="sendCode('phone')">{{
-                                    phoneTimedown ? `${phoneTimedown}秒` : '发送验证码' }}</view>
-                            </template>
-                        </u-input>
-                    </view>
-                </u-form-item>
-            </u-form>
-            <u-button @click="goCheck" class="login-button2" type="primary" text="确认"></u-button>
+            <!-- 已绑定了邮箱和手机 -->
+            <template v-if="userInfo.phoneNumber && userInfo.email">
+                <u-form :model="checkForm" ref="form2" class="form2">
+                    <u-form-item class="item" prop="codeEmail">
+                        <view class="item">
+                            <u-text text="邮箱验证"></u-text>
+                            <u-input class="ipt" :type="'text'" placeholder="请输入邮箱验证码" v-model="checkForm.codeEmail">
+                                <template slot="suffix">
+                                    <view class="code-btn" :class="{ 'dis-btn': emailTimedown }" @click="sendCode('email')">
+                                        {{
+                                            emailTimedown ? `${emailTimedown}秒` : '发送验证码' }}</view>
+                                </template>
+                            </u-input>
+                        </view>
+                    </u-form-item>
+                    <u-form-item class="item" prop="codePhone">
+                        <view class="item">
+                            <u-text text="手机验证"></u-text>
+                            <u-input class="ipt" :type="'text'" placeholder="请输入手机验证码" v-model="checkForm.codePhone">
+                                <template slot="suffix">
+                                    <view class="code-btn" :class="{ 'dis-btn': phoneTimedown }" @click="sendCode('phone')">
+                                        {{
+                                            phoneTimedown ? `${phoneTimedown}秒` : '发送验证码' }}</view>
+                                </template>
+                            </u-input>
+                        </view>
+                    </u-form-item>
+                </u-form>
+                <u-button @click="goCheck" :disabled="!(checkForm.codeEmail && checkForm.codePhone)" class="login-button2"
+                    type="primary" text="确认"></u-button>
+            </template>
+
+            <!-- 邮箱未绑定 -->
+            <template v-if="!userInfo.email">
+                <view class="untip">
+                    <text>未绑定邮箱</text>
+                    <text class="link">去绑定</text>
+                </view>
+            </template>
+
+            <!-- 手机未绑定 -->
+            <template v-if="!userInfo.phoneNumber">
+                <view class="untip">
+                    <text>未绑定手机</text>
+                    <text class="link">去绑定</text>
+                </view>
+            </template>
         </view>
     </uni-popup>
 </template>
 
 <script>
+
+import { mailSecurity, smsSecurity } from '@/api/api'
+import storage from "@/utils/storage";
+
 export default {
     name: 'msgDialog',
     data() {
         return {
+            userInfo: {},
             checkForm: {
                 codeEmail: '',
                 codePhone: '',
             },
             emailTimedown: 0,
             emailInterval: null,
+            emailLoading: false,
             phoneTimedown: 0,
             phoneInterval: null,
+            phoneLoading: false,
         }
     },
     beforeDestroy() {
@@ -57,6 +86,7 @@ export default {
     },
     methods: {
         open() {
+            this.userInfo = storage.get('userInfo') || {}
             this.$refs.popup.open()
         },
         close() {
@@ -64,29 +94,59 @@ export default {
         },
         // 验证
         goCheck() {
-            this.$emit('success')
+            this.$emit('success', {
+                emailCode: this.checkForm.codeEmail,
+                phoneCode: this.checkForm.codePhone,
+            })
             this.close()
         },
         // 发送验证码
         sendCode(key) {
             if (key == 'email') {
+                if (this.emailLoading) return
                 if (this.emailTimedown) return
-                this.emailTimedown = 59
-                this.emailInterval = setInterval(() => {
-                    this.emailTimedown--
-                    if (this.emailTimedown == 0) {
-                        clearInterval(this.emailInterval)
+                this.emailLoading = true
+                mailSecurity().then(res => {
+                    if (res.code == 200) {
+                        uni.showToast({
+                            title: '邮件已发送',
+                            icon: 'none',
+                            duration: 2000
+                        });
+                        this.emailTimedown = 59
+                        this.emailInterval = setInterval(() => {
+                            this.emailTimedown--
+                            if (this.emailTimedown == 0) {
+                                clearInterval(this.emailInterval)
+                            }
+                        }, 1000);
                     }
-                }, 1000);
+                }).finally(() => {
+                    this.emailLoading = false
+                })
+
             } else {
+                if (this.phoneLoading) return
                 if (this.phoneTimedown) return
-                this.phoneTimedown = 59
-                this.phoneInterval = setInterval(() => {
-                    this.phoneTimedown--
-                    if (this.phoneTimedown == 0) {
-                        clearInterval(this.phoneInterval)
+                this.phoneLoading = true
+                smsSecurity().then(res => {
+                    if (res.code == 200) {
+                        uni.showToast({
+                            title: '短信已发送',
+                            icon: 'none',
+                            duration: 2000
+                        });
+                        this.phoneTimedown = 59
+                        this.phoneInterval = setInterval(() => {
+                            this.phoneTimedown--
+                            if (this.phoneTimedown == 0) {
+                                clearInterval(this.phoneInterval)
+                            }
+                        }, 1000);
                     }
-                }, 1000);
+                }).finally(() => {
+                    this.phoneLoading = false
+                })
             }
         },
     }
@@ -146,8 +206,20 @@ export default {
         height: 96rpx;
         margin-top: 40rpx;
     }
+
     .item {
-    width: 100%;
-  }
-}
-</style>
+        width: 100%;
+    }
+
+    .untip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 120rpx;
+        font-size: 26rpx;
+        .link {
+            color: #449367;
+            margin-left: 10rpx;
+        }
+    }
+}</style>

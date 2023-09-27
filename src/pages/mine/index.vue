@@ -54,7 +54,7 @@ export default {
     data() {
         return {
             tabs: [
-                { key: 1, name: '资金明细', icon: '/static/images/mine/tab-1.png', route: '' },
+                { key: 1, name: '资金明细', icon: '/static/images/mine/tab-1.png', route: '/pages/funds/index' },
                 { key: 2, name: '收款方式', icon: '/static/images/mine/tab-2.png', route: '/pages/collection/index' },
                 { key: 3, name: '地址管理', icon: '/static/images/mine/tab-3.png', route: '/pages/coinAddress/index' },
             ],

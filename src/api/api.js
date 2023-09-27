@@ -16,14 +16,14 @@ export const _upload = (file, successFunc, errorFunc, finishFunc) => {
   })
 }
 
-// 请求发送验证短信
+// 请求发送验证短信-注册登录
 export const sendSMS = (data) => {
   return http.post("/verify/sms", data, {
     custom: { toast: true, auth: false },
   });
 };
 /**
- * 请求发送邮箱验证码
+ * 请求发送邮箱验证码-注册登录
  * @param data
  * @returns {Promise<any>}
  */
@@ -42,6 +42,19 @@ export const phoneRegister = (data) => {
 export const emailRegister = (data) => {
   return http.post("/member/emailRegister", data, {
     custom: { toast: true, auth: false },
+  });
+};
+
+// 邮件安全验证码发送  
+export const mailSecurity = () => {
+  return http.post(`/verify/mailSecurity`, null, {
+    custom: { toast: true, auth: true },
+  });
+};
+// 短信安全验证码发送  
+export const smsSecurity = () => {
+  return http.post(`/verify/smsSecurity`, null, {
+    custom: { toast: true, auth: true },
   });
 };
 /**
@@ -101,13 +114,43 @@ export const queryByMemberAndCoin = (data) => {
     custom: { toast: true, auth: true },
   });
 };
-
 // 删除提现地址
 export const delAddress = (id) => {
   return http.post(`/member-address/delete/${id}`, null, {
     custom: { toast: true, auth: true },
   });
 };
+// 查询支付绑定状态信息-根据memberId
+export const queryPayBindInfo = (memberId) => {
+  return http.post(`/member-paymodel/queryBindInfo/${memberId}`, null, {
+    custom: { toast: true, auth: true },
+  });
+};
+// 绑定支付方式
+export const memberPaymodelBind = (data) => {
+  return http.post(`/member-paymodel/bind`, data, {
+    custom: { toast: true, auth: true },
+  });
+};
+// 查询支付信息-根据memberId和支付方式
+export const queryByMemberAndPaytype = (data) => {
+  return http.post(`/member-paymodel/queryByMemberAndPaytype`, data, {
+    custom: { toast: true, auth: true },
+  });
+};
+// 新手机绑定
+export const phoneBind = (data) => {
+  return http.post(`/member-security/phone-bind`, data, {
+    custom: { toast: true, auth: true },
+  });
+};
+// 验证旧手机号
+export const phoneOld = (data) => {
+  return http.post(`/member-security/phone-old`, data, {
+    custom: { toast: true, auth: true },
+  });
+};
+
 
 
 //  ---------------------------------------------------------------

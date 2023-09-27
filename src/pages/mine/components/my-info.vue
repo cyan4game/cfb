@@ -7,13 +7,14 @@
         </view>
         <view class="info" @click="goInfo">
             <view class="name">{{ userInfo.nickname || '未设置昵称' }}</view>
-            <view>{{ userInfo.id || '--' }}</view>
+            <view>{{ userInfo.phoneNumber ? hiddenStr(userInfo.phoneNumber) : '未绑定手机号' }}</view>
         </view>
         <view class="btn">基础认证</view>
     </view>
 </template>
 
 <script>
+import { hiddenPhone } from '@/utils/utils'
 
 export default {
     props: {
@@ -28,6 +29,10 @@ export default {
             uni.navigateTo({
                     url: '/pages/mine/info'
             })
+        },
+        // 隐藏
+        hiddenStr(str) {
+            return hiddenPhone(str)
         }
     }
 }

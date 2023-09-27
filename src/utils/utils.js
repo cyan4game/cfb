@@ -22,6 +22,15 @@ export const  isValidTRONAddress = (address) => { // 波场地址校验  trc20
 
 /* ---------------------- 地址校验结束 --------------------------- */
 
+// 隐藏手机号
+export const hiddenPhone = str => {
+  return str.substr(0, 3) + '****' + str.substr(str.length - 3, 3)
+}
+// 隐藏邮箱
+export const hiddenEmail = str => {
+  return str.substr(0, 1) + '****' + str.split('@')[1]
+}
+
 // 更新用户信息
 export const updatUserInfo = () => {
   memberInfo().then((res) => {

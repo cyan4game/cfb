@@ -32,6 +32,8 @@
             </view>
         </view>
 
+        <!-- 次数提示 -->
+        <confirm-dialog :content="`其他用户将会看到您更改后的头像。您今年还可以更改${userInfo.avatarYearUpdateLastCount}次头像`" ref="tipDialog" :title="'更改头像'" :btn="'好的'" :borderBtn="'取消'" :btnHandle="chooseFile" />
     </view>
 </template>
 
@@ -55,7 +57,15 @@ export default {
     methods: {
         // 选择文件
         editAvatar() {
-            // todo 次数验证
+            if (!this.userInfo.avatarYearUpdateLastCount) return uni.showToast({
+                title: '头像可更改次数：0',
+                duration: 2000
+            })
+            this.$refs.tipDialog.open()
+        },
+        // 选择文件
+        chooseFile() {
+            this.$refs.tipDialog.close()
             uni.chooseImage({
                 count: 1,
                 success: (res) => {

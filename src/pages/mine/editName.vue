@@ -10,12 +10,12 @@
             <input class="input" maxlength="20" type="text" v-model.trim="userInfo.nickname" placeholder="输入昵称">
             <view class="count">{{ (userInfo.nickname || '').length }}/20</view>
         
-            <view class="tip-box">您的昵称将对其他用户可见，您今年还有3次机会修改认证商 家后不能修改昵称。</view>
+            <view class="tip-box">您的昵称将对其他用户可见，您今年还有{{userInfo.nicknameYearUpdateLastCount}}次机会修改认证商 家后不能修改昵称。</view>
             <view class="tip-box">创建昵称时，请勿使用不雅用词、财富宝官方名称和其他交易 平台上的名称</view>
         </view>
 
         <!-- 退出登录 -->
-        <view class="submit" :class="{'disabled-btn':!this.userInfo.nickname}" @click="submit">提交</view>
+        <view class="submit" :class="{'disabled-btn':!userInfo.nickname || !userInfo.nicknameYearUpdateLastCount }" @click="submit">提交</view>
 
     </view>
 </template>
@@ -52,6 +52,9 @@ export default {
                         icon: 'none',
                         duration: 2000
                     });
+                    setTimeout(() => {
+                        uni.navigateBack();
+                    }, 500)
                 }
             }).finally(() => {
                 uni.hideLoading();

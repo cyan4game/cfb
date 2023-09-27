@@ -487,6 +487,14 @@
       }
     },
     {
+      "path": "pages/funds/index",
+      "style": {
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "资金明细"
+      }
+    },
+    {
       "path": "pages/setGoogle/index",
       "style": {
         "navigationBarBackgroundColor": "#0E1216",

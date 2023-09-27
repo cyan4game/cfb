@@ -8,7 +8,7 @@
             <view class="item" @click="jump('/pages/collection/alipay')">
                 <u-image class="icon" src="@/static/images/mine/icon-alipay.png" width="41rpx" height="41rpx"></u-image>
                 <view>支付宝</view>
-                <view class="info">未绑定</view>
+                <view class="info" :class="{ 'info-ed': status.alipay }">{{ status.alipay ? '已绑定' : '未绑定' }}</view>
                 <u-image class="right" src="@/static/images/mine/right.png" width="15rpx" height="29rpx"></u-image>
             </view>
 
@@ -16,7 +16,7 @@
             <view class="item" @click="jump('/pages/collection/wechat')">
                 <u-image class="icon" src="@/static/images/mine/icon-wechat.png" width="41rpx" height="41rpx"></u-image>
                 <view>微信</view>
-                <view class="info info-ed">已绑定</view>
+                <view class="info" :class="{ 'info-ed': status.wechat }">{{ status.wechat ? '已绑定' : '未绑定' }}</view>
                 <u-image class="right" src="@/static/images/mine/right.png" width="15rpx" height="29rpx"></u-image>
             </view>
 
@@ -24,7 +24,7 @@
             <view class="item" @click="jump('/pages/collection/bank')">
                 <u-image class="icon" src="@/static/images/mine/icon-bank.png" width="41rpx" height="41rpx"></u-image>
                 <view>银行卡</view>
-                <view class="info">未绑定</view>
+                <view class="info" :class="{ 'info-ed': status.bank }">{{ status.bank ? '已绑定' : '未绑定' }}</view>
                 <u-image class="right" src="@/static/images/mine/right.png" width="15rpx" height="29rpx"></u-image>
             </view>
 
@@ -34,25 +34,41 @@
 </template>
 
 <script>
+import { queryPayBindInfo } from '@/api/api'
 import storage from "@/utils/storage";
 
+// payType	支付方式类型 1支付宝 2微信 3银行卡 4云闪付
 export default {
     name: 'collectionList',
     data() {
         return {
             userInfo: {},
             list: [],
+            status: {}, // 状态 wechat  alipay   bank
         }
     },
     onShow() {
         this.userInfo = storage.get('userInfo') || {}
-
+        this.checkStatus()
     },
     methods: {
         // 跳转
         jump(name) {
             uni.navigateTo({
                  url: name
+            })
+        },
+        // 检测绑定状态
+        checkStatus() {
+            const paywayMap = storage.get('paywayMap')
+            if (paywayMap) {
+                this.status = paywayMap
+            }
+            queryPayBindInfo(this.userInfo.id).then(res => {
+                if (res.code == 200) {
+                    this.status = res.data
+                    storage.set('paywayMap', res.data)
+                }
             })
         }
     }
