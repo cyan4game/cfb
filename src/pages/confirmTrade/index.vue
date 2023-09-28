@@ -286,7 +286,7 @@ export default {
       const params = {
         advertiseNo: orderDetails.advertiseNo,
         amount: this.amount,
-        memberId: this.userInfo.userInfo.id,
+        // memberId: this.userInfo.userInfo.id,
         payModelId: bankObj.id,
         number: this.amount / orderDetails.price,
         price: orderDetails.price,

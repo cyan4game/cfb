@@ -227,4 +227,11 @@ uni-toast {
   border-top-left-radius: 22rpx;
   padding: 40rpx;
 }
+
+
+.uni-scroll-view {
+    &::-webkit-scrollbar {
+        display: none!important;
+      }
+}
 </style>

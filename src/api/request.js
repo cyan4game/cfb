@@ -1,5 +1,5 @@
 import {throttle} from "@/utils/debounce"
-import {BASE_ADDRESS} from "../config/api"
+import {BASE_ADDRESS, PROXY_PRE} from "../config/api"
 
 export function handleLogout () {
   uni.removeStorage({
@@ -44,8 +44,8 @@ module.exports = (vm) => {
   // 初始化请求配置
   uni.$u.http.setConfig((config) => {
     /* config 为默认全局配置*/
-    // config.baseURL = BASE_ADDRESS + 'app/'
-    config.baseURL = '/app/' // 开发环境
+    // config.baseURL = BASE_ADDRESS + PROXY_PRE
+    config.baseURL = PROXY_PRE // 开发环境
     return config
   })
 

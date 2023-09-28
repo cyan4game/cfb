@@ -83,7 +83,7 @@ export default {
         getList() {
             this.list = storage.get('coin_address_list') || []
             queryByMemberAndCoin({
-                memberId: this.userInfo.id
+                // memberId: this.userInfo.id
             }).then(res => {
                 if (res.code == 200) {
                     this.list = res.data || [

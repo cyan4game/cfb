@@ -1,6 +1,6 @@
 // pre
 export const BASE_SOCKET = "wss://pre-marketmaker-api.zhbtest.com/"
-export const BASE_ADDRESS = "http://dev-app.cfbaopay.com/"
+export const BASE_ADDRESS = "http://dev-app.cfbaopay.com"
 
 // test
 // export const BASE_SOCKET = "wss://test-marketmaker-api.zhbtest.com/"
@@ -15,6 +15,9 @@ export const BASE_ADDRESS = "http://dev-app.cfbaopay.com/"
 // 生产 H5
 // export const BASE_SOCKET = "wss://h-consumer.zhb16888.com/"
 // export const BASE_ADDRESS = "https://h-consumer.zhb16888.com/"
+
+// 代理前缀
+export const PROXY_PRE = '/app/'
 
 export const AREA_CODE = [['中国+86',
     '菲律宾+63',

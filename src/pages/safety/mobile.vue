@@ -175,9 +175,14 @@ export default {
           countryCode: this.userInfo.countryCode || '+86',
           phone: this.userInfo.phoneNumber,
           phoneCode: this.form.code,
-          memberId: this.userInfo.id,
+          // memberId: this.userInfo.id,
         }).then(res => {
           if (res.code == 200) {
+            uni.showToast({
+              title: '验证成功，请绑定新手机号',
+              icon: 'none',
+              duration: 2000
+            });
             clearInterval(this.timeInterval)
             this.timedown = 0
             this.form.code = ''
@@ -196,7 +201,7 @@ export default {
           countryCode: this.form.areaCode,
           phone: this.form.newPhone,
           phoneCode: this.form.code,
-          memberId: this.userInfo.id,
+          // memberId: this.userInfo.id,
         }).then(async res => {
           if (res.code == 200) {
             uni.showToast({
@@ -204,8 +209,17 @@ export default {
               icon: 'none',
               duration: 2000
             })
-            await  updatUserInfo()
-            uni.navigateBack();
+            // 手动设置本地缓存
+            storage.set('userInfo', {
+              ...this.userInfo,
+              countryCode: this.form.areaCode,
+              phoneNumber: this.form.newPhone,
+            })
+            // 同步个人信息
+            updatUserInfo()
+            setTimeout(() => {
+              uni.navigateBack();
+            }, 500)
           }
         }).finally(() => {
           setTimeout(() => {

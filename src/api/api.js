@@ -1,11 +1,11 @@
 const http = uni.$u.http;
-import {BASE_ADDRESS} from "../config/api"
+import {BASE_ADDRESS, PROXY_PRE} from "../config/api"
 
 
 // 上传文件
 export const _upload = (file, successFunc, errorFunc, finishFunc) => {
   return uni.uploadFile({
-    url: BASE_ADDRESS + 'file/upload',
+    url: BASE_ADDRESS +  PROXY_PRE + 'file/upload',
     name: 'file',
     formData: {
       file: file
@@ -150,8 +150,18 @@ export const phoneOld = (data) => {
     custom: { toast: true, auth: true },
   });
 };
-
-
+// 查询资金明细(综合查询)
+export const financeQuery = (data) => {
+  return http.post(`/finance/page`, data, {
+    custom: { toast: true, auth: true },
+  });
+};
+// 账单详情
+export const businessDetail = (type, businessId) => {
+  return http.post(`/finance/businessDetail/${type}/${businessId}`, null, {
+    custom: { toast: true, auth: true },
+  });
+};
 
 //  ---------------------------------------------------------------
 

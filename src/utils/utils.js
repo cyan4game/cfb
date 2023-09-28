@@ -33,11 +33,16 @@ export const hiddenEmail = str => {
 
 // 更新用户信息
 export const updatUserInfo = () => {
-  memberInfo().then((res) => {
-    if (res.code == 200) {
-      storage.set("userInfo", res.data);
-    }
-  });
+  return new Promise(resolve => {
+    memberInfo().then((res) => {
+      if (res.code == 200) {
+        storage.set("userInfo", res.data);
+        resolve(res.data)
+      }
+    }).catch(() => {
+      resolve(false)
+    })
+  })
 };
 // 清除缓存的信息-退出登录
 export const clearAllStorage = () => {
@@ -45,6 +50,7 @@ export const clearAllStorage = () => {
   storage.set("tokenName", "");
   storage.set("token", "");
   storage.set("LOGIN_INFO", "");
+  uni.clearStorageSync()
 };
 
 // 复制

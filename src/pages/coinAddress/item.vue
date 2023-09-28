@@ -181,7 +181,7 @@ export default {
             req({
                 ...this.form,
                 ...codes,
-                memberId: this.userInfo.id
+                // memberId: this.userInfo.id
             }).then(res => {
                 if (res.code == 200) {
                     uni.showToast({

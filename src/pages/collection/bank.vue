@@ -29,7 +29,7 @@
 
         </view>
 
-        <u-button @click="submit" :disabled="!(form.realName && form.bankName && form.accountName && form.branchName)" class="btn" type="primary" text="确定"></u-button>
+        <u-button @click="submit" :disabled="!(form.realName && form.bankName && form.accountName && form.branchName) || loading" class="btn" type="primary" text="确定"></u-button>
 
     </view>
 </template>
@@ -42,6 +42,7 @@ export default {
     name: 'collectionBank',
     data() {
         return {
+            loading: false,
             userInfo: {},
             form: {
                 payType: 3,
@@ -60,7 +61,7 @@ export default {
         // 获取绑定详情
         getInfo() {
             queryByMemberAndPaytype({
-                memberId: this.userInfo.id,
+                // memberId: this.userInfo.id,
                 payType: this.form.payType,
             }).then(res => {
                 console.error(res)
@@ -75,9 +76,10 @@ export default {
         },
         // 提交
         submit() {
+            this.loading = true
             memberPaymodelBind({
                 ...this.form,
-                memberId: this.userInfo.id
+                // memberId: this.userInfo.id
             }).then(res => {
                 console.error('绑定', res)
                 if (res.code == 200) {
@@ -90,6 +92,10 @@ export default {
                         uni.navigateBack();
                     }, 500)
                 }
+            }).finally(() => {
+                setTimeout(() => {
+                    this.loading = false
+                }, 1000)
             })
         },
     }
