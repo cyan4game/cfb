@@ -162,6 +162,12 @@ export const businessDetail = (type, businessId) => {
     custom: { toast: true, auth: true },
   });
 };
+// 在线客服-新增留言
+export const complaintMessage = (data) => {
+  return http.post(`/complaintMessage/add`, data, {
+    custom: { toast: true, auth: true },
+  });
+};
 
 //  ---------------------------------------------------------------
 

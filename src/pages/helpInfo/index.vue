@@ -1,7 +1,7 @@
 <!-- 客服 -->
 <template>
-  <view class="page-customer">
-    <view class="content-box">
+  <view class="info-page-bg page-customer">
+    <view class="info-page-content content-box">
       <uni-collapse accordion>
         <uni-collapse-item :title="item.title" v-for="(item, i) in list" :key="i">
           <view class="info">
@@ -34,20 +34,10 @@ export default {
 
 <style lang="scss" scoped>
 .page-customer {
-  background-color: #0e1216;
-  padding-top: 20rpx;
-  height: 100%;
-  box-sizing: border-box;
 
   .content-box {
-    box-sizing: border-box;
-    border-top-left-radius: 22rpx;
-    border-top-right-radius: 22rpx;
-    background-color: #fff;
-    padding: 60rpx;
     font-size: 26rpx;
     color: #433F48;
-    min-height: 100vh;
     .info {
       padding: 60rpx;
     }
