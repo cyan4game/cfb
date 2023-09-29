@@ -503,6 +503,14 @@
       }
     },
     {
+      "path": "pages/usdt/index",
+      "style": {
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "USDT钱包"
+      }
+    },
+    {
       "path": "pages/setGoogle/index",
       "style": {
         "navigationBarBackgroundColor": "#0E1216",

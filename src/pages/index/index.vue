@@ -27,7 +27,7 @@
                 <view class="nav">
                     <text>购买CFB</text>
                     <view class="icon">
-                        <u-image src="/static/images/index/buy.png" width="80rpx" height="75rpx"></u-image>
+                        <u-image src="/static/images/index/buy.png" width="72rpx" height="68rpx"></u-image>
                     </view>
                 </view>
             </view>

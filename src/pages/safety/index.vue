@@ -14,8 +14,7 @@
         </view>
       </view>
 
-      <!-- /pages/safety/paymentPWD -->
-      <view class="safety-item" @click="pageTo('/pages/setPayPassword/index')">
+      <view class="safety-item" @click="changePayPass">
         <view class="title">密码修改</view>
         <view class="item">
           <text>支付密码</text>
@@ -78,11 +77,20 @@ export default {
   methods: {
     hiddenEmail,
     hiddenPhone,
+    // 跳转
     pageTo(name) {
       uni.navigateTo({
         url: name
       });
     },
+    // 设置/修改 支付密码
+    changePayPass() {
+      if (this.userInfo.payPasswordStatus) { // 修改
+        this.pageTo('/pages/safety/paymentPWD')
+      } else { // 设置
+        this.pageTo('/pages/setPayPassword/index')
+      }
+    }
   },
 };
 </script>

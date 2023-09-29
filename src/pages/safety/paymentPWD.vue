@@ -39,19 +39,20 @@
           </view>
         </u-form-item>
         <u-form-item>
-          <u-button @click="handleNext" class="login-button" type="primary" text="提交"></u-button>
+          <u-button :disabled="isDisabled" @click="handleNext" class="login-button" type="primary" text="提交"></u-button>
         </u-form-item>
       </u-form>
     </view>
 
-    <!-- 短信验证弹窗 -->
-   
+    <!-- 验证弹窗 -->
+    <verify-dialog ref="vd" @success="successHandle" />
   </view>
 </template>
 
 <script>
-import { updateTxPassword, updateTxPasswordJudge } from "../../api/api";
+import { paypasswordModify } from "@/api/api";
 
+const pawReg = /^[0-9]{6}$/
 export default {
   data() {
     const rule = [
@@ -61,21 +62,16 @@ export default {
         trigger: ['blur', 'change'],
       },
       {
-        pattern: /^[0-9]*$/g,
+        pattern: pawReg,
         transform(value) {
           return String(value);
         },
-        message: '只能输入数字',
+        message: '支付密码必须6位数字',
         trigger: ['blur', 'change']
       },
-      {
-        min: 6,
-        max: 6,
-        message: '支付密码必须6位',
-        trigger: ['blur', 'change']
-      }
     ]
     return {
+      loading: false,
       showPassWord: false,
       code: '',
       form: {
@@ -86,8 +82,26 @@ export default {
       rules: {
         'oldPassWord': rule,
         'newPassWord1': rule,
-        'newPassWord2': rule
+        'newPassWord2': [...rule, {
+          // 自定义验证函数，见上说明
+          validator: (rule, value, callback) => {
+            // 上面有说，返回true表示校验通过，返回false表示不通过
+            // uni.$u.test.mobile()就是返回true或者false的
+            return value === this.form.newPassWord1
+          },
+          message: '密码请保持一致',
+          // 触发器可以同时用blur和change
+          trigger: ['change', 'blur'],
+        }]
       },
+    }
+  },
+  computed: {
+    isDisabled() {
+      const { loading } = this
+      const { oldPassWord, newPassWord1, newPassWord2 } = this.form;
+      if (oldPassWord && pawReg.test(newPassWord1) && pawReg.test(newPassWord2) && newPassWord1 === newPassWord2 && !loading) return false
+      else return true
     }
   },
   methods: {
@@ -103,13 +117,31 @@ export default {
       })
     },
     submit() {
-      const params = {
-        newPwd: this.form.newPassWord1,
-        oldPwd: this.form.oldPassWord,
-        confirmPwd: this.form.newPassWord2
-      }
-      // uni.$u.toast('密码修改成功')
+      this.$refs.vd.open()
     },
+    successHandle(codes) {
+      const params = {
+        payPassword: this.form.newPassWord1,
+        oldPayPassword: this.form.oldPassWord,
+        ...codes,
+      }
+      paypasswordModify(params).then(res => {
+        if (res.code == 200) {
+          uni.showToast({
+            title: '修改成功',
+            icon: 'none',
+            duration: 2000
+          });
+          setTimeout(() => {
+            uni.navigateBack();
+          }, 1000)
+        }
+      }).finally(() => {
+        setTimeout(() => {
+          this.loading = false
+        }, 1000)
+      })
+    }
   }
 }
 </script>
@@ -150,6 +182,4 @@ export default {
     margin-top: 35rpx;
   }
 }
-
-
 </style>

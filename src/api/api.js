@@ -150,6 +150,18 @@ export const phoneOld = (data) => {
     custom: { toast: true, auth: true },
   });
 };
+// 新邮箱绑定
+export const emailBind = (data) => {
+  return http.post(`/member-security/email-bind`, data, {
+    custom: { toast: true, auth: true },
+  });
+};
+// 验证旧邮箱
+export const emailOld = (data) => {
+  return http.post(`/member-security/email-old`, data, {
+    custom: { toast: true, auth: true },
+  });
+};
 // 查询资金明细(综合查询)
 export const financeQuery = (data) => {
   return http.post(`/finance/page`, data, {
@@ -166,6 +178,24 @@ export const businessDetail = (type, businessId) => {
 export const complaintMessage = (data) => {
   return http.post(`/complaintMessage/add`, data, {
     custom: { toast: true, auth: true },
+  });
+};
+// 支付密码设置
+export const paypasswordSet = (data) => {
+  return http.post(`/member-security/paypassword-set`, data, {
+    custom: { toast: true, auth: true },
+  });
+};
+// 支付密码修改
+export const paypasswordModify = (data) => {
+  return http.post(`/member-security/paypassword-modify`, data, {
+    custom: { toast: true, auth: true },
+  });
+};
+// 获取钱包列表
+export const memberWalletList = () => {
+  return http.get(`/memberWallet/list`, {
+    custom: { auth: true, toast: true },
   });
 };
 

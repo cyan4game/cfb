@@ -234,4 +234,12 @@ uni-toast {
         display: none!important;
       }
 }
+.uni-tabbar {
+  height: 116rpx;
+  box-shadow: 0 -12rpx 36rpx 0px rgba(144,144,144,0.39);
+}
+.uni-tabbar .uni-tabbar__icon {
+    width: 44rpx!important;
+    height: 44rpx!important;
+}
 </style>

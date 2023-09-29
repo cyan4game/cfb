@@ -21,7 +21,7 @@ export default {
                 { key: 2, name: '收币', icon: '/static/images/index/nav-2.png', route: '' },
                 { key: 3, name: '闪兑', icon: '/static/images/index/nav-3.png', route: '' },
                 { key: 4, name: '我的订单', icon: '/static/images/index/nav-4.png', route: '' },
-                { key: 5, name: '我的挂单', icon: '/static/images/index/nav-1.png', route: '' },
+                { key: 5, name: '我的挂单', icon: '/static/images/index/nav-5.png', route: '' },
                 { key: 6, name: '教程', icon: '/static/images/index/nav-6.png', route: '' },
             ]
         };

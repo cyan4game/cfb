@@ -3,10 +3,11 @@
 
     <view class="page-box">
       <u-form class="form" :model="form" ref="form" :rules="rules">
-        <u-form-item prop="password" >
+        <u-form-item prop="password">
           <view class="item">
             <u-text color="#7A7A7A" text="支付密码 "></u-text>
-            <u-input class="ipt" :type="showPassWord ? 'text' : 'password'" placeholder="请输入支付密码,6位数字" v-model="form.password">
+            <u-input class="ipt" :type="showPassWord ? 'text' : 'password'" placeholder="请输入支付密码,6位数字"
+              v-model="form.password">
               <template slot="suffix">
                 <u-icon @click="showPassWord = !showPassWord" :name="showPassWord ? 'eye-off' : 'eye-fill'"
                   size="24"></u-icon>
@@ -14,7 +15,7 @@
             </u-input>
           </view>
         </u-form-item>
-        <u-form-item prop="confirmPassword" >
+        <u-form-item prop="confirmPassword">
           <view class="item">
             <u-text color="#7A7A7A" text="确认密码"></u-text>
             <u-input class="ipt" type="number" :type="showConfirmPassWord ? 'text' : 'password'" placeholder="请确认支付密码"
@@ -38,7 +39,7 @@
 </template>
 
 <script>
-import { register, firstLoginRestPwd } from "../../api/api";
+import { paypasswordSet } from "../../api/api";
 
 const pawReg = /^[0-9]{6}$/
 export default {
@@ -107,19 +108,24 @@ export default {
       this.loading = true
       const { form: { password, confirmPassword } } = this
       const params = {
-        "payPwd": password,
-        "confirmPayPwd": confirmPassword
+        "payPassword": password
       }
-      firstLoginRestPwd(params).then(res => {
-        if (res.code.toString() === '0') {
-          // this.router({
-          //   url:'pages/login/index',
-          //   params:{type:'mobile',account:mobilePhone}
-          // })
+      paypasswordSet(params).then(res => {
+        if (res.code == 200) {
+          uni.showToast({
+            title: '设置成功',
+            icon: 'none',
+            duration: 2000
+          });
+          setTimeout(() => {
+            uni.navigateBack();
+          }, 1000)
         }
-        this.loading = false
-      }).catch(() => {
-        this.loading = false
+      }).finally(() => {
+
+        setTimeout(() => {
+          this.loading = false
+        }, 1000)
       })
     }
   }
