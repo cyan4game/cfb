@@ -30,6 +30,10 @@ export const hiddenPhone = str => {
 export const hiddenEmail = str => {
   return str.substr(0, 1) + '****' + str.split('@')[1]
 }
+// 隐藏身份证
+export const hiddenIden = str => {
+  return str.substr(0, 4) + '****' + str.substr(str.length - 4, 4)
+}
 
 // 更新用户信息
 export const updatUserInfo = () => {

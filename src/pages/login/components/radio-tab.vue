@@ -17,7 +17,7 @@
       ></u-image> -->
       <text class="flex-label">{{ item.label }}</text>
     </view>
-    <div class="bg-shadow" :class="showClass"></div>
+    <view class="bg-shadow" :class="showClass"></view>
   </view>
 </template>
 

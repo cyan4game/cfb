@@ -6,11 +6,11 @@
         <view class="title">解锁方式</view>
         <view class="item">
           <text>启用生物识别</text>
-          <text class="active">已启用</text>
+          <text class="right-text active">已启用</text>
         </view>
         <view class="item">
           <text>图形验证</text>
-          <text>未启用</text>
+          <text class="right-text">未启用</text>
         </view>
       </view>
 
@@ -128,6 +128,10 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      .right-text {
+        color: #757575;
+        font-size: 22rpx;
+      }
 
       .item-right {
         display: flex;

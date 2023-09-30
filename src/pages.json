@@ -529,11 +529,27 @@
       }
     },
     {
-      "path": "pages/authentication/index",
+      "path": "pages/identification/index",
       "style": {
-        "enablePullDownRefresh": true,
-        "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "实名认证"
+      }
+    },
+    {
+      "path": "pages/identification/step1",
+      "style": {
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "实名认证"
+      }
+    },
+    {
+      "path": "pages/identification/step2",
+      "style": {
+        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "实名认证"
       }
     },
     {

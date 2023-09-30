@@ -1,7 +1,7 @@
 <!-- 首页-菜单 -->
 <template>
     <view class="index-menu">
-        <view class="item" v-for="item in navs" :key="item.key">
+        <view class="item" v-for="item in navs" :key="item.key" @click="handleClick(item)">
             <u-image class="icon" :src="item.icon" width="53rpx" height="53rpx"></u-image>
             <view>{{ item.name }}</view>
         </view>
@@ -26,6 +26,24 @@ export default {
             ]
         };
     },
+    methods: {
+        handleClick(item) {
+            switch(item.key) {
+                case 1:
+                    this.scan()
+                    break
+            }
+        },
+        // 扫一扫
+        scan() {
+            uni.scanCode({
+                success: function (res) {
+                    console.log('条码类型：' + res.scanType);
+                    console.log('条码内容：' + res.result);
+                }
+            });
+        }
+    }
 };
 </script>
 
@@ -36,6 +54,7 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
     margin: 63rpx 0 0 0;
+
     .item {
         width: 33%;
         display: flex;
@@ -45,6 +64,7 @@ export default {
         font-size: 30rpx;
         color: #5D5D5D;
         margin-bottom: 60rpx;
+
         .icon {
             margin-bottom: 20rpx;
         }

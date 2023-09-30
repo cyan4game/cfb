@@ -198,6 +198,30 @@ export const memberWalletList = () => {
     custom: { auth: true, toast: true },
   });
 };
+// 添加实名认证
+export const certificateAdd = data => {
+  return http.post(`/member-certificate/add`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
+// 修改实名认证
+export const certificateModify = data => {
+  return http.post(`/member-certificate/modify`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
+// 查询实名认证-登录用户
+export const certificateQuery = data => {
+  return http.post(`/member-certificate/queryByMember`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
+// 查询不同认证级别额度
+export const queryOtcLimit = data => {
+  return http.post(`/member-certificate/queryOtcLimit`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
 
 //  ---------------------------------------------------------------
 

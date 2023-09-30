@@ -9,7 +9,7 @@
             <view class="name">{{ userInfo.nickname || '未设置昵称' }}</view>
             <view>{{ userInfo.phoneNumber ? hiddenStr(userInfo.phoneNumber) : '未绑定手机号' }}</view>
         </view>
-        <view class="btn">基础认证</view>
+        <view class="btn" @click="goIden">基础认证</view>
     </view>
 </template>
 
@@ -27,7 +27,13 @@ export default {
         // 去个人中心
         goInfo() {
             uni.navigateTo({
-                    url: '/pages/mine/info'
+                url: '/pages/mine/info'
+            })
+        },
+        // 去认证
+        goIden() {
+            uni.navigateTo({
+                url: '/pages/identification/index'
             })
         },
         // 隐藏

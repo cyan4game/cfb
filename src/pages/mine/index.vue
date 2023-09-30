@@ -60,7 +60,7 @@ export default {
             ],
             navs: [
                 { key: 1, name: 'USDT钱包', icon: '/static/images/mine/nav-1.png', route: '/pages/usdt/index' },
-                { key: 2, name: '实名认证', icon: '/static/images/mine/nav-2.png' },
+                { key: 2, name: '实名认证', icon: '/static/images/mine/nav-2.png', route: '/pages/identification/index' },
                 { key: 3, name: '账户安全', icon: '/static/images/mine/nav-3.png', route: '/pages/safety/index' },
                 { key: 4, name: '帮助中心', icon: '/static/images/mine/nav-4.png', route: '/pages/helpInfo/index' },
                 { key: 5, name: '设置', icon: '/static/images/mine/nav-5.png', route: '/pages/setting/index' },
