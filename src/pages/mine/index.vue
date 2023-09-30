@@ -106,7 +106,7 @@ export default {
 .page-mine {
     padding-bottom: 100rpx;
     background-color: #fff;
-    background: linear-gradient(to bottom, #111 588rpx, #fff 589rpx, #fff 100%);
+    background: linear-gradient(to bottom, #0c1114 588rpx, #fff 589rpx, #fff 100%);
 
     .top {
         display: flex;
@@ -115,7 +115,7 @@ export default {
         padding: 20rpx 60rpx;
         color: #fff;
         font-size: 36rpx;
-        background-color: #111;
+        background-color: #0c1114;
         position: relative;
         .icon {
             position: absolute;

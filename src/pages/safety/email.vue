@@ -1,6 +1,6 @@
 <template>
-  <view class="mobile-view">
-    <view class="page-box">
+  <view class="info-page-bg mobile-view">
+    <view class="info-page-content page-box">
       <u-form class="form" :model="form" ref="form">
 
         <u-form-item v-if="userInfo.phoneNumber && step == 1">
@@ -203,18 +203,9 @@ export default {
 
 <style lang="scss" scoped>
 .mobile-view {
-  padding-top: 20rpx;
-  height: 100%;
-  background: #0e1216;
-  box-sizing: border-box;
 }
 
 .page-box {
-  background: #fff;
-  border-top-left-radius: 22rpx;
-  border-top-right-radius: 22rpx;
-  padding: 52rpx 28rpx;
-  height: 100%;
 }
 
 .ipt {

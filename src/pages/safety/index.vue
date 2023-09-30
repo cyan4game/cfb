@@ -1,6 +1,6 @@
 <template>
-  <view class="safety-page">
-    <view class="page-box">
+  <view class="info-page-bg safety-page">
+    <view class="info-page-content page-box">
 
       <view class="safety-item">
         <view class="title">解锁方式</view>
@@ -97,17 +97,7 @@ export default {
 
 <style lang="scss" scoped>
 .safety-page {
-  background: rgb(14, 18, 22);
-  padding-top: 20rpx;
-  height: 100%;
 
-  .page-box {
-    background: #F1F1F1;
-    border-top-left-radius: 22rpx;
-    border-top-right-radius: 22rpx;
-    padding: 52rpx 28rpx;
-    height: 100%;
-  }
 
   .safety-item {
     background-color: #fff;

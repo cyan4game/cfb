@@ -1,19 +1,21 @@
 <!-- 设置 -->
 <template>
-    <view class="page-setting">
+    <view class="info-page-bg page-setting">
         
-        <!-- 背景色 -->
-        <view class="top-bg"></view>
+        <view class="info-page-content content-box">
+            <!-- 开关 -->
+            <view class="switch-box">
+                <text>音效通知</text>
+                <switch class="switch" :checked="checked" @change="switchChange" />
+                <view class="line"></view>
+            </view>
 
-        <!-- 开关 -->
-        <view class="switch-box">
-            <text>音效通知</text>
-            <switch class="switch" :checked="checked" @change="switchChange" />
-            <view class="line"></view>
+            <!-- 退出登录 -->
+            <view class="loginout" @click="loginout">退出登录</view>
+
         </view>
 
-        <!-- 退出登录 -->
-        <view class="loginout" @click="loginout">退出登录</view>
+        
 
     </view>
 </template>
@@ -66,12 +68,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-setting {
-    background-color: #fff;
-    height: 100%;
-    .top-bg {
-        background-color: #0D1116;
-        height: 100rpx;
-    }
     .switch-box {
         border-radius: 22rpx;
         background-color: #fff;
@@ -87,6 +83,7 @@ export default {
         flex-wrap: wrap;
         font-size: 32rpx;
         color: #454545;
+        margin-top: 40rpx;
         .switch {
             transform: scale(0.7);
         }

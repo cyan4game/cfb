@@ -213,11 +213,11 @@ uni-modal,
 uni-toast {
   z-index: 999999;
 }
-.info-page-bg { /* 详情页背景 */
+.info-page-bg { /* 详情页背景 */ 
   height: 100%;
-  background-color: #0e1216;
+  background-color: #0c1114;
   box-sizing: border-box;
-  padding-top: 20rpx;
+  /* padding-top: 20rpx; */
 }
 .info-page-content { /* 详情页内容 */
   height: 100%;
@@ -242,4 +242,6 @@ uni-toast {
     width: 44rpx!important;
     height: 44rpx!important;
 }
+
+
 </style>

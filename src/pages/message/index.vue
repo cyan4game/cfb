@@ -1,7 +1,7 @@
 <!-- 消息中心 -->
 <template>
-    <view class="page-message">
-        <view class="content-box">
+    <view class="info-page-bg page-message">
+        <view class="info-page-content content-box">
             <view class="item" @click="goList(3)">
                 <view class="icon">
                     <u-image class="more" src="/static/images/index/msg-service.png" width="80rpx" height="80rpx"></u-image>
@@ -105,17 +105,7 @@ export default {
 
 <style lang="scss" scoped>
 .page-message {
-    background-color: rgb(14, 18, 22);
-    min-height: 100%;
-    box-sizing: border-box;
-    padding-top: 20rpx;
     .content-box {
-        border-top-right-radius: 22rpx;
-        border-top-left-radius: 22rpx;
-        background-color: #F1F1F1;
-        padding: 52rpx 28rpx;
-        box-sizing: border-box;
-        min-height: 100vh;
         .item {
             background-color: #fff;
             padding: 40rpx;

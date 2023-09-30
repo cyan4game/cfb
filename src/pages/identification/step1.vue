@@ -6,10 +6,12 @@
             <view class="box">
                 <input v-model="form.realName" class="ipt" type="text" placeholder="请输入绑定的真实姓名">
             </view>
-            <view class="title">身份证号</view>
+            <view class="tip" v-show="!nameOk">请输入合法姓名</view>
+            <view class="title" style="margin-top: 41rpx;">身份证号</view>
             <view class="box">
                 <input v-model="form.idCard" class="ipt" type="text" placeholder="请输入身份证号账号">
             </view>
+            <view class="tip" v-show="!idOk">请输入正确的身份证号码</view>
         </view>
 
         <u-button :disabled="disabled" class="btn" :text="'提交'" @click="submit"></u-button>
@@ -20,6 +22,7 @@
 
 import { certificateAdd, certificateModify } from '@/api/api'
 import storage from "@/utils/storage";
+import { idReg, nameReg } from '@/utils/utils'
 
 export default {
     name: 'iden-step1',
@@ -38,6 +41,14 @@ export default {
     computed: {
         disabled() {
             return this.loading || !(this.form.realName && this.form.idCard)
+        },
+        nameOk() {
+            if (!this.form.realName) return true
+            return nameReg(this.form.realName)
+        },
+        idOk() {
+            if (!this.form.idCard) return true
+            return idReg(this.form.idCard)
         }
     },
     onLoad() {
@@ -92,13 +103,21 @@ export default {
             align-items: center;
             box-sizing: border-box;
             padding: 0 42rpx;
-            margin-bottom: 41rpx;
+            // margin-bottom: 41rpx;
+            flex-wrap: wrap;
             .ipt {
                 flex: 1;
                 font-size: 26rpx;
                 color: #433F48;
             }
+            
         }
+        .tip {
+                width: 100%;
+                color: red;
+                font-size: 24rpx;
+                margin-top: 4rpx;
+            }
     }
     .btn {
         width: 451rpx;

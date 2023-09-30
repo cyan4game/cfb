@@ -12,7 +12,6 @@
     {
       "path": "pages/index/index",
       "style": {
-        "enablePullDownRefresh": true,
         "navigationStyle": "custom",
         "navigationBarTextStyle": "white"
       }
@@ -20,16 +19,14 @@
     {
       "path": "pages/update",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "版本更新",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "版本更新"
       }
     },
     {
       "path": "pages/page-market/index",
       "style": {
-        "enablePullDownRefresh": true,
         "navigationStyle": "custom",
         "navigationBarTextStyle": "white"
       }
@@ -37,109 +34,97 @@
     {
       "path": "pages/balanceDetails/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "资产详情",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "资产详情"
       }
     },
     {
       "path": "pages/complete/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "完成",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "完成"
       }
     },
     {
       "path": "pages/coinAddress/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "地址簿",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "地址簿"
       }
     },
     {
       "path": "pages/coinAddress/item",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "地址",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "地址"
       }
     },
     {
       "path": "pages/collection/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "收款方式",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "收款方式"
       }
     },
     {
       "path": "pages/collection/alipay",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "支付宝",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "支付宝"
       }
     },
     {
       "path": "pages/collection/wechat",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "微信",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "微信"
       }
     },
     {
       "path": "pages/collection/bank",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "银行卡",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "银行卡"
       }
     },
     {
       "path": "pages/payOrder/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "支付订单",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "支付订单"
       }
     },
     {
       "path": "pages/addAddress/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "地址簿",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "地址簿"
       }
     },
     {
       "path": "pages/payment/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "支付",
-        "enablePullDownRefresh": false
+        "navigationBarTitleText": "支付"
       }
     },
     {
       "path": "pages/payment/success",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "支付",
-        "enablePullDownRefresh": false,
         "app-plus": {
           "titleNView": {
             "autoBackButton": false
@@ -150,10 +135,9 @@
     {
       "path": "pages/payment/error",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "支付",
-        "enablePullDownRefresh": false,
         "app-plus": {
           "titleNView": {
             "autoBackButton": false
@@ -164,10 +148,9 @@
     {
       "path": "pages/transfer/error",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "转账",
-        "enablePullDownRefresh": false,
         "app-plus": {
           "titleNView": {
             "autoBackButton": false
@@ -178,19 +161,17 @@
     {
       "path": "pages/transfer/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "转账",
-        "enablePullDownRefresh": false
+        "navigationBarTitleText": "转账"
       }
     },
     {
       "path": "pages/transfer/success",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "转账",
-        "enablePullDownRefresh": false,
         "app-plus": {
           "titleNView": {
             "autoBackButton": false
@@ -201,25 +182,22 @@
     {
       "path": "pages/transfer/record",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "转账与收款记录",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "转账与收款记录"
       }
     },
     {
       "path": "pages/receive/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "收币",
-        "enablePullDownRefresh": false
+        "navigationBarTitleText": "收币"
       }
     },
     {
       "path": "pages/addBank/index",
       "style": {
-        "enablePullDownRefresh": true,
         "navigationStyle": "custom",
         "navigationBarTextStyle": "white"
       }
@@ -227,43 +205,38 @@
     {
       "path": "pages/tradeRecord/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "我的挂单",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "我的挂单"
       }
     },
     {
       "path": "pages/myOrder/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "我的订单",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "我的订单"
       }
     },
     {
       "path": "pages/post/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "挂单",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "挂单"
       }
     },
     {
       "path": "pages/postDetails/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "挂单详情",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "挂单详情"
       }
     },
     {
       "path": "pages/trade/index",
       "style": {
-        "enablePullDownRefresh": true,
         "navigationStyle": "custom",
         "navigationBarTextStyle": "white"
       }
@@ -271,35 +244,32 @@
     {
       "path": "pages/confirmTrade/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "购买",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "购买"
       }
     },
     {
       "path": "pages/tradeDetails/index",
       "style": {
         "navigationStyle": "custom",
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "交易详情",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "交易详情"
       }
     },
     {
       "path": "pages/tradeDetails/upload",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "上传凭证",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "上传凭证"
       }
     },
     {
       "path": "pages/appeal/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "申诉"
       }
@@ -307,16 +277,14 @@
     {
       "path": "pages/changeRecord/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "用户账变",
-        "enablePullDownRefresh": true
+        "navigationBarTitleText": "用户账变"
       }
     },
     {
       "path": "pages/bank/index",
       "style": {
-        "enablePullDownRefresh": true,
         "navigationStyle": "custom",
         "navigationBarTextStyle": "white"
       }
@@ -324,7 +292,6 @@
     {
       "path": "pages/mine/index",
       "style": {
-        "enablePullDownRefresh": true,
         "navigationStyle": "custom",
         "navigationBarTextStyle": "white"
       }
@@ -332,7 +299,7 @@
     {
       "path": "pages/mine/info",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "个人资料"
       }
@@ -340,7 +307,7 @@
     {
       "path": "pages/mine/editName",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "修改昵称"
       }
@@ -348,7 +315,7 @@
     {
       "path": "pages/message/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "消息"
       }
@@ -356,7 +323,7 @@
     {
       "path": "pages/message/list",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "消息列表"
       }
@@ -378,7 +345,7 @@
     {
       "path": "pages/register/next",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "设置登录密码"
       }
@@ -386,7 +353,7 @@
     {
       "path": "pages/customer/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "在线客服"
       }
@@ -394,7 +361,7 @@
     {
       "path": "pages/customer/meiqia",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "网页客服"
       }
@@ -402,7 +369,7 @@
     {
       "path": "pages/helpInfo/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "帮助中心"
       }
@@ -410,7 +377,7 @@
     {
       "path": "pages/helpInfo/details",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "帮助中心"
       }
@@ -418,7 +385,7 @@
     {
       "path": "pages/safety/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "安全中心"
       }
@@ -426,7 +393,7 @@
     {
       "path": "pages/safety/mobile",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "绑定手机号"
       }
@@ -434,7 +401,7 @@
     {
       "path": "pages/safety/email",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "绑定邮箱"
       }
@@ -449,7 +416,7 @@
     {
       "path": "pages/safety/password",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "变更登录密码"
       }
@@ -457,7 +424,7 @@
     {
       "path": "pages/safety/paymentPWD",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "变更支付密码"
       }
@@ -465,7 +432,7 @@
     {
       "path": "pages/safety/googleAuth",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "二次验证绑定"
       }
@@ -473,7 +440,7 @@
     {
       "path": "pages/setting/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "设置"
       }
@@ -481,7 +448,7 @@
     {
       "path": "pages/setPayPassword/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "设置支付密码"
       }
@@ -489,7 +456,7 @@
     {
       "path": "pages/funds/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "资金明细"
       }
@@ -497,7 +464,7 @@
     {
       "path": "pages/funds/info",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "交易详情"
       }
@@ -505,7 +472,7 @@
     {
       "path": "pages/usdt/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "USDT钱包"
       }
@@ -513,7 +480,7 @@
     {
       "path": "pages/setGoogle/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "设置谷歌验证器",
         "app-plus": {
@@ -531,7 +498,7 @@
     {
       "path": "pages/identification/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "实名认证"
       }
@@ -539,7 +506,7 @@
     {
       "path": "pages/identification/step1",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "实名认证"
       }
@@ -547,7 +514,7 @@
     {
       "path": "pages/identification/step2",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "实名认证"
       }
@@ -569,8 +536,7 @@
     {
       "path": "pages/authentication/advanced",
       "style": {
-        "enablePullDownRefresh": true,
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "高级认证"
       }
@@ -578,7 +544,7 @@
     {
       "path": "pages/authentication/faceAuth",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "人脸识别"
       }
@@ -586,7 +552,7 @@
     {
       "path": "pages/retrievePassword/index",
       "style": {
-        "navigationBarBackgroundColor": "#0E1216",
+        "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText": "找回密码"
       }
@@ -618,12 +584,6 @@
         "selectedIconPath": "static/tab/trade-active.png",
         "text": "交易"
       },
-      // {
-      //   "pagePath": "pages/page-market/index",
-      //   "iconPath": "static/tab/market.png",
-      //   "selectedIconPath": "static/tab/market-active.png",
-      //   "text": "行情"
-      // },
       {
         "pagePath": "pages/mine/index",
         "iconPath": "static/tab/mine.png",

@@ -1,6 +1,6 @@
 <template>
-  <view class="first-rest-pwd">
-    <view class="page-box">
+  <view class="info-page-bg first-rest-pwd">
+    <view class="info-page-content page-box">
       <u-form :model="form" ref="form" :rules="rules">
         <u-form-item class="item" prop="oldPassWord">
           <view class="item">
@@ -148,9 +148,6 @@ export default {
 
 <style lang="scss">
 .first-rest-pwd {
-  padding-top: 20rpx;
-  background: #0e1216;
-  height: 100%;
 
   .item {
     width: 100%;
@@ -167,13 +164,6 @@ export default {
     height: 96rpx;
   }
 
-  .page-box {
-    background: #fff;
-    border-top-left-radius: 22rpx;
-    border-top-right-radius: 22rpx;
-    padding: 52rpx 28rpx;
-    height: 100%;
-  }
 
   .ipt {
     background-color: #F1F1F1;

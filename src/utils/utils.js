@@ -34,6 +34,16 @@ export const hiddenEmail = str => {
 export const hiddenIden = str => {
   return str.substr(0, 4) + '****' + str.substr(str.length - 4, 4)
 }
+// 校验身份证号
+export const idReg = str => {
+  const reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+  return reg.test(str)
+}
+// 校验名字
+export const nameReg = str => {
+  const reg = /^[\u4e00-\u9fa5.·]{2,20}$/;
+  return reg.test(str)
+}
 
 // 更新用户信息
 export const updatUserInfo = () => {

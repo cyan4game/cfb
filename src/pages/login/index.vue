@@ -101,7 +101,7 @@ export default {
 
   .login-bg {
     height: 588rpx;
-    background-color: #111;
+    background-color: #0c1114;
     position: relative;
     background-image: url('../../static/images/login/login-bg.png');
     background-size: 100% 100%;

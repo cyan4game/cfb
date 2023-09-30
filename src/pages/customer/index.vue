@@ -1,7 +1,7 @@
 <!-- 客服 -->
 <template>
-    <view class="page-customer">
-        <view class="content-box">
+    <view class="info-page-bg page-customer">
+        <view class="info-page-content content-box">
 
             <view class="top">您好，很抱歉我们暂时无法为您提供服务，如需帮助， 请留言，我们将尽快联系并解决您的问题 </view>
             <view class="title">
@@ -224,20 +224,10 @@ export default {
 
 <style lang="scss" scoped>
 .page-customer {
-    background-color: #0e1216;
-    padding-top: 20rpx;
-    height: 100%;
-    box-sizing: border-box;
 
     .content-box {
-        box-sizing: border-box;
-        border-top-left-radius: 22rpx;
-        border-top-right-radius: 22rpx;
-        background-color: #fff;
-        padding: 100rpx 28rpx 180rpx 28rpx;
         font-size: 26rpx;
         color: #433F48;
-        min-height: 100vh;
 
         .top {
             padding: 0 44rpx 80rpx 44rpx;

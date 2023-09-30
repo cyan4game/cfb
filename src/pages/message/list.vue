@@ -1,7 +1,7 @@
 <!-- 消息列表 -->
 <template>
-    <view class="page-message">
-        <scroll-view class="content-box" scroll-y="true" @scrolltolower="loadingMore">
+    <view class="info-page-bg page-message">
+        <scroll-view class="info-page-content content-box" scroll-y="true" @scrolltolower="loadingMore">
             <view class="item" v-for="(item, i) in list" :key="i">
                 <view class="title">{{ item.title || '' }}</view>
                 <view class="info" >
@@ -94,18 +94,8 @@ export default {
 
 <style lang="scss" scoped>
 .page-message {
-    background-color: rgb(14, 18, 22);
-    height: 100%;
-    box-sizing: border-box;
-    padding-top: 20rpx;
 
     .content-box {
-        border-top-right-radius: 22rpx;
-        border-top-left-radius: 22rpx;
-        background-color: #F1F1F1;
-        padding: 52rpx 28rpx;
-        box-sizing: border-box;
-        height: 100%;
 
         .item {
             background-color: #fff;

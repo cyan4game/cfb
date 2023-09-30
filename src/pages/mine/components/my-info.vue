@@ -80,7 +80,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #111113;
+        color: #0c1114;
         font-size: 26rpx;
     }
 }
