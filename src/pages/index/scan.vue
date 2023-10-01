@@ -40,14 +40,34 @@ export default {
                     this.success(e)
                 }
             ).catch(
-                () => {
-                    this.errHandle()
+                (err) => {
+                    this.errHandle(err)
                 })
         },
         // 选择文件
         chooseFile() {
             uni.chooseImage({
                 count: 1,
+                sourceType: ['camera', 'album'],
+                success: (res) => {
+                    console.error(res.tempFiles[0])
+                    qrcode.decode(res.tempFiles[0].path)
+                    qrcode.callback = rs => {
+                        if (rs.includes('error')) {
+                            // 异常
+                            this.errHandle()
+                        } else {
+                            this.success(rs)
+                        }
+                    }
+                }
+            });
+        },
+        // 用相机拍照来扫码
+        caremaScan() {
+            uni.chooseImage({
+                count: 1,
+                sourceType: ['camera'],
                 success: (res) => {
                     console.error(res.tempFiles[0])
                     qrcode.decode(res.tempFiles[0].path)
@@ -63,8 +83,17 @@ export default {
             });
         },
         // 扫码异常
-        errHandle() {
-            console.error('异常')
+        errHandle(err) {
+            if (err) {
+                if (err.includes('streaming')) { // 浏览器不支持摄像流
+                    uni.showToast({
+                        title: '当前浏览器暂不支持扫码，请上传图片进行识别',
+                        icon: 'none',
+                        duration: 5000
+                    });
+                }
+            }
+            console.error('异常', err)
         },
         // 扫码成功
         success(rs) {
