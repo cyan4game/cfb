@@ -114,7 +114,7 @@ export default {
         }
         .tip {
                 width: 100%;
-                color: red;
+                color: #E63C3C;
                 font-size: 24rpx;
                 margin-top: 4rpx;
             }

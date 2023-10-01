@@ -383,6 +383,38 @@
       }
     },
     {
+      "path": "pages/index/flashExchange",
+      "style": {
+        "navigationBarBackgroundColor": "#0c1114",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "闪兑"
+      }
+    },
+    {
+      "path": "pages/index/collection",
+      "style": {
+        "navigationBarBackgroundColor": "#0c1114",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "收款码"
+      }
+    },
+    {
+      "path": "pages/index/deposit",
+      "style": {
+        "navigationBarBackgroundColor": "#0c1114",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "充币"
+      }
+    },
+    {
+      "path": "pages/index/scan",
+      "style": {
+        "navigationBarBackgroundColor": "#0c1114",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "扫码"
+      }
+    },
+    {
       "path": "pages/safety/index",
       "style": {
         "navigationBarBackgroundColor": "#0c1114",

@@ -3,11 +3,12 @@
     <view class="page-index">
 
         <!-- 顶部 -->
-        <u-sticky  offsetTop="0" customNavHeight="0">
+        <u-sticky offsetTop="0" customNavHeight="0">
             <view class="top">
                 <u-image class="icon" src="/static/images/index/kefu.png" width="46rpx" height="40rpx"></u-image>
                 <view>财富宝</view>
-                <u-image @click="jump('/pages/message/index')" class="icon" src="/static/images/index/msg.png" width="40rpx" height="36rpx"></u-image>
+                <u-image @click="jump('/pages/message/index')" class="icon" src="/static/images/index/msg.png" width="40rpx"
+                    height="36rpx"></u-image>
             </view>
         </u-sticky>
 
@@ -18,7 +19,7 @@
             <user-balance />
             <!-- 导航 -->
             <view class="navs">
-                <view class="nav">
+                <view class="nav" @click="jump('/pages/index/deposit')">
                     <text>链上充币</text>
                     <view class="icon">
                         <u-image src="/static/images/index/recharge.png" width="80rpx" height="75rpx"></u-image>
@@ -46,7 +47,7 @@ import indexMenu from './components/index-menu.vue'
 export default {
     data() {
         return {
-            
+
         }
     },
     components: {
@@ -57,7 +58,7 @@ export default {
     methods: {
         jump(name) {
             uni.navigateTo({
-                 url: name
+                url: name
             })
         }
     }
@@ -89,6 +90,7 @@ export default {
             align-items: center;
             justify-content: space-between;
             margin-top: 23rpx;
+
             .nav {
                 width: 49%;
                 height: 111rpx;

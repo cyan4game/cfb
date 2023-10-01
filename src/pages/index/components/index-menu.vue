@@ -18,8 +18,8 @@ export default {
         return {
             navs: [
                 { key: 1, name: '扫一扫', icon: '/static/images/index/nav-1.png', route: '' },
-                { key: 2, name: '收币', icon: '/static/images/index/nav-2.png', route: '' },
-                { key: 3, name: '闪兑', icon: '/static/images/index/nav-3.png', route: '' },
+                { key: 2, name: '收币', icon: '/static/images/index/nav-2.png', route: '/pages/index/collection' },
+                { key: 3, name: '闪兑', icon: '/static/images/index/nav-3.png', route: '/pages/index/flashExchange' },
                 { key: 4, name: '我的订单', icon: '/static/images/index/nav-4.png', route: '' },
                 { key: 5, name: '我的挂单', icon: '/static/images/index/nav-5.png', route: '' },
                 { key: 6, name: '教程', icon: '/static/images/index/nav-6.png', route: '' },
@@ -28,20 +28,32 @@ export default {
     },
     methods: {
         handleClick(item) {
-            switch(item.key) {
+            switch (item.key) {
                 case 1:
                     this.scan()
                     break
+                default:
+                    uni.navigateTo({
+                        url: item.route
+                    })
             }
         },
         // 扫一扫
         scan() {
+            // #ifdef APP-PLUS
             uni.scanCode({
                 success: function (res) {
                     console.log('条码类型：' + res.scanType);
                     console.log('条码内容：' + res.result);
                 }
             });
+            // #endif
+
+            // #ifdef H5
+            uni.navigateTo({
+                 url: '/pages/index/scan'
+            })
+            // #endif
         }
     }
 };
