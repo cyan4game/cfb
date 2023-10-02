@@ -45,15 +45,23 @@ export default {
             userInfo: {},
             list: [],
             status: {}, // 状态 wechat  alipay   bank
+
+            idenInfo: {}, // 认证信息
         }
     },
     onShow() {
         this.userInfo = storage.get('userInfo') || {}
+        this.idenInfo = storage.get('idenInfo') || {}
         this.checkStatus()
     },
     methods: {
         // 跳转
         jump(name) {
+            if (!this.idenInfo.type) return uni.showToast({
+                title: '请先完成实名认证',
+                icon: 'none',
+                duration: 2000
+            })
             uni.navigateTo({
                  url: name
             })
@@ -64,7 +72,7 @@ export default {
             if (paywayMap) {
                 this.status = paywayMap
             }
-            queryPayBindInfo(this.userInfo.id).then(res => {
+            queryPayBindInfo().then(res => {
                 if (res.code == 200) {
                     this.status = res.data
                     storage.set('paywayMap', res.data)

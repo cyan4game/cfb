@@ -9,7 +9,7 @@
             <view class="name">{{ userInfo.nickname || '未设置昵称' }}</view>
             <view>{{ userInfo.phoneNumber ? hiddenStr(userInfo.phoneNumber) : '未绑定手机号' }}</view>
         </view>
-        <view class="btn" @click="goIden">基础认证</view>
+        <view class="btn" @click="goIden">{{ idenText }}</view>
     </view>
 </template>
 
@@ -21,6 +21,19 @@ export default {
         userInfo: { // 用户信息
             type: Object,
             default: () => {}
+        },
+        idenInfo: { // 认证信息
+            type: Object,
+            default: () => {}
+        },
+    },
+    computed: {
+        idenText() { // 认证状态
+            const iden = this.idenInfo
+            if (!iden || !iden.type) return '未认证'
+            if (iden.type == 1 || (iden.type == 2 && iden.auditStatus != 1)) return '基础认证'
+            if (iden.type == 2 && iden.auditStatus == 1) return '标准认证'
+            return '--'
         }
     },
     methods: {

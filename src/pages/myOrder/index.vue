@@ -1,299 +1,393 @@
+<!-- 订单 -->
 <template>
-  <view class="trade-view">
-    <view class="menu-content">
-      <view class="menu-but flex-box">
+  <view class="info-page-bg page-myorder">
+    <view class="info-page-content content-box">
+      <!-- 分类导航 -->
+      <view class="navs">
         <view
-          class="menu-list"
-          :class="{ 'menu-list-active': current === item.key }"
-          v-for="(item, index) in currencyList"
-          :key="index"
-          @click="changeMenu(item)"
+          class="nav"
+          :class="{ 'active-nav': activeNav == 1 }"
+          @click="changeNav(1)"
+          >未完成</view
         >
-          {{ item.label }}
+        <view
+          class="nav"
+          :class="{ 'active-nav': activeNav == 2 }"
+          @click="changeNav(2)"
+          >已结束</view
+        >
+
+        <u-image
+          @click="openFilter"
+          class="filter"
+          src="/static/images/home/filter.png"
+          width="31rpx"
+          height="33rpx"
+        ></u-image>
+      </view>
+
+      <!-- 状态导航 -->
+      <view class="tabs">
+        <view
+          class="tab"
+          :class="{ 'active-tab': activeTab == 0 }"
+          @click="changeTab(0)"
+          >全部</view
+        >
+        <view
+          class="tab"
+          v-show="activeNav == 1"
+          :class="{ 'active-tab': activeTab == 1 }"
+          @click="changeTab(1)"
+          >进行中
+        </view>
+        <view
+          class="tab"
+          v-show="activeNav == 1"
+          :class="{ 'active-tab': activeTab == 2 }"
+          @click="changeTab(2)"
+          >申述中
+        </view>
+        <view
+          class="tab"
+          v-show="activeNav == 2"
+          :class="{ 'active-tab': activeTab == 3 }"
+          @click="changeTab(3)"
+          >已完成
+        </view>
+        <view
+          class="tab"
+          v-show="activeNav == 2"
+          :class="{ 'active-tab': activeTab == 4 }"
+          @click="changeTab(4)"
+          >已取消
         </view>
       </view>
+
+      <!-- 列表 -->
+      <scroll-view scroll-y="true" class="list" @scrolltolower="loadMore">
+        <Item class="item-box" v-for="i in 20" :key="i" />
+
+        <!-- 加载状态 -->
+        <view class="more">{{
+          finish ? "没有更多了" : loading ? "加载中" : "加载更多"
+        }}</view>
+      </scroll-view>
     </view>
-    <view class="trade-header">
-      <!-- <u-tabs
-        lineWidth="50rpx"
-        lineHeight="6rpx"
-        lineColor="#505bde"
-        :current="current"
-        :activeStyle="{
-          color: '#505bde',
-          fontSize: '14px',
-        }"
-        :inactiveStyle="{
-          color: '#999999',
-        }"
-        itemStyle="font-size:14px;box-sizing:border-box;padding:5px 10px;"
-        :list="currencyList"
-        @click="changeCurrency"
-      ></u-tabs> -->
-      <view class="flex-box status-list" @touchstart.stop>
-        <view
-          class="menu-list"
-          :class="{ 'menu-list-active': status === item.key }"
-          v-for="(item, index) in statusList"
-          :key="index"
-          @click="changeStatusMenu(item)"
-        >
-          {{ item.name }}
+
+    <!-- 筛选弹框 -->
+    <uni-popup ref="popup" type="bottom">
+      <view class="filter-box">
+        <view class="title">
+          <text>筛选</text>
+          <view class="close" @click="() => $refs.popup.close()">×</view>
+        </view>
+        <!-- 类型选择 -->
+        <view class="box type-box">
+          <view class="subtitle">交易类型</view>
+          <view class="type-item">
+            <text>购买</text>
+            <view class="check checked"><view class="in"></view></view>
+          </view>
+          <view class="type-item">
+            <text>出售</text>
+            <view class="check"><view class="in"></view></view>
+          </view>
+        </view>
+        <!-- 时间筛选 -->
+        <view class="box time-box">
+          <view class="subtitle">下单日期</view>
+          <view class="times">
+            <picker
+              class="time"
+              mode="date"
+              :value="form.start"
+              @change="(e) => (form.start = e.detail.value)"
+            >
+              <view class="uni-input">{{ form.start || "开始日期" }}</view>
+            </picker>
+            <text class="to">至</text>
+            <picker
+              class="time"
+              mode="date"
+              :value="form.end"
+              @change="(e) => (form.end = e.detail.value)"
+            >
+              <view class="uni-input">{{ form.end || "结束日期" }}</view>
+            </picker>
+          </view>
+          <view class="faster-box">
+            <view class="faster">近7天</view>
+            <view class="faster">近3个月</view>
+            <view class="faster">近6个月</view>
+            <view class="faster">近1年</view>
+          </view>
+          <view class="btns">
+            <view class="btn">重置</view>
+            <view class="btn acrive-btn">确认</view>
+          </view>
         </view>
       </view>
-    </view>
-    <view class="view-content">
-      <view class="view-full-scroll" v-if="isShow">
-        <u-list class="full-list" height="100%" @scrolltolower="loadMore">
-          <u-list-item v-for="(item, index) in dataList" :key="index">
-            <tradeItem :current="current" :count="count" :item="item" />
-          </u-list-item>
-          <u-loadmore v-show="dataList.length > 10" :status="loadStatus" />
-        </u-list>
-      </view>
-    </view>
+    </uni-popup>
   </view>
 </template>
 
 <script>
-import { postBar, orderStatus } from "../../utils/data";
-import { getMyOrders, queryTrade } from "../../api/api";
-import tradeItem from "./components/trade-item";
-import { debounce } from "../../utils/debounce";
-import { mapGetters } from "vuex";
-import time from "../../mixins/time";
+import Item from "./components/trade-item.vue";
 
 export default {
-  name: "index",
-  components: { tradeItem },
-  mixins: [time],
+  name: "my-order",
+  components: {
+    Item,
+  },
   data() {
     return {
-      current: "1",
-      currencyList: [
-        { label: "购买单", key: "1" },
-        { label: "出售单", key: "0" },
-      ],
-      orderStatus: [],
-      status: "",
-      page: {
-        currentPage: 1,
-        pageSize: 20,
+      activeNav: 1, // 1-未完成 2-完成
+      activeTab: 0,
+
+      form: {
+        start: "",
+        end: "",
       },
-      dataList: [],
-      loadStatus: "loadmore",
-      pages: 1,
-      isLoad: false,
-      isShow: true,
+
+      list: [],
+      loading: false,
+      finish: false,
     };
   },
-  onLoad({ current }) {
-    this.current = current || "1";
-  },
-  computed: {
-    ...mapGetters("user", ["userInfo"]),
-    statusList() {
-      return orderStatus;
-    },
-  },
-  watch: {
-    count(val) {
-      let count = 0;
-      this.dataList.forEach((item) => {
-        if (item.status === "1" || item.status === "2") {
-          if (val < +item.expireDate) {
-            count++;
-          } else {
-            this.debounceFn();
-          }
-        }
-      });
-      if (count === 0) {
-        this.closeTimer();
-      }
-    },
-  },
-  onShow() {
-    this.getData();
-    this.debounceFn = debounce(this.getData, 60000);
-  },
-  async onPullDownRefresh() {
-    this.page.currentPage = 1;
-    await this.getData();
-    // setTimeout(() => {
-    uni.stopPullDownRefresh();
-    // }, 1000);
-  },
   methods: {
-    changeCurrency({ value }) {
-      this.isShow = false;
-      this.dataList = [];
-      this.$nextTick(() => {
-        this.isShow = true;
-        // this.dataList = [];
-        this.page.currentPage = 1;
-        this.current = value;
-        this.status = "";
-        this.getData();
-      });
+    // 切换分类
+    changeNav(key) {
+      this.activeTab = 0;
+      this.activeNav = key;
     },
-    changeMenu(item) {
-      this.current = item.key;
-      this.getData();
-    },
-    changeStatusMenu(item) {
-      this.status = item.key;
-      this.getData();
-    },
-    getData() {
-      return new Promise(async (resolve) => {
-        if (this.current === 0) {
-          await this.getTrade();
-        } else {
-          await this.getPost();
-        }
-        resolve();
-      });
-    },
-    getPost() {
-      const params = {
-        status: this.status,
-        ...this.page,
-      };
-      this.closeTimer(); // 请求我的发布 关闭订单倒计时
-      return new Promise((resolve) => {
-        queryTrade(params)
-          .then((res) => {
-            if (res.code.toString() === "0" && res.data) {
-              if (this.isLoad) {
-                this.dataList = this.dataList.concat(...res.data.rows);
-              } else {
-                this.dataList = [...res.data.rows];
-              }
-            } else {
-              this.dataList = [];
-            }
-            this.isLoad = false;
-            resolve();
-          })
-          .catch(() => {
-            this.isLoad = false;
-          });
-      });
-    },
-    // 获取订单列表
-    getTrade() {
-      const params = {
-        status: this.status,
-        ...this.page,
-      };
-      return new Promise((resolve) => {
-        getMyOrders(params)
-          .then((res) => {
-            if (res.code.toString() === "0" && res.data) {
-              if (this.isLoad) {
-                this.dataList = this.dataList.concat(
-                  this.returnTrade(res.data.rows)
-                );
-              } else {
-                this.dataList = res.data.rows;
-              }
-              this.startTimer();
-            } else {
-              this.dataList = [];
-            }
-            this.isLoad = false;
-            resolve();
-          })
-          .catch(() => {
-            this.isLoad = false;
-          });
-      });
+    // 切换分类
+    changeTab(key) {
+      this.activeTab = key;
     },
     // 加载更多
-    async loadMore() {
-      if (this.page.currentPage > this.pages) {
-        this.loadStatus = "nomore";
-      } else {
-        this.isLoad = true;
-        this.page.currentPage++;
-        this.loadStatus = "loading";
-        await this.getData();
-        if (this.page.currentPage > this.pages) {
-          this.loadStatus = "nomore";
-        } else {
-          this.loadStatus = "loadmore";
-        }
-      }
+    loadMore() {
+      console.error("加载更多");
+    },
+    // 打开筛选
+    openFilter() {
+      this.$refs.popup.open();
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.trade-view {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  .menu-content {
-    width: 100%;
-    background: #fff;
+.page-myorder {
+  .content-box {
+    border-radius: 6rpx;
     display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .navs {
+    display: flex;
+    align-items: stretch;
     justify-content: flex-start;
-    padding: 15px 0 0 15px;
-    .menu-but {
-      border-radius: 5px;
-      border: 1px solid #5157e6;
-      .menu-list {
-        font-size: 14px;
-        color: #505bde;
-        padding: 5px 25px;
-        &-active {
-          background: #505bde;
-          color: #fff;
+    height: 127rpx;
+    color: #827e88;
+    font-size: 30rpx;
+    border-bottom: 1px solid #dfdfdf;
+    padding-left: 57rpx;
+    position: relative;
+
+    .nav {
+      margin-right: 70rpx;
+      display: flex;
+      align-items: center;
+    }
+
+    .active-nav {
+      color: #38363b;
+      font-size: 32rpx;
+      border-bottom: 8rpx solid #449367;
+    }
+
+    .filter {
+      position: absolute;
+      right: 57rpx;
+      top: 50rpx;
+    }
+  }
+
+  .tabs {
+    height: 103rpx;
+    padding-left: 54rpx;
+    color: #454545;
+    font-size: 26rpx;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .tab {
+      margin-right: 58rpx;
+      align-items: center;
+      display: flex;
+    }
+
+    .active-tab {
+      background-color: #f0f0f0;
+      border-radius: 7rpx;
+      height: 55rpx;
+      padding: 0 30rpx;
+    }
+  }
+
+  .list {
+    flex: 1;
+    overflow: hidden;
+    padding: 28rpx;
+    background-color: #f1f1f1;
+    box-sizing: border-box;
+
+    .more {
+      padding: 40rpx 0;
+      text-align: center;
+      color: #999;
+      font-size: 24rpx;
+    }
+
+    .item-box {
+      margin-bottom: 20rpx;
+    }
+  }
+
+  .filter-box {
+    height: 936rpx;
+    background-color: #fff;
+    border-top-right-radius: 3rpx;
+    border-top-left-radius: 3rpx;
+    font-weight: 400;
+
+    .title {
+      height: 128rpx;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40rpx 0 60rpx;
+      border-bottom: 1px solid #dfdfdf;
+      color: #38363b;
+      font-size: 36rpx;
+
+      .close {
+        width: 40rpx;
+        height: 40rpx;
+        text-align: center;
+        background-color: #eeeeee;
+        border-radius: 50%;
+        line-height: 36rpx;
+        color: #888888;
+      }
+    }
+    .subtitle {
+      color: #38363b;
+      font-size: 32rpx;
+      font-weight: 500;
+      margin-bottom: 20rpx;
+    }
+    .box {
+      box-sizing: border-box;
+      padding: 40rpx 40rpx 40rpx 50rpx;
+      height: 300rpx;
+    }
+    .type-box {
+      border-bottom: 1px solid #dfdfdf;
+      .type-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #38363b;
+        font-size: 32rpx;
+        height: 76rpx;
+        .check {
+          width: 41rpx;
+          height: 41rpx;
+          border-radius: 50%;
+          border: 1px solid #c7c7c7;
+          box-sizing: border-box;
+        }
+        .checked {
+          border: 1px solid #449367;
+          padding: 6rpx;
+          .in {
+            width: 100%;
+            height: 100%;
+            background-color: #449367;
+            border-radius: 50%;
+          }
         }
       }
     }
-  }
-  .trade-header {
-    width: 100%;
-    background: #fff;
-    padding: 0 15px 0;
-
-    .status-list {
-      flex-basis: 88px;
-      flex-shrink: 0;
-      white-space: nowrap;
-      overflow-x: scroll;
-      padding: 0 15px 16px 0;
-    }
-
-    .menu-list {
-      font-size: 14px;
-      color: #999999;
-      padding: 5px 10px;
-      margin-top: 15px;
-
-      &-active {
-        background: #505bde;
-        border-radius: 3px;
-        color: #fff;
+    .time-box {
+      .times {
+        display: flex;
+        align-items: center;
+        color: #4f4c53;
+        font-size: 28rpx;
+        margin: 40rpx 0;
+        .time {
+          background-color: #f1f1f1;
+          height: 72rpx;
+          flex: 1;
+          border-radius: 6rpx;
+          ::v-deep .uni-input {
+            background-color: #f1f1f1;
+          }
+        }
+        .to {
+          margin: 0 20rpx;
+        }
       }
     }
-  }
-
-  .view-content {
-    flex: 1;
-    position: relative;
-
-    .view-full-scroll {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      left: 0;
-      top: 0;
-      box-sizing: border-box;
-      padding: 20rpx 20rpx 0;
+    .faster-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .faster {
+        width: 23%;
+        height: 61rpx;
+        border: 1px solid #c7c7c7;
+        color: #797480;
+        font-size: 24rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .active-faster {
+        color: 449367;
+        border: 1px solid #449367;
+      }
+    }
+    .btns {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 60rpx;
+      .btn {
+        width: 188rpx;
+        height: 97rpx;
+        border-radius: 6rpx;
+        border: 1px solid #38363b;
+        color: #38363b;
+        font-size: 30rpx;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+      }
+      .acrive-btn {
+        width: 451rpx;
+        background-color: #449367;
+        color: #fff;
+        border: none;
+      }
     }
   }
 }

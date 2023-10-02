@@ -131,3 +131,18 @@ export function route(data) {
   if (typeof data === "string") uni.$u.route(data);
   if (typeof data === "object") uni.$u.route({ ...data });
 }
+
+// 秒数转换为分钟
+export function secondsToMinutesAndSeconds(seconds) {
+  if (typeof seconds !== 'number' || seconds < 0) {
+    return 'Invalid input';
+  }
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  const minutesString = minutes < 10 ? `0${minutes}` : minutes.toString();
+  const secondsString = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds.toString();
+
+  return `${minutesString}:${secondsString}`;
+}

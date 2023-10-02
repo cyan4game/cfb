@@ -215,7 +215,15 @@
       "style": {
         "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "我的订单"
+        "navigationBarTitleText": "订单"
+      }
+    },
+    {
+      "path": "pages/myOrder/info",
+      "style": {
+        "navigationBarBackgroundColor": "#0c1114",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": " "
       }
     },
     {

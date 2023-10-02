@@ -200,7 +200,6 @@ export default {
         // 获取认证信息
         getIdenInfo() {
             certificateQuery().then(res => {
-                console.error('??', res)
                 if (res.code == 200) {
                     this.idenInfo = res.data || {
                         type: 0,

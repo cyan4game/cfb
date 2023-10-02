@@ -14,7 +14,7 @@
         <view class="page-content">
 
            <!-- 基础信息 -->
-           <my-info :userInfo="userInfo" />
+           <my-info :userInfo="userInfo" :idenInfo="idenInfo" />
 
            <!-- 导航 -->
            <view class="tabs">
@@ -46,7 +46,7 @@
 
 <script>
 import myInfo from './components/my-info.vue'
-import { memberInfo } from '@/api/api'
+import { memberInfo, certificateQuery } from '@/api/api'
 import storage from "../../utils/storage";
 
 
@@ -68,6 +68,7 @@ export default {
             ],
 
             userInfo: {}, // 用户数据
+            idenInfo: {}, // 认证状态
         }
     },
     components: {
@@ -75,11 +76,25 @@ export default {
     },
     onLoad() {
         this.getUserinfo()
+        this.getIdenInfo()
     },
     onShow() {
         this.userInfo = storage.get('userInfo') || {}
+        this.idenInfo = storage.get('idenInfo') || {}
     },
     methods: {
+        // 获取认证信息
+        getIdenInfo() {
+            certificateQuery().then(res => {
+                if (res.code == 200) {
+                    this.idenInfo = res.data || {
+                        type: 0,
+                        auditStatus: 0,
+                    }
+                    storage.set('idenInfo', this.idenInfo)
+                }
+            })
+        },
         // 获取个人信息
         getUserinfo() {
             this.userInfo = storage.get('userInfo') || {}

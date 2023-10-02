@@ -1,155 +1,154 @@
+<!-- 订单元素 -->
 <template>
-  <view class="trade-item" @click="pageTo">
-    <view class="flex-box-between">
-      <text class="t-label">
-        {{ Number(item.advertiseType) === 0 ? "购买" : "出售" }}{{ item.coinUnit }}
-      </text>
-      <view class="flex-box">
-        <text class="time-value success">{{ item.createTime }}</text>
-        <u-image
-          width="24px"
-          height="24px"
-          src="/static/icons/right.svg"
-        ></u-image>
+  <view class="trade-item" @click="goDetail">
+    <!-- 头部信息 -->
+    <view class="top">
+      <view class="title">
+        <text class="status">出售</text>
+        <text>CFB</text>
+      </view>
+      <view class="time">
+        <text class="timedown">{{ timeStr }} 待付款</text>
+        &gt;
       </view>
     </view>
-    <view class="mt-10 flex-box-between">
-      <view class="flex-box">
-        <text class="t-label">单价</text>
-        <text class="t-value">￥{{ item.price }}</text>
+
+    <!-- 金额详情 -->
+    <view class="amount-box">
+      <view class="left">
+        <view>价格 1.01CNY</view>
+        <view>数量 1.01CFB</view>
       </view>
-      <view class="show-status">
-        <text
-          v-if="current === 0"
-          :class="returnStatus(orderStatus, item.status).color"
-        >
-          {{ returnStatus(orderStatus, item.status).name }}
-        </text>
-        <text
-          v-else
-          :class="
-            item.status === '0' && item.isCreateOrder === '1'
-              ? 'primary'
-              : returnStatus(postBar, item.status).color
-          "
-        >{{
-            item.status === "0" && item.isCreateOrder === "1"
-              ? "交易中"
-              : returnName(item.status).name
-          }}
-        </text
-        >
-        <text
-          v-if="(item.status == 1 || item.status == 2) && current === 0"
-          class="time-countdown"
-        >
-          {{
-            formatTime(
-              +item.expireDate - count > 0 ? +item.expireDate - count : 0
-            )
-          }}
-        </text>
+      <view class="total">CNY 10062</view>
+    </view>
+
+    <!-- 底部信息 -->
+    <view class="bottom">
+      <view class="seller">
+        <view class="avatar">诚</view>
+        <view>诚信商行</view>
       </view>
-    </view>
-    <view class="mt-10 flex-box">
-      <text class="t-label">数量</text>
-      <text class="t-value">{{ item.number }}/{{ item.coinUnit }}</text>
-    </view>
-    <view class="mt-10 flex-box">
-      <text class="t-label">{{ current === 0 ? "交易" : "挂单" }}金额</text>
-      <text class="t-value">￥{{ item.amount }}</text>
-    </view>
-    <view v-if="current === 1" class="mt-10 flex-box">
-      <text class="t-label">完成率</text>
-      <u-line-progress
-        style="margin-left: 20rpx"
-        :percentage="+(item.finishAmount / item.amount * 100).toFixed(2)"
-        activeColor="#78b546"
-      ></u-line-progress>
+      <view class="date">2023/06/17 13:00</view>
     </view>
   </view>
 </template>
 
 <script>
-import {postBar, orderStatus} from "../../../utils/data"
-import {formatTime} from "../../../utils/utils"
+import { secondsToMinutesAndSeconds } from "@/utils/utils";
 
 export default {
-  name: "trade-item",
-  props: {
-    item: {
-      type: Object,
-    },
-    count: {
-      type: Number,
-      required: true,
-    },
-    current: {
-      type: Number,
-    },
-  },
-  data () {
+  name: "tradeItem",
+  data() {
     return {
-      orderStatus,
-      postBar,
-      formatTime,
+      interval: null,
+      time: 300,
+      timeStr: "",
+    };
+  },
+  mounted() {
+    if (this.time) {
+      this.timeStr = secondsToMinutesAndSeconds(this.time);
+      this.interval = setInterval(() => {
+        this.time--;
+        if (this.time) {
+          this.timeStr = secondsToMinutesAndSeconds(this.time);
+        } else {
+          // todo 状态已结束
+          clearInterval(this.interval);
+        }
+      }, 1000);
     }
   },
-  methods: {
-    returnStatus (list, status) {
-      return list.find((item) => item.key === status)
-    },
-    returnName (status) {
-      return postBar.find((item) => item.key === status)
-    },
-    pageTo () {
-      const {tradeId, orderSn, advertiseNo} = this.item
-      console.log(this.item)
-      this.router({
-        url:
-          this.current === 1
-            ? "pages/postDetails/index"
-            : "pages/tradeDetails/index",
-        params: {
-          id: this.current === 1 ? advertiseNo : orderSn,
-        },
-      })
-    },
+  beforeDestroy() {
+    if (this.interval) clearInterval(this.interval);
   },
-}
+  methods: {
+    // 跳转到详情
+    goDetail() {
+        uni.navigateTo({
+             url: '/pages/myOrder/info'
+        })
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 .trade-item {
-  padding: 32rpx 12rpx 12rpx 32rpx;
-  background: #fff;
-  margin-bottom: 12rpx;
-  border-radius: 10rpx;
-
-  .t-label {
-    color: #333333;
-    font-size: 28rpx;
+  height: 366rpx;
+  border-radius: 9rpx;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 0 43rpx;
+  font-weight: 400;
+  .top {
+    height: 103rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 26rpx;
+    .title {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      color: #343635;
+      .status {
+        color: #da3030;
+        margin-right: 10rpx;
+      }
+    }
+    .time {
+      color: #f09831;
+      .timedown {
+        margin-right: 10rpx;
+      }
+    }
   }
-
-  .t-value {
-    color: #666666;
-    font-size: 28rpx;
-    margin-left: 20rpx;
+  .amount-box {
+    display: flex;
+    align-items: center;
+    height: 158rpx;
+    .left {
+      color: #696969;
+      font-size: 28rpx;
+      line-height: 55rpx;
+    }
+    .total {
+      flex: 1;
+      font-weight: 500;
+      color: #343635;
+      font-size: 46rpx;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
   }
-
-  .time-value {
-    color: #999999;
-    font-size: 24rpx;
-  }
-
-  .show-status {
-    font-size: 28rpx;
-    padding-right: 20rpx;
-  }
-
-  .time-countdown {
-    margin-left: 12rpx;
-    color: #ef3c3c;
+  .bottom {
+    height: 103rpx;
+    border-top: 1px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #686868;
+    font-size: 26rpx;
+    .seller {
+      display: flex;
+      align-items: center;
+      font-size: 28rpx;
+      color: #484848;
+      .avatar {
+        background-color: #449367;
+        color: #fff;
+        width: 40rpx;
+        height: 40rpx;
+        border-radius: 50%;
+        margin-right: 15rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24rpx;
+      }
+    }
   }
 }
 </style>

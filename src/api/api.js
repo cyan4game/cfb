@@ -121,8 +121,8 @@ export const delAddress = (id) => {
   });
 };
 // 查询支付绑定状态信息-根据memberId
-export const queryPayBindInfo = (memberId) => {
-  return http.post(`/member-paymodel/queryBindInfo/${memberId}`, null, {
+export const queryPayBindInfo = () => {
+  return http.post(`/member-paymodel/queryBindInfo`, null, {
     custom: { toast: true, auth: true },
   });
 };

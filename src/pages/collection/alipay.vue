@@ -6,7 +6,7 @@
 
             <view class="item">
                 <text>支付宝姓名</text>
-                <input class="item-ipt" placeholder="请输入支付宝姓名" type="text" v-model.trim="form.realName">
+                <input disabled class="item-ipt" placeholder="请输入支付宝姓名" type="text" v-model.trim="form.realName">
             </view>
 
             <view class="item">
@@ -47,16 +47,19 @@ export default {
         return {
             loading: false,
             userInfo: {},
+            idenInfo: {},
             form: {
                 payType: 1,
                 realName: '', // 真实姓名
                 accountName: '', // 账号 银行卡是卡号；微信是微信号；支付宝是支付宝账号；云闪付是
-                qrCode: 'das', // 支付二维码地址或者银行卡号，默认为空
+                qrCode: '', // 支付二维码地址或者银行卡号，默认为空
             }
         }
     },
     onShow() {
         this.userInfo = storage.get('userInfo') || {}
+        this.idenInfo = storage.get('idenInfo') || {}
+        this.form.realName = this.idenInfo.realName
         this.getInfo()
     },
     methods: {
@@ -66,8 +69,7 @@ export default {
                 // memberId: this.userInfo.id,
                 payType: this.form.payType,
             }).then(res => {
-                console.error(res)
-                if (res.code == 200) {
+                if (res.code == 200 && res.data) {
                     this.form.id = res.data.id
                     this.form.realName = res.data.realName
                     this.form.accountName = res.data.accountName
@@ -209,8 +211,10 @@ export default {
         justify-content: center;
         position: fixed;
         bottom: 60rpx;
+        font-size: 28rpx;
         left: 50%;
         transform: translateX(-50%);
+        
     }
 }
 </style>

@@ -6,7 +6,7 @@
 
             <view class="item">
                 <text>真实姓名</text>
-                <input class="item-ipt" placeholder="请输入真实姓名" type="text" v-model.trim="form.realName">
+                <input disabled class="item-ipt" placeholder="请输入真实姓名" type="text" v-model.trim="form.realName">
             </view>
 
             <view class="item">
@@ -55,6 +55,8 @@ export default {
     },
     onShow() {
         this.userInfo = storage.get('userInfo') || {}
+        this.idenInfo = storage.get('idenInfo') || {}
+        this.form.realName = this.idenInfo.realName
         this.getInfo()
     },
     methods: {
@@ -64,8 +66,7 @@ export default {
                 // memberId: this.userInfo.id,
                 payType: this.form.payType,
             }).then(res => {
-                console.error(res)
-                if (res.code == 200) {
+                if (res.code == 200 &&res.data) {
                     this.form.id = res.data.id
                     this.form.realName = res.data.realName
                     this.form.bankName = res.data.bankName
