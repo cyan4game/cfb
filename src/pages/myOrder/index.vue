@@ -306,23 +306,6 @@ export default {
         color: #38363b;
         font-size: 32rpx;
         height: 76rpx;
-        .check {
-          width: 41rpx;
-          height: 41rpx;
-          border-radius: 50%;
-          border: 1px solid #c7c7c7;
-          box-sizing: border-box;
-        }
-        .checked {
-          border: 1px solid #449367;
-          padding: 6rpx;
-          .in {
-            width: 100%;
-            height: 100%;
-            background-color: #449367;
-            border-radius: 50%;
-          }
-        }
       }
     }
     .time-box {

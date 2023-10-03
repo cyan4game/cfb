@@ -72,7 +72,7 @@
                     </view>
                     <!-- 详情 -->
                     <view class="intro">
-                        <view class="intro-item">完成标准认证(身分证正反面照片+手持身份证)</view>
+                        <view class="intro-item">完成标准认证(身份证正反面照片+手持身份证)</view>
                         <view class="intro-item">方可提高OTC及转帐交易额度</view>
                     </view>
                     <!-- 权限 -->

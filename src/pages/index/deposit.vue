@@ -1,6 +1,11 @@
 <!-- 充币 -->
 <template>
     <view class="page-deposit">
+
+        <!-- 浮标 -->
+        <u-image class="right-icon" style="right:130rpx" src="/static/images/index/icon-help.png" width="42rpx" height="42rpx"></u-image>
+        <u-image class="right-icon" src="/static/images/index/icon-his.png" width="45rpx" height="42rpx"></u-image>
+
         <!-- 币种 -->
         <view class="coin-box">
             <u-image class="icon" src="/static/images/index/usdt.png" width="50rpx" height="50rpx"></u-image>
@@ -76,6 +81,12 @@ export default {
 .page-deposit {
     padding: 53rpx 66rpx;
     box-sizing: border-box;
+    .right-icon {
+        position: fixed;
+        top: 26rpx;
+        right: 40rpx;
+        z-index: 999;
+    }
 
     .coin-box {
         height: 100rpx;

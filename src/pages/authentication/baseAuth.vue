@@ -36,7 +36,7 @@
         <u-form-item prop="idNumber" borderBottom>
           <view class="item">
             <u-text color="#505bde" text="身份证号"></u-text>
-            <u-input placeholder="请输入您的身分证号" v-model="form.idNumber">
+            <u-input placeholder="请输入您的身份证号" v-model="form.idNumber">
               <!--              <template slot="suffix">-->
               <!--                <u-image @click="showPassWord = !showPassWord" width="24px" height="24px" :src="require(`@/static/icons/eye-${showPassWord?'open':'close'}.svg`)"></u-image>-->
               <!--                &lt;!&ndash;                <u-icon  :name="showPassWord ? 'eye-off' : 'eye-fill'" size="24"></u-icon>&ndash;&gt;-->

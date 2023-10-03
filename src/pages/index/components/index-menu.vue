@@ -54,7 +54,7 @@ export default {
           key: 5,
           name: "我的挂单",
           icon: "/static/images/index/nav-5.png",
-          route: "",
+          route: "/pages/entrust/index",
         },
         {
           key: 6,

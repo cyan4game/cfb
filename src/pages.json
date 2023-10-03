@@ -211,6 +211,30 @@
       }
     },
     {
+      "path": "pages/entrust/index",
+      "style": {
+        "navigationBarBackgroundColor": "#0c1114",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "委托"
+      }
+    },
+    {
+      "path": "pages/entrust/info",
+      "style": {
+        "navigationBarBackgroundColor": "#0c1114",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": ""
+      }
+    },
+    {
+      "path": "pages/entrust/post",
+      "style": {
+        "navigationBarBackgroundColor": "#0c1114",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "发布委托"
+      }
+    },
+    {
       "path": "pages/myOrder/index",
       "style": {
         "navigationBarBackgroundColor": "#0c1114",

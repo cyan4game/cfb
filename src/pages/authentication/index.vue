@@ -52,7 +52,7 @@
             </view>
           </view>
           <view class="tips-text" v-if="!identityInfo.real">
-            <text>完成基础认证 (姓名+身分证号)</text>
+            <text>完成基础认证 (姓名+身份证号)</text>
             <view>方可进行OTC及转帐交易额度：</view>
           </view>
           <showLimit :config="config" :returnLimit="returnLimit" type="real" />
@@ -83,7 +83,7 @@
             </text>
           </view>
           <view class="tips-text">
-            <text>完成标准认证 (身分证正反面照片+手持身份证)</text>
+            <text>完成标准认证 (身份证正反面照片+手持身份证)</text>
             <view>方可提高OTC及转帐交易额度</view>
           </view>
           <showLimit

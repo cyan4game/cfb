@@ -164,12 +164,19 @@ export default {
 /* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
 @import "./common/uni.css";
 
+html {
+  overflow: hidden;
+}
+
 uni-page[data-page="pages/page-market/index"] uni-page-head-hd,
 uni-page[data-page="pages/payment/success"] uni-page-head-hd,
 uni-page[data-page="pages/payment/error"] uni-page-head-hd,
 uni-page[data-page="pages/transfer/error"] uni-page-head-hd,
 uni-page[data-page="pages/transfer/success"] uni-page-head-hd {
   display: none !important;
+}
+uni-page {
+  overflow: auto;
 }
 
 /*uni-page[data-page="pages/transfer/record"] uni-page-head-hd {*/
@@ -213,13 +220,15 @@ uni-modal,
 uni-toast {
   z-index: 999999;
 }
-.info-page-bg { /* 详情页背景 */ 
+.info-page-bg {
+  /* 详情页背景 */
   height: 100%;
   background-color: #0c1114;
   box-sizing: border-box;
   /* padding-top: 20rpx; */
 }
-.info-page-content { /* 详情页内容 */
+.info-page-content {
+  /* 详情页内容 */
   height: 100%;
   box-sizing: border-box;
   background-color: #fff;
@@ -228,19 +237,37 @@ uni-toast {
   padding: 40rpx;
 }
 
-
 .uni-scroll-view {
-    &::-webkit-scrollbar {
-        display: none!important;
-      }
+  &::-webkit-scrollbar {
+    display: none !important;
+  }
 }
 .uni-tabbar {
   height: 116rpx;
-  box-shadow: 0 -12rpx 36rpx 0px rgba(144,144,144,0.39);
+  box-shadow: 0 -12rpx 36rpx 0px rgba(144, 144, 144, 0.39);
 }
 .uni-tabbar .uni-tabbar__icon {
-    width: 44rpx!important;
-    height: 44rpx!important;
+  width: 44rpx !important;
+  height: 44rpx !important;
 }
 
+/* 选择按钮 */
+.check {
+  border: 1px solid #c7c7c7;
+  width: 41rpx;
+  height: 41rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+.checked {
+  border: 1px solid #449367;
+  box-sizing: border-box;
+  padding: 6rpx;
+  .in {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #449367;
+  }
+}
 </style>

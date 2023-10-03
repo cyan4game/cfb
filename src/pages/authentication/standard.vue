@@ -93,7 +93,7 @@
           上传格式限定JPG、JPEG或PNG，大小不能超过5MB
         </view>
         <view class="tips fs-12">
-          请确保上传的身分证清晰易读，与证件原件一致
+          请确保上传的身份证清晰易读，与证件原件一致
         </view>
         <u-button style="margin-top: 10px" class="login-button" @click="submit" :disabled="disabled">
           提交

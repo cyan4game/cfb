@@ -73,12 +73,12 @@
       <view class="item">
         <view class="ball"></view>
         <view>今日收益</view>
-        <view class="num">1.88</view>
+        <view class="num">$1.88</view>
       </view>
       <view class="item item2">
         <view class="ball"></view>
         <view>累计收益</view>
-        <view class="num">8.88</view>
+        <view class="num">$8.88</view>
       </view>
     </view>
   </view>
