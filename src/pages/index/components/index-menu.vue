@@ -34,9 +34,9 @@ export default {
         },
         {
           key: 2,
-          name: "收币",
+          name: "提币",
           icon: "/static/images/index/nav-2.png",
-          route: "/pages/index/collection",
+          route: "/pages/withdraw/index",
         },
         {
           key: 3,

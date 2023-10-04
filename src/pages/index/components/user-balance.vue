@@ -22,6 +22,7 @@
       ></u-image>
 
       <u-image
+        @click="openCanvas"
         class="time"
         src="/static/images/index/total.png"
         width="34rpx"
@@ -81,16 +82,30 @@
         <view class="num">$8.88</view>
       </view>
     </view>
+
+    <!-- 统计弹窗 -->
+    <total ref="totalDialog" />
   </view>
 </template>
 
 <script>
+import total from "./total";
+
 export default {
   name: "user-banlance",
   data() {
     return {
       showMoney: true, // 是否展示数字
     };
+  },
+  components: {
+    total,
+  },
+  methods: {
+    // 打开饼状图
+    openCanvas() {
+      this.$refs.totalDialog.open();
+    },
   },
 };
 </script>

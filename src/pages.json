@@ -227,6 +227,14 @@
       }
     },
     {
+      "path": "pages/withdraw/index",
+      "style": {
+        "navigationBarBackgroundColor": "#0c1114",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "提币"
+      }
+    },
+    {
       "path": "pages/entrust/post",
       "style": {
         "navigationBarBackgroundColor": "#0c1114",

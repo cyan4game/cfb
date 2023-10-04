@@ -222,7 +222,12 @@ export const queryOtcLimit = data => {
     custom: { auth: true, toast: true },
   });
 };
-
+// 提现
+export const withdraw = data => {
+  return http.post(`/withdraw/withdraw`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
 //  ---------------------------------------------------------------
 
 
