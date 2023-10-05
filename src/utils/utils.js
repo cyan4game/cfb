@@ -3,60 +3,63 @@ import storage from "./storage";
 
 /* ---------------------- 地址校验 --------------------------- */
 
-export const  isValidTRONAddress = (address) => { // 波场地址校验  trc20
+export const isValidTRONAddress = (address) => {
+  // 波场地址校验  trc20
   // 长度检查
   if (address.length !== 34) {
-      return false;
+    return false;
   }
   // 字符集检查
   const validChars = /^[A-HJ-NP-Za-km-z0-9]+$/;
   if (!validChars.test(address)) {
-      return false;
+    return false;
   }
   // 首字符检查
-  if (address[0] !== 'T') {
-      return false;
+  if (address[0] !== "T") {
+    return false;
   }
   return true;
-}
+};
 
 /* ---------------------- 地址校验结束 --------------------------- */
 
 // 隐藏手机号
-export const hiddenPhone = str => {
-  return str.substr(0, 3) + '****' + str.substr(str.length - 3, 3)
-}
+export const hiddenPhone = (str) => {
+  return str.substr(0, 3) + "****" + str.substr(str.length - 3, 3);
+};
 // 隐藏邮箱
-export const hiddenEmail = str => {
-  return str.substr(0, 1) + '****' + str.split('@')[1]
-}
+export const hiddenEmail = (str) => {
+  return str.substr(0, 1) + "****" + str.split("@")[1];
+};
 // 隐藏身份证
-export const hiddenIden = str => {
-  return str.substr(0, 4) + '****' + str.substr(str.length - 4, 4)
-}
+export const hiddenIden = (str) => {
+  return str.substr(0, 4) + "****" + str.substr(str.length - 4, 4);
+};
 // 校验身份证号
-export const idReg = str => {
+export const idReg = (str) => {
   const reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-  return reg.test(str)
-}
+  return reg.test(str);
+};
 // 校验名字
-export const nameReg = str => {
+export const nameReg = (str) => {
   const reg = /^[\u4e00-\u9fa5.·]{2,20}$/;
-  return reg.test(str)
-}
+  return reg.test(str);
+};
 
 // 更新用户信息
 export const updatUserInfo = () => {
-  return new Promise(resolve => {
-    memberInfo().then((res) => {
-      if (res.code == 200) {
-        storage.set("userInfo", res.data);
-        resolve(res.data)
-      }
-    }).catch(() => {
-      resolve(false)
-    })
-  })
+  return new Promise((resolve) => {
+    memberInfo()
+      .then((res) => {
+        if (res.code == 200) {
+          storage.set("userInfo", res.data);
+          resolve(res.data);
+        }
+      })
+      .catch(() => {
+        resolve(false);
+      });
+  });
 };
 // 清除缓存的信息-退出登录
 export const clearAllStorage = () => {
@@ -64,7 +67,7 @@ export const clearAllStorage = () => {
   storage.set("tokenName", "");
   storage.set("token", "");
   storage.set("LOGIN_INFO", "");
-  uni.clearStorageSync()
+  uni.clearStorageSync();
 };
 
 // 复制
@@ -134,15 +137,79 @@ export function route(data) {
 
 // 秒数转换为分钟
 export function secondsToMinutesAndSeconds(seconds) {
-  if (typeof seconds !== 'number' || seconds < 0) {
-    return 'Invalid input';
+  if (typeof seconds !== "number" || seconds < 0) {
+    return "Invalid input";
   }
 
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
 
   const minutesString = minutes < 10 ? `0${minutes}` : minutes.toString();
-  const secondsString = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds.toString();
+  const secondsString =
+    remainingSeconds < 10
+      ? `0${remainingSeconds}`
+      : remainingSeconds.toString();
 
   return `${minutesString}:${secondsString}`;
+}
+
+// 截取小数位数
+export function truncateDecimal(number, decimalPlaces) {
+  if (isNaN(number) || isNaN(decimalPlaces)) {
+    return NaN; // 返回NaN以表示输入无效
+  }
+
+  const multiplier = Math.pow(10, decimalPlaces);
+  const truncatedNumber = Math.trunc(number * multiplier) / multiplier;
+
+  return truncatedNumber;
+}
+
+// 保存图片
+export function savePic(imgUrl) {
+  // #ifdef APP-PLUS
+  uni.saveImageToPhotosAlbum({
+    filePath: imgUrl,
+    success: () => {
+      uni.showToast({
+        icon: "none",
+        title: "保存成功",
+      });
+    },
+    fail: () => {
+      uni.showToast({
+        icon: "none",
+        title: "保存失败",
+      });
+    },
+  });
+  // #endif
+
+  // #ifdef H5
+  if (window.navigator.msSaveOrOpenBlob) {
+    var bstr = atob(imgUrl.split(",")[1]);
+    var n = bstr.length;
+    var u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    var blob = new Blob([u8arr]);
+    window.navigator.msSaveOrOpenBlob(blob, "qrcode" + "." + "png");
+  } else {
+    // 这里就按照chrome等新版浏览器来处理
+    const a = document.createElement("a");
+    a.href = imgUrl;
+    a.setAttribute("download", "qrcode");
+    a.click();
+  }
+  setTimeout(() => {
+    uni.showToast(
+      {
+        icon: "none",
+        title: "保存成功",
+      },
+      1000
+    );
+  });
+  // #endif
 }

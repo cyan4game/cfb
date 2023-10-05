@@ -5,49 +5,39 @@
       <view class="types">
         <text class="name">广告类型</text>
         <view class="type">
-          <view class="check checked"><view class="in"></view></view>
+          <view class="check" @click="type='buy'" :class="{'checked':type=='buy'}"><view class="in"></view></view>
           <text>购买</text>
         </view>
         <view class="line"></view>
         <view class="type">
-          <view class="check"><view class="in"></view></view>
+          <view class="check" @click="type='sell'" :class="{'checked':type=='sell'}"><view class="in"></view></view>
           <text>出售</text>
         </view>
       </view>
 
-      <view class="subtitle">货币类型</view>
-      <view class="ipt">
-        <text class="input">人民币</text>
-        <u-image
-          class="icon"
-          src="/static/images/index/more.png"
-          width="15rpx"
-          height="9rpx"
-        ></u-image>
-      </view>
+      
       <view class="subtitle">数量</view>
       <view class="ipt">
         <input class="input" type="number" placeholder="数量" />
         <text>CFB</text>
       </view>
-      <view class="subtitle">场外账户可用余额0.000000 CFB</view>
-      <view class="price">
-        <view class="price-item">
-            <view class="price-info">
-                <text>市场参考价格</text>
-                <u-image
-                class="icon"
-                src="/static/images/index/help.png"
-                width="30rpx"
-                height="30rpx"
-              ></u-image>
-            </view>
-            <view>23.4 CNY</view>
+      <view style="display: flex;">
+        <view style="flex:1">
+          <view class="subtitle">参考汇率</view>
+          <view class="ipt">
+            <text class="input">1.00</text>
+          </view>
+        </view>
+        <view style="flex:2;margin-left: 20rpx;">
+          <view class="subtitle">预估成交金额</view>
+          <view class="ipt">
+            <text class="input">100.00</text>
+          </view>
         </view>
       </view>
-      <view class="subtitle">定价方式</view>
+      <view class="subtitle">结束时间</view>
       <view class="ipt">
-        <text class="input">市场价（溢价）</text>
+        <text class="input">3天</text>
         <u-image
           class="icon"
           src="/static/images/index/more.png"
@@ -55,56 +45,9 @@
           height="9rpx"
         ></u-image>
       </view>
-      <view class="subtitle">溢价方向</view>
-      <view class="ipt">
-        <text class="input">高于参考价</text>
-        <u-image
-          class="icon"
-          src="/static/images/index/more.png"
-          width="15rpx"
-          height="9rpx"
-        ></u-image>
-      </view>
-      <view class="subtitle">溢价百分比</view>
-      <view class="ipt">
-        <input class="input" type="number" placeholder="溢价百分比" />
-        <text>%</text>
-      </view>
-
-      <view class="price">
-        <view class="price-item">
-            <view>单价</view>
-            <view>23.4 CNY</view>
-        </view>
-        <view class="price-item">
-            <view>总金额</view>
-            <view>23.4 CNY</view>
-        </view>
-      </view>
-
-      <view class="subtitle">最小金额</view>
-      <view class="ipt">
-        <input class="input" type="number" placeholder="请输入最小金额" />
-        <text>CNY</text>
-      </view>
-      <view class="subtitle">最大金额</view>
-      <view class="ipt">
-        <input class="input" type="number" placeholder="请输入最大金额" />
-        <text>CNY</text>
-      </view>
-      <view class="subtitle">付款时限</view>
-      <view class="ipt">
-        <input class="input" type="number" placeholder="付款时限" />
-        <text>分钟</text>
-      </view>
-      <view class="subtitle">对方最少交易次数</view>
-      <view class="ipt">
-        <input class="input" type="number" placeholder="对方最少交易次数" />
-        <text>次</text>
-      </view>
-      <view class="subtitle">失效时间</view>
-      <view class="ipt">
-        <text class="input">30天</text>
+      <view class="subtitle" v-show="type=='sell'">收款账号</view>
+      <view class="ipt" v-show="type=='sell'">
+        <text class="input">34576538483688</text>
         <u-image
           class="icon"
           src="/static/images/index/more.png"
@@ -113,50 +56,8 @@
         ></u-image>
       </view>
 
-      <view class="title2">收款方式(最多可选择3种收款方式)</view>
-      <view class="pays">
-        <view class="pay">
-          <view class="check checked"><view class="in"></view></view>
-          <u-image
-            class="icon"
-            src="/static/images/mine/icon-wechat.png"
-            width="32rpx"
-            height="32rpx"
-          ></u-image>
-          <text>微信</text>
-        </view>
-        <view class="pay">
-          <view class="check"><view class="in"></view></view>
-          <u-image
-            class="icon"
-            src="/static/images/mine/icon-alipay.png"
-            width="32rpx"
-            height="32rpx"
-          ></u-image>
-          <text>支付宝</text>
-        </view>
-        <view class="pay">
-          <view class="check"><view class="in"></view></view>
-          <u-image
-            class="icon"
-            src="/static/images/mine/icon-bank.png"
-            width="32rpx"
-            height="32rpx"
-          ></u-image>
-          <text>银行卡</text>
-        </view>
-      </view>
 
-      <view class="subtitle">自动回复（非必填）</view>
-      <view class="ipt">
-        <input class="input" type="text" placeholder="请输入" />
-      </view>
-      <view class="subtitle">广告留言（非必填）</view>
-      <view class="ipt">
-        <input class="input" type="text" placeholder="请输入" />
-      </view>
-
-      <view class="submit">发布广告</view>
+      <view class="submit">发布委托</view>
     </view>
   </view>
 </template>
@@ -164,6 +65,11 @@
 <script>
 export default {
   name: "entrustPost",
+  data() {
+    return {
+      type: 'buy', // 出售-sell  购买-buy
+    }
+  }
 };
 </script>
 

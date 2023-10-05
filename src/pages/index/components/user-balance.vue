@@ -52,7 +52,7 @@
     </view>
 
     <!-- 详情 -->
-    <view class="detail">
+    <!-- <view class="detail">
       <view class="item">
         <view>可售(CFB)</view>
         <view class="num">400.00</view>
@@ -67,7 +67,7 @@
         <view>已上架(CFB)</view>
         <view class="num">400.00</view>
       </view>
-    </view>
+    </view> -->
 
     <!-- 收益 -->
     <view class="income">

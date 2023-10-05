@@ -28,8 +28,8 @@
       <user-balance />
       <!-- 导航 -->
       <view class="navs">
-        <view class="nav" @click="jump('/pages/index/deposit')">
-          <text>链上充币</text>
+        <view class="nav">
+          <text>购买CFB</text>
           <view class="icon">
             <u-image
               src="/static/images/index/recharge.png"
@@ -39,7 +39,7 @@
           </view>
         </view>
         <view class="nav">
-          <text>购买CFB</text>
+          <text>出售CFB</text>
           <view class="icon">
             <u-image
               src="/static/images/index/buy.png"

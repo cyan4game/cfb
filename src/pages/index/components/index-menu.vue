@@ -34,9 +34,15 @@ export default {
         },
         {
           key: 2,
-          name: "提币",
+          name: "转账",
           icon: "/static/images/index/nav-2.png",
           route: "/pages/withdraw/index",
+        },
+        {
+          key: 6,
+          name: "链上充币",
+          icon: "/static/images/index/nav-6.png",
+          route: "/pages/index/deposit",
         },
         {
           key: 3,
@@ -52,16 +58,10 @@ export default {
         },
         {
           key: 5,
-          name: "我的挂单",
+          name: "我的委托",
           icon: "/static/images/index/nav-5.png",
           route: "/pages/entrust/index",
-        },
-        {
-          key: 6,
-          name: "教程",
-          icon: "/static/images/index/nav-6.png",
-          route: "",
-        },
+        }
       ],
     };
   },

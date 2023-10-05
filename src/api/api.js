@@ -1,20 +1,19 @@
 const http = uni.$u.http;
-import {BASE_ADDRESS, PROXY_PRE} from "../config/api"
-
+import { BASE_ADDRESS, PROXY_PRE } from "../config/api";
 
 // 上传文件
 export const _upload = (file, successFunc, errorFunc, finishFunc) => {
   return uni.uploadFile({
-    url: BASE_ADDRESS +  PROXY_PRE + 'file/upload',
-    name: 'file',
+    url: BASE_ADDRESS + PROXY_PRE + "file/upload",
+    name: "file",
     formData: {
-      file: file
+      file: file,
     },
     success: successFunc,
     fail: errorFunc,
-    complete: finishFunc
-  })
-}
+    complete: finishFunc,
+  });
+};
 
 // 请求发送验证短信-注册登录
 export const sendSMS = (data) => {
@@ -32,26 +31,26 @@ export const sendEmailCode = (data) => {
     custom: { toast: true, auth: false },
   });
 };
-// 手机注册登录 
+// 手机注册登录
 export const phoneRegister = (data) => {
   return http.post("/member/phoneRegister", data, {
     custom: { toast: true, auth: false },
   });
 };
-// 邮件注册登录  
+// 邮件注册登录
 export const emailRegister = (data) => {
   return http.post("/member/emailRegister", data, {
     custom: { toast: true, auth: false },
   });
 };
 
-// 邮件安全验证码发送  
+// 邮件安全验证码发送
 export const mailSecurity = () => {
   return http.post(`/verify/mailSecurity`, null, {
     custom: { toast: true, auth: true },
   });
 };
-// 短信安全验证码发送  
+// 短信安全验证码发送
 export const smsSecurity = () => {
   return http.post(`/verify/smsSecurity`, null, {
     custom: { toast: true, auth: true },
@@ -66,19 +65,19 @@ export const memberInfo = () => {
     custom: { auth: true, toast: true },
   });
 };
-// 音效通知设置  
+// 音效通知设置
 export const soundNotificationSettings = (enabled) => {
   return http.post(`/member/soundNotificationSettings/${enabled}`, null, {
     custom: { toast: true, auth: true },
   });
 };
-// 退出登录 
+// 退出登录
 export const logout = () => {
   return http.post(`/member/logout`, null, {
     custom: { toast: true, auth: true },
   });
 };
-// 设置昵称 
+// 设置昵称
 export const nicknameSettings = (data) => {
   return http.post("/member/nicknameSettings", data, {
     custom: { toast: true, auth: true },
@@ -91,10 +90,13 @@ export const avatarSettings = (data) => {
   });
 };
 // 消息列表
-export const notification = (num=1,size=20,notificationType='') => {
-  return http.get(`/notification/page?num=${num}&size=${size}&notificationType=${notificationType}`, {
-    custom: { auth: true, toast: true },
-  });
+export const notification = (num = 1, size = 20, notificationType = "") => {
+  return http.get(
+    `/notification/page?num=${num}&size=${size}&notificationType=${notificationType}`,
+    {
+      custom: { auth: true, toast: true },
+    }
+  );
 };
 // 添加提现地址
 export const addAddress = (data) => {
@@ -199,42 +201,48 @@ export const memberWalletList = () => {
   });
 };
 // 添加实名认证
-export const certificateAdd = data => {
+export const certificateAdd = (data) => {
   return http.post(`/member-certificate/add`, data, {
     custom: { auth: true, toast: true },
   });
 };
 // 修改实名认证
-export const certificateModify = data => {
+export const certificateModify = (data) => {
   return http.post(`/member-certificate/modify`, data, {
     custom: { auth: true, toast: true },
   });
 };
 // 查询实名认证-登录用户
-export const certificateQuery = data => {
+export const certificateQuery = (data) => {
   return http.post(`/member-certificate/queryByMember`, data, {
     custom: { auth: true, toast: true },
   });
 };
 // 查询不同认证级别额度
-export const queryOtcLimit = data => {
+export const queryOtcLimit = (data) => {
   return http.post(`/member-certificate/queryOtcLimit`, data, {
     custom: { auth: true, toast: true },
   });
 };
 // 提现
-export const withdraw = data => {
+export const withdraw = (data) => {
   return http.post(`/withdraw/withdraw`, data, {
     custom: { auth: true, toast: true },
   });
 };
+// 获取币对兑换信息
+export const getCoinPairExchangeInfo = (data) => {
+  return http.post(`/coinPair/getCoinPairExchangeInfo`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
+// 闪兑
+export const toExchange = (data) => {
+  return http.post(`/coinPair/toExchange`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
 //  ---------------------------------------------------------------
-
-
-
-
-
-
 
 // console.log(http.get, "http");
 // 做市商账号密码登录
@@ -580,7 +588,6 @@ export const updatePhone = (data) => {
   });
 };
 
-
 // 修改登录密码 security/updateLoginPwd
 export const updateLoginPwd = (data) => {
   return http.post("/market/security/updateLoginPwd", data, {
@@ -677,7 +684,6 @@ export const captcha = () => {
   const r = Math.random().toFixed(3) * 100;
   return "/market/register/captcha?r=" + r;
 };
-
 
 // /registerly C端用户注册
 export const register = (data) => {
@@ -904,13 +910,9 @@ export const pushMsgLatestMsg = () => {
  * @returns {Promise<any>}
  */
 export const queryAdvertiseList = (data) => {
-  return http.post(
-    "/market/otc/queryAdvertiseList",
-    data,
-    {
-      custom: { toast: true, auth: true },
-    }
-  );
+  return http.post("/market/otc/queryAdvertiseList", data, {
+    custom: { toast: true, auth: true },
+  });
 };
 /**
  * 获取系统支持的银行
@@ -928,7 +930,7 @@ export const queryBankList = () => {
 export const querySysAdvertiseList = (params) => {
   return http.get("/market/otc/querySysAdvertiseList", {
     custom: { toast: true, auth: true },
-    params
+    params,
   });
 };
 

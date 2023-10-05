@@ -1,4 +1,4 @@
-<!-- 提币 -->
+<!-- 转账 -->
 <template>
   <view class="info-page-bg page-withdraw">
     <!-- 表单 -->
@@ -7,7 +7,7 @@
         <!-- 币种 -->
         <view class="form-item">
           <view class="item-title">币种</view>
-          <view class="item-content">
+          <view class="item-content" @click="() => $refs.currencyPopup.open()">
             <view class="ipt">{{ form.currency || "请选择币种" }}</view>
             <u-image
               class="content-icon"
@@ -52,12 +52,12 @@
               placeholder="请输入提现数量"
             />
           </view>
-          <view class="tip">可用转账月 5000.1234 USDT</view>
+          <view class="tip">可用转账余额 -- USDT</view>
         </view>
 
         <view class="form-item">
           <view class="item-title">手续费</view>
-          <view>0 USDT</view>
+          <view>-- USDT</view>
         </view>
       </view>
     </view>
@@ -73,7 +73,7 @@
     <!-- 币种选择 -->
     <coin-select ref="currencyPopup" @select="clickCurrency" />
 
-    <!-- 提币地址选择 -->
+    <!-- 转账地址选择 -->
     <address-select ref="addressPopup" @select="selectAddress" />
 
     <!-- 交易确认 -->
@@ -146,11 +146,24 @@ export default {
     }
   },
   methods: {
+    // 选择币种
+    clickCurrency(item) {
+      this.form.currency = item.name;
+      this.$refs.currencyPopup.close();
+      this.checkAddress()
+    },
     // 校验地址是否合法
     checkAddress() {
       setTimeout(() => {
-        this.passAddress =
-          this.form.toAddress && isValidTRONAddress(this.form.toAddress);
+        switch (this.form.currency) {
+          case "USDT_TRC20":
+            this.passAddress =
+              this.form.toAddress && isValidTRONAddress(this.form.toAddress);
+            break;
+          case "CFB":
+            this.passAddress = true;
+            break;
+        }
       });
     },
     // 提交
@@ -171,7 +184,7 @@ export default {
         .then((res) => {
           if (res.code == 200) {
             uni.showToast({
-              title: "提币成功",
+              title: "转账成功",
               icon: "none",
               duration: 2000,
             });

@@ -10,8 +10,8 @@
       <scroll-view scroll-y="true" class="content">
 
         <view class="item" v-for="(item, i) in list" :key="i" @click="handleClick(item)">
-          <u-image class="img" src="/static/images/index/usdt.png" width="51rpx" height="51rpx"></u-image>
-          <text>USDT</text>
+          <u-image class="img" :src="iconMap[item.coin]" width="51rpx" height="51rpx"></u-image>
+          <text>{{ item.name }}</text>
         </view>
 
       </scroll-view>
@@ -20,11 +20,25 @@
 </template>
 
 <script>
+import usdtIcon from "@/static/images/index/usdt.png";
+import cfbIcon from "@/static/images/index/cfb.png";
+const iconMap = {
+  USDT: usdtIcon,
+  CFB: cfbIcon,
+};
+
 export default {
   name: "coinSelect",
   data() {
     return {
-      list: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+      iconMap,
+      list: [{
+        coin: 'USDT',
+        name: 'USDT_TRC20'
+      }, {
+        coin: 'CFB',
+        name: 'CFB'
+      }]
     }
   },
   methods: {

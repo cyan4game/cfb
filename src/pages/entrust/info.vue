@@ -2,7 +2,7 @@
 <template>
   <view class="info-page-bg page-entrust-info">
     <view class="info-page-content content-box">
-      <view class="title">委托详情</view>
+      <view class="title">发布中</view>
       <view class="info">
         <text>创建时间</text>
         <text class="time">2022/07/01 15:22:14</text>
@@ -10,123 +10,62 @@
 
       <view class="item">
         <view class="row">
-          <view class="name">委托</view>
-          <view class="val">76</view>
-        </view>
-        <view class="row row2">
-          <view class="name">币种</view>
-          <view class="val">USDT</view>
-        </view>
-      </view>
-      <view class="item">
-        <view class="row">
           <view class="name">委托类型</view>
           <view class="val">出售</view>
         </view>
         <view class="row row2">
-          <view class="name">货币类型</view>
-          <view class="val">CNY</view>
+          <view class="name">委托人</view>
+          <view class="val">Justin</view>
         </view>
       </view>
       <view class="item">
         <view class="row">
-          <view class="name">剩余总量/总数量</view>
-          <view class="val">100/100</view>
+          <view class="name">数量</view>
+          <view class="val">76</view>
         </view>
         <view class="row row2">
-          <view class="name"></view>
-          <view class="val right">USDT</view>
+          <view class="name">币种</view>
+          <view class="val">CFB</view>
         </view>
       </view>
       <view class="item">
         <view class="row">
-          <view class="name">市场参考价格</view>
-          <view class="val">7.88CNY</view>
-        </view>
-      </view>
-      <view class="item">
-        <view class="row">
-          <view class="name">定价方式</view>
-          <view class="val">市场价（溢价）</view>
-        </view>
-      </view>
-      <view class="item">
-        <view class="row">
-          <view class="name">溢价方向</view>
-          <view class="val">高于参考价</view>
-        </view>
-      </view>
-      <view class="item">
-        <view class="row">
-          <view class="name">溢价百分比</view>
-          <view class="val">0</view>
+          <view class="name">参考汇率</view>
+          <view class="val">1.00</view>
         </view>
         <view class="row row2">
-          <view class="name"></view>
-          <view class="val right">%</view>
+          <view class="name">预估成交金额</view>
+          <view class="val">￥1212.00</view>
         </view>
       </view>
       <view class="item">
         <view class="row">
-          <view class="name">单价</view>
-          <view class="val">6.69</view>
-        </view>
-        <view class="row row2">
-          <view class="name">总金额</view>
-          <view class="val">669.00CNY</view>
+          <view class="name">结束时间</view>
+          <view class="val">30天</view>
         </view>
       </view>
       <view class="item">
         <view class="row">
-          <view class="name">最小金额</view>
-          <view class="val">2.00</view>
+          <view class="name">收款方式</view>
+          <view class="val">银行卡</view>
         </view>
         <view class="row row2">
-          <view class="name"></view>
-          <view class="val right">CNY</view>
+          <view class="name">收款账号</view>
+          <view class="val">12367123512</view>
         </view>
       </view>
       <view class="item">
         <view class="row">
-          <view class="name">最大金额</view>
-          <view class="val">2.00</view>
+          <view class="name">收款银行</view>
+          <view class="val">工商银行</view>
         </view>
         <view class="row row2">
-          <view class="name"></view>
-          <view class="val right">CNY</view>
+          <view class="name">收款银行分行</view>
+          <view class="val">工商银行福州分行</view>
         </view>
       </view>
-      <view class="item">
-        <view class="row">
-          <view class="name">付款时限</view>
-          <view class="val">2</view>
-        </view>
-        <view class="row row2">
-          <view class="name"></view>
-          <view class="val right">分钟</view>
-        </view>
-      </view>
-      <view class="item">
-        <view class="row">
-          <view class="name">对方最少交易次数</view>
-          <view class="val">5</view>
-        </view>
-        <view class="row row2">
-          <view class="name"></view>
-          <view class="val right">次</view>
-        </view>
-      </view>
-      <view class="item">
-        <view class="row">
-          <view class="name">失效时间</view>
-          <view class="val">30</view>
-        </view>
-        <view class="row row2">
-          <view class="name"></view>
-          <view class="val right">天</view>
-        </view>
-      </view>
-      <view class="item">
+      
+      <!-- <view class="item">
         <view class="row">
           <view class="name">自动回复（非必填）</view>
           <view class="val flex-box">
@@ -173,9 +112,16 @@
             >请放心购买此商户的币，平台可为您保驾护航。请放心购买此商户的币</view
           >
         </view>
-      </view>
+      </view> -->
 
-      <view class="submit">关闭广告</view>
+      <view class="btns">
+        <!-- 发布中 -->
+        <template>
+          <view class="btn">取消委托</view>
+          <view class="submit">编辑</view>
+        </template>
+        
+      </view>
     </view>
   </view>
 </template>
@@ -201,6 +147,7 @@
     font-size: 28rpx;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     box-sizing: border-box;
     padding: 0 42rpx 0 36rpx;
     margin-bottom: 17rpx;
@@ -247,8 +194,30 @@
       }
     }
   }
+  .btns {
+    margin: 80rpx 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn {
+    box-sizing: border-box;
+    height: 96rpx;
+    flex: 1;
+    margin-right: 30rpx;
+    border: 1px solid #38363B;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #38363B;
+    font-size: 32rpx;
+    border-radius: 6rpx;
+  }
   .submit {
-    width: 451rpx;
+    box-sizing: border-box;
+    border-radius: 6rpx;
+    flex: 2;
     height: 96rpx;
     background-color: #449367;
     display: flex;
@@ -256,7 +225,6 @@
     justify-content: center;
     color: #fff;
     font-size: 32rpx;
-    margin: 80rpx auto;
   }
 }
 </style>

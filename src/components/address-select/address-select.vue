@@ -1,4 +1,4 @@
-<!-- 提币地址选择 -->
+<!-- 转账地址选择 -->
 <template>
   <uni-popup
     ref="popup"
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { queryByMemberAndCoin } from "@/api/api";
 import storage from "@/utils/storage";
 export default {
   name: "coinSelect",

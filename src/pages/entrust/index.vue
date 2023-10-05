@@ -40,27 +40,19 @@
 
           <view class="body">
             <view class="row">
-              <view class="row-name">定价方式</view>
-              <view class="row-val">市场价</view>
-            </view>
-            <view class="row">
-              <view class="row-name">单价[CHY]</view>
+              <view class="row-name">参考汇率（CNY）</view>
               <view class="row-val">￥6.16</view>
             </view>
             <view class="row">
-              <view class="row-name">剩余数量(CFB)</view>
+              <view class="row-name">委托数量</view>
               <view class="row-val">100.00</view>
-            </view>
-            <view class="row">
-              <view class="row-name">交易限额[CNY]</view>
-              <view class="row-val">10.00-100.00</view>
             </view>
           </view>
 
           <!-- 底部 -->
           <view class="bottom">
             <view class="icons">
-              <u-image
+              <!-- <u-image
                 class="icon"
                 src="/static/images/mine/icon-alipay.png"
                 width="32rpx"
@@ -71,10 +63,10 @@
                 src="/static/images/mine/icon-wechat.png"
                 width="32rpx"
                 height="32rpx"
-              ></u-image>
+              ></u-image> -->
             </view>
-            <view class="btn">订单</view>
-            <view class="btn">查看</view>
+            <!-- <view class="btn">订单</view> -->
+            <view class="btn">查看详情</view>
           </view>
         </view>
       </scroll-view>
@@ -160,7 +152,7 @@ export default {
     background-color: #f1f1f1;
     box-sizing: border-box;
     .item {
-      height: 467rpx;
+      height: 353rpx;
       border-radius: 9rpx;
       background-color: #fff;
       margin-bottom: 26rpx;
@@ -223,7 +215,7 @@ export default {
         }
       }
       .body {
-        height: 254rpx;
+        height: 140rpx;
         box-sizing: border-box;
         padding: 10rpx 0;
         .row {
