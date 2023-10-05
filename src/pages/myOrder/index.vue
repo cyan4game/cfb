@@ -3,7 +3,7 @@
   <view class="info-page-bg page-myorder">
     <view class="info-page-content content-box">
       <!-- 分类导航 -->
-      <view class="navs">
+      <!-- <view class="navs">
         <view
           class="nav"
           :class="{ 'active-nav': activeNav == 1 }"
@@ -24,44 +24,28 @@
           width="31rpx"
           height="33rpx"
         ></u-image>
-      </view>
+      </view> -->
 
       <!-- 状态导航 -->
       <view class="tabs">
-        <view
-          class="tab"
-          :class="{ 'active-tab': activeTab == 0 }"
-          @click="changeTab(0)"
-          >全部</view
-        >
-        <view
-          class="tab"
-          v-show="activeNav == 1"
-          :class="{ 'active-tab': activeTab == 1 }"
-          @click="changeTab(1)"
-          >进行中
-        </view>
-        <view
-          class="tab"
-          v-show="activeNav == 1"
-          :class="{ 'active-tab': activeTab == 2 }"
-          @click="changeTab(2)"
-          >申述中
-        </view>
-        <view
-          class="tab"
-          v-show="activeNav == 2"
-          :class="{ 'active-tab': activeTab == 3 }"
-          @click="changeTab(3)"
-          >已完成
-        </view>
-        <view
-          class="tab"
-          v-show="activeNav == 2"
-          :class="{ 'active-tab': activeTab == 4 }"
-          @click="changeTab(4)"
-          >已取消
-        </view>
+        <scroll-view class="tab-box" scroll-x="true">
+          <view
+            class="tab"
+            :class="{ 'active-tab': activeTab == key }"
+            @click="changeTab(key)"
+            v-for="(val, key) in tabs"
+            :key="key"
+            >{{ val }}</view
+          >
+        </scroll-view>
+
+        <u-image
+          @click="openFilter"
+          class="filter"
+          src="/static/images/home/filter.png"
+          width="31rpx"
+          height="33rpx"
+        ></u-image>
       </view>
 
       <!-- 列表 -->
@@ -142,6 +126,19 @@ export default {
   },
   data() {
     return {
+      tabs: {
+        0: "全部",
+        1: "订单完成",
+        2: "申诉中",
+        3: "待付款",
+        4: "收款待确认",
+        5: "订单超时",
+        6: "交易取消",
+        7: "申诉处理中",
+        8: "申诉成功",
+        9: "申诉失败",
+        10: "驳回",
+      },
       activeNav: 1, // 1-未完成 2-完成
       activeTab: 0,
 
@@ -218,17 +215,24 @@ export default {
 
   .tabs {
     height: 103rpx;
-    padding-left: 54rpx;
+    padding: 0 30rpx;
     color: #454545;
     font-size: 26rpx;
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    overflow: hidden;
+    box-sizing: border-box;
 
+    .tab-box {
+      flex: 1;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
     .tab {
+      display: inline-flex;
       margin-right: 58rpx;
       align-items: center;
-      display: flex;
     }
 
     .active-tab {
@@ -236,6 +240,9 @@ export default {
       border-radius: 7rpx;
       height: 55rpx;
       padding: 0 30rpx;
+    }
+    .filter {
+      margin-left: 20rpx;
     }
   }
 

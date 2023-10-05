@@ -120,6 +120,20 @@
           <view class="btn">取消委托</view>
           <view class="submit">编辑</view>
         </template>
+        <!-- 交易中 -->
+        <!-- <template>
+          <view class="btn">查看收款信息</view>
+          <view class="submit">确认付款</view>
+        </template> -->
+        <!-- 已关闭-配对成功 -->
+        <!-- <template>
+          <view class="btn">查看订单</view>
+          <view class="submit">再次下单</view>
+        </template> -->
+        <!-- 已关闭-未配对成功 -->
+        <!-- <template>
+          <view class="submit">重新发布</view>
+        </template> -->
         
       </view>
     </view>

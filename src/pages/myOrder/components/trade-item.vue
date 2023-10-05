@@ -16,20 +16,28 @@
     <!-- 金额详情 -->
     <view class="amount-box">
       <view class="left">
-        <view>价格 1.01CNY</view>
-        <view>数量 1.01CFB</view>
+        <view>时间</view>
+        <view>2020/08/13 03:08</view>
       </view>
-      <view class="total">CNY 10062</view>
+      <view class="left">
+        <view>数量</view>
+        <view>10.0000</view>
+      </view>
+      <view class="left">
+        <view>交易金额(CNY)</view>
+        <view>￥2000.00</view>
+      </view>
+      <!-- <view class="total">CNY 10062</view> -->
     </view>
 
     <!-- 底部信息 -->
-    <view class="bottom">
+    <!-- <view class="bottom">
       <view class="seller">
         <view class="avatar">诚</view>
         <view>诚信商行</view>
       </view>
       <view class="date">2023/06/17 13:00</view>
-    </view>
+    </view> -->
   </view>
 </template>
 
@@ -75,7 +83,7 @@ export default {
 
 <style lang="scss" scoped>
 .trade-item {
-  height: 366rpx;
+  height: 300rpx;
   border-radius: 9rpx;
   background-color: #fff;
   box-sizing: border-box;
@@ -105,13 +113,14 @@ export default {
     }
   }
   .amount-box {
-    display: flex;
-    align-items: center;
     height: 158rpx;
     .left {
       color: #696969;
       font-size: 28rpx;
       line-height: 55rpx;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
     .total {
       flex: 1;
