@@ -70,7 +70,7 @@
     </view> -->
 
     <!-- 收益 -->
-    <view class="income">
+    <!-- <view class="income">
       <view class="item">
         <view class="ball"></view>
         <view>今日收益</view>
@@ -81,7 +81,7 @@
         <view>累计收益</view>
         <view class="num">$8.88</view>
       </view>
-    </view>
+    </view> -->
 
     <!-- 统计弹窗 -->
     <total ref="totalDialog" />
@@ -116,7 +116,7 @@ export default {
   margin-top: 20rpx;
   border-radius: 6rpx;
   border: 1px solid #d7d7d7;
-  padding: 48rpx;
+  padding: 48rpx 48rpx 40rpx 48rpx;
   background-color: #fff;
   box-sizing: border-box;
   .title {

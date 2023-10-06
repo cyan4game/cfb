@@ -215,6 +215,7 @@ export default {
 
         .ipt {
             margin-top: 20rpx;
+            font-size: 28rpx;
         }
 
         .code-btn {

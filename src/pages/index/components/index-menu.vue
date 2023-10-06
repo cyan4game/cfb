@@ -41,25 +41,25 @@ export default {
         {
           key: 6,
           name: "链上充币",
-          icon: "/static/images/index/nav-6.png",
+          icon: "/static/images/index/nav-7.png",
           route: "/pages/index/deposit",
         },
         {
           key: 3,
           name: "闪兑",
-          icon: "/static/images/index/nav-3.png",
+          icon: "/static/images/index/nav-4.png",
           route: "/pages/index/flashExchange",
         },
         {
           key: 4,
           name: "我的订单",
-          icon: "/static/images/index/nav-4.png",
+          icon: "/static/images/index/nav-5.png",
           route: "/pages/myOrder/index",
         },
         {
           key: 5,
           name: "我的委托",
-          icon: "/static/images/index/nav-5.png",
+          icon: "/static/images/index/nav-6.png",
           route: "/pages/entrust/index",
         }
       ],

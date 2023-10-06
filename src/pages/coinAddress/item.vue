@@ -220,6 +220,7 @@ export default {
                     .ipt {
                         flex: 1;
                         margin-right: 20rpx;
+                        font-size: 28rpx;
                     }
                 }
 

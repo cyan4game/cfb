@@ -80,7 +80,7 @@
       <view class="btns">
         <!-- 收款待确认 -->
         <template>
-          <view class="btn">申述</view>
+          <view class="btn" @click="appeal">申述</view>
           <view class="submit">确认收款</view>
         </template>
       </view>
@@ -89,7 +89,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'orderInfo',
+  methods: {
+    // 去申述
+    appeal() {
+      uni.navigateTo({
+         url: '/pages/appeal/index'
+      })
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

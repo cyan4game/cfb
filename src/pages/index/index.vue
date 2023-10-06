@@ -28,23 +28,23 @@
       <user-balance />
       <!-- 导航 -->
       <view class="navs">
-        <view class="nav">
+        <view class="nav" @click="jump('/pages/confirmTrade/index?type=1')">
           <text>购买CFB</text>
           <view class="icon">
             <u-image
-              src="/static/images/index/recharge.png"
-              width="80rpx"
-              height="75rpx"
+              src="/static/images/index/coin.png"
+              width="61rpx"
+              height="63rpx"
             ></u-image>
           </view>
         </view>
-        <view class="nav">
+        <view class="nav" @click="jump('/pages/confirmTrade/index?type=2')">
           <text>出售CFB</text>
           <view class="icon">
             <u-image
-              src="/static/images/index/buy.png"
-              width="72rpx"
-              height="68rpx"
+              src="/static/images/index/coin.png"
+              width="61rpx"
+              height="63rpx"
             ></u-image>
           </view>
         </view>
@@ -107,7 +107,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 23rpx;
+      margin-top: 51rpx;
 
       .nav {
         width: 49%;

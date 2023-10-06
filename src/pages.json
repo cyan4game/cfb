@@ -286,7 +286,15 @@
       "style": {
         "navigationBarBackgroundColor": "#0c1114",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "购买"
+        "navigationBarTitleText": "交易"
+      }
+    },
+    {
+      "path": "pages/confirmTrade/wait",
+      "style": {
+        "navigationBarBackgroundColor": "#0c1114",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "待付款"
       }
     },
     {

@@ -236,6 +236,17 @@ uni-toast {
   border-top-left-radius: 22rpx;
   padding: 40rpx;
 }
+.info-page-btn {
+  display: flex!important;
+  width: 451rpx!important;
+  height: 96rpx!important;
+  background-color: #449367!important;
+  color: #fff!important;
+  border-radius: 6rpx!important;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx!important;
+}
 
 .uni-scroll-view {
   &::-webkit-scrollbar {

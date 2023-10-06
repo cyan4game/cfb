@@ -8,61 +8,50 @@
         <text class="time">2022/07/01 15:22:14</text>
       </view>
 
+      
       <view class="item">
-        <view class="row">
-          <view class="name">委托类型</view>
-          <view class="val">出售</view>
-        </view>
-        <view class="row row2">
-          <view class="name">委托人</view>
-          <view class="val">Justin</view>
-        </view>
+        <text>委托人</text>
+        <text class="val">Justin</text>
       </view>
       <view class="item">
-        <view class="row">
-          <view class="name">数量</view>
-          <view class="val">76</view>
-        </view>
-        <view class="row row2">
-          <view class="name">币种</view>
-          <view class="val">CFB</view>
-        </view>
+        <text>委托类型</text>
+        <text class="val">出售</text>
       </view>
       <view class="item">
-        <view class="row">
-          <view class="name">参考汇率</view>
-          <view class="val">1.00</view>
-        </view>
-        <view class="row row2">
-          <view class="name">预估成交金额</view>
-          <view class="val">￥1212.00</view>
-        </view>
+        <text>数量</text>
+        <text class="val">3000.00</text>
       </view>
       <view class="item">
-        <view class="row">
-          <view class="name">结束时间</view>
-          <view class="val">30天</view>
-        </view>
+        <text>币种</text>
+        <text class="val">CFB</text>
       </view>
       <view class="item">
-        <view class="row">
-          <view class="name">收款方式</view>
-          <view class="val">银行卡</view>
-        </view>
-        <view class="row row2">
-          <view class="name">收款账号</view>
-          <view class="val">12367123512</view>
-        </view>
+        <text>参考汇率</text>
+        <text class="val">￥1.00</text>
       </view>
       <view class="item">
-        <view class="row">
-          <view class="name">收款银行</view>
-          <view class="val">工商银行</view>
-        </view>
-        <view class="row row2">
-          <view class="name">收款银行分行</view>
-          <view class="val">工商银行福州分行</view>
-        </view>
+        <text>预估成交金额</text>
+        <text class="val">￥3000.00</text>
+      </view>
+      <view class="item">
+        <text>结束时间</text>
+        <text class="val">30天</text>
+      </view>
+      <view class="item">
+        <text>收款账号</text>
+        <text class="val">75675588686</text>
+      </view>
+      <view class="item">
+        <text>收款方式</text>
+        <text class="val">银行卡</text>
+      </view>
+      <view class="item">
+        <text>收款银行</text>
+        <text class="val">工商银行</text>
+      </view>
+      <view class="item">
+        <text>收款银行分行</text>
+        <text class="val">工商银行福州分行</text>
       </view>
       
       <!-- <view class="item">
@@ -170,42 +159,17 @@
     }
   }
   .item {
-    // height: 137rpx;
     display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    border-bottom: 1px solid #cecece;
+    color: #7A7A7A;
     font-size: 26rpx;
-    color: #7a7a7a;
-    padding-bottom: 35rpx;
-    padding-top: 33rpx;
-    .row {
-      flex: 1;
-      padding-left: 20rpx;
-      .name {
-        min-height: 26rpx;
-      }
-      .val {
-        margin-top: 32rpx;
-        color: #3c3c3c;
-        font-size: 26rpx;
-        font-weight: 500;
-      }
-      .right {
-        text-align: right;
-      }
-      .flex-box {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .pay {
-          display: flex;
-          align-items: center;
-          .icon {
-            margin-right: 20rpx;
-          }
-        }
-      }
+    align-items: center;
+    justify-content: space-between;
+    height: 120rpx;
+    border-bottom: 1px solid #eee;
+    .val {
+      color: #3C3C3C;
+      display: flex;
+      align-items: center;
     }
   }
   .btns {
@@ -231,7 +195,7 @@
   .submit {
     box-sizing: border-box;
     border-radius: 6rpx;
-    flex: 2;
+    flex: 1;
     height: 96rpx;
     background-color: #449367;
     display: flex;

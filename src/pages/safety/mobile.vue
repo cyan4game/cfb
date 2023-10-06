@@ -244,6 +244,7 @@ export default {
   height: 72rpx;
   border-radius: 6rpx;
   margin-top: 35rpx;
+  font-size: 28rpx;
 }
 
 .code-box {

@@ -52,7 +52,7 @@
               placeholder="请输入提现数量"
             />
           </view>
-          <view class="tip">可用转账余额 -- USDT</view>
+          <view class="tip">可用转账余额 {{ money }} {{ form.currency.replace('_TRC20', '') }}</view>
         </view>
 
         <view class="form-item">
@@ -114,7 +114,7 @@
 </template>
 
 <script>
-import { withdraw } from "@/api/api";
+import { withdraw, memberWalletList } from "@/api/api";
 import storage from "@/utils/storage";
 import { isValidTRONAddress } from "@/utils/utils";
 
@@ -131,12 +131,20 @@ export default {
       loading: false,
       userInfo: {},
       passAddress: false, // 是否通过地址格式校验
+
+      amountMap: [],
     };
   },
   computed: {
     disabled() {
       return !(this.form.toAddress && this.form.amount) || this.loading;
     },
+    money() {
+      const currency = this.form.currency == 'USDT_TRC20' ? 'USDT' : this.form.currency
+      const target = this.amountMap.find(item => item.currency == currency)
+      if (target) return target.balance
+      return '--'
+    }
   },
   onLoad(data) {
     this.userInfo = storage.get("userInfo") || {};
@@ -144,8 +152,18 @@ export default {
       this.form.toAddress = data.address;
       this.checkAddress();
     }
+    this.getAmounts()
   },
   methods: {
+    // 获取币种余额
+    getAmounts() {
+      memberWalletList().then(res => {
+        console.error('余额', res)
+        if (res.code == 200) {
+          this.amountMap = res.data || []
+        }
+      })
+    },
     // 选择币种
     clickCurrency(item) {
       this.form.currency = item.name;
@@ -237,6 +255,7 @@ export default {
           .ipt {
             flex: 1;
             margin-right: 20rpx;
+            font-size: 28rpx;
           }
         }
 

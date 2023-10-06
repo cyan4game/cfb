@@ -194,12 +194,6 @@ export const paypasswordModify = (data) => {
     custom: { toast: true, auth: true },
   });
 };
-// 获取钱包列表
-export const memberWalletList = () => {
-  return http.get(`/memberWallet/list`, {
-    custom: { auth: true, toast: true },
-  });
-};
 // 添加实名认证
 export const certificateAdd = (data) => {
   return http.post(`/member-certificate/add`, data, {
@@ -239,6 +233,12 @@ export const getCoinPairExchangeInfo = (data) => {
 // 闪兑
 export const toExchange = (data) => {
   return http.post(`/coinPair/toExchange`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
+// 获取可转账余额
+export const memberWalletList = (data) => {
+  return http.get(`/memberWallet/list`, data, {
     custom: { auth: true, toast: true },
   });
 };
