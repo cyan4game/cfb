@@ -2,7 +2,7 @@
   <view class="info-page-bg safety-page">
     <view class="info-page-content page-box">
 
-      <view class="safety-item">
+      <!-- <view class="safety-item">
         <view class="title">解锁方式</view>
         <view class="item">
           <text>启用生物识别</text>
@@ -12,7 +12,7 @@
           <text>图形验证</text>
           <text class="right-text">未启用</text>
         </view>
-      </view>
+      </view> -->
 
       <view class="safety-item" @click="changePayPass">
         <view class="title">密码修改</view>
@@ -97,8 +97,10 @@ export default {
 
 <style lang="scss" scoped>
 .safety-page {
-
-
+  
+  .page-box {
+    background-color: #F1F1F1;
+  }
   .safety-item {
     background-color: #fff;
     box-sizing: border-box;

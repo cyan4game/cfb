@@ -64,11 +64,11 @@ export default {
     }
   },
   methods: {
-    loginSuccess(data) {
-      updatUserInfo()
+    async loginSuccess(data) {
       storage.set("tokenName", data.tokenName)
       storage.set("token", data.tokenValue)
       storage.set("LOGIN_INFO", JSON.stringify(data))
+      await updatUserInfo()
       uni.switchTab({
         url: '/pages/index/index'
       });

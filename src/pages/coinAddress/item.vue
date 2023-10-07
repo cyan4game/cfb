@@ -126,10 +126,10 @@ export default {
             if (this.type == 1) {
                 // 同一条链同一币种只能有一个地址的校验
                 const list = storage.get('coin_address_list') || []
-                const stop = list.some(item => item.coin == `${this.form.currency}`)
+                const stop = list.some(item => item.address == `${this.form.address}`)
                 if (stop) return uni.showToast({
                     icon: 'none',
-                    title: `${this.form.currency} 地址已存在`,
+                    title: `地址已存在`,
                     duration: 2000
                 });
             }
@@ -143,6 +143,7 @@ export default {
             if (!req) return
             this.loading = true
             const form = {
+                id: this.form.id || null,
                 address: this.form.address, // 地址
                 currency: this.form.currency.split('_')[0], // 币种
                 chain: 'TRC20', // 链

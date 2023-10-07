@@ -8,7 +8,7 @@
         <uni-swipe-action-item v-for="(item, i) in list" :key="i">
           <view class="item">
             <view class="title">
-              <view>{{ item.name }}</view>
+              <view style="margin-right:20rpx" v-if="item.name">{{ item.name }}</view>
               <view class="type">{{
                 item.coin || item.currency + "_" + item.chain
               }}</view>
@@ -161,7 +161,7 @@ export default {
           align-items: center;
           color: #449367;
           font-size: 20rpx;
-          margin-left: 20rpx;
+          // margin-left: 20rpx;
         }
       }
     }

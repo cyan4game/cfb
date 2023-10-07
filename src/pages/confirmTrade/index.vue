@@ -17,10 +17,10 @@
         >
       </view>
 
-      <view class="box tab-box" v-if="type == 1">
+      <!-- <view class="box tab-box" v-if="type == 1">
         <view class="tab active-tab">USDT</view>
         <view class="tab">CFB</view>
-      </view>
+      </view> -->
 
       <!-- 表单 -->
       <view class="form">

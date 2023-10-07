@@ -9,8 +9,8 @@
           <view class="item-title">币种</view>
           <view class="item-content" @click="() => $refs.currencyPopup.open()">
             <view class="ipt">{{ form.currency || "请选择币种" }}</view>
+            
             <u-image
-              class="content-icon"
               src="@/static/images/mine/right.png"
               width="15rpx"
               height="29rpx"
@@ -21,20 +21,14 @@
         <!-- 提现地址 -->
         <view class="form-item">
           <view class="item-title">提现地址</view>
-          <view class="item-content">
+          <view class="item-content" style="padding-right:20rpx">
             <input
               @input="checkAddress"
               v-model.trim="form.toAddress"
               type="text"
               class="ipt"
             />
-            <u-image
-              class="content-icon"
-              src="@/static/images/home/trans.png"
-              width="36rpx"
-              height="33rpx"
-              @click="() => $refs.addressPopup.open()"
-            ></u-image>
+            <text class="content-icon" @click="() => $refs.addressPopup.open()">选择地址</text>
           </view>
           <view class="item-tip" v-if="form.toAddress && !passAddress"
             >无效的地址</view
@@ -52,7 +46,10 @@
               placeholder="请输入提现数量"
             />
           </view>
-          <view class="tip">可用转账余额 {{ money }} {{ form.currency.replace('_TRC20', '') }}</view>
+          <view class="tip"
+            >可用转账余额 {{ money }}
+            {{ form.currency.replace("_TRC20", "") }}</view
+          >
         </view>
 
         <view class="form-item">
@@ -140,11 +137,12 @@ export default {
       return !(this.form.toAddress && this.form.amount) || this.loading;
     },
     money() {
-      const currency = this.form.currency == 'USDT_TRC20' ? 'USDT' : this.form.currency
-      const target = this.amountMap.find(item => item.currency == currency)
-      if (target) return target.balance
-      return '--'
-    }
+      const currency =
+        this.form.currency == "USDT_TRC20" ? "USDT" : this.form.currency;
+      const target = this.amountMap.find((item) => item.currency == currency);
+      if (target) return target.balance;
+      return "--";
+    },
   },
   onLoad(data) {
     this.userInfo = storage.get("userInfo") || {};
@@ -152,34 +150,31 @@ export default {
       this.form.toAddress = data.address;
       this.checkAddress();
     }
-    this.getAmounts()
+    this.getAmounts();
   },
   methods: {
     // 获取币种余额
     getAmounts() {
-      memberWalletList().then(res => {
-        console.error('余额', res)
+      memberWalletList().then((res) => {
+        console.error("余额", res);
         if (res.code == 200) {
-          this.amountMap = res.data || []
+          this.amountMap = res.data || [];
         }
-      })
+      });
     },
     // 选择币种
     clickCurrency(item) {
       this.form.currency = item.name;
       this.$refs.currencyPopup.close();
-      this.checkAddress()
+      this.checkAddress();
     },
     // 校验地址是否合法
     checkAddress() {
       setTimeout(() => {
         switch (this.form.currency) {
-          case "USDT_TRC20":
+          default:
             this.passAddress =
               this.form.toAddress && isValidTRONAddress(this.form.toAddress);
-            break;
-          case "CFB":
-            this.passAddress = true;
             break;
         }
       });
@@ -256,6 +251,9 @@ export default {
             flex: 1;
             margin-right: 20rpx;
             font-size: 28rpx;
+          }
+          .content-icon {
+            color: #4C9778;
           }
         }
 
