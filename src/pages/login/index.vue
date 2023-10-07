@@ -13,8 +13,8 @@
       <!--    <component :showTip="showTip" :is="menuName"></component>-->
       <mobile @loginSuccess="loginSuccess" :protocol="protocol" :inviteCode="inviteCode" :showTip="showTip"
         v-if="menuName === 'mobile'"></mobile>
-      <email @loginSuccess="loginSuccess" :protocol="protocol" :inviteCode="inviteCode" :showTip="showTip"
-        v-if="menuName === 'email'"></email>
+      <!-- <email @loginSuccess="loginSuccess" :protocol="protocol" :inviteCode="inviteCode" :showTip="showTip"
+        v-if="menuName === 'email'"></email> -->
       <u-text align="center" @click="router('pages/login/index')" type="primary" text="接收不到短信？"></u-text>
     </view>
 
@@ -48,10 +48,10 @@ export default {
           label: "手机登录",
           key: "mobile",
         },
-        {
-          label: "邮箱登录",
-          key: "email",
-        },
+        // {
+        //   label: "邮箱登录",
+        //   key: "email",
+        // },
       ],
       menuName: "mobile",
       currentView: "mobile",

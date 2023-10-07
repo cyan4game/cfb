@@ -30,11 +30,15 @@ export default {
   name: "h5scan",
   data() {
     return {
+      type: "", // 没有的时候默认转账扫码， addAddress-添加地址
       html5QrcodeScanner: {},
     };
   },
   mounted() {
     this.init();
+  },
+  onLoad(data) {
+    this.type = data.type;
   },
   methods: {
     // 初始化
@@ -54,18 +58,18 @@ export default {
     },
     // 选择文件
     chooseFile() {
+      const that = this
       uni.chooseImage({
         count: 1,
         sourceType: ["camera", "album"],
         success: (res) => {
-          console.error(res.tempFiles[0]);
           qrcode.decode(res.tempFiles[0].path);
           qrcode.callback = (rs) => {
             if (rs.includes("error")) {
               // 异常
-              this.errHandle();
+              that.errHandle(rs);
             } else {
-              this.success(rs);
+              that.success(rs);
             }
           };
         },
@@ -100,18 +104,33 @@ export default {
             icon: "none",
             duration: 5000,
           });
+        } else {
+          uni.showToast({
+            title: "无法识别的二维码",
+            icon: "none",
+            duration: 3000,
+          });
         }
       }
       // console.error('异常', err)
     },
     // 扫码成功
     success(rs) {
+      const pages = getCurrentPages();
+      const prevPage = pages[pages.length - 2]; //上一个页面
       if (isValidTRONAddress(rs)) {
         // 解析成功
         // 根据不同页面 跳转不同结果
-        uni.navigateTo({
-          url: `/pages/withdraw/index?address=${rs}`,
-        });
+        switch (this.type) {
+          case "addAddress":
+            prevPage.$vm.setAddress(rs)
+            uni.navigateBack();
+            break;
+          default:
+            uni.navigateTo({
+              url: `/pages/withdraw/index?address=${rs}`,
+            });
+        }
       } else {
         // 解析失败
         uni.showToast({

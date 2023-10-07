@@ -53,6 +53,12 @@ export const updatUserInfo = () => {
       .then((res) => {
         if (res.code == 200) {
           storage.set("userInfo", res.data);
+          if (!res.data.payPasswordStatus) {
+            // 未设置支付密码
+            uni.reLaunch({
+              url: '/pages/setPayPassword/index'
+            });
+          }
           resolve(res.data);
         }
       })

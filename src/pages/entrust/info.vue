@@ -2,132 +2,195 @@
 <template>
   <view class="info-page-bg page-entrust-info">
     <view class="info-page-content content-box">
-      <view class="title">发布中</view>
+      <view class="title">{{ stateMap[info.state] || "--" }}</view>
       <view class="info">
         <text>创建时间</text>
-        <text class="time">2022/07/01 15:22:14</text>
+        <text class="time">{{ getTimestr(info.createDate) }}</text>
       </view>
 
-      
       <view class="item">
         <text>委托人</text>
-        <text class="val">Justin</text>
+        <text class="val">{{ info.realName }}</text>
       </view>
       <view class="item">
         <text>委托类型</text>
-        <text class="val">出售</text>
+        <text class="val">{{ info.type == 2 ? "出售" : "购买" }}</text>
       </view>
       <view class="item">
         <text>数量</text>
-        <text class="val">3000.00</text>
+        <text class="val">{{ info.entrustAmount }}</text>
       </view>
       <view class="item">
         <text>币种</text>
-        <text class="val">CFB</text>
+        <text class="val">{{ info.currency }}</text>
       </view>
       <view class="item">
         <text>参考汇率</text>
-        <text class="val">￥1.00</text>
+        <text class="val">￥{{ info.referenceRate }}</text>
       </view>
       <view class="item">
         <text>预估成交金额</text>
-        <text class="val">￥3000.00</text>
+        <text class="val"
+          >￥{{ (info.entrustAmount * info.referenceRate).toFixed(2) }}</text
+        >
       </view>
       <view class="item">
         <text>结束时间</text>
-        <text class="val">30天</text>
+        <text class="val">{{ info.endTime }}天</text>
       </view>
-      <view class="item">
-        <text>收款账号</text>
-        <text class="val">75675588686</text>
-      </view>
-      <view class="item">
-        <text>收款方式</text>
-        <text class="val">银行卡</text>
-      </view>
-      <view class="item">
-        <text>收款银行</text>
-        <text class="val">工商银行</text>
-      </view>
-      <view class="item">
-        <text>收款银行分行</text>
-        <text class="val">工商银行福州分行</text>
-      </view>
-      
-      <!-- <view class="item">
-        <view class="row">
-          <view class="name">自动回复（非必填）</view>
-          <view class="val flex-box">
-            <view class="pay">
-              <u-image
-                class="icon"
-                src="/static/images/mine/icon-wechat.png"
-                width="32rpx"
-                height="32rpx"
-              ></u-image>
-              <text>微信</text>
-            </view>
-            <view class="pay">
-              <u-image
-                class="icon"
-                src="/static/images/mine/icon-alipay.png"
-                width="32rpx"
-                height="32rpx"
-              ></u-image>
-              <text>支付宝</text>
-            </view>
-            <view class="pay">
-              <u-image
-                class="icon"
-                src="/static/images/mine/icon-bank.png"
-                width="32rpx"
-                height="32rpx"
-              ></u-image>
-              <text>银行卡</text>
-            </view>
-          </view>
+      <!-- 卖出 -->
+      <template v-if="info.type == 2">
+        <view class="item">
+          <text>收款账号</text>
+          <text class="val">{{ info.accountName }}</text>
         </view>
-      </view>
-      <view class="item">
-        <view class="row">
-          <view class="name">自动回复（非必填）</view>
-          <view class="val">您好，请问有什么可以帮您？</view>
+        <view class="item">
+          <text>收款方式</text>
+          <text class="val">{{ paywayMap[info.payType] }}</text>
         </view>
-      </view>
-      <view class="item">
-        <view class="row">
-          <view class="name">广告留言（非必填）</view>
-          <view class="val"
-            >请放心购买此商户的币，平台可为您保驾护航。请放心购买此商户的币</view
-          >
+      </template>
+      <!-- 银行卡 -->
+      <template v-if="info.payType == 3">
+        <view class="item">
+          <text>收款银行</text>
+          <text class="val">{{ info.bankName }}</text>
         </view>
-      </view> -->
+        <view class="item">
+          <text>收款银行分行</text>
+          <text class="val">{{ info.branchName }}</text>
+        </view>
+      </template>
 
       <view class="btns">
         <!-- 发布中 -->
-        <template>
-          <view class="btn">取消委托</view>
-          <view class="submit">编辑</view>
+        <template v-if="info.state == 0">
+          <view class="btn" @click="() => $refs.cancelBox.open()"
+            >取消委托</view
+          >
+          <view class="submit" @click="rePost(false)">编辑</view>
         </template>
         <!-- 交易中 -->
-        <!-- <template>
+        <template v-if="info.state == 1">
           <view class="btn">查看收款信息</view>
           <view class="submit">确认付款</view>
-        </template> -->
+        </template>
         <!-- 已关闭-配对成功 -->
-        <!-- <template>
+        <template v-if="info.state == -1">
           <view class="btn">查看订单</view>
-          <view class="submit">再次下单</view>
-        </template> -->
+          <view class="submit" @click="rePost(true)">再次下单</view>
+        </template>
         <!-- 已关闭-未配对成功 -->
-        <!-- <template>
-          <view class="submit">重新发布</view>
-        </template> -->
-        
+        <template v-if="info.state == 2">
+          <view class="submit" @click="rePost(true)">重新发布</view>
+        </template>
       </view>
     </view>
+
+    <!-- 取消委托弹窗 -->
+    <confirm-dialog
+      ref="cancelBox"
+      :title="'取消委托'"
+      :content="'确认取消该委托吗？'"
+      :borderBtn="'不取消'"
+      :btn="'取消委托'"
+      :btnHandle="cancel"
+    ></confirm-dialog>
   </view>
 </template>
+
+<script>
+import { entrustPage, entrustCancel } from "@/api/api";
+import { getTimestr } from "@/utils/time";
+
+// 状态：-1关闭,0发布中,1交易中，2完成
+const stateMap = {
+  "-1": "关闭",
+  0: "发布中",
+  1: "交易中",
+  2: "完成",
+};
+
+const paywayMap = {
+  1: "支付宝",
+  2: "微信",
+  3: "银行卡",
+};
+
+export default {
+  name: "entrust",
+  data() {
+    return {
+      paywayMap,
+      stateMap,
+      id: "",
+      info: {},
+    };
+  },
+  onLoad(data) {
+    this.id = data.id;
+  },
+  onShow() {
+    setTimeout(() => {
+      this.getInfo();
+    }, 200);
+  },
+  methods: {
+    getTimestr,
+    // 获取详情
+    getInfo() {
+      entrustPage({
+        id: this.id,
+      }).then((res) => {
+        if (res.code == 200) {
+          if (res.data && res.data.list && res.data.list[0]) {
+            this.info = res.data.list[0];
+          }
+        }
+      });
+    },
+    // 取消委托
+    cancel() {
+      this.$refs.cancelBox.close();
+      entrustCancel(this.id).then((res) => {
+        if (res.code == 200) {
+          uni.showToast({
+            title: "委托已取消",
+            duration: 2000,
+            icon: "none",
+          });
+          setTimeout(() => {
+            uni.navigateBack();
+          }, 600);
+        }
+      });
+    },
+    // 重新发布
+    rePost(newP = false) {
+      // new为true时是发布新委托，不传id过去
+      const params = JSON.parse(
+        JSON.stringify(this.info, [
+          "currency",
+          "paymodelId",
+          "entrustAmount",
+          "estimatedAmount",
+          "referenceRate",
+          "endTime",
+          "type",
+        ])
+      );
+      if (!newP) params.id = this.info.id;
+      let str = "";
+      for (let key in params) {
+        str += `${key}=${params[key]}&`;
+      }
+      str = str.substr(0, str.length - 1);
+      uni.navigateTo({
+        url: "/pages/entrust/post?" + str,
+      });
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .page-entrust-info {
@@ -160,14 +223,14 @@
   }
   .item {
     display: flex;
-    color: #7A7A7A;
+    color: #7a7a7a;
     font-size: 26rpx;
     align-items: center;
     justify-content: space-between;
     height: 120rpx;
     border-bottom: 1px solid #eee;
     .val {
-      color: #3C3C3C;
+      color: #3c3c3c;
       display: flex;
       align-items: center;
     }
@@ -183,12 +246,12 @@
     height: 96rpx;
     flex: 1;
     margin-right: 30rpx;
-    border: 1px solid #38363B;
+    border: 1px solid #38363b;
     background-color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #38363B;
+    color: #38363b;
     font-size: 32rpx;
     border-radius: 6rpx;
   }

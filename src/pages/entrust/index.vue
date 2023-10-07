@@ -8,7 +8,15 @@
       <!-- 筛选 -->
       <view class="filter-box">
         <view class="types">
-          <text>出售委托</text>
+          <picker
+            class="input"
+            @change="bindPickerChange"
+            :range-key="'name'"
+            :value="index"
+            :range="array"
+          >
+            <view>{{ array[index].name }}</view>
+          </picker>
           <u-image
             class="icon"
             src="/static/images/index/more.png"
@@ -16,9 +24,11 @@
             height="8rpx"
           ></u-image>
         </view>
-        <view class="show">
-          <view class="check checked"><view class="in"></view></view>
-          <text>隐藏关闭委托</text>
+        <view class="show" @click="changeHidden">
+          <view class="check" :class="{ checked: params.isHide == 1 }"
+            ><view class="in"></view
+          ></view>
+          <text>{{ params.isHide == 1 ? "隐藏" : "显示" }}关闭委托</text>
         </view>
       </view>
 
@@ -26,26 +36,26 @@
       <scroll-view scroll-y="true" class="list">
         <view
           class="item"
-          v-for="i in 20"
+          v-for="(item, i) in list"
           :key="i"
           @scrolltolower="loadMore"
-          @click="goInfo"
+          @click="goInfo(item)"
         >
           <!-- 头部 -->
           <view class="top">
-            <view class="status">出售</view>
-            <view class="name">CFB</view>
-            <view class="state">发布中</view>
+            <view class="status">{{ item.type==2?'出售':'购买' }}</view>
+            <view class="name">{{ item.currency }}</view>
+            <view class="state">{{ stateMap[item.state] || '--' }}</view>
           </view>
 
           <view class="body">
             <view class="row">
               <view class="row-name">参考汇率（CNY）</view>
-              <view class="row-val">￥6.16</view>
+              <view class="row-val">￥{{ item.referenceRate }}</view>
             </view>
             <view class="row">
               <view class="row-name">委托数量</view>
-              <view class="row-val">100.00</view>
+              <view class="row-val">{{ item.entrustAmount }}</view>
             </view>
           </view>
 
@@ -69,26 +79,94 @@
             <view class="btn">查看详情</view>
           </view>
         </view>
+
+        <view class="more">{{ finish?'没有更多了':(loading?'加载中':'加载更多') }}</view>
       </scroll-view>
     </view>
   </view>
 </template>
 
 <script>
+import { entrustPage } from "@/api/api";
+
+// 状态：-1关闭,0发布中,1交易中，2完成
+const stateMap = {
+  '-1': '关闭',
+  0: '发布中',
+  1: '交易中',
+  2: '完成'
+}
+
 export default {
   name: "entrust",
   data() {
-    return {};
+    return {
+      stateMap,
+      list: [],
+      array: [
+        // 类型：1 购买，2出售
+        { name: "出售委托", val: 2 },
+        { name: "购买委托", val: 1 },
+      ],
+      index: 0, // 0-出售委托 1-购买委托
+      params: {
+        isHide: 1, // 是否隐藏关闭委托：1是，0否
+        pageNo: 0,
+        pageSize: 10,
+        type: 2,
+      },
+
+      loading: false,
+      finish: false,
+    };
+  },
+  onShow() {
+    this.reset()
   },
   methods: {
     // 加载更多
     loadMore() {
-      console.error("加载更多");
+      if (this.loading || this.finish) return
+      this.params.pageNo++
+      this.loading = true
+      entrustPage(this.params).then(res => {
+        console.error(res.data.list[0])
+        if (res.code == 200) {
+          this.list = res.data.list || []
+          if (this.list.length >= res.data.total) {
+            this.finish = true
+          }
+        }
+      }).finally(() => {
+        setTimeout(() => {
+          this.loading = false
+        }, 500)
+      })
+    },
+    reset() {
+      this.list = []
+      this.params.pageNo = 0;
+      this.finish = false
+      this.loading = false
+      setTimeout(() => {
+        this.loadMore();
+      }, 0)
+    },
+    // 隐藏关闭委托
+    changeHidden() {
+      this.params.isHide = this.params.isHide == 1 ? 0 : 1;
+      this.reset();
+    },
+    // 选择类型
+    bindPickerChange(e) {
+      this.index = e.target.value;
+      this.params.type = this.array[this.index].val;
+      this.reset()
     },
     // 查看详情
-    goInfo() {
+    goInfo(item) {
       uni.navigateTo({
-        url: "/pages/entrust/info",
+        url: `/pages/entrust/info?id=${item.id}`,
       });
     },
     // 发布委托
@@ -142,7 +220,6 @@ export default {
       align-items: center;
       color: #827e88;
       font-size: 30rpx;
-      
     }
   }
   .list {
@@ -151,6 +228,12 @@ export default {
     padding: 30rpx;
     background-color: #f1f1f1;
     box-sizing: border-box;
+    .more {
+      padding: 50rpx 0;
+      text-align: center;
+      font-size: 24rpx;
+      color: #999;
+    }
     .item {
       height: 353rpx;
       border-radius: 9rpx;

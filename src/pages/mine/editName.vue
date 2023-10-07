@@ -43,7 +43,6 @@ export default {
                 title: ''
             });
             nicknameSettings({ nickname: this.userInfo.nickname }).then(res => {
-                console.error(res)
                 if (res.code == 200) {
                     storage.set('userInfo', this.userInfo)
                     updatUserInfo()

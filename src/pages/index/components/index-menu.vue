@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { isValidTRONAddress } from "@/utils/utils";
+
 export default {
   name: "index-menu",
   data() {
@@ -61,7 +63,7 @@ export default {
           name: "我的委托",
           icon: "/static/images/index/nav-6.png",
           route: "/pages/entrust/index",
-        }
+        },
       ],
     };
   },
@@ -84,6 +86,21 @@ export default {
         success: function (res) {
           console.log("条码类型：" + res.scanType);
           console.log("条码内容：" + res.result);
+          const rs = res.result;
+          if (isValidTRONAddress(rs)) {
+            // 解析成功
+            // 根据不同页面 跳转不同结果
+            uni.navigateTo({
+              url: `/pages/withdraw/index?address=${rs}`,
+            });
+          } else {
+            // 解析失败
+            uni.showToast({
+              title: `无效地址：${rs}`,
+              icon: "none",
+              duration: 4000,
+            });
+          }
         },
       });
       // #endif

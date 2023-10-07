@@ -18,14 +18,14 @@
                 </view>
 
                 <!-- 提现网络 -->
-                <view class="form-item">
+                <!-- <view class="form-item">
                     <view class="item-title">提现网络</view>
                     <view class="item-content" @click="openChain">
                         <view class="ipt">{{ form.chain || '请选择提现网络' }}</view>
                         <u-image class="content-icon" src="@/static/images/index/more.png" width="15rpx"
                             height="9rpx"></u-image>
                     </view>
-                </view>
+                </view> -->
 
                 <!-- 提现地址 -->
                 <view class="form-item">
@@ -77,8 +77,8 @@ export default {
             type: 1, // 页面类型 1-添加  2-修改
             form: {
                 address: '', // 地址
-                currency: 'USDT', // 币种
-                chain: 'TRC20', // 链
+                currency: 'USDT_TRC20', // 币种
+                chain: '', // 链
                 name: '', // 备注
             },
             loading: false,
@@ -88,7 +88,7 @@ export default {
     },
     computed: {
         disabled() {
-            return !(this.form.address && this.form.currency && this.form.chain && this.passAddress) || this.loading
+            return !(this.form.address && this.form.currency && this.passAddress) || this.loading
         }
     },
     onLoad(data) {
@@ -100,7 +100,7 @@ export default {
         if (this.type == 2) { // 编辑时初始化数据
             this.form.address = data.address
             this.form.currency = data.currency
-            this.form.chain = data.chain
+            // this.form.chain = data.chain
             this.form.name = data.name
             this.form.id = data.id
             this.checkAddress()
@@ -109,10 +109,10 @@ export default {
     methods: {
         // 校验地址是否合法
         checkAddress() {
-            let pass = this.form.address && this.form.chain
+            let pass = this.form.address && this.form.currency
             if (pass) {
-                switch (this.form.chain) {
-                    case 'TRC20':
+                switch (this.form.currency) {
+                    default:
                         pass = isValidTRONAddress(this.form.address)
                         break
                 }
@@ -126,10 +126,10 @@ export default {
             if (this.type == 1) {
                 // 同一条链同一币种只能有一个地址的校验
                 const list = storage.get('coin_address_list') || []
-                const stop = list.some(item => item.coin == `${this.form.currency}_${this.form.chain}`)
+                const stop = list.some(item => item.coin == `${this.form.currency}`)
                 if (stop) return uni.showToast({
                     icon: 'none',
-                    title: `${this.form.currency}_${this.form.chain} 地址已存在`,
+                    title: `${this.form.currency} 地址已存在`,
                     duration: 2000
                 });
             }
@@ -142,9 +142,16 @@ export default {
             }[this.type]
             if (!req) return
             this.loading = true
+            const form = {
+                address: this.form.address, // 地址
+                currency: this.form.currency.split('_')[0], // 币种
+                chain: 'TRC20', // 链
+                name: this.form.name, // 备注
+            }
             req({
-                ...this.form,
+                ...form,
                 ...codes,
+                coin: form.currency + '_' + form.chain
                 // memberId: this.userInfo.id
             }).then(res => {
                 if (res.code == 200) {
@@ -164,7 +171,9 @@ export default {
             this.$refs.currencyPopup.open()
         },
         // 选择币种
-        clickCurrency() {
+        clickCurrency(item) {
+            console.error(item)
+            this.form.currency = item.name
             this.$refs.currencyPopup.close()
         },
         // 打开网络选择
@@ -178,11 +187,26 @@ export default {
         },
         // 扫码
         scan() {
+            // #ifdef APP-PLUS
             uni.scanCode({
                 success: res => {
-                    this.form.address = res.result
+                    this.setAddress(res.result)
                 }
             })
+            // #endif
+
+            // #ifdef H5
+            uni.navigateTo({
+                url: "/pages/index/scan?type=addAddress",
+            });
+            // #endif
+        },
+        // 设置地址
+        setAddress(rs) {
+            this.form.address = rs
+            setTimeout(() => {
+                this.checkAddress()
+            }, 0)
         }
     }
 }

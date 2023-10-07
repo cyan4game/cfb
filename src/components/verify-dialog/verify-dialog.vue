@@ -1,16 +1,16 @@
 <!-- 短信和邮箱验证弹框 -->
 <template>
     <uni-popup ref="popup" type="bottom" :mask-click="false" :is-mask-click="false">
-        <view class="msg-doalog" :style="{height:password?'900rpx':'750rpx'}">
+        <view class="msg-doalog" :style="{height:password?'750rpx':'600rpx'}">
             <view class="title">
                 <text>安全验证</text>
                 <view class="close" @click="close">×</view>
             </view>
 
             <!-- 已绑定了邮箱和手机 -->
-            <template v-if="userInfo.phoneNumber && userInfo.email">
+            <template v-if="userInfo.phoneNumber">
                 <u-form :model="checkForm" ref="form2" class="form2">
-                    <u-form-item class="item" prop="codeEmail">
+                    <!-- <u-form-item class="item" prop="codeEmail">
                         <view class="item">
                             <u-text text="邮箱验证"></u-text>
                             <u-input class="ipt" :type="'text'" placeholder="请输入邮箱验证码" v-model="checkForm.codeEmail">
@@ -21,7 +21,7 @@
                                 </template>
                             </u-input>
                         </view>
-                    </u-form-item>
+                    </u-form-item> -->
                     <u-form-item class="item" prop="codePhone">
                         <view class="item">
                             <u-text text="手机验证"></u-text>
@@ -41,17 +41,17 @@
                         </view>
                     </u-form-item>
                 </u-form>
-                <u-button @click="goCheck" :disabled="!(checkForm.codeEmail && checkForm.codePhone) || (password && !checkForm.payPass)" class="login-button2"
+                <u-button @click="goCheck" :disabled="!(checkForm.codePhone) || (password && !checkForm.payPass)" class="login-button2"
                     type="primary" text="确认"></u-button>
             </template>
 
             <!-- 邮箱未绑定 -->
-            <template v-if="!userInfo.email">
+            <!-- <template v-if="!userInfo.email">
                 <view class="untip">
                     <text>未绑定邮箱</text>
                     <text class="link" @click="jump('/pages/safety/email')">去绑定</text>
                 </view>
-            </template>
+            </template> -->
 
             <!-- 手机未绑定 -->
             <template v-if="!userInfo.phoneNumber">
@@ -116,7 +116,8 @@ export default {
         // 验证
         goCheck() {
             this.$emit('success', {
-                emailCode: this.checkForm.codeEmail,
+                emailCode: '666666',
+                // emailCode: this.checkForm.codeEmail,
                 phoneCode: this.checkForm.codePhone,
             })
             this.close()
@@ -184,7 +185,7 @@ export default {
 <style lang="scss" scoped>
 .msg-doalog {
     width: 100%;
-    height: 750rpx;
+    height: 600rpx;
     background-color: #fff;
 
     .title {

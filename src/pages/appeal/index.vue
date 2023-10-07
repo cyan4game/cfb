@@ -1,4 +1,4 @@
-<!-- 申述 -->
+<!-- 申诉 -->
 <template>
   <view class="info-page-bg page-appeal">
     <!-- 表单 -->
@@ -60,7 +60,7 @@
           >
             <u-image
               class="icon"
-              src="/static/images/home/img.png"
+              src="/static/images/home/img2.png"
               width="72rpx"
               height="72rpx"
             ></u-image>
@@ -78,6 +78,7 @@
             v-show="videoFile.name"
             @click="selectVideo"
             class="upload-item"
+            style="font-size: 20rpx; text-align: center; padding: 10rpx"
           >
             {{ videoFile.name }}
             <!-- <image :src="videoFile + '?x-oss-process=video/snapshot,t_0,f_jpg'"></image> -->
@@ -108,7 +109,7 @@
 </template>
 
 <script>
-import { withdraw } from "@/api/api";
+import { withdraw, appeal, _upload } from "@/api/api";
 import storage from "@/utils/storage";
 import { isValidTRONAddress } from "@/utils/utils";
 
@@ -157,8 +158,13 @@ export default {
       uni.chooseVideo({
         count: 1,
         success: (res) => {
+          if (res.tempFile.size > 100 * 1024 * 1024)
+            return uni.showToast({
+              title: "视频不能超过100M",
+              icon: "none",
+              duration: 2000,
+            });
           this.videoFile = res.tempFile;
-          console.error(res.tempFile);
         },
       });
     },
@@ -187,30 +193,155 @@ export default {
       });
     },
     // 提交
-    submit() {
+    async submit() {
+      if (this.imgList.length < 3 || this.imgList.length > 9)
+        return uni.showToast({
+          title: "至少上传3张,最多9张图片",
+          icon: "none",
+          duration: 2000,
+        });
       if (this.disabled) return;
-      this.$refs.popup.open();
+      await this.uploadPic();
+      const videoSrc = await this.uploadVideo();
+      if (videoSrc === false) return;
+      const images = this.imgList.map((item) => {
+        return item.uploadUrl;
+      });
+      const params = {
+        orderNo: "20",
+        remark: this.form.text,
+        video: videoSrc,
+        // modifyUser: this.userInfo.id,
+        images: images,
+      };
+      console.error("---参数", params);
+      this.successHandle(params);
     },
-    successHandle(codes) {
+    successHandle(params) {
       this.loading = true;
-      withdraw({
-        ...this.form,
-        // ...codes,
-      })
+      appeal(params)
         .then((res) => {
           if (res.code == 200) {
             uni.showToast({
-              title: "转账成功",
+              title: "申诉提交成功",
               icon: "none",
               duration: 2000,
             });
-            this.form.toAddress = "";
-            this.form.amount = "";
+            this.imgList = [];
+            this.videoFile = {};
+            this.form.text = "";
+            this.form.video = "";
+            this.form.imgUrls = [];
+            setTimeout(() => {
+              uni.navigateBack();
+            }, 500);
           }
         })
         .finally(() => {
           this.loading = false;
         });
+    },
+    // 上传图片
+    async uploadPic() {
+      const uploadItem = (file) => {
+        return new Promise((resolve) => {
+          uni.showLoading({
+            title: "图片上传中",
+          });
+          _upload(
+            file,
+            (res) => {
+              try {
+                const datas = JSON.parse(res.data);
+                if (datas.code == 200) {
+                  resolve(datas.data);
+                } else {
+                  uni.showToast({
+                    title: "上传失败，请重试",
+                    icon: "none",
+                    duration: 2000,
+                  });
+                  resolve(false);
+                }
+              } catch {
+                uni.showToast({
+                  title: "上传失败",
+                  icon: "none",
+                  duration: 2000,
+                });
+                resolve(false);
+              }
+            },
+            () => {
+              uni.showToast({
+                title: "网络异常，请重试",
+                icon: "none",
+                duration: 2000,
+              });
+              resolve(false);
+            },
+            () => {
+              uni.hideLoading();
+            }
+          );
+        });
+      };
+
+      for (let i = 0; i < this.imgList.length; i++) {
+        const item = this.imgList[i];
+        if (item.uploaded) continue; // 已经上传过了
+        const rs = await uploadItem(item);
+        if (rs) {
+          item.uploadUrl = rs;
+        } else {
+          item.uploadError = true;
+        }
+      }
+    },
+    // 上传视频
+    uploadVideo() {
+      return new Promise((resolve) => {
+        if (!this.videoFile.name) return resolve("");
+        uni.showLoading({
+          title: "视频上传中",
+        });
+        _upload(
+          this.videoFile,
+          (res) => {
+            try {
+              const datas = JSON.parse(res.data);
+              if (datas.code == 200) {
+                resolve(datas.data);
+              } else {
+                uni.showToast({
+                  title: "上传失败，请重试",
+                  icon: "none",
+                  duration: 2000,
+                });
+                resolve(false);
+              }
+            } catch {
+              uni.showToast({
+                title: "上传失败",
+                icon: "none",
+                duration: 2000,
+              });
+              resolve(false);
+            }
+          },
+          () => {
+            uni.showToast({
+              title: "网络异常，请重试",
+              icon: "none",
+              duration: 2000,
+            });
+            resolve(false);
+          },
+          () => {
+            uni.hideLoading();
+          }
+        );
+      });
     },
   },
 };
@@ -256,11 +387,13 @@ export default {
         font-size: 24rpx;
         margin-top: 20rpx;
       }
+
       .tip {
         font-size: 24rpx;
         margin-top: 10rpx;
       }
     }
+
     .upload-box {
       display: flex;
       align-items: center;
@@ -331,6 +464,7 @@ export default {
     color: #757575;
   }
 }
+
 .sure-box {
   width: 100%;
   height: 600rpx;
@@ -358,6 +492,7 @@ export default {
       color: #888;
     }
   }
+
   .sure-item {
     height: 70rpx;
     border-bottom: 1px solid #e4e4e4;
@@ -365,6 +500,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     font-size: 26rpx;
+
     .sure-val {
       margin-left: 20rpx;
     }

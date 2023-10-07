@@ -35,7 +35,7 @@
         </view>
       </view>
 
-      <view class="safety-item" @click="pageTo('/pages/safety/email')">
+      <!-- <view class="safety-item" @click="pageTo('/pages/safety/email')">
         <view class="title">邮箱管理</view>
         <view class="item">
           <text>邮箱</text>
@@ -44,7 +44,7 @@
             <u-image class="icon" src="/static/images/mine/right.png" width="10rpx" height="18rpx"></u-image>
           </view>
         </view>
-      </view>
+      </view> -->
 
       <view class="safety-item">
         <view class="title">登录设备</view>

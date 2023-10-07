@@ -83,13 +83,14 @@ export default {
     transform: translateX(100%);
   }
   .title-list {
-    width: 50%;
+    width: 100%;
     height: 100%;
     justify-content: center;
     position: relative;
     z-index: 2;
     font-weight: 400;
     transition: all 0.5s;
+    background-color: #fff;
     .flex-label {
       font-size: 15px;
       margin-left: 5px;

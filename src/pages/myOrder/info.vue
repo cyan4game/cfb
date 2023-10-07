@@ -80,7 +80,7 @@
       <view class="btns">
         <!-- 收款待确认 -->
         <template>
-          <view class="btn" @click="appeal">申述</view>
+          <view class="btn" @click="appeal">申诉</view>
           <view class="submit">确认收款</view>
         </template>
       </view>
@@ -92,7 +92,7 @@
 export default {
   name: 'orderInfo',
   methods: {
-    // 去申述
+    // 去申诉
     appeal() {
       uni.navigateTo({
          url: '/pages/appeal/index'

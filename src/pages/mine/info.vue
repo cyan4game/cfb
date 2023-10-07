@@ -125,6 +125,7 @@ export default {
             }).then(res => {
                 if (res.code == 200) {
                     this.userInfo.avatar = url || ''
+                    this.userInfo.avatarYearUpdateLastCount--
                     storage.set('userInfo', this.userInfo)
                     updatUserInfo()
                     uni.showToast({
