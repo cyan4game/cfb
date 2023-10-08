@@ -278,3 +278,9 @@ export const appeal = (data) => {
     custom: { auth: true, toast: true },
   });
 };
+// 获取我的订单
+export const pageOtcMyOrder = (data) => {
+  return http.post(`/cfbOtcOrder/pageOtcMyOrder`, data, {
+    custom: { auth: true, toast: true },
+  });
+};

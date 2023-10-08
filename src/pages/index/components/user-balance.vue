@@ -1,6 +1,27 @@
 <!-- 用户资产 -->
 <template>
   <view class="user-banlance">
+
+    <!-- 弹出详情 -->
+    <view class="dialog-box" v-show="showInfo">
+      <view class="item">
+        <text>CFB余额</text>
+        <text class="val">3000.00</text>
+      </view>
+      <view class="item">
+        <text>USDT余额</text>
+        <text class="val">3000.00</text>
+      </view>
+      <view class="item">
+        <text>委托中USDT</text>
+        <text class="val">3000.00</text>
+      </view>
+      <view class="item">
+        <text>委托中CFB</text>
+        <text class="val">3000.00</text>
+      </view>
+    </view>
+
     <!-- 顶部 -->
     <view class="title">
       <text>CFB资产</text>
@@ -22,7 +43,7 @@
       ></u-image>
 
       <u-image
-        @click="openCanvas"
+        @click="() => showInfo = !showInfo"
         class="time"
         src="/static/images/index/total.png"
         width="34rpx"
@@ -84,27 +105,28 @@
     </view>
 
     <!-- 统计弹窗 -->
-    <total ref="totalDialog" />
+    <!-- <total ref="totalDialog" /> -->
   </view>
 </template>
 
 <script>
-import total from "./total";
+// import total from "./total";
 
 export default {
   name: "user-banlance",
   data() {
     return {
+      showInfo: false, // 是否展示详情
       showMoney: true, // 是否展示数字
     };
   },
   components: {
-    total,
+    // total,
   },
   methods: {
     // 打开饼状图
     openCanvas() {
-      this.$refs.totalDialog.open();
+      // this.$refs.totalDialog.open();
     },
   },
 };
@@ -119,6 +141,7 @@ export default {
   padding: 48rpx 48rpx 40rpx 48rpx;
   background-color: #fff;
   box-sizing: border-box;
+  position: relative;
   .title {
     display: flex;
     align-items: center;
@@ -209,6 +232,33 @@ export default {
       justify-content: flex-end;
       .ball {
         background-color: #ffd146;
+      }
+    }
+  }
+  .dialog-box {
+    border: 1px solid #d7d7d7;    
+    border-top: none;
+    width: 100%;
+    height: 375rpx;
+    position: absolute;
+    top: 130rpx;
+    left: 0;
+    background-color: #fff;
+    z-index: 9;
+    border-radius: 6rpx;
+    padding-top: 20rpx;
+    box-sizing: border-box;
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #8C8C8C;
+      font-size: 28rpx;
+      box-sizing: border-box;
+      padding: 0 42rpx;
+      margin-bottom: 50rpx;
+      .val {
+        color: #262626;
       }
     }
   }

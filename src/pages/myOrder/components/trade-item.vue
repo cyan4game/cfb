@@ -4,30 +4,27 @@
     <!-- 头部信息 -->
     <view class="top">
       <view class="title">
-        <text class="status">出售</text>
-        <text>CFB</text>
+        <text class="status">{{ orderTypeMap[item.orderType] || "--" }}</text>
+        <text>{{ item.buyCoin }}</text>
       </view>
       <view class="time">
-        <text class="timedown">{{ timeStr }} 待付款</text>
-        &gt;
+        <text class="timedown">{{
+          orderStatusMap[item.orderStatus] || "--"
+        }}</text>
       </view>
     </view>
 
     <!-- 金额详情 -->
     <view class="amount-box">
       <view class="left">
-        <view>时间</view>
-        <view>2020/08/13 03:08</view>
-      </view>
-      <view class="left">
         <view>数量</view>
-        <view>10.0000</view>
+        <view class="val">{{ item.buyAmount }}</view>
       </view>
       <view class="left">
         <view>交易金额(CNY)</view>
-        <view>￥2000.00</view>
+        <view class="val">￥{{ item.payAmount }}</view>
       </view>
-      <!-- <view class="total">CNY 10062</view> -->
+      <view class="time">{{ getTimestr(item.dealTime) }}</view>
     </view>
 
     <!-- 底部信息 -->
@@ -43,47 +40,61 @@
 
 <script>
 import { secondsToMinutesAndSeconds } from "@/utils/utils";
+import { orderStatusMap, orderTypeMap } from "../map.js";
+import { getTimestr } from "@/utils/time";
+import storage from "@/utils/storage";
 
 export default {
   name: "tradeItem",
+  props: {
+    item: {
+      type: Object,
+      default: () => {},
+    },
+  },
   data() {
     return {
+      orderTypeMap,
+      orderStatusMap,
       interval: null,
       time: 300,
       timeStr: "",
     };
   },
   mounted() {
-    if (this.time) {
-      this.timeStr = secondsToMinutesAndSeconds(this.time);
-      this.interval = setInterval(() => {
-        this.time--;
-        if (this.time) {
-          this.timeStr = secondsToMinutesAndSeconds(this.time);
-        } else {
-          // todo 状态已结束
-          clearInterval(this.interval);
-        }
-      }, 1000);
-    }
+    // if (this.time) {
+    //   this.timeStr = secondsToMinutesAndSeconds(this.time);
+    //   this.interval = setInterval(() => {
+    //     this.time--;
+    //     if (this.time) {
+    //       this.timeStr = secondsToMinutesAndSeconds(this.time);
+    //     } else {
+    //       // todo 状态已结束
+    //       clearInterval(this.interval);
+    //     }
+    //   }, 1000);
+    // }
   },
   beforeDestroy() {
     if (this.interval) clearInterval(this.interval);
   },
   methods: {
+    getTimestr,
     // 跳转到详情
     goDetail() {
+      storage.set("curr-order", this.item);
+      setTimeout(() => {
         uni.navigateTo({
-             url: '/pages/myOrder/info'
-        })
-    }
-  }
+          url: "/pages/myOrder/info",
+        });
+      }, 0);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .trade-item {
-  height: 300rpx;
   border-radius: 9rpx;
   background-color: #fff;
   box-sizing: border-box;
@@ -95,6 +106,8 @@ export default {
     align-items: center;
     justify-content: space-between;
     font-size: 26rpx;
+    border-bottom: 1px solid #f1f1f1;
+    margin-bottom: 20rpx;
     .title {
       display: flex;
       align-items: center;
@@ -113,23 +126,31 @@ export default {
     }
   }
   .amount-box {
-    height: 158rpx;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
     .left {
-      color: #696969;
+      color: #686868;
       font-size: 28rpx;
       line-height: 55rpx;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .total {
       flex: 1;
-      font-weight: 500;
-      color: #343635;
-      font-size: 46rpx;
+      text-align: center;
       display: flex;
-      align-items: center;
-      justify-content: flex-end;
+      flex-direction: column;
+      .val {
+        color: #8c8c8c;
+      }
+    }
+    .time {
+      margin-top: 20rpx;
+      box-sizing: border-box;
+      width: 100%;
+      border-top: 1px solid #f1f1f1;
+      padding: 30rpx 0;
+      color: #686868;
+      font-size: 26rpx;
     }
   }
   .bottom {

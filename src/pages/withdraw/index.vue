@@ -8,7 +8,10 @@
         <view class="form-item">
           <view class="item-title">币种</view>
           <view class="item-content" @click="() => $refs.currencyPopup.open()">
-            <view class="ipt">{{ form.currency || "请选择币种" }}</view>
+            <view class="ipt">
+              <coin-icon class="ipt-icon" :coin="form.currency" />
+              <text>{{ form.currency || "请选择币种" }}</text>
+            </view>
             
             <u-image
               src="@/static/images/mine/right.png"
@@ -18,9 +21,9 @@
           </view>
         </view>
 
-        <!-- 提现地址 -->
+        <!-- 接收地址 -->
         <view class="form-item">
-          <view class="item-title">提现地址</view>
+          <view class="item-title">接收地址</view>
           <view class="item-content" style="padding-right:20rpx">
             <input
               @input="checkAddress"
@@ -35,15 +38,15 @@
           >
         </view>
 
-        <!-- 提现数量 -->
+        <!-- 转账数量 -->
         <view class="form-item">
-          <view class="item-title">提现数量</view>
+          <view class="item-title">转账数量</view>
           <view class="item-content">
             <input
               v-model="form.amount"
               type="number"
               class="ipt"
-              placeholder="请输入提现数量"
+              placeholder="请输入转账数量"
             />
           </view>
           <view class="tip"
@@ -88,11 +91,11 @@
 
         <view style="padding: 0 30rpx; box-sizing: border-box">
           <view class="sure-item">
-            <text>提现地址</text>
+            <text>接收地址</text>
             <text class="sure-val">{{ form.toAddress }}</text>
           </view>
           <view class="sure-item">
-            <text>提现数量</text>
+            <text>转账数量</text>
             <text class="sure-val">{{ form.amount }} USDT</text>
           </view>
           <view class="sure-item">
@@ -251,6 +254,13 @@ export default {
             flex: 1;
             margin-right: 20rpx;
             font-size: 28rpx;
+            display: flex;
+            align-items: center;
+            .ipt-icon {
+              width: 40rpx;
+              height: 40rpx;
+              margin-right: 16rpx;
+            }
           }
           .content-icon {
             color: #4C9778;

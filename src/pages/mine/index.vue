@@ -24,7 +24,7 @@
 
     <view class="page-content">
       <!-- 基础信息 -->
-      <my-info :userInfo="userInfo" :idenInfo="idenInfo" />
+      <my-info style="background-color: #0c1114;padding-bottom:30rpx;position: relative;top: -2rpx;width: calc(100% - 38rpx);" :userInfo="userInfo" :idenInfo="idenInfo" />
 
       <!-- 导航 -->
       <view class="tabs">
@@ -55,8 +55,9 @@
           <u-image
             class="icon"
             :src="item.icon"
-            width="40rpx"
+            :width="item.key==2?'50rpx':'40rpx'"
             height="40rpx"
+            :style="{marginRight:item.key==2?'10rpx':'20rpx',left:item.key==2?'-6rpx':''}"
           ></u-image>
           <view class="name">{{ item.name }}</view>
           <view class="content">
@@ -126,11 +127,17 @@ export default {
           icon: "/static/images/mine/nav-4.png",
           route: "/pages/helpInfo/index",
         },
+        // {
+        //   key: 5,
+        //   name: "设置",
+        //   icon: "/static/images/mine/nav-5.png",
+        //   route: "/pages/setting/index",
+        // },
         {
           key: 5,
-          name: "设置",
-          icon: "/static/images/mine/nav-5.png",
-          route: "/pages/setting/index",
+          name: "关于我们",
+          icon: "/static/images/mine/help.png",
+          route: "",
         },
         { key: 6, name: "当前版本", icon: "/static/images/mine/nav-6.png" },
       ],
@@ -194,13 +201,14 @@ export default {
 
 <style lang="scss">
 .page-mine {
+  height: 100%;
+  box-sizing: border-box;
   padding-bottom: 100rpx;
-  background-color: #fff;
   background: linear-gradient(
     to bottom,
-    #0c1114 588rpx,
-    #fff 589rpx,
-    #fff 100%
+    #0c1114 488rpx,
+    #f1f1f1 489rpx,
+    #f1f1f1 100%
   );
 
   .top {
@@ -223,7 +231,8 @@ export default {
 
   .page-content {
     margin: 0 25rpx;
-
+    background-color: #fff;
+    min-height: 100%;
     .tabs {
       background-color: #fff;
       display: flex;
@@ -232,7 +241,7 @@ export default {
       padding: 50rpx;
       font-size: 28rpx;
       color: #5d5d5d;
-      margin-top: 60rpx;
+      margin-top: 30rpx;
       border-bottom: 12rpx solid #f0f0f0;
       .tab {
         display: flex;
@@ -240,6 +249,7 @@ export default {
         align-items: center;
         .icon {
           margin-bottom: 20rpx;
+          position: relative;
         }
       }
     }
@@ -254,10 +264,14 @@ export default {
         justify-content: space-between;
         border-bottom: 1px solid #cecece;
         padding: 0 20rpx 0 30rpx;
+        .icon {
+          position: relative;
+          margin-right: 40rpx;
+        }
         .name {
           font-size: 28rpx;
           color: #343434;
-          margin-left: 40rpx;
+          margin-left: 20rpx;
         }
         .content {
           flex: 1;

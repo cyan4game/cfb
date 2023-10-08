@@ -235,7 +235,7 @@ export default {
       color: #999;
     }
     .item {
-      height: 353rpx;
+      height: 391rpx;
       border-radius: 9rpx;
       background-color: #fff;
       margin-bottom: 26rpx;
@@ -271,7 +271,7 @@ export default {
       }
       .bottom {
         border-top: 1px solid #e5e5e5;
-        height: 108rpx;
+        height: 145rpx;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -298,7 +298,7 @@ export default {
         }
       }
       .body {
-        height: 140rpx;
+        height: 141rpx;
         box-sizing: border-box;
         padding: 10rpx 0;
         .row {

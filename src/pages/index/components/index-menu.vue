@@ -121,6 +121,9 @@ export default {
   align-items: stretch;
   justify-content: space-between;
   flex-wrap: wrap;
+  width: calc(100% + 48rpx);
+  position: relative;
+  left: -24rpx;
   margin: 63rpx 0 0 0;
 
   .item {
@@ -131,10 +134,11 @@ export default {
     justify-content: center;
     font-size: 30rpx;
     color: #5d5d5d;
-    margin-bottom: 60rpx;
+    line-height: 30rpx;
+    margin-bottom: 120rpx;
 
     .icon {
-      margin-bottom: 20rpx;
+      margin-bottom: 50rpx;
     }
   }
 }

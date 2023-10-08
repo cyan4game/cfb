@@ -133,6 +133,7 @@ export default {
     height: 588rpx;
     background-color: #0c1114;
     position: relative;
+    top: -2px;
     .service-icon {
       top: 44rpx;
       right: 40rpx;

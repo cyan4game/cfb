@@ -15,7 +15,7 @@
         v-if="menuName === 'mobile'"></mobile>
       <!-- <email @loginSuccess="loginSuccess" :protocol="protocol" :inviteCode="inviteCode" :showTip="showTip"
         v-if="menuName === 'email'"></email> -->
-      <u-text align="center" @click="router('pages/login/index')" type="primary" text="接收不到短信？"></u-text>
+      <text style="color: #38363B;font-size: 26rpx;margin: 0 auto;display: block;text-align: center;position: relative;top:-20rpx" @click="router('pages/login/index')" >接收不到短信？</text>
     </view>
 
     <view class="protocol">
@@ -105,6 +105,7 @@ export default {
     position: relative;
     background-image: url('../../static/images/login/login-bg.png');
     background-size: 100% 100%;
+    top: -2px;
 
     .service-icon {
       top: 44rpx;

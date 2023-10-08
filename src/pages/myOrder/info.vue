@@ -2,7 +2,7 @@
 <template>
   <view class="info-page-bg order-info">
     <view class="info-page-content content-box">
-      <view class="title">交易已完成</view>
+      <view class="title">{{ orderStatusMap[item.orderStatus] || '--' }}</view>
       <view class="info">您已成功出售1,234.26CFB</view>
 
       <!-- <view class="box">
@@ -89,8 +89,21 @@
 </template>
 
 <script>
+import { orderTypeMap, orderStatusMap } from './map.js'
+import storage from '@/utils/storage'
+
 export default {
   name: 'orderInfo',
+  data() {
+    return {
+      orderStatusMap,
+      orderTypeMap,
+      item: {}
+    }
+  },
+  onLoad() {
+    this.item = storage.get("curr-order") || {}
+  },
   methods: {
     // 去申诉
     appeal() {
@@ -98,7 +111,8 @@ export default {
          url: '/pages/appeal/index'
       })
     }
-  }
+  },
+
 };
 </script>
 

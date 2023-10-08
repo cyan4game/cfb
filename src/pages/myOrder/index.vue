@@ -2,33 +2,11 @@
 <template>
   <view class="info-page-bg page-myorder">
     <view class="info-page-content content-box">
-      <!-- 分类导航 -->
-      <!-- <view class="navs">
-        <view
-          class="nav"
-          :class="{ 'active-nav': activeNav == 1 }"
-          @click="changeNav(1)"
-          >未完成</view
-        >
-        <view
-          class="nav"
-          :class="{ 'active-nav': activeNav == 2 }"
-          @click="changeNav(2)"
-          >已结束</view
-        >
-
-        <u-image
-          @click="openFilter"
-          class="filter"
-          src="/static/images/home/filter.png"
-          width="31rpx"
-          height="33rpx"
-        ></u-image>
-      </view> -->
 
       <!-- 状态导航 -->
       <view class="tabs">
         <scroll-view class="tab-box" scroll-x="true">
+          <view class="tab" @click="changeTab(-1)" :class="{ 'active-tab': activeTab == -1 }">全部</view>
           <view
             class="tab"
             :class="{ 'active-tab': activeTab == key }"
@@ -50,7 +28,7 @@
 
       <!-- 列表 -->
       <scroll-view scroll-y="true" class="list" @scrolltolower="loadMore">
-        <Item class="item-box" v-for="i in 20" :key="i" />
+        <Item class="item-box" v-for="(item, i) in list" :key="i" :item="item" />
 
         <!-- 加载状态 -->
         <view class="more">{{
@@ -69,46 +47,46 @@
         <!-- 类型选择 -->
         <view class="box type-box">
           <view class="subtitle">交易类型</view>
-          <view class="type-item">
+          <view class="type-item" @click="form.orderType = 1">
             <text>购买</text>
-            <view class="check checked"><view class="in"></view></view>
+            <view class="check " :class="{'checked':form.orderType == 1}"><view class="in"></view></view>
           </view>
-          <view class="type-item">
+          <view class="type-item" @click="form.orderType = 2">
             <text>出售</text>
-            <view class="check"><view class="in"></view></view>
+            <view class="check" :class="{'checked':form.orderType == 2}"><view class="in"></view></view>
           </view>
         </view>
         <!-- 时间筛选 -->
         <view class="box time-box">
-          <view class="subtitle">下单日期</view>
-          <view class="times">
+          <view class="subtitle">交易日期</view>
+          <!-- <view class="times">
             <picker
               class="time"
               mode="date"
-              :value="form.start"
-              @change="(e) => (form.start = e.detail.value)"
+              :value="form.createTimeStart"
+              @change="(e) => (form.createTimeStart = e.detail.value)"
             >
-              <view class="uni-input">{{ form.start || "开始日期" }}</view>
+              <view class="uni-input">{{ form.createTimeStart || "开始日期" }}</view>
             </picker>
             <text class="to">至</text>
             <picker
               class="time"
               mode="date"
-              :value="form.end"
-              @change="(e) => (form.end = e.detail.value)"
+              :value="form.createTimeEnd"
+              @change="(e) => (form.createTimeEnd = e.detail.value)"
             >
-              <view class="uni-input">{{ form.end || "结束日期" }}</view>
+              <view class="uni-input">{{ form.createTimeEnd || "结束日期" }}</view>
             </picker>
-          </view>
+          </view> -->
           <view class="faster-box">
-            <view class="faster">近7天</view>
-            <view class="faster">近3个月</view>
-            <view class="faster">近6个月</view>
-            <view class="faster">近1年</view>
+            <view class="faster" :class="{'active-faster':activeTime==1}" @click="changeDate(1)">今日</view>
+            <view class="faster" :class="{'active-faster':activeTime==-1}" @click="changeDate(-1)">昨日</view>
+            <view class="faster" :class="{'active-faster':activeTime==-7}" @click="changeDate(-7)">近一周</view>
+            <view class="faster" :class="{'active-faster':activeTime==-30}" @click="changeDate(-30)">近一月</view>
           </view>
           <view class="btns">
-            <view class="btn">重置</view>
-            <view class="btn acrive-btn">确认</view>
+            <view class="btn" @click="resetParams">重置</view>
+            <view class="btn acrive-btn" @click="changeFilter">确认</view>
           </view>
         </view>
       </view>
@@ -118,6 +96,9 @@
 
 <script>
 import Item from "./components/trade-item.vue";
+import { pageOtcMyOrder } from '@/api/api'
+import { orderStatusMap } from './map.js'
+import { getTimestr2 } from '@/utils/time'
 
 export default {
   name: "my-order",
@@ -126,50 +107,117 @@ export default {
   },
   data() {
     return {
-      tabs: {
-        0: "全部",
-        1: "订单完成",
-        2: "申诉中",
-        3: "待付款",
-        4: "收款待确认",
-        5: "订单超时",
-        6: "交易取消",
-        7: "申诉处理中",
-        8: "申诉成功",
-        9: "申诉失败",
-        10: "驳回",
-      },
+      // 状态 0订单完成 1申诉中 2代付款 3 收款待确认 4超时 5交易取消 6申诉处理中 7申诉成功（收款成功） 8申诉失败（收款失败）9驳回
+      tabs: orderStatusMap,
       activeNav: 1, // 1-未完成 2-完成
-      activeTab: 0,
+      activeTab: -1,
 
       form: {
-        start: "",
-        end: "",
+        pageNo: 0,
+        pageSize: 10,
+        orderType: 1, // 1-购买 2-支付
+        createTimeStart: "",
+        createTimeEnd: "",
       },
 
       list: [],
       loading: false,
       finish: false,
+
+      // 日期 今日 1   昨日 -1   近一周 -7   近一月 -30
+      activeTime: '',
+
     };
   },
+  onLoad() {
+    this.reset()
+  },
   methods: {
-    // 切换分类
-    changeNav(key) {
-      this.activeTab = 0;
-      this.activeNav = key;
+    // 选择时间
+    changeDate(key) {
+      if (this.activeTime == key) return this.activeTime = ''
+      this.activeTime = key
     },
     // 切换分类
     changeTab(key) {
       this.activeTab = key;
+      this.reset()
+    },
+    // 重置弹框参数
+    resetParams() {
+      this.form.orderType = 1
+      this.form.createTimeStart = ''
+      this.form.createTimeEnd = ''
+      this.activeTime = ''
+    },
+    // 重置
+    reset() {
+      this.list = []
+      this.loading = false
+      this.finish = false
+      this.form.pageNo = 0
+      setTimeout(() => {
+        this.loadMore()
+      }, 0)
+    },
+    // 获取时间
+    getDateParams() {
+      if (!this.activeTime) return {
+        createTimeStart: "",
+        createTimeEnd: "",
+      }
+      let now = Date.now()
+      const createTimeEnd = getTimestr2(now).split(' ')[0]
+      switch(this.activeTime) {
+        case 1:
+          break
+        case -1:
+          now = now - 1 * 24 * 60 * 60 * 1000
+          break
+        case -7:
+          now = now - 7 * 24 * 60 * 60 * 1000
+          break
+        case -30:
+          now = now - 30 * 24 * 60 * 60 * 1000
+          break
+      }
+      const createTimeStart = getTimestr2(now).split(' ')[0]
+      return {
+        createTimeStart,
+        createTimeEnd
+      }
     },
     // 加载更多
     loadMore() {
       console.error("加载更多");
+      if (this.loading || this.finish) return
+      this.form.pageNo++
+      this.loading = true
+      pageOtcMyOrder({
+        ...this.form,
+        ...this.getDateParams(),
+        orderStatus: this.activeTab == -1 ? null : this.activeTab,
+      }).then(res => {
+        if (res.code != 200) return
+        if(!res.data || !res.data.list) return
+        this.list.push(...res.data.list)
+        if (this.list.length >= res.data.total) {
+          this.finish = true
+        }
+        console.error('----', this.list[0])
+      }).finally(() => {
+        this.loading = false
+      })
     },
     // 打开筛选
     openFilter() {
       this.$refs.popup.open();
     },
+    // 
+    changeFilter() {
+      this.$refs.popup.close();
+      this.reset()
+    }
   },
 };
 </script>
@@ -233,13 +281,17 @@ export default {
       display: inline-flex;
       margin-right: 58rpx;
       align-items: center;
+      color: #454545;
+      font-size: 26rpx;
+      height: 80rpx;
     }
 
     .active-tab {
-      background-color: #f0f0f0;
-      border-radius: 7rpx;
-      height: 55rpx;
-      padding: 0 30rpx;
+      // background-color: #f0f0f0;
+      // border-radius: 7rpx;
+      // height: 55rpx;
+      // padding: 0 30rpx;
+      border-bottom: 8rpx solid #449367;
     }
     .filter {
       margin-left: 20rpx;
@@ -266,7 +318,7 @@ export default {
   }
 
   .filter-box {
-    height: 936rpx;
+    height: 836rpx;
     background-color: #fff;
     border-top-right-radius: 3rpx;
     border-top-left-radius: 3rpx;
@@ -297,7 +349,7 @@ export default {
       color: #38363b;
       font-size: 32rpx;
       font-weight: 500;
-      margin-bottom: 20rpx;
+      margin-bottom: 30rpx;
     }
     .box {
       box-sizing: border-box;
@@ -351,7 +403,7 @@ export default {
         justify-content: center;
       }
       .active-faster {
-        color: 449367;
+        color: #449367;
         border: 1px solid #449367;
       }
     }

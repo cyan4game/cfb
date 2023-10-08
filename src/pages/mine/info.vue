@@ -13,14 +13,20 @@
             <view class="title">信息管理</view>
             <view class="item" @click="editAvatar">
                 <text class="name">头像</text>
-                <u-image v-if="!userInfo.avatar" class="avatar" src="/static/images/mine/avatar.png" width="60rpx"
+                <view class="item-box">
+                    <u-image v-if="!userInfo.avatar" class="avatar" src="/static/images/mine/avatar.png" width="60rpx"
                     height="60rpx"></u-image>
                 <u-image v-if="userInfo.avatar" class="avatar" :src="userInfo.avatar" width="60rpx"
                     height="60rpx"></u-image>
+                </view>
+                    <u-image class="right" src="/static/images/mine/right.png" width="11rpx"
+                        height="20rpx"></u-image>
             </view>
             <view class="item" @click="goNickname">
                 <text class="name">昵称</text>
-                <text class="value">{{ userInfo.nickname || '未设置昵称' }}</text>
+                <text class="item-box value">{{ userInfo.nickname || '未设置昵称' }}</text>
+                <u-image class="right" src="/static/images/mine/right.png" width="11rpx"
+                        height="20rpx"></u-image>
             </view>
             <view class="item">
                 <text class="name">账户ID</text>
@@ -28,6 +34,8 @@
                     <u-image @click="copy" class="copy" src="/static/images/mine/copy.png" width="26rpx"
                         height="31rpx"></u-image>
                     <text>{{ userInfo.id }}</text>
+                    <u-image class="right" src="/static/images/mine/right.png" width="11rpx"
+                        height="20rpx"></u-image>
                 </view>
             </view>
         </view>
@@ -198,7 +206,15 @@ export default {
             height: 80rpx;
             color: #8C8C8C;
             font-size: 26rpx;
-
+            .item-box {
+                flex: 1;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+            }
+            .right {
+                margin-left: 20rpx;
+            }
             .avatar {
                 border-radius: 50%;
                 overflow: hidden;

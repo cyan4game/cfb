@@ -10,7 +10,7 @@
         </view>
         <view class="line"></view>
         <view class="type">
-          <view class="check" @click="changeType('buy')" :class="{'checked':type=='sell'}"><view class="in"></view></view>
+          <view class="check" @click="changeType('sell')" :class="{'checked':type=='sell'}"><view class="in"></view></view>
           <text>出售</text>
         </view>
       </view>
