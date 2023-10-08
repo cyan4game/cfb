@@ -1,0 +1,6 @@
+framework module AliyunVerifyUniPlugin {
+  umbrella header "AliyunVerifyUniPlugin.h"
+
+  export *
+  module * { export * }
+}

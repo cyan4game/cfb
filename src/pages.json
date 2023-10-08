@@ -600,6 +600,14 @@
       }
     },
     {
+      "path": "pages/identification/step3",
+      "style": {
+        "navigationBarBackgroundColor": "#0c1114",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "人脸认证"
+      }
+    },
+    {
       "path": "pages/authentication/baseAuth",
       "style": {
         "navigationStyle": "custom",
