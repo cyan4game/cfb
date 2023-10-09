@@ -1,177 +1,437 @@
 <!-- 充币 -->
 <template>
-    <view class="page-deposit">
-
-        <!-- 浮标 -->
-        <!-- <u-image class="right-icon" style="right:130rpx" src="/static/images/index/icon-help.png" width="42rpx" height="42rpx"></u-image>
+  <view class="page-deposit">
+    <!-- 浮标 -->
+    <!-- <u-image class="right-icon" style="right:130rpx" src="/static/images/index/icon-help.png" width="42rpx" height="42rpx"></u-image>
         <u-image class="right-icon" src="/static/images/index/icon-his.png" width="45rpx" height="42rpx"></u-image> -->
 
-        <!-- 币种 -->
-        <view class="coin-box">
-            <u-image class="icon" src="/static/images/index/usdt.png" width="50rpx" height="50rpx"></u-image>
-            <view class="coin">USDT-TRC20</view>
-            <u-image class="right" src="/static/images/mine/right.png" width="15rpx" height="29rpx"></u-image>
-        </view>
-        <!-- <view class="line"></view> -->
-        <view class="qr-box">
-            <tki-qrcode @result="result" ref="qrcode" :size="300" :val="'https://www.baidu.com'" />
-        </view>
-        <view class="btns">
-            <view class="btn" @click="saveCode">保存至相册</view>
-            <view class="btn">分享地址</view>
-        </view>
-        <view class="item">
-            <text>收款地址</text>
-        </view>
-        <view class="address">
-            <view style="width: 75%; word-break: break-all">sdas8sdfs6d5f76sd5f76sd5f76s5d7f65sd76f57sd5f67s</view>
-            <u-image @click="copy('已复制的地址')" class="right" src="/static/images/mine/copy.png" width="26rpx" height="31rpx"></u-image>
-        </view>
-        <view class="line"></view>
-
-        <!-- 详情 -->
-        <view style="height:30rpx"></view>
-        <view class="tip">1. 该地址仅支持 USDT 收款，请勿用于其他币种，否则会导致资产丢失并不可找回。</view>
-        <view class="tip">2. 请使用TRC20（TRON）协议进行转入，使用其他协议转入会导致资产丢失并不可找回。</view>
-        <view class="tip">3. 您的充值地址不会经常改变，可截图保存并重复充值。</view>
+    <!-- 币种 -->
+    <view class="coin-box">
+      <u-image
+        class="icon"
+        src="/static/images/index/usdt.png"
+        width="50rpx"
+        height="50rpx"
+      ></u-image>
+      <view class="coin">USDT-TRC20</view>
+      <u-image
+        class="right"
+        src="/static/images/index/more.png"
+        width="16rpx"
+        height="9rpx"
+      ></u-image>
     </view>
+    <view class="line"></view>
+    <view class="qr-box">
+      <tki-qrcode :key="'out'" ref="qrcode" :size="340" :val="address" />
+    </view>
+    <view class="btns">
+      <view class="btn" @click="saveCode">保存至相册</view>
+      <view class="split"></view>
+      <view class="btn" @click="openDialog">分享地址</view>
+    </view>
+    <view class="item">
+      <text>收款地址</text>
+    </view>
+    <view class="address">
+      <view style="width: 75%; word-break: break-all"
+        >sdas8sdfs6d5f76sd5f76sd5f75f67s</view
+      >
+      <u-image
+        @click="copy('已复制的地址')"
+        class="right"
+        src="/static/images/mine/copy.png"
+        width="26rpx"
+        height="31rpx"
+      ></u-image>
+    </view>
+    <view class="line"></view>
+
+    <!-- 详情 -->
+    <view style="height: 30rpx"></view>
+    <view class="tip"
+      >1. 该地址仅支持 USDT
+      收款，请勿用于其他币种，否则会导致资产丢失并不可找回。</view
+    >
+    <view class="tip"
+      >2.
+      请使用TRC20（TRON）协议进行转入，使用其他协议转入会导致资产丢失并不可找回。</view
+    >
+    <view class="tip">3. 您的充值地址不会经常改变，可截图保存并重复充值。</view>
+
+    <!-- 海报弹窗 -->
+    <uni-popup ref="popup">
+      <view class="share-dialog">
+        <view class="share-title">
+          <coin-icon style="width: 42rpx; height: 42rpx; margin-right: 20rpx" />
+          <text>充值二维码</text>
+        </view>
+        <view class="box" ref="box">
+          <view class="box-title">{{ userInfo.nickname || "默认昵称" }}</view>
+          <view class="box-coin">资产类型：TRC20-USDT</view>
+          <view class="qr-box2">
+            <tki-qrcode :key="'in'" ref="qrcode2" :size="340" :val="address" />
+          </view>
+        </view>
+        <view class="box-line"></view>
+        <view class="box-tip">
+          <view
+            >1. 该地址仅支持 USDT 收款，请勿用于其他币种，否则会导致资产丢
+            失并不可找回。</view
+          >
+          <view
+            >2.
+            请使用TRC20（TRON）协议进行转入，使用其他协议转入会导致资产丢失并不可找回。</view
+          >
+          <view>3. 您的充值地址不会经常改变，可截图保存并重复充值。</view>
+        </view>
+        <view class="share-title">
+          <coin-icon style="width: 42rpx; height: 42rpx; margin-right: 20rpx" />
+          <text style="font-size:26rpx">财富宝—你的数字资产管理专家</text>
+        </view>
+        <view class="box-btns">
+          <view class="box-btn" @click="() => $refs.popup.close()">取消</view>
+          <view class="box-btn active-btn" @click="share">分享</view>
+        </view>
+      </view>
+    </uni-popup>
+  </view>
 </template>
 
 <script>
 import { copyTxt, savePic } from "@/utils/utils";
+import storage from "@/utils/storage";
 
 export default {
-    name: "deposit",
-    data() {
-        return {
-            qrcodePath: ''
-        }
+  name: "deposit",
+  data() {
+    return {
+      userInfo: {},
+      address: "https://www.baidu.com",
+    };
+  },
+  onShow() {
+    this.userInfo = storage.get("userInfo") || {};
+  },
+  mounted() {
+    this.$refs.qrcode._makeCode();
+  },
+  methods: {
+    // 复制
+    copy(txt) {
+      copyTxt(txt);
+      uni.showToast({
+        title: "复制成功",
+        icon: "none",
+        duration: 2000,
+      });
     },
-    mounted() {
-        this.$refs.qrcode._makeCode()
+    openDialog() {
+      this.$refs.popup.open();
+      setTimeout(() => {
+        this.$refs.qrcode2._makeCode();
+      }, 300);
     },
-    methods: {
-         // 复制
-         copy(txt) {
-            copyTxt(txt);
-            uni.showToast({
-                title: "复制成功",
-                icon: "none",
-                duration: 2000,
+    // 保存二维码
+    saveCode() {
+      this.openDialog();
+      setTimeout(() => {
+        this.cut();
+      }, 600);
+    },
+    // 截屏
+    cut() {
+      // #ifdef H5
+      const box = this.$refs.box.$el;
+      try {
+        html2canvas(box).then((canvas) => {
+          Canvas2Image.saveAsImage(
+            canvas,
+            canvas.width,
+            canvas.height,
+            "png",
+            "qrcode"
+          );
+          this.$refs.popup.close();
+        });
+      } catch {
+        uni.showToast({
+          title: "保存失败，请手动截屏",
+          duration: 2000,
+        });
+      }
+      // #endif
+    },
+    // 分享
+    share() {
+      // #ifdef H5
+      // 如果支持share方法就调用share，如果不支持就尝试复制图片，如果不能复制图片就直接复制地址
+      uni.showLoading({
+        title: "处理中",
+      });
+      const box = this.$refs.box.$el;
+      html2canvas(box)
+        .then(async (canvas) => {
+          try {
+            canvas.toBlob(async (blob) => {
+              // 如果浏览器支持分享
+              if (navigator.share) {
+                navigator.share({
+                  title:
+                    (this.userInfo.nickname || "默认昵称") + "的充值二维码",
+                  text: this.address,
+                  files: [
+                    new File([blob], "image.jpg", { type: "image/jpeg" }),
+                  ],
+                });
+                uni.hideLoading();
+              } else {
+                // 如果不支持分享则复制到粘贴板
+                try {
+                  const data = [
+                    new ClipboardItem({
+                      "image/png": blob,
+                    }),
+                  ];
+                  navigator.clipboard
+                    .write(data)
+                    .then(
+                      () => {
+                        uni.hideLoading();
+                        uni.showToast({
+                          title: "已复制到粘贴板，快去分享吧！",
+                          icon: "none",
+                          duration: 3000,
+                        });
+                      },
+                      () => {
+                        uni.hideLoading();
+                        uni.showToast({
+                          title: "浏览器不支持分享，请手动截屏",
+                          icon: "none",
+                          duration: 3000,
+                        });
+                      }
+                    )
+                    .catch(() => {
+                      uni.hideLoading();
+                      uni.showToast({
+                        title: "操作失败，请手动截屏",
+                        icon: "none",
+                        duration: 3000,
+                      });
+                    });
+                } catch {
+                  uni.hideLoading();
+                  uni.showToast({
+                    title: "已复制地址，快去分享吧",
+                    icon: "none",
+                    duration: 3000,
+                  });
+                }
+              }
             });
-        },
-        // 二维码图片
-        result(rs) {
-            this.qrcodePath = rs
-        },
-        // 保存二维码
-        saveCode() {
-            savePic(this.qrcodePath)
-        }
-    }
+          } catch {
+            uni.hideLoading();
+            uni.showToast({
+              title: "截屏失败，请手动截屏",
+              icon: "none",
+              duration: 3000,
+            });
+          }
+        })
+        .catch(() => {
+          uni.hideLoading();
+          uni.showToast({
+            title: "浏览器不支持截屏，请手动截屏",
+            icon: "none",
+            duration: 3000,
+          });
+        });
+      // #endif
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .page-deposit {
-    padding: 53rpx 66rpx;
+  padding: 53rpx 66rpx;
+  box-sizing: border-box;
+  .right-icon {
+    position: fixed;
+    top: 26rpx;
+    right: 40rpx;
+    z-index: 999;
+  }
+
+  .coin-box {
+    height: 72rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #454545;
+    font-size: 26rpx;
+    padding-right: 20rpx;
+    background-color: #f1f1f1;
+    border-radius: 6rpx;
+    margin-bottom: 44rpx;
+
+    .icon {
+      margin-right: 22rpx;
+    }
+
+    .coin {
+      flex: 1;
+    }
+  }
+
+  .chain-box {
+    height: 72rpx;
+    background-color: #f0f0f0;
+    padding: 0 45rpx;
     box-sizing: border-box;
-    .right-icon {
-        position: fixed;
-        top: 26rpx;
-        right: 40rpx;
-        z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #343635;
+    font-size: 26rpx;
+  }
+
+  .line {
+    margin: 0 auto;
+    border-bottom: 1px dashed #888888;
+    width: 580rpx;
+  }
+
+  .address {
+    color: #3b3b3b;
+    font-size: 26rpx;
+    margin-bottom: 25rpx;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .qr-box {
+    width: 380rpx;
+    height: 380rpx;
+    margin: 33rpx auto 27rpx auto;
+    box-sizing: border-box;
+    padding: 20rpx;
+  }
+  .qr-box2 {
+    width: 380rpx;
+    height: 380rpx;
+    box-sizing: border-box;
+    padding: 20rpx;
+    border: 1px dashed #888888;
+  }
+
+  .btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 59rpx;
+    .btn {
+      font-size: 28rpx;
+      color: #449367;
     }
-
-    .coin-box {
-        height: 100rpx;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: #454545;
-        font-size: 26rpx;
-        border-bottom: 1px solid #cecece;
-        padding-right: 20rpx;
-
-        .icon {
-            margin-right: 22rpx;
-        }
-
-        .coin {
-            flex: 1;
-        }
+    .split {
+      margin: 0 33rpx;
+      height: 38rpx;
+      width: 1px;
+      background-color: #2f2f2e;
     }
+  }
 
-    .chain-box {
-        height: 72rpx;
-        background-color: #f0f0f0;
-        padding: 0 45rpx;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: #343635;
-        font-size: 26rpx;
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #696969;
+    font-size: 26rpx;
+    margin-bottom: 26rpx;
+
+    .val {
+      color: #3c3c3c;
     }
+  }
 
-    .line {
-        margin-top: 50rpx;
-        border-bottom: 1px dashed #888888;
-        width: 100%;
+  .tip {
+    margin-top: 10rpx;
+    color: #696969;
+    font-size: 23rpx;
+  }
+}
+.share-dialog {
+  font-weight: 400;
+  width: 710rpx;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 40rpx 30rpx;
+  border-radius: 6rpx;
+  .share-title {
+    display: flex;
+    align-items: center;
+    color: #323232;
+    font-size: 36rpx;
+    margin-bottom: 36rpx;
+  }
+  .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    margin: 0 60rpx;
+    .box-title {
+      color: #323232;
+      font-size: 36rpx;
+      margin-bottom: 22rpx;
+      font-weight: 500;
     }
-
-    .address {
-        color: #3b3b3b;
-        font-size: 26rpx;
-        display: flex;
-        justify-content: space-between;
+    .box-coin {
+      color: #323232;
+      font-size: 26rpx;
+      margin-bottom: 26rpx;
     }
-
-    .qr-box {
-        width: 300rpx;
-        height: 300rpx;
-        border: 1px dashed #d7d7d7;
-        margin: 63rpx auto 10rpx auto;
-        box-sizing: border-box;
-        padding: 10rpx;
+    .qr-box2 {
+      margin-bottom: 30rpx;
     }
-
-    .btns {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 50rpx;
-        .btn {
-            height: 60rpx;
-            margin: 0 20rpx;
-            padding: 0 24rpx;
-            background-color: #449367;
-            color: #fff;
-            border-radius: 6rpx;
-            display: flex;
-            font-size: 24rpx;
-            align-items: center;
-            justify-content: center;
-        }
+  }
+  .box-line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #888;
+    margin-bottom: 28rpx;
+  }
+  .box-tip {
+    color: #3c3c3c;
+    font-size: 18rpx;
+    padding: 0 20rpx;
+    margin-bottom: 28rpx;
+  }
+  .box-btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .box-btn {
+      box-sizing: border-box;
+      width: 312rpx;
+      height: 99rpx;
+      color: #38363b;
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      font-size: 34rpx;
+      border: 1px solid #38363b;
     }
-
-    .item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: #696969;
-        font-size: 26rpx;
-        height: 80rpx;
-
-        .val {
-            color: #3c3c3c;
-        }
+    .active-btn {
+      background-color: #449367;
+      color: #fff;
+      border: none;
+      border-radius: 6rpx;
     }
-
-    .tip {
-        margin-top: 10rpx;
-        color: #696969;
-        font-size: 23rpx;
-    }
+  }
 }
 </style>

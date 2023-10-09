@@ -1,32 +1,62 @@
 <template>
   <view class="mobile-view">
     <u-form labelWidth="0" class="form" :model="form" ref="form" :rules="rules">
+      <view class="subtitle">手机</view>
       <u-form-item prop="phone" class="item-box">
         <view class="item">
-          <!-- <u-text color="#505bde" text="手机号码"></u-text> -->
+          <!-- <u-text color="#343434" text="手机号码"></u-text> -->
           <u-row class="item-content">
             <u-col span="2">
-              <u-text :text="form.areaCode" color="#505bde" suffixIcon="arrow-down" @click="showAreaCode = true"
+              <u-text
+                :text="form.areaCode"
+                color="#343434"
+                suffixIcon="arrow-down"
+                @click="showAreaCode = true"
                 :iconStyle="{
                   fontSize: '14px',
-                  color: '#505bde',
-                }"></u-text>
+                  color: '#343434',
+                }"
+              ></u-text>
             </u-col>
             <u-col offset="1" span="9">
-              <u-input clearable type="number" placeholder="请输入手机号码" v-model="form.phone"></u-input>
+              <u-input
+                clearable
+                type="number"
+                placeholder="请输入手机号码"
+                v-model="form.phone"
+              ></u-input>
             </u-col>
           </u-row>
         </view>
       </u-form-item>
+      <view class="subtitle">验证码</view>
       <u-form-item prop="captcha" class="item-box">
         <view class="item">
-          <!-- <u-text color="#505bde" text="手机验证码"></u-text> -->
-          <u-input class="item-content" clearable type="number" v-model="form.captcha" placeholder="请输入手机验证码">
+          <!-- <u-text color="#343434" text="手机验证码"></u-text> -->
+          <u-input
+            class="item-content"
+            clearable
+            type="number"
+            v-model="form.captcha"
+            placeholder="请输入短信验证码"
+          >
             <template slot="suffix">
-              <u-code ref="uCode" @change="codeChange" seconds="60" changeText="x秒后重新获取" startText="获取验证码"
-                endText="重新获取验证码"></u-code>
-              <u-button :disabled="buttonDisabled" class="get-button" :style="{ color: buttonDisabled ? '#999' : '#3A9861' }"
-                @tap="getCode" type="success" size="small">{{ tips }}
+              <u-code
+                ref="uCode"
+                @change="codeChange"
+                seconds="60"
+                changeText="x秒后重新获取"
+                startText="发送验证码"
+                endText="重新获取验证码"
+              ></u-code>
+              <u-button
+                :disabled="buttonDisabled"
+                class="get-button"
+                :style="{ color: buttonDisabled ? '#999' : '#3A9861' }"
+                @tap="getCode"
+                type="success"
+                size="small"
+                >{{ tips }}
               </u-button>
             </template>
           </u-input>
@@ -34,14 +64,25 @@
       </u-form-item>
 
       <slot :form="form" :isDisabled="isDisabled"></slot>
-      <u-button :disabled="isDisabled" :loading="loading" class="login-button" @click="toNext" type="primary">
+      <u-button
+        :disabled="isDisabled"
+        :loading="loading"
+        class="login-button"
+        @click="toNext"
+        type="primary"
+      >
         登录
       </u-button>
     </u-form>
-    <u-picker @confirm="handleAreaCodeConfirm" @cancel="handleAreaCodeClose" @close="handleAreaCodeClose"
-      :closeOnClickOverlay="true" :show="showAreaCode" :columns="areaCode"></u-picker>
+    <u-picker
+      @confirm="handleAreaCodeConfirm"
+      @cancel="handleAreaCodeClose"
+      @close="handleAreaCodeClose"
+      :closeOnClickOverlay="true"
+      :show="showAreaCode"
+      :columns="areaCode"
+    ></u-picker>
     <u-notify ref="uNotify"></u-notify>
-
 
     <!-- 提示弹窗 -->
     <!-- <tip-dialog ref="dialog" :title="'提示'" :btn="'确认'">
@@ -147,16 +188,17 @@ export default {
         countryCode: this.form.areaCode,
         phoneNumber: this.form.phone,
       };
-      this.loading = true
+      this.loading = true;
       sendSMS(params)
         .then((res) => {
-          if (res.code.toString() === '200') {
+          if (res.code.toString() === "200") {
             this.showTip("验证码已发送，请留意信息！");
             this.$refs.uCode.start();
           }
-        }).finally(() => {
-          this.loading = false;
         })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     codeChange(text) {
       this.tips = text;
@@ -170,26 +212,27 @@ export default {
         verifyCode: form.captcha,
         countryCode: form.areaCode,
         deviceName: uni.getDeviceInfo().deviceModel,
-        deviceType: 'phone',
+        deviceType: "phone",
         phoneNumber: form.phone,
       };
       this.loading = true;
       phoneRegister(params)
         .then((res) => {
-          console.error('登录', res)
-          this.router("pages/index/index")
-          if (res.code.toString() === '200') {
+          console.error("登录", res);
+          this.router("pages/index/index");
+          if (res.code.toString() === "200") {
             const data = {
               ...params,
-              ...res.data
-            }
-            this.$emit('loginSuccess', data)
+              ...res.data,
+            };
+            this.$emit("loginSuccess", data);
           }
-        }).finally(() => {
-          this.loading = false;
         })
+        .finally(() => {
+          this.loading = false;
+        });
     },
-  }
+  },
 };
 </script>
 
@@ -225,8 +268,8 @@ export default {
   width: 222rpx;
   height: 67rpx;
   font-size: 28rpx;
-  background: #FFFFFD;
-  border-color: #FFFFFD;
+  background: #fffffd;
+  border-color: #fffffd;
   white-space: nowrap;
 }
 
@@ -242,5 +285,11 @@ export default {
   background: #cccccc 0 0 no-repeat padding-box;
   border: none;
   opacity: 1;
+}
+
+.subtitle {
+  color: #343434;
+  font-size: 32rpx;
+  padding: 20rpx 0 10rpx 46rpx;
 }
 </style>

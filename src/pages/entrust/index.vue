@@ -50,12 +50,13 @@
 
           <view class="body">
             <view class="row">
-              <view class="row-name">参考汇率（CNY）</view>
               <view class="row-val">￥{{ item.referenceRate }}</view>
+              <view class="row-name">参考汇率（CNY）</view>
             </view>
+            <view class="line"></view>
             <view class="row">
-              <view class="row-name">委托数量</view>
               <view class="row-val">{{ item.entrustAmount }}</view>
+              <view class="row-name">委托数量</view>
             </view>
           </view>
 
@@ -235,7 +236,6 @@ export default {
       color: #999;
     }
     .item {
-      height: 391rpx;
       border-radius: 9rpx;
       background-color: #fff;
       margin-bottom: 26rpx;
@@ -271,7 +271,7 @@ export default {
       }
       .bottom {
         border-top: 1px solid #e5e5e5;
-        height: 145rpx;
+        height: 112rpx;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -298,21 +298,31 @@ export default {
         }
       }
       .body {
-        height: 141rpx;
         box-sizing: border-box;
-        padding: 10rpx 0;
+        padding: 30rpx 0;
+        display: flex;
+        align-items: center;
         .row {
+          flex: 1;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: space-between;
-          font-size: 26rpx;
-          height: 55rpx;
+          font-size: 23rpx;
           .row-name {
             color: #696969;
           }
           .row-val {
-            color: #38363b;
+            font-size: 50rpx;
+            color: #38363B;
+            margin-bottom: 10rpx;
           }
+        }
+        .line {
+          height: 63rpx;
+          width: 1px;
+          background-color: #CECECE;
+          margin: 0 20rpx;
         }
       }
     }

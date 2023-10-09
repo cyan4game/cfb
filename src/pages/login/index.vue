@@ -9,7 +9,7 @@
     </view>
 
     <view class="login-box">
-      <radio-tab :value.sync="menuName" :menuList="menuList"></radio-tab>
+      <!-- <radio-tab :value.sync="menuName" :menuList="menuList"></radio-tab> -->
       <!--    <component :showTip="showTip" :is="menuName"></component>-->
       <mobile @loginSuccess="loginSuccess" :protocol="protocol" :inviteCode="inviteCode" :showTip="showTip"
         v-if="menuName === 'mobile'"></mobile>

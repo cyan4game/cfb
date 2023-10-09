@@ -91,9 +91,11 @@ export default {
             margin-bottom: 41rpx;
             background-color: #f1f1f1;
             border-radius: 6rpx;
-            color: #433F48;
+            color: #808080;
             font-size: 28rpx;
             padding: 0 30rpx;
+            display: flex;
+            align-items: center;
         }
     }
     .btns {

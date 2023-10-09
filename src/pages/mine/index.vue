@@ -113,7 +113,7 @@ export default {
           key: 2,
           name: "实名认证",
           icon: "/static/images/mine/nav-2.png",
-          route: "/pages/identification/index",
+          route: "/pages/identification/step3",
         },
         {
           key: 3,
@@ -127,12 +127,12 @@ export default {
           icon: "/static/images/mine/nav-4.png",
           route: "/pages/helpInfo/index",
         },
-        // {
-        //   key: 5,
-        //   name: "设置",
-        //   icon: "/static/images/mine/nav-5.png",
-        //   route: "/pages/setting/index",
-        // },
+        {
+          key: 7,
+          name: "设置",
+          icon: "/static/images/mine/nav-5.png",
+          route: "/pages/setting/index",
+        },
         {
           key: 5,
           name: "关于我们",

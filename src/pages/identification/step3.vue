@@ -15,11 +15,33 @@
 </template>
 
 <script>
+
 export default {
   name: "iden3",
   onLoad() {
-    const MetaInfo = window.getMetaInfo();
-    console.error('MetaInfo', MetaInfo)
+    this.getMetaInfo()
+  },
+  methods: {
+    // 获取metaInfo
+    getMetaInfo() {
+      // #ifdef APP-PLUS
+      const verifyPlugin = uni.requireNativePlugin('IdentityPlatformUniPlugin');
+      const metaInfo = verifyPlugin.getMetaInfo();
+      console.error('app metainfo', metaInfo)
+      // todo 调用后端地址，获取到certifyId后调用认证
+      // verifyPlugin.idCardVerify({
+      //   "certifyId":"xxx"    //填写从服务端获取的certifyId。
+      // }, (response) =>{
+      //   consol.error('认证结果')
+      // });
+      // #endif
+
+      // #ifdef H5
+      const MetaInfo = window.getMetaInfo();
+      console.error('MetaInfo', MetaInfo)
+      // todo 调用后端地址，并打开返回的地址进行认证
+      // #endif
+    }
   }
 };
 </script>

@@ -1,7 +1,6 @@
 <!-- 用户资产 -->
 <template>
   <view class="user-banlance">
-
     <!-- 弹出详情 -->
     <view class="dialog-box" v-show="showInfo">
       <view class="item">
@@ -43,7 +42,7 @@
       ></u-image>
 
       <u-image
-        @click="() => showInfo = !showInfo"
+        @click="() => (showInfo = !showInfo)"
         class="time"
         src="/static/images/index/total.png"
         width="34rpx"
@@ -93,14 +92,29 @@
     <!-- 收益 -->
     <view class="income">
       <view class="item">
-        <view class="ball"></view>
-        <view>今日收益</view>
-        <view class="num">$1.88</view>
+        <u-image
+          class="ball"
+          src="/static/images/index/total-1.png"
+          width="42rpx"
+          height="43rpx"
+        ></u-image>
+        <view>
+          <view class="num">$1.88</view>
+          <text>今日收益</text>
+        </view>
       </view>
+      <view class="line"></view>
       <view class="item item2">
-        <view class="ball"></view>
-        <view>累计收益</view>
-        <view class="num">$8.88</view>
+        <u-image
+          class="ball"
+          src="/static/images/index/total-2.png"
+          width="55rpx"
+          height="41rpx"
+        ></u-image>
+        <view>
+          <view class="num">$8.88</view>
+          <text>累计收益</text>
+        </view>
       </view>
     </view>
 
@@ -138,7 +152,7 @@ export default {
   margin-top: 20rpx;
   border-radius: 6rpx;
   border: 1px solid #d7d7d7;
-  padding: 48rpx 48rpx 40rpx 48rpx;
+  padding: 40rpx 40rpx 32rpx 40rpx;
   background-color: #fff;
   box-sizing: border-box;
   position: relative;
@@ -162,7 +176,7 @@ export default {
     color: #343635;
     font-weight: bold;
     font-weight: 66rpx;
-    margin: 40rpx 0;
+    margin: 32rpx 0;
     .num {
       font-size: 72rpx;
       margin: 0 50rpx 0 10rpx;
@@ -207,39 +221,36 @@ export default {
     }
   }
   .income {
-    margin-top: 50rpx;
+    margin-top: 40rpx;
     display: flex;
     align-items: center;
     .item {
       flex: 1;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      color: #404040;
-      font-size: 26rpx;
+      justify-content: center;
+      color: #8C8C8C;
+      font-size: 22rpx;
       .ball {
-        width: 20rpx;
-        height: 20rpx;
-        border-radius: 50%;
-        background-color: #4ae421;
-        margin-right: 20rpx;
+        margin-right: 30rpx;
       }
       .num {
-        margin-left: 20rpx;
+        color: #404040;
+        font-size: 33rpx;
       }
     }
-    .item2 {
-      justify-content: flex-end;
-      .ball {
-        background-color: #ffd146;
-      }
+    .line {
+      margin: 0 40rpx;
+      height: 52rpx;
+      background-color: #38363B;
+      width: 1px;
     }
   }
   .dialog-box {
-    border: 1px solid #d7d7d7;    
+    border: 1px solid #d7d7d7;
     border-top: none;
     width: 100%;
-    height: 375rpx;
+    height: 384rpx;
     position: absolute;
     top: 130rpx;
     left: 0;
@@ -252,7 +263,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      color: #8C8C8C;
+      color: #8c8c8c;
       font-size: 28rpx;
       box-sizing: border-box;
       padding: 0 42rpx;

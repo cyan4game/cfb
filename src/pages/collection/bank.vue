@@ -5,23 +5,29 @@
         <view class="info-page-content content-box">
 
             <view class="item">
-                <text>真实姓名</text>
-                <input disabled class="item-ipt" placeholder="请输入真实姓名" type="text" v-model.trim="form.realName">
+                <text>姓名</text>
+                <input disabled class="item-ipt" placeholder="请输入银行卡姓名" type="text" v-model.trim="form.realName">
             </view>
 
             <view class="item">
-                <text>银行名称</text>
-                <input class="item-ipt" placeholder="请输入银行名称" type="text" v-model.trim="form.bankName">
+                <text>银行卡账号</text>
+                <input class="item-ipt" placeholder="请输入银行卡账号" type="text" v-model.trim="form.accountName">
             </view>
 
             <view class="item">
-                <text>银行卡号</text>
-                <input class="item-ipt" placeholder="请输入银行卡号" type="text" v-model.trim="form.accountName">
+                <text>开户银行</text>
+                <input class="item-ipt" disabled placeholder="请选择开户银行" type="text" v-model.trim="form.bankName">
+                <u-image
+                class="icon"
+                src="/static/images/index/more.png"
+                width="16rpx"
+                height="9rpx"
+                ></u-image>
             </view>
 
             <view class="item">
-                <text>支行名称</text>
-                <input class="item-ipt" placeholder="请输入支行名称" type="text" v-model.trim="form.branchName">
+                <text>银行分行</text>
+                <input class="item-ipt" placeholder="请输入分行名称" type="text" v-model.trim="form.branchName">
             </view>
 
 
@@ -120,6 +126,9 @@ export default {
                 flex: 1;
                 margin-left: 40rpx;
                 font-size: 28rpx;
+            }
+            .icon {
+                margin: 0 40rpx 0 20rpx;
             }
         }
         .upload {

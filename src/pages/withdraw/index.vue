@@ -6,7 +6,7 @@
       <view class="form">
         <!-- 币种 -->
         <view class="form-item">
-          <view class="item-title">币种</view>
+          <!-- <view class="item-title">币种</view> -->
           <view class="item-content" @click="() => $refs.currencyPopup.open()">
             <view class="ipt">
               <coin-icon class="ipt-icon" :coin="form.currency" />
@@ -21,15 +21,16 @@
           </view>
         </view>
 
-        <!-- 接收地址 -->
+        <!-- 转账地址 -->
         <view class="form-item">
-          <view class="item-title">接收地址</view>
+          <view class="item-title">转账地址</view>
           <view class="item-content" style="padding-right:20rpx">
             <input
               @input="checkAddress"
               v-model.trim="form.toAddress"
               type="text"
               class="ipt"
+              placeholder="输入或长按粘贴地址"
             />
             <text class="content-icon" @click="() => $refs.addressPopup.open()">选择地址</text>
           </view>
@@ -50,21 +51,19 @@
             />
           </view>
           <view class="tip"
-            >可用转账余额 {{ money }}
-            {{ form.currency.replace("_TRC20", "") }}</view
+            >
+            <view style="margin-bottom: 28rpx;">可用转账余额 {{ money }} {{ form.currency.replace("_TRC20", "") }}</view>
+            <view style="margin-bottom: 8rpx;">手续费</view>
+            <view>-- USDT</view>
+            </view
           >
-        </view>
-
-        <view class="form-item">
-          <view class="item-title">手续费</view>
-          <view>-- USDT</view>
         </view>
       </view>
     </view>
 
     <!-- 按钮 -->
     <view class="btn" @click="submit" :class="{ 'disabled-btn': disabled }"
-      >提交</view
+      >转账</view
     >
 
     <!-- 验证弹窗 -->
@@ -91,7 +90,7 @@
 
         <view style="padding: 0 30rpx; box-sizing: border-box">
           <view class="sure-item">
-            <text>接收地址</text>
+            <text>转账地址</text>
             <text class="sure-val">{{ form.toAddress }}</text>
           </view>
           <view class="sure-item">
@@ -114,9 +113,9 @@
 </template>
 
 <script>
-import { withdraw, memberWalletList } from "@/api/api";
+import { withdraw } from "@/api/api";
 import storage from "@/utils/storage";
-import { isValidTRONAddress } from "@/utils/utils";
+import { isValidTRONAddress, updateBalance } from "@/utils/utils";
 
 export default {
   name: "addressList",
@@ -158,10 +157,10 @@ export default {
   methods: {
     // 获取币种余额
     getAmounts() {
-      memberWalletList().then((res) => {
-        console.error("余额", res);
-        if (res.code == 200) {
-          this.amountMap = res.data || [];
+      this.amountMap = storage.get('balanceList') || []
+      updateBalance().then((res) => {
+        if (res) {
+          this.amountMap = res
         }
       });
     },
@@ -273,8 +272,9 @@ export default {
           margin-top: 20rpx;
         }
         .tip {
-          font-size: 24rpx;
-          margin-top: 10rpx;
+          font-size: 26rpx;
+          color: #3C3C3C;
+          margin-top: 50rpx;
         }
       }
     }
@@ -303,12 +303,14 @@ export default {
 }
 .sure-box {
   width: 100%;
-  height: 600rpx;
+  height: 840rpx;
   background-color: #fff;
+  box-sizing: border-box;
+  padding: 40rpx 50rpx 50rpx 50rpx;
 
   .title {
     height: 120rpx;
-    padding: 0 37rpx 0 63rpx;
+    padding: 0 20rpx 0 40rpx;
     color: #38363b;
     font-size: 36rpx;
     display: flex;
@@ -329,14 +331,18 @@ export default {
     }
   }
   .sure-item {
-    height: 70rpx;
+    height: 110rpx;
     border-bottom: 1px solid #e4e4e4;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 26rpx;
+    color: #7A7A7A;
     .sure-val {
-      margin-left: 20rpx;
+      max-width: 400rpx;
+      color: #3C3C3C;
+      margin-left: 80rpx;
+      word-break: break-all;
     }
   }
 
@@ -345,12 +351,12 @@ export default {
     border-color: #449367;
     width: 451rpx;
     height: 96rpx;
-    margin: 40rpx auto;
+    margin: 60rpx auto 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 26rpx;
+    font-size: 32rpx;
   }
 }
 </style>

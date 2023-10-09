@@ -16,7 +16,10 @@
       </view>
 
       
-      <view class="subtitle">数量</view>
+      <view class="subtitle">
+        数量
+        <text v-show="type=='sell'" class="balance">可用余额{{ cfb }}CFB</text>
+      </view>
       <view class="ipt">
         <input v-model="form.entrustAmount" @input="() => form.estimatedAmount = form.referenceRate * form.entrustAmount" class="input" type="number" placeholder="数量" />
         <text>CFB</text>
@@ -74,6 +77,7 @@
 <script>
 import { entrustRelease, queryByPaymodelMember, entrustUpdate } from '@/api/api'
 import storage from '@/utils/storage'
+import { updateBalance } from '@/utils/utils'
 
 
 const payWayMap = {
@@ -108,6 +112,8 @@ export default {
 
       payways: [], // 支付方式
       paywayIndex: -1,
+
+      amountMap: [], // 余额列表
     }
   },
   computed: {
@@ -119,6 +125,11 @@ export default {
         if (this.form.entrustAmount && this.form.paymodelId && !this.loading) return false
         return true
       }
+    },
+    cfb() {
+      const target = this.amountMap.find(item => item.currency == 'CFB')
+      if (target) return target.balance
+      return '0'
     }
   },
   onLoad(data) {
@@ -131,8 +142,19 @@ export default {
   },
   onShow() {
     this.getPayways()
+    this.getAmounts()
   },
   methods: {
+    // 获取币种余额
+    getAmounts() {
+      this.amountMap = storage.get('balanceList') || []
+      updateBalance().then((res) => {
+        if (res) {
+          this.amountMap = res
+          console.error(this.amountMap)
+        }
+      });
+    },
     // 改变类型  如果编辑模式就不能变更
     changeType(key) {
       if (this.form.id) return
@@ -234,6 +256,10 @@ export default {
     color: #7a7a7a;
     font-size: 26rpx;
     margin: 35rpx 0;
+    .balance {
+      color: #FB2B2B;
+      margin-left: 30rpx;
+    }
   }
   .title2 {
     color: #433F48;

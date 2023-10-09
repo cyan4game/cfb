@@ -13,7 +13,7 @@
         <view class="close" @click="() => $refs.popup.close()">×</view>
       </view>
 
-      <view style="padding: 0 50rpx; box-sizing: border-box">
+      <view>
         <view class="sure-item">
           <text>收款账号</text>
           <text class="sure-val">86575588</text>
@@ -60,16 +60,16 @@ export default {
   width: 100%;
   height: 780rpx;
   background-color: #fff;
+  box-sizing: border-box;
+  padding: 50rpx 60rpx 40rpx 80rpx;
 
   .title {
-    height: 120rpx;
-    padding: 0 37rpx 0 63rpx;
     color: #38363b;
     font-size: 36rpx;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #dfdfdf;
+    margin-bottom: 20rpx;
 
     .close {
       width: 40rpx;
@@ -100,7 +100,7 @@ export default {
     border-color: #449367;
     width: 451rpx;
     height: 96rpx;
-    margin: 40rpx auto;
+    margin: 60rpx auto 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;

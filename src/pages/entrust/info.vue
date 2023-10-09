@@ -38,11 +38,23 @@
         <text>结束时间</text>
         <text class="val">{{ info.endTime }}天</text>
       </view>
+
+      <view class="line"></view>
+
       <!-- 卖出 -->
       <template v-if="info.type == 2">
         <view class="item">
           <text>收款账号</text>
-          <text class="val">{{ info.accountName }}</text>
+          <view class="val">
+            <text>{{ info.accountName }}</text>
+            <u-image
+              @click="copy(info.accountName)"
+              style="margin-left: 30rpx"
+              src="/static/images/mine/copy.png"
+              width="26rpx"
+              height="31rpx"
+            ></u-image>
+          </view>
         </view>
         <view class="item">
           <text>收款方式</text>
@@ -101,6 +113,7 @@
 <script>
 import { entrustPage, entrustCancel } from "@/api/api";
 import { getTimestr } from "@/utils/time";
+import { copyTxt } from "@/utils/utils";
 
 // 状态：-1关闭,0发布中,1交易中，2完成
 const stateMap = {
@@ -136,6 +149,14 @@ export default {
   },
   methods: {
     getTimestr,
+    copy(txt) {
+      copyTxt(txt);
+      uni.showToast({
+        title: "复制成功",
+        icon: "none",
+        duration: 2000,
+      });
+    },
     // 获取详情
     getInfo() {
       entrustPage({
@@ -227,13 +248,19 @@ export default {
     font-size: 26rpx;
     align-items: center;
     justify-content: space-between;
-    height: 120rpx;
-    border-bottom: 1px solid #eee;
+    height: 80rpx;
     .val {
       color: #3c3c3c;
       display: flex;
       align-items: center;
+      justify-content: flex-end;
     }
+  }
+  .line {
+    width: 100%;
+    height: 1px;
+    background-color: #f1f1f1;
+    margin: 40rpx 0;
   }
   .btns {
     margin: 80rpx 0;
@@ -258,7 +285,7 @@ export default {
   .submit {
     box-sizing: border-box;
     border-radius: 6rpx;
-    flex: 1;
+    flex: 2;
     height: 96rpx;
     background-color: #449367;
     display: flex;

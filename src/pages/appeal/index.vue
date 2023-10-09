@@ -7,14 +7,14 @@
       <view class="form-item">
         <view class="item-title">订单编号</view>
         <view class="item-content">
-          <input v-model.trim="form.id" disabled type="text" class="ipt" />
+          <input v-model.trim="item.orderNo" disabled type="text" class="ipt" />
         </view>
       </view>
       <!-- 订单金额 -->
       <view class="form-item">
         <view class="item-title">订单金额</view>
         <view class="item-content">
-          <input v-model.trim="form.amount" disabled type="text" class="ipt" />
+          <input v-model.trim="item.payAmount" disabled type="text" class="ipt" />
         </view>
       </view>
 
@@ -134,6 +134,7 @@ export default {
       },
       loading: false,
       userInfo: {},
+      item: {}, // 订单详情
 
       imgList: [],
       videoFile: {},
@@ -146,6 +147,8 @@ export default {
   },
   onLoad(data) {
     this.userInfo = storage.get("userInfo") || {};
+    this.item = storage.get("curr-order") || {};
+    console.error('??', this.item)
   },
   methods: {
     // 确认删除
@@ -208,7 +211,7 @@ export default {
         return item.uploadUrl;
       });
       const params = {
-        orderNo: "20",
+        orderNo: this.item.orderNo,
         remark: this.form.text,
         video: videoSrc,
         // modifyUser: this.userInfo.id,

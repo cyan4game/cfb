@@ -2,42 +2,61 @@
 <template>
   <view class="info-page-bg order-info">
     <view class="info-page-content content-box">
-      <view class="title">{{ orderStatusMap[item.orderStatus] || '--' }}</view>
-      <view class="info">您已成功出售1,234.26CFB</view>
+      <view class="title">{{ orderStatusMap[item.orderStatus] || "--" }}</view>
+
+      <!-- 
+        申诉中-订单正在申诉中请您耐心等待
+        待付款—倒计时-订单正在付款中请您耐心等待
+        收款待确认-订单已付款请确认
+        订单超时-订单已超时请重新发起订单
+        交易取消-交易已取消
+        申诉处理中-订单正在申诉中请您耐心等待
+        申诉成功—收款失败-系统已重新开始为您处理订单
+        申诉失败—收款成功-根据提供的申诉资料判定您已收款成功
+        驳回-您的申诉已被驳回
+      -->
+      <view class="info"
+        >
+        <!-- 待付款 -->
+        <text v-if="item.orderStatus == 2">倒计时 </text>
+        {{ orderStatusTipMap[item.orderStatus] }}
+        <!-- 成功 -->
+        <text v-if="item.orderStatus == 0">{{ orderTypeMap[item.orderType] }}{{ item.buyAmount }}{{ item.buyCoin }}</text>
+        </view
+      >
 
       <!-- <view class="box">
-                <view class="avatar"></view>
-                <view class="content">
-                    <view class="name">Picker</view>
-                    <view>C2C订单消息]订单已完成</view>
-                </view>
-                <view class="btn">聊天</view>
-            </view> -->
+          <view class="avatar"></view>
+          <view class="content">
+              <view class="name">Picker</view>
+              <view>C2C订单消息]订单已完成</view>
+          </view>
+          <view class="btn">聊天</view>
+      </view> -->
 
       <view class="subtitle">
-        <u-image
-          class="coin"
-          src="/static/images/index/usdt.png"
-          width="50rpx"
-          height="50rpx"
-        ></u-image>
-        <text>出售CFB</text>
+        <coin-icon
+          style="margin-right: 16rpx; width: 50rpx; height: 50rpx"
+          :coin="item.buyCoin"
+        />
+        <text>{{ orderTypeMap[item.orderType] }}{{ item.buyCoin }}</text>
       </view>
 
       <view class="container" style="border-bottom: 1px solid #dfdfdf">
         <view class="info-item">
           <view class="item-name">汇率</view>
-          <view class="item-box">1:1</view>
+          <view class="item-box">{{ item.exchange }}:1</view>
         </view>
         <view class="info-item">
           <view class="item-name">数量</view>
-          <view class="item-box">123123CFB</view>
+          <view class="item-box">{{ item.buyAmount }}{{ item.buyCoin }}</view>
         </view>
         <view class="info-item">
           <view class="item-name">金额</view>
           <view class="item-box">
-            <text>12313</text>
+            <text>￥{{ item.payAmount }}</text>
             <u-image
+              @click="copy(item.payAmount)"
               class="copy"
               src="/static/images/funds/copy.png"
               width="26rpx"
@@ -50,11 +69,13 @@
       <view class="container" style="border-bottom: 1px solid #dfdfdf">
         <view class="info-item">
           <view class="item-name">收款方式</view>
-          <view class="item-box bank">银行卡</view>
+          <view class="item-box bank">{{
+            payWayMap[item.payWay] || "--"
+          }}</view>
         </view>
         <view class="info-item">
           <view class="item-name">收款账号</view>
-          <view class="item-box">23432423423</view>
+          <view class="item-box">{{ item.gatherNo }}</view>
         </view>
       </view>
 
@@ -62,8 +83,9 @@
         <view class="info-item">
           <view class="item-name">订单编号</view>
           <view class="item-box">
-            <text>1231a2342342343</text>
+            <text>{{ item.orderNo }}</text>
             <u-image
+              @click="copy(item.orderNo)"
               class="copy"
               src="/static/images/funds/copy.png"
               width="26rpx"
@@ -73,7 +95,7 @@
         </view>
         <view class="info-item">
           <view class="item-name">交易时间</view>
-          <view class="item-box">2023/06/17 00:45:08</view>
+          <view class="item-box">{{ getTimestr(item.dealTime) }}</view>
         </view>
       </view>
 
@@ -89,30 +111,49 @@
 </template>
 
 <script>
-import { orderTypeMap, orderStatusMap } from './map.js'
-import storage from '@/utils/storage'
+import { orderTypeMap, orderStatusMap, orderStatusTipMap } from "./map.js";
+import storage from "@/utils/storage";
+import { getTimestr } from "@/utils/time";
+import { copyTxt } from "@/utils/utils";
+
+const payWayMap = {
+  1: "银行卡",
+  2: "支付宝",
+  3: "微信",
+};
 
 export default {
-  name: 'orderInfo',
+  name: "orderInfo",
   data() {
     return {
+      orderStatusTipMap,
+      payWayMap,
       orderStatusMap,
       orderTypeMap,
-      item: {}
-    }
+      item: {},
+    };
   },
   onLoad() {
-    this.item = storage.get("curr-order") || {}
+    this.item = storage.get("curr-order") || {};
   },
   methods: {
+    getTimestr,
     // 去申诉
     appeal() {
       uni.navigateTo({
-         url: '/pages/appeal/index'
-      })
-    }
+        url: "/pages/appeal/index",
+      });
+    },
+    // 复制
+    copy(txt) {
+      copyTxt(txt);
+      uni.showToast({
+        title: "复制成功",
+        icon: "none",
+        duration: 2000,
+      });
+    },
   },
-
 };
 </script>
 

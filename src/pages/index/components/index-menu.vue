@@ -11,8 +11,7 @@
         fit="fill"
         class="icon"
         :src="item.icon"
-        :width="item.key == 5 ? '64rpx' : '53rpx'"
-        :style="{ position: 'relative', left: item.key == 5 ? '8rpx' : '' }"
+        :width="'53rpx'"
         :height="'53rpx'"
       ></u-image>
       <view>{{ item.name }}</view>
@@ -49,7 +48,7 @@ export default {
         {
           key: 3,
           name: "闪兑",
-          icon: "/static/images/index/nav-4.png",
+          icon: "/static/images/index/nav-8.png",
           route: "/pages/index/flashExchange",
         },
         {
@@ -61,7 +60,7 @@ export default {
         {
           key: 5,
           name: "我的委托",
-          icon: "/static/images/index/nav-6.png",
+          icon: "/static/images/index/nav-9.png",
           route: "/pages/entrust/index",
         },
       ],

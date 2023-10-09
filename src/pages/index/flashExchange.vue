@@ -46,7 +46,7 @@
             >{{ form.amount || "--" }} {{ form.fromCoin }}</text
           >
         </view>
-        <view class="btn" @click="all">全部</view>
+        <view class="all" @click="all">全部</view>
       </view>
     </view>
 
@@ -296,7 +296,7 @@ export default {
         color: #449367;
       }
 
-      .btn {
+      .all {
         color: #232323;
       }
     }

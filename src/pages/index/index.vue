@@ -107,7 +107,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 51rpx;
+      margin-top: 42rpx;
 
       .nav {
         width: 49%;

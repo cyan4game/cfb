@@ -24,7 +24,8 @@
                     </u-form-item> -->
                     <u-form-item class="item" prop="codePhone">
                         <view class="item">
-                            <u-text text="手机验证"></u-text>
+                            <view>手机验证</view>
+                            <view class="phone">{{ hiddenPhone(userInfo.phoneNumber) }}</view>
                             <u-input class="ipt" :type="'text'" placeholder="请输入手机验证码" v-model="checkForm.codePhone">
                                 <template slot="suffix">
                                     <view class="code-btn" :class="{ 'dis-btn': phoneTimedown }" @click="sendCode('phone')">
@@ -36,7 +37,7 @@
                     </u-form-item>
                     <u-form-item class="item" prop="payPass" v-if="password">
                         <view class="item">
-                            <u-text text="支付密码"></u-text>
+                            <view>支付密码</view>
                             <u-input class="ipt" :type="'password'" placeholder="请输入支付密码" v-model="checkForm.payPass"></u-input>
                         </view>
                     </u-form-item>
@@ -76,6 +77,7 @@
 
 import { mailSecurity, smsSecurity } from '@/api/api'
 import storage from "@/utils/storage";
+import { hiddenPhone } from '@/utils/utils'
 
 export default {
     name: 'msgDialog',
@@ -106,6 +108,7 @@ export default {
         if (this.phoneInterval) clearInterval(this.phoneInterval)
     },
     methods: {
+        hiddenPhone,
         open() {
             this.userInfo = storage.get('userInfo') || {}
             this.$refs.popup.open()
@@ -189,14 +192,12 @@ export default {
     background-color: #fff;
 
     .title {
-        height: 120rpx;
-        padding: 0 37rpx 0 63rpx;
+        padding: 60rpx 37rpx 20rpx 63rpx;
         color: #38363B;
         font-size: 36rpx;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid #DFDFDF;
 
         .close {
             width: 40rpx;
@@ -239,6 +240,20 @@ export default {
 
     .item {
         width: 100%;
+        color: #3A3939;
+        font-size: 26rpx;
+        position: relative;
+        .phone {
+            position: absolute;
+            right: 0;
+            color: #CF1A1A;
+            font-size: 26rpx;
+            top: 0;
+        }
+        .ipt {
+            background-color: #f1f1f1;
+            border-radius: 6rpx;
+        }
     }
 
     .untip {

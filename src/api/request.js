@@ -87,7 +87,7 @@ module.exports = (vm) => {
         // 如果没有显式定义custom的toast参数为false的话，默认对报错进行toast弹出提示
         if (custom.toast !== false) {
           uni.showToast({
-            title: res.message, icon: "none", duration: 1000,
+            title: res.message, icon: "none", duration: 3000,
           })
         }
         if (res.code === 401) {

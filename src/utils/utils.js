@@ -1,4 +1,4 @@
-import { memberInfo } from "@/api/api";
+import { memberInfo, memberWalletList } from "@/api/api";
 import storage from "./storage";
 
 /* ---------------------- 地址校验 --------------------------- */
@@ -45,6 +45,23 @@ export const nameReg = (str) => {
   const reg = /^[\u4e00-\u9fa5.·]{2,20}$/;
   return reg.test(str);
 };
+
+// 更新用户余额信息
+export const updateBalance = () => {
+  return new Promise(resolve => {
+    memberWalletList().then((res) => {
+      if (res.code == 200) {
+        const amountMap = res.data || [];
+        storage.set('balanceList', amountMap)
+        resolve(amountMap);
+      } else {
+        resolve(false);
+      }
+    }).catch(() => {
+      resolve(false);
+    });
+  })
+}
 
 // 更新用户信息
 export const updatUserInfo = () => {

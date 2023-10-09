@@ -1,6 +1,15 @@
 <!-- 购买 -->
 <template>
   <view class="info-page-bg page-trade">
+
+    <!-- 菜单按钮 -->
+    <u-image
+      class="menu-icon"
+      src="/static/images/index/menu.png"
+      width="35rpx"
+      height="35rpx"
+    ></u-image>
+
     <view class="info-page-content content-box">
       <view class="box type-box">
         <view
@@ -24,10 +33,10 @@
 
       <!-- 表单 -->
       <view class="form">
-        <view class="title">
-          <text>收款方式</text>
+        <view class="title" v-show="type == 2">
+          <text>收款账号</text>
         </view>
-        <view class="ipt">
+        <view class="ipt" v-show="type == 2">
           <text>请选择收款方式</text>
           <u-image
             class="more"
@@ -37,16 +46,28 @@
           ></u-image>
         </view>
         <view class="title">
-          <text>数量</text>
-          <text class="amount">可用余额3000CFB</text>
+          <text>{{ type == 2 ? '出售' : '请选择购买金额' }}</text>
+          <text class="amount" v-show="type == 2">可用余额3000CFB</text>
+          <view class="refresh">
+            <text>刷新</text>
+            <u-image
+            class="refresh-icon"
+            src="/static/images/index/refresh.png"
+            width="20rpx"
+            height="20rpx"
+          ></u-image>
+          </view>
         </view>
-        <view class="ipt">
-          <input class="input" type="number" placeholder="请输入数量" />
+        <view class="ipt" v-show="type == 2">
+          <input class="input" type="number" placeholder="限额  100-200.000" />
         </view>
         <view class="fasters">
           <view class="faster" v-for="item in fasters" :key="item">{{
             item
           }}</view>
+          <view class="faster" v-show="type == 1">
+            <input class="input" type="number" placeholder="其他金额" />
+          </view>
         </view>
       </view>
 
@@ -121,6 +142,12 @@ export default {
 <style lang="scss" scoped>
 .page-trade {
   font-weight: 400;
+  .menu-icon {
+    position: fixed;
+    z-index: 9999;
+    right: 40rpx;
+    top: 28rpx;
+  }
   .content-box {
     color: #7a7a7a;
     font-size: 26rpx;
@@ -182,8 +209,20 @@ export default {
   .form {
     .title {
       margin: 36rpx 0;
+      position: relative;
       .amount {
-        margin-left: 40rpx;
+        margin-left: 30rpx;
+        color: #FB2B2B;
+      }
+      .refresh {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 0;
+        top: 0;
+        .refresh-icon {
+          margin-left: 10rpx;
+        }
       }
     }
     .ipt {
@@ -216,6 +255,13 @@ export default {
         justify-content: center;
         color: #433f48;
         font-size: 28rpx;
+        padding: 0 20rpx;
+        box-sizing: border-box;
+        .input {
+          color: #433f48;
+          font-size: 28rpx;
+          text-align: center;
+        }
       }
     }
   }

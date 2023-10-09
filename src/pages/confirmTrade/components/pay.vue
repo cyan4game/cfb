@@ -3,7 +3,7 @@
   <uni-popup ref="popup">
     <view class="pay-dialog">
       <view class="title">
-        <text>付款屏凭证</text>
+        <text>付款凭证</text>
         <view class="close" @click="clsoe">×</view>
       </view>
       <view class="tip">您若未付款，产生纠纷，信用将会受到影响 </view>
@@ -39,6 +39,7 @@
               height="32rpx"
             ></u-image>
           </view>
+          <text class="up-img">上传图片</text>
         </view>
       </view>
 
@@ -179,6 +180,11 @@ export default {
       align-items: center;
       justify-content: center;
       margin-top: 20rpx;
+      position: relative;
+      .up-img {
+        position: absolute;
+        bottom: -40rpx;
+      }
       .upload-bg {
         display: flex;
         align-items: center;
