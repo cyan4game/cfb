@@ -4,8 +4,8 @@
     <view class="login-bg">
       <u-image src="/static/images/login/hello.png" width="143rpx" height="41rpx" class="hello-icon"></u-image>
       <u-image src="/static/images/login/welcome.png" width="299rpx" height="42rpx" class="welcome-icon"></u-image>
-      <u-image @click="pageTo" :showLoading="true" src="/static/icons/customer.svg" width="24px" height="24px"
-        class="service-icon"></u-image>
+      <!-- <u-image @click="pageTo" :showLoading="true" src="/static/icons/customer.svg" width="24px" height="24px"
+        class="service-icon"></u-image> -->
     </view>
 
     <view class="login-box">
@@ -149,6 +149,7 @@ export default {
     left: 0;
     color: #38363B;
     transform: scale(0.7);
+    transform-origin: center center;
   }
 }
 </style>

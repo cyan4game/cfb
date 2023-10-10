@@ -5,6 +5,7 @@
     <u-sticky offsetTop="0" customNavHeight="0">
       <view class="top">
         <u-image
+        @click="jump('/pages/customer/index')"
           class="icon"
           src="/static/images/index/kefu.png"
           width="46rpx"

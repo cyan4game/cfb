@@ -117,6 +117,8 @@ export default {
 <style lang="scss" scoped>
 .wait-to-pay {
   .content-box {
+    height: 100%;
+    overflow-y: auto;
     .title {
       color: #38363b;
       font-size: 40rpx;

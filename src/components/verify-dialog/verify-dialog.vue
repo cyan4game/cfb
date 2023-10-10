@@ -251,8 +251,12 @@ export default {
             top: 0;
         }
         .ipt {
+            height: 70rpx;
             background-color: #f1f1f1;
             border-radius: 6rpx;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
     }
 

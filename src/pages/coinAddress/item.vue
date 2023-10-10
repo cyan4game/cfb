@@ -190,6 +190,7 @@ export default {
         scan() {
             // #ifdef APP-PLUS
             uni.scanCode({
+                scanType: ["qrCode"],
                 success: res => {
                     this.setAddress(res.result)
                 }

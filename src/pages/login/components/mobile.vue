@@ -1,5 +1,5 @@
 <template>
-  <view class="mobile-view">
+  <view class="mobile-view" style="font-size: 28rpx;">
     <u-form labelWidth="0" class="form" :model="form" ref="form" :rules="rules">
       <view class="subtitle">手机</view>
       <u-form-item prop="phone" class="item-box">
@@ -49,15 +49,15 @@
                 startText="发送验证码"
                 endText="重新获取验证码"
               ></u-code>
-              <u-button
+              <text
                 :disabled="buttonDisabled"
                 class="get-button"
-                :style="{ color: buttonDisabled ? '#999' : '#3A9861' }"
+                :style="{ color: buttonDisabled ? '#999' : '#3A9861', backgroundColor: 'rgba(0,0,0,0)' }"
                 @tap="getCode"
                 type="success"
                 size="small"
                 >{{ tips }}
-              </u-button>
+              </text>
             </template>
           </u-input>
         </view>
@@ -71,7 +71,7 @@
         @click="toNext"
         type="primary"
       >
-        登录
+        <text style="font-size: 34rpx;">登录</text>
       </u-button>
     </u-form>
     <u-picker
@@ -266,11 +266,22 @@ export default {
 
 .get-button {
   width: 222rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 67rpx;
   font-size: 28rpx;
-  background: #fffffd;
-  border-color: #fffffd;
+  background: rgba(0,0,0,0);
+  border-color: rgba(0,0,0,0);
   white-space: nowrap;
+  ::v-deep .uni-button {
+    &::after {
+      border: none!important
+    }
+  }
+  ::v-deep .u-button--disabled {
+    background-color: rgba(0,0,0,0)!important;
+  }
 }
 
 .login-button {

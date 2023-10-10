@@ -113,7 +113,7 @@ export default {
           key: 2,
           name: "实名认证",
           icon: "/static/images/mine/nav-2.png",
-          route: "/pages/identification/step3",
+          route: "/pages/identification/index",
         },
         {
           key: 3,

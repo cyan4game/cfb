@@ -25,8 +25,8 @@
           ></u-image>
         </view>
         <view class="show" @click="changeHidden">
-          <view class="check" :class="{ checked: params.isHide == 1 }"
-            ><view class="in"></view
+          <view class="check" :class="{ checked: params.isHide == 1 }">
+            <view class="in"></view
           ></view>
           <text>{{ params.isHide == 1 ? "隐藏" : "显示" }}关闭委托</text>
         </view>
@@ -43,9 +43,9 @@
         >
           <!-- 头部 -->
           <view class="top">
-            <view class="status">{{ item.type==2?'出售':'购买' }}</view>
+            <view class="status">{{ item.type == 2 ? "出售" : "购买" }}</view>
             <view class="name">{{ item.currency }}</view>
-            <view class="state">{{ stateMap[item.state] || '--' }}</view>
+            <view class="state">{{ stateMap[item.state] || "--" }}</view>
           </view>
 
           <view class="body">
@@ -81,7 +81,9 @@
           </view>
         </view>
 
-        <view class="more">{{ finish?'没有更多了':(loading?'加载中':'加载更多') }}</view>
+        <view class="more">{{
+          finish ? "没有更多了" : loading ? "加载中" : "加载更多"
+        }}</view>
       </scroll-view>
     </view>
   </view>
@@ -92,11 +94,11 @@ import { entrustPage } from "@/api/api";
 
 // 状态：-1关闭,0发布中,1交易中，2完成
 const stateMap = {
-  '-1': '关闭',
-  0: '发布中',
-  1: '交易中',
-  2: '完成'
-}
+  "-1": "关闭",
+  0: "发布中",
+  1: "交易中",
+  2: "完成",
+};
 
 export default {
   name: "entrust",
@@ -122,36 +124,38 @@ export default {
     };
   },
   onShow() {
-    this.reset()
+    this.reset();
   },
   methods: {
     // 加载更多
     loadMore() {
-      if (this.loading || this.finish) return
-      this.params.pageNo++
-      this.loading = true
-      entrustPage(this.params).then(res => {
-        console.error(res.data.list[0])
-        if (res.code == 200) {
-          this.list = res.data.list || []
-          if (this.list.length >= res.data.total) {
-            this.finish = true
+      if (this.loading || this.finish) return;
+      this.params.pageNo++;
+      this.loading = true;
+      entrustPage(this.params)
+        .then((res) => {
+          console.error(res.data.list[0]);
+          if (res.code == 200) {
+            this.list = res.data.list || [];
+            if (this.list.length >= res.data.total) {
+              this.finish = true;
+            }
           }
-        }
-      }).finally(() => {
-        setTimeout(() => {
-          this.loading = false
-        }, 500)
-      })
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.loading = false;
+          }, 500);
+        });
     },
     reset() {
-      this.list = []
+      this.list = [];
       this.params.pageNo = 0;
-      this.finish = false
-      this.loading = false
+      this.finish = false;
+      this.loading = false;
       setTimeout(() => {
         this.loadMore();
-      }, 0)
+      }, 0);
     },
     // 隐藏关闭委托
     changeHidden() {
@@ -162,7 +166,7 @@ export default {
     bindPickerChange(e) {
       this.index = e.target.value;
       this.params.type = this.array[this.index].val;
-      this.reset()
+      this.reset();
     },
     // 查看详情
     goInfo(item) {
@@ -314,14 +318,14 @@ export default {
           }
           .row-val {
             font-size: 50rpx;
-            color: #38363B;
+            color: #38363b;
             margin-bottom: 10rpx;
           }
         }
         .line {
           height: 63rpx;
           width: 1px;
-          background-color: #CECECE;
+          background-color: #cecece;
           margin: 0 20rpx;
         }
       }

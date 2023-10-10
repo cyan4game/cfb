@@ -4,6 +4,7 @@
 
     <!-- 菜单按钮 -->
     <u-image
+      @click="showNav = true"
       class="menu-icon"
       src="/static/images/index/menu.png"
       width="35rpx"
@@ -104,23 +105,29 @@
     <MatchDialog ref="matchBox" />
     <!-- 出售确认 -->
     <sellDialog ref="sellBox" />
+    <!-- 菜单弹窗 -->
+    <navsDialog ref="navsBox" @close="showNav=false" v-if="showNav" />
   </view>
 </template>
 
 <script>
 import MatchDialog from "./components/match";
 import sellDialog from "./components/sellDialog";
+import navsDialog from './components/navs'
 
 export default {
   name: "pageTrade",
   components: {
     MatchDialog,
     sellDialog,
+    navsDialog,
   },
   data() {
     return {
       type: 1, // 1-购买 2-出售
       fasters: [100, 300, 500, 1100, 1800, 2100],
+
+      showNav: false, // 是否打开菜单
     };
   },
   onLoad(data) {
@@ -135,6 +142,7 @@ export default {
         this.$refs.sellBox.open();
       }
     },
+    
   },
 };
 </script>

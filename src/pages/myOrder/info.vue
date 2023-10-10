@@ -100,10 +100,23 @@
       </view>
 
       <view class="btns">
+        <!-- 申诉中 -->
+        <template v-if="item.orderStatus == 1">
+          <view class="submit">撤销申诉</view>
+        </template>
+        <!-- 待付款 -->
+        <template v-if="item.orderStatus == 2">
+          <view class="btn">取消交易</view>
+          <view class="submit">确认付款</view>
+        </template>
         <!-- 收款待确认 -->
-        <template>
+        <template v-if="item.orderStatus == 3">
           <view class="btn" @click="appeal">申诉</view>
           <view class="submit">确认收款</view>
+        </template>
+        <!-- 申诉处理中 -->
+        <template v-if="item.orderStatus == 6">
+          <view class="submit">撤销申诉</view>
         </template>
       </view>
     </view>

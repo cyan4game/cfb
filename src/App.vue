@@ -269,16 +269,19 @@ uni-toast {
   height: 41rpx;
   border-radius: 50%;
   margin-right: 10rpx;
+  box-sizing: border-box;
+  padding: 6rpx;
 }
 .checked {
   border: 1px solid #449367;
-  box-sizing: border-box;
-  padding: 6rpx;
-  .in {
+  position: relative;
+  
+}
+.checked .in {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     background-color: #449367;
+    display: block;
   }
-}
 </style>

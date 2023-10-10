@@ -1,6 +1,7 @@
 <!-- 充币 -->
 <template>
   <view class="page-deposit">
+
     <!-- 浮标 -->
     <!-- <u-image class="right-icon" style="right:130rpx" src="/static/images/index/icon-help.png" width="42rpx" height="42rpx"></u-image>
         <u-image class="right-icon" src="/static/images/index/icon-his.png" width="45rpx" height="42rpx"></u-image> -->
@@ -66,8 +67,8 @@
           <coin-icon style="width: 42rpx; height: 42rpx; margin-right: 20rpx" />
           <text>充值二维码</text>
         </view>
-        <view class="box" ref="box">
-          <view class="box-title">{{ userInfo.nickname || "默认昵称" }}</view>
+        <view class="box" :class="{ fullwin: fullwin }" ref="box">
+          <view class="box-title">{{ userInfo.nickname || "--" }}</view>
           <view class="box-coin">资产类型：TRC20-USDT</view>
           <view class="qr-box2">
             <tki-qrcode :key="'in'" ref="qrcode2" :size="340" :val="address" />
@@ -85,13 +86,13 @@
           >
           <view>3. 您的充值地址不会经常改变，可截图保存并重复充值。</view>
         </view>
-        <view class="share-title">
-          <coin-icon style="width: 42rpx; height: 42rpx; margin-right: 20rpx" />
-          <text style="font-size:26rpx">财富宝—你的数字资产管理专家</text>
-        </view>
         <view class="box-btns">
           <view class="box-btn" @click="() => $refs.popup.close()">取消</view>
           <view class="box-btn active-btn" @click="share">分享</view>
+        </view>
+        <view class="share-title" style="margin-bottom:0;margin-top:36rpx">
+          <coin-icon style="width: 42rpx; height: 42rpx; margin-right: 20rpx" />
+          <text style="font-size: 26rpx">财富宝—你的数字资产管理专家</text>
         </view>
       </view>
     </uni-popup>
@@ -106,6 +107,7 @@ export default {
   name: "deposit",
   data() {
     return {
+      fullwin: false,
       userInfo: {},
       address: "https://www.baidu.com",
     };
@@ -127,6 +129,7 @@ export default {
       });
     },
     openDialog() {
+      this.fullwin = false;
       this.$refs.popup.open();
       setTimeout(() => {
         this.$refs.qrcode2._makeCode();
@@ -157,9 +160,14 @@ export default {
       } catch {
         uni.showToast({
           title: "保存失败，请手动截屏",
+          icon: "none",
           duration: 2000,
         });
       }
+      // #endif
+
+      // #ifdef APP-PLUS
+      this.appCut("save");
       // #endif
     },
     // 分享
@@ -177,8 +185,7 @@ export default {
               // 如果浏览器支持分享
               if (navigator.share) {
                 navigator.share({
-                  title:
-                    (this.userInfo.nickname || "默认昵称") + "的充值二维码",
+                  title: (this.userInfo.nickname || "--") + "的充值二维码",
                   text: this.address,
                   files: [
                     new File([blob], "image.jpg", { type: "image/jpeg" }),
@@ -249,6 +256,86 @@ export default {
           });
         });
       // #endif
+      // #ifdef APP-PLUS
+      this.appCut("share");
+      // #endif
+    },
+    // app端截屏并保存或分享
+    appCut(type = "save") {
+      // 将盒子放大到整个屏幕
+      this.fullwin = true;
+      setTimeout(() => {
+        // save-保存  share-分享
+        let pages = getCurrentPages();
+        let page = pages[pages.length - 1];
+        let ws = page.$getAppWebview();
+        let bitmap = new plus.nativeObj.Bitmap("drawScreen");
+        // 将webview内容绘制到Bitmap对象中
+        ws.draw(
+          bitmap,
+          () => {
+            // 保存图片到本地
+            bitmap.save(
+              "_doc/share.jpg",
+              {
+                overwrite: true,
+              },
+              (res) => {
+                if (type == "save") {
+                  // 保存
+                  this.$refs.popup.close();
+                  uni.saveImageToPhotosAlbum({
+                    filePath: res.target,
+                    success: () => {
+                      bitmap.clear(); //销毁Bitmap图片
+                      uni.showToast({
+                        title: "保存成功",
+                        icon: "none",
+                        duration: 3000,
+                      });
+                    },
+                    fail: () => {
+                      uni.showToast({
+                        title: "保存图片失败，请手动截屏",
+                        icon: "none",
+                        duration: 3000,
+                      });
+                    },
+                  });
+                } else {
+                  // 分享
+                  this.$refs.popup.close();
+                  uni.share({
+                    type: 2,
+                    imageUrl: res.target,
+                    complete: () => {
+                      this.$refs.popup.close();
+                    },
+                  });
+                }
+              },
+              (error) => {
+                bitmap.clear(); // 清除Bitmap对象
+                uni.showToast({
+                  title: "保存失败，请手动截屏",
+                  icon: "none",
+                  duration: 3000,
+                });
+              }
+            );
+          },
+          (error) => {
+            uni.showToast({
+              title: "截屏失败，请手动截屏",
+              icon: "none",
+              duration: 3000,
+            });
+          },
+          {
+            check: true, // 设置为检测白屏
+          }
+        );
+      }, 200);
     },
   },
 };
@@ -398,6 +485,17 @@ export default {
     .qr-box2 {
       margin-bottom: 30rpx;
     }
+  }
+  .fullwin {
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    margin: 0 !important;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
   }
   .box-line {
     width: 100%;
