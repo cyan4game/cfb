@@ -1,7 +1,6 @@
 <!-- 充币 -->
 <template>
   <view class="page-deposit">
-
     <!-- 浮标 -->
     <!-- <u-image class="right-icon" style="right:130rpx" src="/static/images/index/icon-help.png" width="42rpx" height="42rpx"></u-image>
         <u-image class="right-icon" src="/static/images/index/icon-his.png" width="45rpx" height="42rpx"></u-image> -->
@@ -90,7 +89,7 @@
           <view class="box-btn" @click="() => $refs.popup.close()">取消</view>
           <view class="box-btn active-btn" @click="share">分享</view>
         </view>
-        <view class="share-title" style="margin-bottom:0;margin-top:36rpx">
+        <view class="share-title" style="margin-bottom: 0; margin-top: 36rpx">
           <coin-icon style="width: 42rpx; height: 42rpx; margin-right: 20rpx" />
           <text style="font-size: 26rpx">财富宝—你的数字资产管理专家</text>
         </view>
@@ -195,39 +194,48 @@ export default {
               } else {
                 // 如果不支持分享则复制到粘贴板
                 try {
-                  const data = [
-                    new ClipboardItem({
-                      "image/png": blob,
-                    }),
-                  ];
-                  navigator.clipboard
-                    .write(data)
-                    .then(
-                      () => {
+                  if (window.ClipboardItem) {
+                    const data = [
+                      new ClipboardItem({
+                        "image/png": blob,
+                      }),
+                    ];
+                    navigator.clipboard
+                      .write(data)
+                      .then(
+                        () => {
+                          uni.hideLoading();
+                          uni.showToast({
+                            title: "已复制到粘贴板，快去分享吧！",
+                            icon: "none",
+                            duration: 3000,
+                          });
+                        },
+                        () => {
+                          uni.hideLoading();
+                          uni.showToast({
+                            title: "浏览器不支持分享，请手动截屏",
+                            icon: "none",
+                            duration: 3000,
+                          });
+                        }
+                      )
+                      .catch(() => {
                         uni.hideLoading();
                         uni.showToast({
-                          title: "已复制到粘贴板，快去分享吧！",
+                          title: "操作失败，请手动截屏",
                           icon: "none",
                           duration: 3000,
                         });
-                      },
-                      () => {
-                        uni.hideLoading();
-                        uni.showToast({
-                          title: "浏览器不支持分享，请手动截屏",
-                          icon: "none",
-                          duration: 3000,
-                        });
-                      }
-                    )
-                    .catch(() => {
-                      uni.hideLoading();
-                      uni.showToast({
-                        title: "操作失败，请手动截屏",
-                        icon: "none",
-                        duration: 3000,
                       });
+                  } else {
+                    uni.hideLoading();
+                    uni.showToast({
+                      title: "已复制地址，快去分享吧",
+                      icon: "none",
+                      duration: 3000,
                     });
+                  }
                 } catch {
                   uni.hideLoading();
                   uni.showToast({

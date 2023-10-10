@@ -31,11 +31,9 @@
             <view class="item">
                 <text class="name">账户ID</text>
                 <view class="value copy-box">
+                    <text>{{ userInfo.id }}</text>
                     <u-image @click="copy" class="copy" src="/static/images/mine/copy.png" width="26rpx"
                         height="31rpx"></u-image>
-                    <text>{{ userInfo.id }}</text>
-                    <u-image class="right" src="/static/images/mine/right.png" width="11rpx"
-                        height="20rpx"></u-image>
                 </view>
             </view>
         </view>
@@ -229,7 +227,7 @@ export default {
                 align-items: center;
 
                 .copy {
-                    margin-right: 10rpx;
+                    margin-left: 10rpx;
                 }
             }
         }

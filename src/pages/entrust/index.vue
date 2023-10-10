@@ -110,13 +110,14 @@ export default {
         // 类型：1 购买，2出售
         { name: "出售委托", val: 2 },
         { name: "购买委托", val: 1 },
+        { name: "全部委托", val: null },
       ],
-      index: 0, // 0-出售委托 1-购买委托
+      index: 2, // 0-出售委托 1-购买委托 2-全部
       params: {
         isHide: 1, // 是否隐藏关闭委托：1是，0否
         pageNo: 0,
         pageSize: 10,
-        type: 2,
+        type: null,
       },
 
       loading: false,
