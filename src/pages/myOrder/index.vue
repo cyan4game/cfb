@@ -141,11 +141,18 @@ export default {
   },
   data() {
     return {
-      // 状态 0订单完成 1申诉中 2代付款 3 收款待确认 4超时 5交易取消 6申诉处理中 7申诉成功（收款成功） 8申诉失败（收款失败）9驳回
+      // 状态 0订单完成 1申诉中 2待付款 3 收款待确认 4超时 5交易取消 6申诉处理中 7申诉成功（收款成功） 8申诉失败（收款失败）9驳回
       tabs: {
-        0: "已完成",
-        1: "申诉中",
-        5: "已取消",
+        0: "进行中", // 2,3,
+        1: "已完成", // 0,7,8,9
+        2: "申诉中", // 1,6
+        3: "已取消", // 4,5
+      },
+      tabMap: {
+        0: [2, 3],
+        1: [0, 7, 8, 9],
+        2: [1, 6],
+        3: [4, 5]
       },
       activeNav: 1, // 1-未完成 2-完成
       activeTab: -1,
@@ -197,12 +204,14 @@ export default {
         this.loadMore();
       }, 0);
     },
-    // 获取时间
+    // 获取时间等参数
     getDateParams() {
+      const orderStatusList = this.activeTab == -1 ? null : this.tabMap[this.activeTab]
       if (!this.activeTime)
         return {
           createTimeStart: "",
           createTimeEnd: "",
+          orderStatusList,
         };
       let now = Date.now();
       const createTimeEnd = getTimestr2(now).split(" ")[0];
@@ -223,18 +232,17 @@ export default {
       return {
         createTimeStart,
         createTimeEnd,
+        orderStatusList,
       };
     },
     // 加载更多
     loadMore() {
-      console.error("加载更多");
       if (this.loading || this.finish) return;
       this.form.pageNo++;
       this.loading = true;
       pageOtcMyOrder({
         ...this.form,
         ...this.getDateParams(),
-        orderStatus: this.activeTab == -1 ? null : this.activeTab,
       })
         .then((res) => {
           if (res.code != 200) return;

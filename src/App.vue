@@ -244,6 +244,7 @@ uni-toast {
 .info-page-content {
   /* 详情页内容 */
   height: 100%;
+  overflow-y: auto;
   box-sizing: border-box;
   background-color: #fff;
   border-top-right-radius: 22rpx;
@@ -260,6 +261,7 @@ uni-toast {
   align-items: center;
   justify-content: center;
   font-size: 30rpx!important;
+  border: none!important;
 }
 .info-page-disabled {
   color: #323233!important;

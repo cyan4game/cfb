@@ -109,24 +109,67 @@
       <view class="btns">
         <!-- 申诉中 -->
         <template v-if="item.orderStatus == 1">
-          <view class="submit">撤销申诉</view>
+          <view class="submit" @click="() => $refs.appealCancel.open()"
+            >撤销申诉</view
+          >
         </template>
         <!-- 待付款 -->
         <template v-if="item.orderStatus == 2">
-          <view class="btn">取消交易</view>
-          <view class="submit">确认付款</view>
+          <view class="btn" @click="() => $refs.orderCancel.open()"
+            >取消交易</view
+          >
+          <view class="submit" @click="() => $refs.uploadDialog.open()"
+            >确认付款</view
+          >
         </template>
         <!-- 收款待确认 -->
         <template v-if="item.orderStatus == 3">
           <view class="btn" @click="appeal">申诉</view>
-          <view class="submit">确认收款</view>
+          <view class="submit" @click="() => $refs.sureGet.open()"
+            >确认收款</view
+          >
         </template>
         <!-- 申诉处理中 -->
         <template v-if="item.orderStatus == 6">
-          <view class="submit">撤销申诉</view>
+          <view class="submit" @click="() => $refs.appealCancel.open()"
+            >撤销申诉</view
+          >
         </template>
       </view>
     </view>
+
+    <!-- 确认收款确认 -->
+    <confirm-dialog
+      ref="sureGet"
+      :key="'sure-get'"
+      :title="'确认收款'"
+      :btn="'确认收款'"
+      :content="'确认已经收款成功了吗？'"
+      :borderBtn="'取消'"
+      :btnHandle="sureGetHandle"
+    />
+    <!-- 取消交易确认 -->
+    <confirm-dialog
+      ref="orderCancel"
+      :key="'order-cancel'"
+      :title="'取消交易'"
+      :btn="'取消交易'"
+      :content="'确认取消交易吗？'"
+      :borderBtn="'不取消'"
+      :btnHandle="orderCancelHandle"
+    />
+    <!-- 撤销申诉确认 -->
+    <confirm-dialog
+      ref="appealCancel"
+      :key="'appeal-cancel'"
+      :title="'撤销申诉'"
+      :btn="'撤销申诉'"
+      :content="'确认撤销申诉吗？'"
+      :borderBtn="'取消'"
+      :btnHandle="appealCancelHandle"
+    />
+    <!-- 提交凭证弹窗 -->
+    <upload-dialog @success="submitPic" ref="uploadDialog" />
   </view>
 </template>
 
@@ -135,6 +178,12 @@ import { orderTypeMap, orderStatusMap, orderStatusTipMap } from "./map.js";
 import storage from "@/utils/storage";
 import { getTimestr } from "@/utils/time";
 import { copyTxt } from "@/utils/utils";
+import {
+  pageOtcMyOrder,
+  confirmCollect,
+  orderCancel,
+  confirmPay,
+} from "@/api/api";
 
 const payWayMap = {
   1: "银行卡",
@@ -155,9 +204,31 @@ export default {
   },
   onLoad() {
     this.item = storage.get("curr-order") || {};
+    setTimeout(() => {
+      this.getInfo();
+    }, 0);
   },
   methods: {
     getTimestr,
+    // 获取订单详情
+    getInfo() {
+      if (!this.item.entrustId) return;
+      pageOtcMyOrder({
+        entrustId: this.item.entrustId,
+        pageNo: 1,
+        pageSize: 1,
+      }).then((res) => {
+        if (
+          res.code == 200 &&
+          res.data &&
+          res.data.list &&
+          res.data.list.length
+        ) {
+          this.item = res.data.list[0];
+          storage.set("curr-order", this.item);
+        }
+      });
+    },
     // 去申诉
     appeal() {
       uni.navigateTo({
@@ -172,6 +243,81 @@ export default {
         icon: "none",
         duration: 2000,
       });
+    },
+    // 确认收款
+    sureGetHandle() {
+      uni.showLoading({
+        title: "",
+      });
+      confirmCollect({
+        orderId: this.item.entrustId,
+      })
+        .then((res) => {
+          if (res.code == 200) {
+            this.$refs.sureGet.close();
+            uni.showToast({
+              title: "操作成功",
+              icon: "none",
+              duration: 2000,
+            });
+            this.getInfo();
+          }
+        })
+        .finally(() => {
+          uni.hideLoading();
+        });
+    },
+    // 取消申诉
+    appealCancelHandle() {
+      console.error("取消申诉");
+      this.$refs.appealCancel.close();
+    },
+    // 取消交易
+    orderCancelHandle() {
+      uni.showLoading({
+        title: "",
+      });
+      orderCancel({
+        orderId: this.item.entrustId,
+      })
+        .then((res) => {
+          if (res.code == 200) {
+            this.$refs.orderCancel.close();
+            uni.showToast({
+              title: "操作成功",
+              icon: "none",
+              duration: 2000,
+            });
+            this.getInfo();
+          }
+        })
+        .finally(() => {
+          uni.hideLoading();
+        });
+    },
+    // 确认付款
+    submitPic(pic) {
+      uni.showLoading({
+        title: "",
+      });
+      confirmPay({
+        orderId: this.item.entrustId,
+        paymentVoucher: pic,
+      })
+        .then((res) => {
+          if (res.code == 200) {
+            this.$refs.uploadDialog.close();
+            uni.showToast({
+              title: "操作成功",
+              icon: "none",
+              duration: 2000,
+            });
+            this.getInfo();
+          }
+        })
+        .finally(() => {
+          uni.hideLoading();
+        });
     },
   },
 };

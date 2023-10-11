@@ -296,3 +296,21 @@ export const cfbOtcOrder = (data) => {
     custom: { auth: true, toast: true },
   });
 };
+// 确认收款
+export const confirmCollect = (data) => {
+  return http.post(`/cfbOtcOrder/confirmCollect`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
+// 取消交易
+export const orderCancel = (data) => {
+  return http.post(`/cfbOtcOrder/cancel`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
+// 确认付款
+export const confirmPay = (data) => {
+  return http.post(`/cfbOtcOrder/confirmPay`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
