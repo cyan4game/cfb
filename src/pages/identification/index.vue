@@ -1,6 +1,8 @@
 <!-- 身份认证-状态 -->
 <template>
-    <view class="info-page-bg page-iden">
+    <view class="info-page-bg self-body page-iden">
+
+        <u-navbar :title="'实名认证'" @leftClick="() => $router.back()" />
 
         <view class="info-page-content content-box">
             <view class="info">用户名：{{ userInfo.nickname || '--' }}</view>

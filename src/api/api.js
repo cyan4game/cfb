@@ -284,3 +284,15 @@ export const pageOtcMyOrder = (data) => {
     custom: { auth: true, toast: true },
   });
 };
+// 查询币种钱包地址
+export const getWalletAddress = (currency, chain) => {
+  return http.get(`/memberWalletAddress/get/${currency}/${chain}`, null, {
+    custom: { auth: true, toast: true },
+  });
+};
+// 创建出售订单
+export const cfbOtcOrder = (data) => {
+  return http.post(`/cfbOtcOrder`, data, {
+    custom: { auth: true, toast: true },
+  });
+};

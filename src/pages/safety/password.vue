@@ -6,7 +6,7 @@
           <u-text text="旧密码"></u-text>
           <u-input :type="showPassWord ? 'text' : 'password'" placeholder="请输入旧密码" v-model="form.oldPassWord">
             <template slot="suffix">
-              <u-icon @click="showPassWord = !showPassWord" :name="showPassWord ? 'eye-off' : 'eye-fill'" size="24"></u-icon>
+              <u-icon @click="showPassWord = !showPassWord" :name="showPassWord ? 'eye-off' : 'eye-fill'" :size="showPassWord ? 22 : 20" color="#787878"></u-icon>
             </template>
           </u-input>
         </view>
@@ -16,7 +16,7 @@
           <u-text text="新密码"></u-text>
           <u-input :type="showPassWord1 ? 'text' : 'password'" placeholder="请输入新密码" v-model="form.newPassWord1">
             <template slot="suffix">
-              <u-icon @click="showPassWord1 = !showPassWord1" :name="showPassWord1 ? 'eye-off' : 'eye-fill'" size="24"></u-icon>
+              <u-icon @click="showPassWord1 = !showPassWord1" :name="showPassWord1 ? 'eye-off' : 'eye-fill'" :size="showPassWord ? 22 : 20" color="#787878"></u-icon>
             </template>
           </u-input>
         </view>
@@ -26,7 +26,7 @@
           <u-text text="确认新密码"></u-text>
           <u-input :type="showPassWord2 ? 'text' : 'password'" placeholder="请输入新密码" v-model="form.newPassWord2">
             <template slot="suffix">
-              <u-icon @click="showPassWord2 = !showPassWord2" :name="showPassWord2 ? 'eye-off' : 'eye-fill'" size="24"></u-icon>
+              <u-icon @click="showPassWord2 = !showPassWord2" :name="showPassWord2 ? 'eye-off' : 'eye-fill'" :size="showPassWord ? 22 : 20" color="#787878"></u-icon>
             </template>
           </u-input>
         </view>

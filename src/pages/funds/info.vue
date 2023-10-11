@@ -1,6 +1,7 @@
 <!-- 交易详情 -->
 <template>
-    <view class="info-page-bg page-fundsinfo">
+    <view class="info-page-bg self-body page-fundsinfo">
+        <u-navbar :title="'交易详情'" @leftClick="() => $router.back()" />
         <view class="info-page-content content-box">
 
             <view class="info-box title">交易详情</view>

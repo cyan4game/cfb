@@ -60,7 +60,7 @@ export default {
         {
           key: 5,
           name: "我的委托",
-          icon: "/static/images/index/nav-9.png",
+          icon: "/static/images/index/nav-6.png",
           route: "/pages/entrust/index",
         },
       ],

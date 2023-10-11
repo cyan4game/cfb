@@ -1,5 +1,6 @@
 <template>
-  <view class="info-page-bg first-rest-pwd">
+  <view class="info-page-bg self-body first-rest-pwd">
+    <u-navbar :title="'变更支付密码'" @leftClick="() => $router.back()" />
     <view class="info-page-content page-box">
       <u-form :model="form" ref="form" :rules="rules">
         <u-form-item class="item" prop="oldPassWord">
@@ -9,7 +10,7 @@
               v-model="form.oldPassWord">
               <template slot="suffix">
                 <u-icon @click="showPassWord = !showPassWord" :name="showPassWord ? 'eye-off' : 'eye-fill'"
-                  size="24"></u-icon>
+                :size="showPassWord ? 22 : 20" color="#787878"></u-icon>
               </template>
             </u-input>
           </view>
@@ -21,7 +22,7 @@
               v-model="form.newPassWord1">
               <template slot="suffix">
                 <u-icon @click="showPassWord = !showPassWord" :name="showPassWord ? 'eye-off' : 'eye-fill'"
-                  size="24"></u-icon>
+                :size="showPassWord ? 22 : 20" color="#787878"></u-icon>
               </template>
             </u-input>
           </view>
@@ -32,8 +33,8 @@
             <u-input class="ipt" :type="showPassWord ? 'text' : 'password'" placeholder="请输入新支付密码"
               v-model="form.newPassWord2">
               <template slot="suffix">
-                <u-icon @click="showPassWord = !showPassWord" :name="showPassWord ? 'eye-off' : 'eye-fill'"
-                  size="24"></u-icon>
+                <u-icon  @click="showPassWord = !showPassWord" :name="showPassWord ? 'eye-off' : 'eye-fill'"
+                  :size="showPassWord ? 22 : 20" color="#787878"></u-icon>
               </template>
             </u-input>
           </view>

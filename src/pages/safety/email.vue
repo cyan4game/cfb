@@ -1,5 +1,6 @@
 <template>
-  <view class="info-page-bg mobile-view">
+  <view class="info-page-bg self-body mobile-view">
+    <u-navbar :title="'绑定邮箱'" @leftClick="() => $router.back()" />
     <view class="info-page-content page-box">
       <u-form class="form" :model="form" ref="form">
 

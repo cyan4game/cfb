@@ -1,19 +1,15 @@
 <!-- 充币 -->
 <template>
   <view class="page-deposit">
+    <u-navbar :title="'充值'" @leftClick="() => $router.back()" />
     <!-- 浮标 -->
     <!-- <u-image class="right-icon" style="right:130rpx" src="/static/images/index/icon-help.png" width="42rpx" height="42rpx"></u-image>
         <u-image class="right-icon" src="/static/images/index/icon-his.png" width="45rpx" height="42rpx"></u-image> -->
 
     <!-- 币种 -->
-    <view class="coin-box">
-      <u-image
-        class="icon"
-        src="/static/images/index/usdt.png"
-        width="50rpx"
-        height="50rpx"
-      ></u-image>
-      <view class="coin">USDT-TRC20</view>
+    <view class="coin-box" @click="() => $refs.coinSelect.open()">
+      <coin-icon class="icon" :coin="currency" />
+      <view class="coin">{{ currency }}-{{ chain }}</view>
       <u-image
         class="right"
         src="/static/images/index/more.png"
@@ -22,21 +18,18 @@
       ></u-image>
     </view>
     <view class="line"></view>
-    <view class="qr-box">
+    <view class="qr-box" v-if="address">
       <tki-qrcode :key="'out'" ref="qrcode" :size="340" :val="address" />
     </view>
-    <view class="btns">
+    <view class="btns" v-if="address">
       <view class="btn" @click="saveCode">保存至相册</view>
-      <view class="split"></view>
-      <view class="btn" @click="openDialog">分享地址</view>
+      <view class="btn btn2" @click="openDialog">分享地址</view>
     </view>
-    <view class="item">
+    <view class="item" v-if="address">
       <text>收款地址</text>
     </view>
-    <view class="address">
-      <view style="width: 75%; word-break: break-all"
-        >sdas8sdfs6d5f76sd5f76sd5f75f67s</view
-      >
+    <view class="address" v-if="address">
+      <view style="width: 90%; word-break: break-all">{{ address }}</view>
       <u-image
         @click="copy('已复制的地址')"
         class="right"
@@ -45,12 +38,13 @@
         height="31rpx"
       ></u-image>
     </view>
-    <view class="line"></view>
+    <view class="line" v-if="address"></view>
 
     <!-- 详情 -->
     <view style="height: 30rpx"></view>
     <view class="tip"
-      >1. 该地址仅支持 USDT
+      >1. 该地址仅支持
+      {{ currency }}
       收款，请勿用于其他币种，否则会导致资产丢失并不可找回。</view
     >
     <view class="tip"
@@ -68,15 +62,16 @@
         </view>
         <view class="box" :class="{ fullwin: fullwin }" ref="box">
           <view class="box-title">{{ userInfo.nickname || "--" }}</view>
-          <view class="box-coin">资产类型：TRC20-USDT</view>
-          <view class="qr-box2">
+          <view class="box-coin">资产类型：{{ chain }}-{{ currency }}</view>
+          <view class="qr-box2" v-if="address">
             <tki-qrcode :key="'in'" ref="qrcode2" :size="340" :val="address" />
           </view>
         </view>
         <view class="box-line"></view>
         <view class="box-tip">
           <view
-            >1. 该地址仅支持 USDT 收款，请勿用于其他币种，否则会导致资产丢
+            >1. 该地址仅支持
+            {{ currency }} 收款，请勿用于其他币种，否则会导致资产丢
             失并不可找回。</view
           >
           <view
@@ -95,29 +90,63 @@
         </view>
       </view>
     </uni-popup>
+
+    <!-- 币种选择 -->
+    <coin-select @select="selectCoin" ref="coinSelect" />
   </view>
 </template>
 
 <script>
 import { copyTxt, savePic } from "@/utils/utils";
 import storage from "@/utils/storage";
+import { getWalletAddress } from "@/api/api";
 
 export default {
   name: "deposit",
   data() {
     return {
       fullwin: false,
+      currency: "USDT",
+      chain: "TRC20",
       userInfo: {},
-      address: "https://www.baidu.com",
+      address: "",
     };
   },
   onShow() {
     this.userInfo = storage.get("userInfo") || {};
   },
   mounted() {
-    this.$refs.qrcode._makeCode();
+    this.getAddress();
+    // this.$refs.qrcode._makeCode();
   },
   methods: {
+    // 查询钱包地址
+    getAddress() {
+      uni.showLoading({
+        title: "",
+      });
+      getWalletAddress(this.currency, this.chain)
+        .then((res) => {
+          console.error(res);
+          if (res.code == 200) {
+            this.address = res.data;
+            setTimeout(() => {
+              this.$refs.qrcode._makeCode();
+            }, 100);
+          } else {
+            this.address = "";
+          }
+        })
+        .finally(() => {
+          uni.hideLoading();
+        });
+    },
+    // 选择币种
+    selectCoin(item) {
+      this.$refs.coinSelect.close();
+      this.currency = item.coin;
+      this.getAddress();
+    },
     // 复制
     copy(txt) {
       copyTxt(txt);
@@ -351,7 +380,7 @@ export default {
 
 <style lang="scss" scoped>
 .page-deposit {
-  padding: 53rpx 66rpx;
+  padding: 140rpx 66rpx 53rpx 66rpx;
   box-sizing: border-box;
   .right-icon {
     position: fixed;
@@ -374,6 +403,8 @@ export default {
 
     .icon {
       margin-right: 22rpx;
+      width: 40rpx;
+      height: 40rpx;
     }
 
     .coin {
@@ -429,7 +460,22 @@ export default {
     margin-bottom: 59rpx;
     .btn {
       font-size: 28rpx;
+      box-sizing: border-box;
       color: #449367;
+      height: 56rpx;
+      border: 1rpx solid #38363b;
+      border-radius: 6rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20rpx;
+      margin: 0 25rpx;
+      font-size: 24rpx;
+    }
+    .btn2 {
+      background-color: #449367;
+      color: #f9f9f9;
+      border: none;
     }
     .split {
       margin: 0 33rpx;

@@ -1,6 +1,7 @@
 <!-- 待付款 -->
 <template>
-  <view class="info-page-bg wait-to-pay">
+  <view class="info-page-bg self-body wait-to-pay">
+    <u-navbar :title="'待付款'" @leftClick="() => $router.back()" />
     <view class="info-page-content content-box">
       <view class="title">
         <view>剩余付款时间</view>
@@ -98,7 +99,7 @@
 </template>
 
 <script>
-import PayDialog from './components/pay'
+import PayDialog from "./components/pay";
 
 export default {
   name: "waitToPay",
@@ -108,9 +109,9 @@ export default {
   methods: {
     // 已付款
     payed() {
-        this.$refs.payBox.open()
-    }
-  }
+      this.$refs.payBox.open();
+    },
+  },
 };
 </script>
 
@@ -149,10 +150,10 @@ export default {
         display: flex;
         align-items: center;
         .icon {
-            margin-right: 20rpx;
+          margin-right: 20rpx;
         }
         .copy {
-            margin-left: 20rpx;
+          margin-left: 20rpx;
         }
       }
     }

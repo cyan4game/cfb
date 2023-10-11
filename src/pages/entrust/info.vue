@@ -1,6 +1,7 @@
 <!-- 委托详情 -->
 <template>
-  <view class="info-page-bg page-entrust-info">
+  <view class="info-page-bg self-body page-entrust-info">
+    <u-navbar :title="'委托详情'" @leftClick="() => $router.back()" />
     <view class="info-page-content content-box">
       <view class="title">{{ stateMap[info.state] || "--" }}</view>
       <view class="info">

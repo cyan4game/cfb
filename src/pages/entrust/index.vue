@@ -1,6 +1,7 @@
 <!-- 委托 -->
 <template>
-  <view class="info-page-bg page-entrust">
+  <view class="info-page-bg self-body page-entrust">
+    <u-navbar :title="'委托'" @leftClick="() => $router.back()" />
     <view class="info-page-content content-box">
       <!-- 发布委托 -->
       <view class="post" @click="goPost">发布委托</view>
@@ -188,7 +189,9 @@ export default {
 <style lang="scss" scoped>
 .page-entrust {
   height: 100%;
+  box-sizing: border-box;
   .content-box {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     height: 100%;

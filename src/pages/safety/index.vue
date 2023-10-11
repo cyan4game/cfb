@@ -1,5 +1,6 @@
 <template>
-  <view class="info-page-bg safety-page">
+  <view class="info-page-bg self-body safety-page">
+    <u-navbar :title="'安全中心'" @leftClick="() => $router.back()" />
     <view class="info-page-content page-box">
 
       <!-- <view class="safety-item">

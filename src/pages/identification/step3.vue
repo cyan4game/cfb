@@ -1,6 +1,7 @@
 <!-- 人脸认证 -->
 <template>
-  <view class="info-page-bg page-iden-3">
+  <view class="info-page-bg self-body page-iden-3">
+    <u-navbar :title="'人脸认证'" @leftClick="() => $router.back()" />
     <view class="info-page-content content-box">
         <view class="bottom-box">
             <u-image class="img" src="/static/images/mine/auth.png" width="477rpx" height="404rpx"></u-image>

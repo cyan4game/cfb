@@ -1,6 +1,7 @@
 <!-- 详情 -->
 <template>
-  <view class="info-page-bg order-info">
+  <view class="info-page-bg self-body order-info">
+    <u-navbar :title="'订单详情'" @leftClick="() => $router.back()" />
     <view class="info-page-content content-box">
       <view class="title">{{ orderStatusMap[item.orderStatus] || "--" }}</view>
 
@@ -15,15 +16,16 @@
         申诉失败—收款成功-根据提供的申诉资料判定您已收款成功
         驳回-您的申诉已被驳回
       -->
-      <view class="info"
-        >
+      <view class="info">
         <!-- 待付款 -->
         <text v-if="item.orderStatus == 2">倒计时 </text>
         {{ orderStatusTipMap[item.orderStatus] }}
         <!-- 成功 -->
-        <text v-if="item.orderStatus == 0">{{ orderTypeMap[item.orderType] }}{{ item.buyAmount }}{{ item.buyCoin }}</text>
-        </view
-      >
+        <text v-if="item.orderStatus == 0"
+          >{{ orderTypeMap[item.orderType] }}{{ item.buyAmount
+          }}{{ item.buyCoin }}</text
+        >
+      </view>
 
       <!-- <view class="box">
           <view class="avatar"></view>
@@ -37,9 +39,12 @@
       <view class="subtitle">
         <coin-icon
           style="margin-right: 16rpx; width: 50rpx; height: 50rpx"
-          :coin="item.buyCoin"
+          :coin="item.buyCoin || item.payCoin"
         />
-        <text>{{ orderTypeMap[item.orderType] }}{{ item.buyCoin }}</text>
+        <text
+          >{{ orderTypeMap[item.orderType]
+          }}{{ item.buyCoin || item.payCoin }}</text
+        >
       </view>
 
       <view class="container" style="border-bottom: 1px solid #dfdfdf">
@@ -49,7 +54,9 @@
         </view>
         <view class="info-item">
           <view class="item-name">数量</view>
-          <view class="item-box">{{ item.buyAmount }}{{ item.buyCoin }}</view>
+          <view class="item-box"
+            >{{ item.buyAmount }}{{ item.buyCoin || item.payCoin }}</view
+          >
         </view>
         <view class="info-item">
           <view class="item-name">金额</view>

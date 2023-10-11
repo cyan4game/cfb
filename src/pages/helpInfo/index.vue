@@ -1,6 +1,7 @@
 <!-- 客服 -->
 <template>
-  <view class="info-page-bg page-customer">
+  <view class="info-page-bg self-body page-customer">
+    <u-navbar :title="'帮助中心'" @leftClick="() => $router.back()" />
     <view class="info-page-content content-box">
       <uni-collapse accordion>
         <uni-collapse-item :title="item.title" v-for="(item, i) in list" :key="i">

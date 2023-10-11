@@ -17,6 +17,299 @@
       }
     },
     {
+      "path": "pages/setPayPassword/index", // 设置支付密码
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/setting/index", // 设置
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/helpInfo/index", // 帮助中心
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/safety/index", // 安全中心
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/safety/paymentPWD", // 变更支付密码
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/safety/mobile", // 绑定手机号
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/safety/email", // 绑定邮箱
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/identification/index", // 实名认证
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/identification/step1", // 实名认证
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/identification/step2",  // 实名认证
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/identification/step3",  // 人脸认证
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/coinAddress/index", // 地址簿
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/coinAddress/item", // 地址
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/collection/index", // 收款方式
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/collection/alipay", // 支付宝
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/collection/wechat", // 微信
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/collection/bank", // 银行卡
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/funds/index", // 资金明细
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/funds/info", // 交易详情
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/mine/info", // 个人资料
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/mine/editName", // 修改昵称
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/message/index", // 消息
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/message/list", // 消息列表
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/customer/index", // 在线客服
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/index/scan", // 扫码
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/withdraw/index", // 转账
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/index/deposit", // 充值
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/index/flashExchange", // 闪兑
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/myOrder/index", // 订单
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/myOrder/info", // 订单详情
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/appeal/index", // 申诉
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/entrust/index", // 委托
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/entrust/info", // 委托详情
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/entrust/post", // 发布委托
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/confirmTrade/index", // 交易
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/confirmTrade/wait", // 待付款
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+
+
+
+
+
+    {
       "path": "pages/update",
       "style": {
         "navigationBarBackgroundColor": "#0c1114",
@@ -47,54 +340,9 @@
         "navigationBarTitleText": "完成"
       }
     },
-    {
-      "path": "pages/coinAddress/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "地址簿"
-      }
-    },
-    {
-      "path": "pages/coinAddress/item",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "地址"
-      }
-    },
-    {
-      "path": "pages/collection/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "收款方式"
-      }
-    },
-    {
-      "path": "pages/collection/alipay",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "支付宝"
-      }
-    },
-    {
-      "path": "pages/collection/wechat",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "微信"
-      }
-    },
-    {
-      "path": "pages/collection/bank",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "银行卡"
-      }
-    },
+    
+    
+    
     {
       "path": "pages/payOrder/index",
       "style": {
@@ -210,54 +458,10 @@
         "navigationBarTitleText": "我的挂单"
       }
     },
-    {
-      "path": "pages/entrust/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "委托"
-      }
-    },
-    {
-      "path": "pages/entrust/info",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": ""
-      }
-    },
-    {
-      "path": "pages/withdraw/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "转账"
-      }
-    },
-    {
-      "path": "pages/entrust/post",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "发布委托"
-      }
-    },
-    {
-      "path": "pages/myOrder/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "订单"
-      }
-    },
-    {
-      "path": "pages/myOrder/info",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": " "
-      }
-    },
+    
+    
+    
+    
     {
       "path": "pages/post/index",
       "style": {
@@ -281,22 +485,7 @@
         "navigationBarTextStyle": "white"
       }
     },
-    {
-      "path": "pages/confirmTrade/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "交易"
-      }
-    },
-    {
-      "path": "pages/confirmTrade/wait",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "待付款"
-      }
-    },
+    
     {
       "path": "pages/tradeDetails/index",
       "style": {
@@ -314,14 +503,7 @@
         "navigationBarTitleText": "上传凭证"
       }
     },
-    {
-      "path": "pages/appeal/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "申诉"
-      }
-    },
+    
     {
       "path": "pages/changeRecord/index",
       "style": {
@@ -344,38 +526,9 @@
         "navigationBarTextStyle": "white"
       }
     },
-    {
-      "path": "pages/mine/info",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "个人资料"
-      }
-    },
-    {
-      "path": "pages/mine/editName",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "修改昵称"
-      }
-    },
-    {
-      "path": "pages/message/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "消息"
-      }
-    },
-    {
-      "path": "pages/message/list",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "消息列表"
-      }
-    },
+    
+    
+    
     {
       "path": "pages/login/index",
       "style": {
@@ -398,14 +551,7 @@
         "navigationBarTitleText": "设置登录密码"
       }
     },
-    {
-      "path": "pages/customer/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "在线客服"
-      }
-    },
+    
     {
       "path": "pages/customer/meiqia",
       "style": {
@@ -414,30 +560,8 @@
         "navigationBarTitleText": "网页客服"
       }
     },
-    {
-      "path": "pages/helpInfo/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "帮助中心"
-      }
-    },
-    {
-      "path": "pages/helpInfo/details",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "帮助中心"
-      }
-    },
-    {
-      "path": "pages/index/flashExchange",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "闪兑"
-      }
-    },
+    
+    
     {
       "path": "pages/index/collection",
       "style": {
@@ -446,46 +570,11 @@
         "navigationBarTitleText": "收款码"
       }
     },
-    {
-      "path": "pages/index/deposit",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "充值"
-      }
-    },
-    {
-      "path": "pages/index/scan",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "扫码"
-      }
-    },
-    {
-      "path": "pages/safety/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "安全中心"
-      }
-    },
-    {
-      "path": "pages/safety/mobile",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "绑定手机号"
-      }
-    },
-    {
-      "path": "pages/safety/email",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "绑定邮箱"
-      }
-    },
+    
+    
+    
+    
+    
     {
       "path": "pages/safety/success",
       "style": {
@@ -501,14 +590,7 @@
         "navigationBarTitleText": "变更登录密码"
       }
     },
-    {
-      "path": "pages/safety/paymentPWD",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "变更支付密码"
-      }
-    },
+    
     {
       "path": "pages/safety/googleAuth",
       "style": {
@@ -517,38 +599,9 @@
         "navigationBarTitleText": "二次验证绑定"
       }
     },
-    {
-      "path": "pages/setting/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "设置"
-      }
-    },
-    {
-      "path": "pages/setPayPassword/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "设置支付密码"
-      }
-    },
-    {
-      "path": "pages/funds/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "资金明细"
-      }
-    },
-    {
-      "path": "pages/funds/info",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "交易详情"
-      }
-    },
+    
+    
+    
     {
       "path": "pages/usdt/index",
       "style": {
@@ -575,38 +628,8 @@
         }
       }
     },
-    {
-      "path": "pages/identification/index",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "实名认证"
-      }
-    },
-    {
-      "path": "pages/identification/step1",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "实名认证"
-      }
-    },
-    {
-      "path": "pages/identification/step2",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "实名认证"
-      }
-    },
-    {
-      "path": "pages/identification/step3",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "人脸认证"
-      }
-    },
+    
+   
     {
       "path": "pages/authentication/baseAuth",
       "style": {

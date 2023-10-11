@@ -188,7 +188,6 @@ uni-page {
   border: none !important;
   opacity: 1 !important;
 }
-
 uni-page-body,
 page,
 #app {
@@ -220,6 +219,21 @@ uni-modal,
 uni-toast {
   z-index: 999999;
 }
+.u-navbar__content {
+  height: calc(85rpx + env(safe-area-inset-top))!important;
+  background-color: #0c1114!important;
+}
+.u-navbar__content__left .uicon-arrow-left{
+  color: #fff!important;
+}
+.u-navbar__content__title {
+  color: #fff!important;
+  font-size: 19px!important;
+  font-weight: 400!important;
+}
+.self-body {
+  padding-top: 85rpx;
+}
 .info-page-bg {
   /* 详情页背景 */
   height: 100%;
@@ -246,6 +260,10 @@ uni-toast {
   align-items: center;
   justify-content: center;
   font-size: 30rpx!important;
+}
+.info-page-disabled {
+  color: #323233!important;
+  background-color: #ccc!important;
 }
 
 .uni-scroll-view {

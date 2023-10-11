@@ -122,6 +122,7 @@ export default {
                 emailCode: '666666',
                 // emailCode: this.checkForm.codeEmail,
                 phoneCode: this.checkForm.codePhone,
+                payPass: this.checkForm.payPass,
             })
             this.close()
         },

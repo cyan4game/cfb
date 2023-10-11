@@ -1,6 +1,7 @@
 <!-- 转账 -->
 <template>
-  <view class="info-page-bg page-withdraw">
+  <view class="info-page-bg self-body page-withdraw">
+    <u-navbar :title="'转账'" @leftClick="() => $router.back()" />
     <!-- 表单 -->
     <view class="info-page-content content-box">
       <view class="form">
@@ -136,7 +137,7 @@ export default {
   },
   computed: {
     disabled() {
-      return !(this.form.toAddress && this.form.amount) || this.loading;
+      return !(this.form.toAddress && this.form.amount) || this.loading || this.form.amount > this.money;
     },
     money() {
       const currency =
@@ -152,6 +153,8 @@ export default {
       this.form.toAddress = data.address;
       this.checkAddress();
     }
+  },
+  onShow() {
     this.getAmounts();
   },
   methods: {

@@ -1,6 +1,7 @@
 <!-- 添加和编辑地址 -->
 <template>
-    <view class="info-page-bg page-address-list">
+    <view class="info-page-bg self-body page-address-list">
+        <u-navbar :title="'地址'" @leftClick="() => $router.back()" />
 
         <!-- 表单 -->
         <view class="info-page-content content-box">

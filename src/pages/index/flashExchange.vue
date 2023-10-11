@@ -8,6 +8,7 @@
       width="36rpx"
       height="36rpx"
     ></u-image> -->
+    <u-navbar :title="'闪兑'" @leftClick="() => $router.back()" />
 
     <view class="rate">
       <text>汇率：</text>
@@ -227,6 +228,7 @@ export default {
 
 <style lang="scss" scoped>
 .page-fe {
+  padding-top: 140rpx;
   .time-icon {
     position: fixed;
     top: 24rpx;

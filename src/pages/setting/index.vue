@@ -1,7 +1,7 @@
 <!-- 设置 -->
 <template>
-    <view class="info-page-bg page-setting">
-        
+    <view class="info-page-bg self-body page-setting">
+        <u-navbar :title="'设置'" @leftClick="() => $router.back()" />
         <view class="info-page-content content-box">
             <!-- 开关 -->
             <view class="switch-box">

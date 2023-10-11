@@ -1,6 +1,7 @@
 <!-- 资金明细 -->
 <template>
-    <view class="info-page-bg page-funds">
+    <view class="info-page-bg self-body page-funds">
+        <u-navbar :title="'资金明细'" @leftClick="() => $router.back()" />
         <view class="info-page-content content-box">
 
             <!-- 类型选择 -->

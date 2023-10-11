@@ -1,6 +1,7 @@
 <!-- 申诉 -->
 <template>
-  <view class="info-page-bg page-appeal">
+  <view class="info-page-bg self-body page-appeal">
+    <u-navbar :title="'申诉'" @leftClick="() => $router.back()" />
     <!-- 表单 -->
     <view class="info-page-content content-box">
       <!-- 订单编号 -->

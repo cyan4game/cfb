@@ -33,7 +33,7 @@
           <text>购买CFB</text>
           <view class="icon">
             <u-image
-              src="/static/images/index/coin.png"
+              src="/static/images/index/buy-coin.png"
               width="61rpx"
               height="63rpx"
             ></u-image>
@@ -43,9 +43,9 @@
           <text>出售CFB</text>
           <view class="icon">
             <u-image
-              src="/static/images/index/coin.png"
-              width="61rpx"
-              height="63rpx"
+              src="/static/images/index/buy.png"
+              width="58rpx"
+              height="59rpx"
             ></u-image>
           </view>
         </view>
@@ -97,7 +97,7 @@ export default {
     justify-content: space-between;
     padding: 20rpx 60rpx;
     color: #fff;
-    font-size: 36rpx;
+    font-size: 38rpx;
     background-color: #0c1114;
   }
 

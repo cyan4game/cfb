@@ -1,6 +1,7 @@
 <!-- 收款方式-微信 -->
 <template>
-    <view class="info-page-bg page-collection-alipay">
+    <view class="info-page-bg self-body page-collection-alipay">
+        <u-navbar :title="'微信'" @leftClick="() => $router.back()" />
         
         <view class="info-page-content content-box">
 

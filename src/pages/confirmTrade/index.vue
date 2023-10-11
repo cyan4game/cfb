@@ -1,7 +1,7 @@
 <!-- 购买 -->
 <template>
-  <view class="info-page-bg page-trade">
-
+  <view class="info-page-bg self-body page-trade">
+    <u-navbar :title="'交易'" @leftClick="() => $router.back()" />
     <!-- 菜单按钮 -->
     <u-image
       @click="showNav = true"
@@ -38,7 +38,10 @@
           <text>收款账号</text>
         </view>
         <view class="ipt" v-show="type == 2">
-          <text>请选择收款方式</text>
+          <text class="input" v-if="!payways.length" @click="goBind">请选择收款账号</text>
+          <picker class="input" v-if="payways.length" @change="bindPayWayChange" :range-key="'_accountName'" :value="paywayIndex" :range="payways">
+              <view >{{ paywayIndex == -1 ? '请选择收款账号' : payways[paywayIndex]._accountName }}</view>
+          </picker>
           <u-image
             class="more"
             src="/static/images/index/more.png"
@@ -47,23 +50,23 @@
           ></u-image>
         </view>
         <view class="title">
-          <text>{{ type == 2 ? '出售' : '请选择购买金额' }}</text>
-          <text class="amount" v-show="type == 2">可用余额3000CFB</text>
+          <text>{{ type == 2 ? "出售" : "请选择购买金额" }}</text>
+          <text class="amount" v-show="type == 2">可用余额{{cfb}}CFB</text>
           <view class="refresh">
             <text>刷新</text>
             <u-image
-            class="refresh-icon"
-            src="/static/images/index/refresh.png"
-            width="20rpx"
-            height="20rpx"
-          ></u-image>
+              class="refresh-icon"
+              src="/static/images/index/refresh.png"
+              width="20rpx"
+              height="20rpx"
+            ></u-image>
           </view>
         </view>
         <view class="ipt" v-show="type == 2">
-          <input class="input" type="number" placeholder="限额  100-200.000" />
+          <input v-model="form.payAmount" class="input" type="number" placeholder="限额  100-20000" />
         </view>
         <view class="fasters">
-          <view class="faster" v-for="item in fasters" :key="item">{{
+          <view class="faster" v-for="item in fasters" :key="item" @click="form.payAmount = item">{{
             item
           }}</view>
           <view class="faster" v-show="type == 1">
@@ -74,12 +77,13 @@
 
       <view class="box tip-box">
         <view class="tip">
-          参考汇率
+          參考汇率
           <u-image
             class="question"
             src="/static/images/index/question.png"
             width="32rpx"
             height="32rpx"
+            style="position: relative;top:2rpx"
           ></u-image>
         </view>
         <view>1:1</view>
@@ -87,7 +91,8 @@
 
       <view class="box bottom-box">
         <view>预计{{ type == 1 ? "支付" : "到账" }}</view>
-        <view>￥12000.00</view>
+        <view v-if="type == 2">￥{{ form.payAmount || 0 }}</view>
+        <view v-if="type == 1">￥--</view>
       </view>
       <view class="bottom">
         <view>交易提醒：</view>
@@ -97,24 +102,36 @@
       </view>
     </view>
 
-    <u-button class="info-page-btn submit" @click="submit"
+    <u-button :class="{'info-page-disabled':isDisabled}" class="info-page-btn submit" @click="submit"
       >立即{{ type == 1 ? "购买" : "出售" }}</u-button
     >
 
     <!-- 匹配弹窗 -->
     <MatchDialog ref="matchBox" />
     <!-- 出售确认 -->
-    <sellDialog ref="sellBox" />
+    <sellDialog @next="() => $refs.verifyBox.open()" ref="sellBox" :form="form" />
     <!-- 菜单弹窗 -->
-    <navsDialog ref="navsBox" @close="showNav=false" v-if="showNav" />
+    <navsDialog  ref="navsBox" @close="showNav = false" v-if="showNav" />
+    <!-- 安全验证 -->
+    <verify-dialog @success="submitSell" ref="verifyBox" :password="true" />
+    <!-- 跳转绑定弹窗 -->
+    <confirm-dialog ref="bindDialog" :title="'绑定收款账号'" :content="'你还未绑定收款账号，去绑定？'" :borderBtn="'取消'" :btn="'去绑定'" :btnHandle="goBindPage"></confirm-dialog>
   </view>
 </template>
 
 <script>
 import MatchDialog from "./components/match";
 import sellDialog from "./components/sellDialog";
-import navsDialog from './components/navs'
+import navsDialog from "./components/navs";
+import storage  from '@/utils/storage'
+import { updateBalance } from '@/utils/utils'
+import { queryByPaymodelMember, cfbOtcOrder } from '@/api/api'
 
+const payWayMap = {
+  1: "支付宝",
+  2: "微信",
+  3: "银行卡",
+};
 export default {
   name: "pageTrade",
   components: {
@@ -124,14 +141,36 @@ export default {
   },
   data() {
     return {
+      amountMap: {}, // 余额
       type: 1, // 1-购买 2-出售
       fasters: [100, 300, 500, 1100, 1800, 2100],
+      cfb: 0, // cfb 余额
+
+      form: {
+        payType: '',
+        gatherNo: '',
+        payAmount: '',
+        payCoin: 'CFB'
+      },
 
       showNav: false, // 是否打开菜单
+
+      payways: [], // 支付方式
+      paywayIndex: -1,
     };
+  },
+  computed: {
+    isDisabled() {
+      if (this.type == 1) return true
+      return !(this.form.payAmount && this.form.payAmount <= this.cfb)
+    }
   },
   onLoad(data) {
     this.type = data.type || 1;
+  },
+  onShow() {
+    this.getAmounts()
+    this.getPayways()
   },
   methods: {
     // 购买
@@ -142,7 +181,77 @@ export default {
         this.$refs.sellBox.open();
       }
     },
-    
+    // 确认出售
+    submitSell(codes) {
+      console.error(codes)
+      const params = {
+        ...this.form,
+        gatherWay: this.form.payType,
+        payAmount: Number(this.form.payAmount),
+        phoneVerifyCode: codes.phoneCode
+      }
+      uni.showLoading({
+        title: ''
+      })
+      cfbOtcOrder(params).then(res => {
+        console.error('出售结果', res)
+        if (res.code == 200) {
+          this.form.payAmount = ''
+          uni.showToast({
+            title: '出售成功',
+            icon: 'none',
+            duration: 2000
+          })
+          this.getAmounts()
+        }
+      }).finally(() => {
+        uni.hideLoading();
+      })
+    },
+    // 获取币种余额
+    getAmounts() {
+      this.amountMap = storage.get('balanceList') || []
+      updateBalance().then((res) => {
+        if (res) {
+          this.amountMap = res
+          const target = this.amountMap.find(item => item.currency == 'CFB')
+          if (target) this.cfb = target.balance
+        }
+      });
+    },
+    // 选择支付方式
+    bindPayWayChange(e) {
+      this.paywayIndex = e.target.value
+      this.form.payType = this.payways[this.paywayIndex].payType
+      this.form.gatherNo = this.payways[this.paywayIndex].accountName
+    },
+    // 查询支付方式
+    getPayways() {
+      this.payways = storage.get('mypayways') || []
+      queryByPaymodelMember().then(res => {
+        if (res.code == 200) {
+          this.payways = res.data.map(item => {
+            item._accountName = payWayMap[item.payType] + '-' + item.accountName
+            return item
+          })
+          storage.set('mypayways', this.payways)
+          if (this.payways.length) {
+            this.bindPayWayChange({target:{value:0}})
+          }
+        }
+      })
+    },
+    // 跳转绑定
+    goBind() {
+      this.$refs.bindDialog.open()
+    },
+    // 跳转绑定页面
+    goBindPage() {
+      this.$refs.bindDialog.close()
+      uni.navigateTo({
+         url: '/pages/collection/index'
+      })
+    },
   },
 };
 </script>
@@ -220,7 +329,7 @@ export default {
       position: relative;
       .amount {
         margin-left: 30rpx;
-        color: #FB2B2B;
+        color: #fb2b2b;
       }
       .refresh {
         display: flex;
@@ -245,6 +354,7 @@ export default {
       .input {
         font-size: 28rpx;
         color: #333;
+        flex: 1;
       }
     }
     .fasters {

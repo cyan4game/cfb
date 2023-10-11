@@ -1,6 +1,7 @@
 <!-- 发布委托 -->
 <template>
-  <view class="info-page-bg entrust-post">
+  <view class="info-page-bg self-body entrust-post">
+    <u-navbar :title="'发布委托'" @leftClick="() => $router.back()" />
     <view class="info-page-content content-box">
       <view class="types">
         <text class="name">广告类型</text>

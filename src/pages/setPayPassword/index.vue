@@ -1,6 +1,7 @@
 <template>
-  <view class="info-page-bg mobile-view">
-    <view class="info-page-content page-box">
+  <view class="info-page-bg self-body mobile-view">
+    <u-navbar :title="'设置支付密码'" :leftIcon="''"  />
+    <view class=" info-page-content  page-box">
       <u-form class="form" :model="form" ref="form" :rules="rules">
         <u-form-item prop="password">
           <view class="item">
@@ -15,7 +16,7 @@
                 <u-icon
                   @click="showPassWord = !showPassWord"
                   :name="showPassWord ? 'eye-off' : 'eye-fill'"
-                  size="24"
+                  :size="showPassWord ? 22 : 20" color="#787878"
                 ></u-icon>
               </template>
             </u-input>
@@ -35,7 +36,7 @@
                 <u-icon
                   @click="showConfirmPassWord = !showConfirmPassWord"
                   :name="showConfirmPassWord ? 'eye-off' : 'eye-fill'"
-                  size="24"
+                  :size="showPassWord ? 22 : 20" color="#787878"
                 ></u-icon>
               </template>
             </u-input>
@@ -110,7 +111,6 @@ export default {
       },
     };
   },
-  onShow() {},
   computed: {
     isDisabled() {
       const { loading } = this;

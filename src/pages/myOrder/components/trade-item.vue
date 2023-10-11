@@ -5,7 +5,7 @@
     <view class="top">
       <view class="title">
         <text class="status">{{ orderTypeMap[item.orderType] || "--" }}</text>
-        <text>{{ item.buyCoin }}</text>
+        <text>{{ item.buyCoin || item.payCoin }}</text>
       </view>
       <view class="time">
         <text class="timedown">{{

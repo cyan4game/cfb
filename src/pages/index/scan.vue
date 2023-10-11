@@ -1,6 +1,7 @@
 <!-- h5 扫码页 -->
 <template>
   <view class="h5-scan">
+    <u-navbar :title="'扫码'" @leftClick="() => $router.back()" />
     <view class="xc" @click="chooseFile">相册</view>
 
     <view class="scan-box">
@@ -58,7 +59,7 @@ export default {
     },
     // 选择文件
     chooseFile() {
-      const that = this
+      const that = this;
       uni.chooseImage({
         count: 1,
         sourceType: ["camera", "album"],
@@ -123,7 +124,7 @@ export default {
         // 根据不同页面 跳转不同结果
         switch (this.type) {
           case "addAddress":
-            prevPage.$vm.setAddress(rs)
+            prevPage.$vm.setAddress(rs);
             uni.navigateBack();
             break;
           default:

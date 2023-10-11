@@ -24,7 +24,17 @@
 
     <view class="page-content">
       <!-- 基础信息 -->
-      <my-info style="background-color: #0c1114;padding-bottom:30rpx;position: relative;top: -2rpx;width: calc(100% - 38rpx);" :userInfo="userInfo" :idenInfo="idenInfo" />
+      <my-info
+        style="
+          background-color: #0c1114;
+          padding-bottom: 30rpx;
+          position: relative;
+          top: -2rpx;
+          width: calc(100% - 38rpx);
+        "
+        :userInfo="userInfo"
+        :idenInfo="idenInfo"
+      />
 
       <!-- 导航 -->
       <view class="tabs">
@@ -55,9 +65,12 @@
           <u-image
             class="icon"
             :src="item.icon"
-            :width="item.key==2?'50rpx':'40rpx'"
+            :width="item.key == 2 ? '50rpx' : '40rpx'"
             height="40rpx"
-            :style="{marginRight:item.key==2?'10rpx':'20rpx',left:item.key==2?'-6rpx':''}"
+            :style="{
+              marginRight: item.key == 2 ? '10rpx' : '20rpx',
+              left: item.key == 2 ? '-6rpx' : '',
+            }"
           ></u-image>
           <view class="name">{{ item.name }}</view>
           <view class="content">
@@ -139,7 +152,7 @@ export default {
           icon: "/static/images/mine/help.png",
           route: "",
         },
-        { key: 6, name: "当前版本", icon: "/static/images/mine/nav-6.png" },
+        // { key: 6, name: "当前版本", icon: "/static/images/mine/nav-6.png" },
       ],
 
       userInfo: {}, // 用户数据

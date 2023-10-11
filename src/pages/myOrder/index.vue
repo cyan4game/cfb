@@ -1,12 +1,17 @@
 <!-- 订单 -->
 <template>
-  <view class="info-page-bg page-myorder">
+  <view class="info-page-bg self-body page-myorder">
+    <u-navbar :title="'订单'" @leftClick="() => $router.back()" />
     <view class="info-page-content content-box">
-
       <!-- 状态导航 -->
       <view class="tabs">
         <scroll-view class="tab-box" scroll-x="true">
-          <view class="tab" @click="changeTab(-1)" :class="{ 'active-tab': activeTab == -1 }">全部</view>
+          <view
+            class="tab"
+            @click="changeTab(-1)"
+            :class="{ 'active-tab': activeTab == -1 }"
+            >全部</view
+          >
           <view
             class="tab"
             :class="{ 'active-tab': activeTab == key }"
@@ -28,7 +33,12 @@
 
       <!-- 列表 -->
       <scroll-view scroll-y="true" class="list" @scrolltolower="loadMore">
-        <Item class="item-box" v-for="(item, i) in list" :key="i" :item="item" />
+        <Item
+          class="item-box"
+          v-for="(item, i) in list"
+          :key="i"
+          :item="item"
+        />
 
         <!-- 加载状态 -->
         <view class="more">{{
@@ -49,11 +59,15 @@
           <view class="subtitle">交易类型</view>
           <view class="type-item" @click="form.orderType = 1">
             <text>购买</text>
-            <view class="check " :class="{'checked':form.orderType == 1}"><view class="in"></view></view>
+            <view class="check" :class="{ checked: form.orderType == 1 }"
+              ><view class="in"></view
+            ></view>
           </view>
           <view class="type-item" @click="form.orderType = 2">
             <text>出售</text>
-            <view class="check" :class="{'checked':form.orderType == 2}"><view class="in"></view></view>
+            <view class="check" :class="{ checked: form.orderType == 2 }"
+              ><view class="in"></view
+            ></view>
           </view>
         </view>
         <!-- 时间筛选 -->
@@ -79,10 +93,30 @@
             </picker>
           </view> -->
           <view class="faster-box">
-            <view class="faster" :class="{'active-faster':activeTime==1}" @click="changeDate(1)">今日</view>
-            <view class="faster" :class="{'active-faster':activeTime==-1}" @click="changeDate(-1)">昨日</view>
-            <view class="faster" :class="{'active-faster':activeTime==-7}" @click="changeDate(-7)">近一周</view>
-            <view class="faster" :class="{'active-faster':activeTime==-30}" @click="changeDate(-30)">近一月</view>
+            <view
+              class="faster"
+              :class="{ 'active-faster': activeTime == 1 }"
+              @click="changeDate(1)"
+              >今日</view
+            >
+            <view
+              class="faster"
+              :class="{ 'active-faster': activeTime == -1 }"
+              @click="changeDate(-1)"
+              >昨日</view
+            >
+            <view
+              class="faster"
+              :class="{ 'active-faster': activeTime == -7 }"
+              @click="changeDate(-7)"
+              >近一周</view
+            >
+            <view
+              class="faster"
+              :class="{ 'active-faster': activeTime == -30 }"
+              @click="changeDate(-30)"
+              >近一月</view
+            >
           </view>
           <view class="btns">
             <view class="btn" @click="resetParams">重置</view>
@@ -96,9 +130,9 @@
 
 <script>
 import Item from "./components/trade-item.vue";
-import { pageOtcMyOrder } from '@/api/api'
-import { orderStatusMap } from './map.js'
-import { getTimestr2 } from '@/utils/time'
+import { pageOtcMyOrder } from "@/api/api";
+import { orderStatusMap } from "./map.js";
+import { getTimestr2 } from "@/utils/time";
 
 export default {
   name: "my-order",
@@ -129,99 +163,101 @@ export default {
       finish: false,
 
       // 日期 今日 1   昨日 -1   近一周 -7   近一月 -30
-      activeTime: '',
-
+      activeTime: "",
     };
   },
   onLoad() {
-    this.reset()
+    this.reset();
   },
   methods: {
     // 选择时间
     changeDate(key) {
-      if (this.activeTime == key) return this.activeTime = ''
-      this.activeTime = key
+      if (this.activeTime == key) return (this.activeTime = "");
+      this.activeTime = key;
     },
     // 切换分类
     changeTab(key) {
       this.activeTab = key;
-      this.reset()
+      this.reset();
     },
     // 重置弹框参数
     resetParams() {
-      this.form.orderType = 1
-      this.form.createTimeStart = ''
-      this.form.createTimeEnd = ''
-      this.activeTime = ''
+      this.form.orderType = 1;
+      this.form.createTimeStart = "";
+      this.form.createTimeEnd = "";
+      this.activeTime = "";
     },
     // 重置
     reset() {
-      this.list = []
-      this.loading = false
-      this.finish = false
-      this.form.pageNo = 0
+      this.list = [];
+      this.loading = false;
+      this.finish = false;
+      this.form.pageNo = 0;
       setTimeout(() => {
-        this.loadMore()
-      }, 0)
+        this.loadMore();
+      }, 0);
     },
     // 获取时间
     getDateParams() {
-      if (!this.activeTime) return {
-        createTimeStart: "",
-        createTimeEnd: "",
-      }
-      let now = Date.now()
-      const createTimeEnd = getTimestr2(now).split(' ')[0]
-      switch(this.activeTime) {
+      if (!this.activeTime)
+        return {
+          createTimeStart: "",
+          createTimeEnd: "",
+        };
+      let now = Date.now();
+      const createTimeEnd = getTimestr2(now).split(" ")[0];
+      switch (this.activeTime) {
         case 1:
-          break
+          break;
         case -1:
-          now = now - 1 * 24 * 60 * 60 * 1000
-          break
+          now = now - 1 * 24 * 60 * 60 * 1000;
+          break;
         case -7:
-          now = now - 7 * 24 * 60 * 60 * 1000
-          break
+          now = now - 7 * 24 * 60 * 60 * 1000;
+          break;
         case -30:
-          now = now - 30 * 24 * 60 * 60 * 1000
-          break
+          now = now - 30 * 24 * 60 * 60 * 1000;
+          break;
       }
-      const createTimeStart = getTimestr2(now).split(' ')[0]
+      const createTimeStart = getTimestr2(now).split(" ")[0];
       return {
         createTimeStart,
-        createTimeEnd
-      }
+        createTimeEnd,
+      };
     },
     // 加载更多
     loadMore() {
       console.error("加载更多");
-      if (this.loading || this.finish) return
-      this.form.pageNo++
-      this.loading = true
+      if (this.loading || this.finish) return;
+      this.form.pageNo++;
+      this.loading = true;
       pageOtcMyOrder({
         ...this.form,
         ...this.getDateParams(),
         orderStatus: this.activeTab == -1 ? null : this.activeTab,
-      }).then(res => {
-        if (res.code != 200) return
-        if(!res.data || !res.data.list) return
-        this.list.push(...res.data.list)
-        if (this.list.length >= res.data.total) {
-          this.finish = true
-        }
-        console.error('----', this.list[0])
-      }).finally(() => {
-        this.loading = false
       })
+        .then((res) => {
+          if (res.code != 200) return;
+          if (!res.data || !res.data.list) return;
+          this.list.push(...res.data.list);
+          if (this.list.length >= res.data.total) {
+            this.finish = true;
+          }
+          console.error("----", this.list[0]);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     // 打开筛选
     openFilter() {
       this.$refs.popup.open();
     },
-    // 
+    //
     changeFilter() {
       this.$refs.popup.close();
-      this.reset()
-    }
+      this.reset();
+    },
   },
 };
 </script>

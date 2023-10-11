@@ -16,11 +16,11 @@
       <view>
         <view class="sure-item">
           <text>收款账号</text>
-          <text class="sure-val">86575588</text>
+          <text class="sure-val">{{ payWayMap[form.payType] }}-{{ form.gatherNo }}</text>
         </view>
         <view class="sure-item">
           <text>数量</text>
-          <text class="sure-val">5 CFB</text>
+          <text class="sure-val">{{ form.payAmount }} CFB</text>
         </view>
         <view class="sure-item">
           <text>参考汇率</text>
@@ -28,7 +28,7 @@
         </view>
         <view class="sure-item">
           <text>预计到账</text>
-          <text class="sure-val">￥ 5</text>
+          <text class="sure-val">￥ {{ form.payAmount }}</text>
         </view>
       </view>
       <view class="submit" @click="next">确认出售</view>
@@ -37,11 +37,22 @@
 </template>
 
 <script>
+const payWayMap = {
+  1: "支付宝",
+  2: "微信",
+  3: "银行卡",
+};
 export default {
   name: "sellDialog",
+  props: {
+    form: {
+      type: Object,
+      dafault: () => {}
+    }
+  },
   data() {
     return {
-      form: {},
+      payWayMap
     };
   },
   methods: {
@@ -51,6 +62,10 @@ export default {
     close() {
       this.$refs.popup.close();
     },
+    next() {
+      this.close()
+      this.$emit('next')
+    }
   },
 };
 </script>
