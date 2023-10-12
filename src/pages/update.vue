@@ -1,13 +1,24 @@
 <template>
   <view class="update">
-    <u-image class="update-icon" height="128rpx" width="320rpx" src="/static/images/logo.png"></u-image>
-<!--    <text class="update-name">财富宝</text>-->
+    <u-image
+      class="update-icon"
+      height="128rpx"
+      width="320rpx"
+      src="/static/images/logo.png"
+    ></u-image>
+    <!--    <text class="update-name">财富宝</text>-->
     <u-cell-group class="update-list">
       <u-cell title="当前版本" :value="version"></u-cell>
       <u-cell title="最新版本" @click="onUpdate">
         <template slot="value">
           {{ newVersion }}
-          <u-badge v-if="version !== newVersion" class="update-badge" numberType="overflow" max="99" value="NEW"></u-badge>
+          <u-badge
+            v-if="version !== newVersion"
+            class="update-badge"
+            numberType="overflow"
+            max="99"
+            value="NEW"
+          ></u-badge>
         </template>
       </u-cell>
     </u-cell-group>
@@ -21,9 +32,14 @@
     <u-popup :show="showDownload" mode="center">
       <view class="update-download">
         <text class="update-download-schedule">下载中...</text>
-        <u-line-progress class="update-download-progress" :percentage="progress" activeColor="#176af0"></u-line-progress>
+        <u-line-progress
+          class="update-download-progress"
+          :percentage="progress"
+          activeColor="#176af0"
+        ></u-line-progress>
         <text class="update-download-info">
-          {{ Math.floor(totalBytesWritten / 1024) }}KB / {{ Math.floor(totalBytesExpectedToWrite / 1024) }}KB
+          {{ Math.floor(totalBytesWritten / 1024) }}KB /
+          {{ Math.floor(totalBytesExpectedToWrite / 1024) }}KB
         </text>
       </view>
     </u-popup>
@@ -31,155 +47,177 @@
 </template>
 
 <script>
-import {mapState} from "vuex"
-import {queryVersionInfo} from "../api/api"
+import { mapState } from "vuex";
+import { queryVersionInfo } from "../api/api";
 
 export default {
-  data () {
+  data() {
     return {
       showDownload: false,
       progress: 0,
       totalBytesWritten: 0,
       totalBytesExpectedToWrite: 0,
-      downloadTask: null
-    }
+      downloadTask: null,
+    };
   },
   computed: {
     ...mapState(["version", "versionList"]),
-    newVersion () {
+    newVersion() {
       if (this.versionList.length) {
-        return this.versionList[0].versionNo
+        return this.versionList[0].versionNo;
       } else {
-        return this.version
+        return this.version;
       }
     },
-    force () {
+    force() {
       if (this.versionList.length) {
-        return !!this.versionList.filter(v => Number(v.forceUpdate) === 1).length
+        return !!this.versionList.filter((v) => Number(v.forceUpdate) === 1)
+          .length;
       } else {
-        return false
+        return false;
       }
     },
-    packageUpdate () {
+    packageUpdate() {
       if (this.versionList.length) {
-        return !!this.versionList.filter(v => Number(v.updateType) === 2).length
+        return !!this.versionList.filter((v) => Number(v.updateType) === 2)
+          .length;
       } else {
-        return false
+        return false;
       }
-    }
+    },
   },
   watch: {
-    versionList () {
+    versionList() {
       if (this.hasNew) {
-        this.onUpdate()
+        this.onUpdate();
       }
-    }
+    },
   },
-  created () {
-    this.onUpdate()
+  created() {
+    this.onUpdate();
   },
-  onPullDownRefresh () {
-    this.onRefresh()
+  onPullDownRefresh() {
+    this.onRefresh();
   },
-  onBackPress (options) {
-    return false
+  onBackPress(options) {
+    return false;
   },
   methods: {
-    onRefresh () {
+    onRefresh() {
       queryVersionInfo({
         appType: 1,
-        versionNo: this.version
-      }).then(res => {
-        uni.stopPullDownRefresh()
-        if (Number(res.code) === 0) {
-          this.$store.state.versionList = res.data
-        }
-      }).catch(_ => {
-        uni.stopPullDownRefresh()
-        console.error(_)
+        versionNo: this.version,
       })
-    },
-    onUpdate () {
-      this.version !== this.newVersion && uni.showModal({
-        title: "有新的版本",
-        content: "马上下载更新",
-        showCancel: this.versionList.filter(v => Number(v.forceUpdate) === 1 || Number(v.updateType) === 2).length === 0,
-        success: (res) => {
-          if (res.confirm) {
-            this.onDownload()
-          } else if (res.cancel) {
-            console.log("用户点击取消")
+        .then((res) => {
+          uni.stopPullDownRefresh();
+          if (Number(res.code) === 0) {
+            this.$store.state.versionList = res.data;
           }
-        }
-      })
+        })
+        .catch((_) => {
+          uni.stopPullDownRefresh();
+          console.error(_);
+        });
     },
-    onDownload () {
-      const packageUpdateList = this.versionList.filter(v => Number(v.updateType) === 2)
+    onUpdate() {
+      this.version !== this.newVersion &&
+        uni.showModal({
+          title: "有新的版本",
+          content: "马上下载更新",
+          showCancel:
+            this.versionList.filter(
+              (v) => Number(v.forceUpdate) === 1 || Number(v.updateType) === 2
+            ).length === 0,
+          success: (res) => {
+            if (res.confirm) {
+              this.onDownload();
+            } else if (res.cancel) {
+              console.log("用户点击取消");
+            }
+          },
+        });
+    },
+    onDownload() {
+      const packageUpdateList = this.versionList.filter(
+        (v) => Number(v.updateType) === 2
+      );
       if (packageUpdateList.length) {
         // 整包更新
-        const versionData = packageUpdateList[0]
-        let url
+        const versionData = packageUpdateList[0];
+        let url;
         if (uni.getSystemInfoSync().platform === "ios") {
-          url = versionData.downloadUrlIos
+          url = versionData.downloadUrlIos;
         } else if (uni.getSystemInfoSync().platform === "android") {
-          url = versionData.downloadUrlAndroid
+          url = versionData.downloadUrlAndroid;
         }
         // 如果没有新报下载地址,打开官网
-        plus.runtime.openURL(url || "https://www.zhaohpay.com/")
-        return
+        plus.runtime.openURL(url || "https://www.zhaohpay.com/");
+        return;
       }
 
-      const versionData = this.versionList[0]
+      const versionData = this.versionList[0];
       this.downloadTask = uni.downloadFile({
         url: versionData.hotUpdateUrl,
         success: (downloadResult) => {
-          this.showDownload = false
+          this.showDownload = false;
           if (downloadResult.statusCode === 200) {
-            plus.runtime.install(downloadResult.tempFilePath, {
-              force: false
-            }, () => {
-              console.log("install success...")
-              // plus.runtime.restart()
-              uni.showModal({
-                title: "更新完成",
-                content: "请重新打开APP",
-                showCancel: false,
-                success: (res) => {
-                  if (res.confirm) {
-                    if (uni.getSystemInfoSync().platform === "ios") {
-                      plus.ios.import("UIApplication").sharedApplication().performSelector("exit")
-                    } else if (uni.getSystemInfoSync().platform === "android") {
-                      plus.runtime.quit()
+            plus.runtime.install(
+              downloadResult.tempFilePath,
+              {
+                force: false,
+              },
+              () => {
+                console.log("install success...");
+                // plus.runtime.restart()
+                uni.showModal({
+                  title: "更新完成",
+                  content: "请重新打开APP",
+                  showCancel: false,
+                  success: (res) => {
+                    if (res.confirm) {
+                      if (uni.getSystemInfoSync().platform === "ios") {
+                        plus.ios
+                          .import("UIApplication")
+                          .sharedApplication()
+                          .performSelector("exit");
+                      } else if (
+                        uni.getSystemInfoSync().platform === "android"
+                      ) {
+                        plus.runtime.quit();
+                      }
+                    } else if (res.cancel) {
+                      console.log("用户点击取消");
                     }
-                  } else if (res.cancel) {
-                    console.log("用户点击取消")
-                  }
-                }
-              })
-            }, (e) => {
-              console.error("install fail...")
-            })
+                  },
+                });
+              },
+              (e) => {
+                console.error("install fail...");
+              }
+            );
           }
+        },
+      });
+
+      this.downloadTask.onProgressUpdate(
+        ({ progress, totalBytesWritten, totalBytesExpectedToWrite }) => {
+          this.progress = progress;
+          this.totalBytesWritten = totalBytesWritten;
+          this.totalBytesExpectedToWrite = totalBytesExpectedToWrite;
         }
-      })
+      );
 
-      this.downloadTask.onProgressUpdate(({progress, totalBytesWritten, totalBytesExpectedToWrite}) => {
-        this.progress = progress
-        this.totalBytesWritten = totalBytesWritten
-        this.totalBytesExpectedToWrite = totalBytesExpectedToWrite
-      })
-
-      this.showDownload = true
-    }
-  }
-}
+      this.showDownload = true;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .update {
   flex: 1;
   min-height: 100%;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   width: 100%;
   padding-top: 100rpx;
   display: flex;

@@ -49,7 +49,7 @@ export default {
     open() {
       this.$refs.popup.open();
       // 获取数据
-      this.getList()
+      this.getList();
     },
     // 关闭
     close() {
@@ -62,7 +62,7 @@ export default {
     // 查询地址
     getList() {
       this.list = storage.get("coin_address_list") || [];
-      if (this.list.length) return
+      if (this.list.length) return;
       queryByMemberAndCoin().then((res) => {
         if (res.code == 200) {
           this.list = res.data || [];
@@ -72,10 +72,11 @@ export default {
     },
     // 去地址管理
     goAddress() {
+      this.close();
       uni.navigateTo({
-         url: '/pages/coinAddress/index'
-      })
-    }
+        url: "/pages/coinAddress/index",
+      });
+    },
   },
 };
 </script>
@@ -123,7 +124,7 @@ export default {
       color: #757575;
       text-align: center;
       .go {
-        color: #4C9778;
+        color: #4c9778;
         margin-left: 20rpx;
       }
     }

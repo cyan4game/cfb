@@ -1,7 +1,11 @@
 <!-- 委托 -->
 <template>
   <view class="info-page-bg self-body page-entrust">
-    <u-navbar :safeAreaInsetTop="false" :title="'委托'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="false"
+      :title="'委托'"
+      @leftClick="() => $routers.back()"
+    />
     <view class="info-page-content content-box">
       <!-- 发布委托 -->
       <view class="post" @click="goPost">发布委托</view>
@@ -9,15 +13,17 @@
       <!-- 筛选 -->
       <view class="filter-box">
         <view class="types">
-          <picker
+          <!-- <picker
             class="input"
             @change="bindPickerChange"
             :range-key="'name'"
             :value="index"
             :range="array"
           >
-            <view>{{ array[index].name }}</view>
-          </picker>
+          </picker> -->
+          <text class="input" @click="showPicker = true">{{
+            array[index].name
+          }}</text>
           <u-image
             class="icon"
             src="/static/images/index/more.png"
@@ -87,6 +93,15 @@
         }}</view>
       </scroll-view>
     </view>
+
+    <!-- 类型选择 -->
+    <view class="picker-box" v-if="showPicker" @click="showPicker = false">
+      <view class="select-box">
+        <view class="select-item" @click="bindPickerChange(i)" v-for="(item, i) in array" :key="i">{{
+          item.name
+        }}</view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -109,11 +124,11 @@ export default {
       list: [],
       array: [
         // 类型：1 购买，2出售
+        { name: "全部委托", val: null },
         { name: "出售委托", val: 2 },
         { name: "购买委托", val: 1 },
-        { name: "全部委托", val: null },
       ],
-      index: 2, // 0-出售委托 1-购买委托 2-全部
+      index: 0, // 1-出售委托 2-购买委托 0-全部
       params: {
         isHide: 1, // 是否隐藏关闭委托：1是，0否
         pageNo: 0,
@@ -123,6 +138,8 @@ export default {
 
       loading: false,
       finish: false,
+
+      showPicker: false,
     };
   },
   onShow() {
@@ -164,8 +181,8 @@ export default {
       this.reset();
     },
     // 选择类型
-    bindPickerChange(e) {
-      this.index = e.target.value;
+    bindPickerChange(i) {
+      this.index = i;
       this.params.type = this.array[this.index].val;
       this.reset();
     },
@@ -331,6 +348,38 @@ export default {
           background-color: #cecece;
           margin: 0 20rpx;
         }
+      }
+    }
+  }
+}
+.picker-box {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  .select-box {
+    background-color: #f2f3f5;
+    border-top-right-radius: 6rpx;
+    border-top-left-radius: 6rpx;
+    overflow: hidden;
+    color: #454545;
+    font-size: 26rpx;
+    width: 164rpx;
+    position: absolute;
+    top: calc(210rpx + env(safe-area-inset-top))!important;
+    left: 50rpx;
+    .select-item {
+      height: 72rpx;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #808080;
+      &:last-child {
+        border-bottom: none;
       }
     }
   }

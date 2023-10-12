@@ -1,7 +1,11 @@
 <!-- 转账 -->
 <template>
   <view class="info-page-bg self-body page-withdraw">
-    <u-navbar :safeAreaInsetTop="false" :title="'转账'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="false"
+      :title="'转账'"
+      @leftClick="() => $routers.back()"
+    />
     <!-- 表单 -->
     <view class="info-page-content content-box">
       <view class="form">
@@ -13,7 +17,7 @@
               <coin-icon class="ipt-icon" :coin="form.currency" />
               <text>{{ form.currency || "请选择币种" }}</text>
             </view>
-            
+
             <u-image
               src="@/static/images/mine/right.png"
               width="15rpx"
@@ -25,7 +29,7 @@
         <!-- 转账地址 -->
         <view class="form-item">
           <view class="item-title">转账地址</view>
-          <view class="item-content" style="padding-right:20rpx">
+          <view class="item-content" style="padding-right: 20rpx">
             <input
               @input="checkAddress"
               v-model.trim="form.toAddress"
@@ -33,7 +37,9 @@
               class="ipt"
               placeholder="输入或长按粘贴地址"
             />
-            <text class="content-icon" @click="() => $refs.addressPopup.open()">选择地址</text>
+            <text class="content-icon" @click="() => $refs.addressPopup.open()"
+              >选择地址</text
+            >
           </view>
           <view class="item-tip" v-if="form.toAddress && !passAddress"
             >无效的地址</view
@@ -51,13 +57,14 @@
               placeholder="请输入转账数量"
             />
           </view>
-          <view class="tip"
+          <view class="tip">
+            <view style="margin-bottom: 28rpx"
+              >可用转账余额 {{ money }}
+              {{ form.currency.replace("_TRC20", "") }}</view
             >
-            <view style="margin-bottom: 28rpx;">可用转账余额 {{ money }} {{ form.currency.replace("_TRC20", "") }}</view>
-            <view style="margin-bottom: 8rpx;">手续费</view>
+            <view style="margin-bottom: 8rpx">手续费</view>
             <view>-- USDT</view>
-            </view
-          >
+          </view>
         </view>
       </view>
     </view>
@@ -137,7 +144,11 @@ export default {
   },
   computed: {
     disabled() {
-      return !(this.form.toAddress && this.form.amount) || this.loading || this.form.amount > this.money;
+      return (
+        !(this.form.toAddress && this.form.amount) ||
+        this.loading ||
+        this.form.amount > this.money
+      );
     },
     money() {
       const currency =
@@ -160,10 +171,10 @@ export default {
   methods: {
     // 获取币种余额
     getAmounts() {
-      this.amountMap = storage.get('balanceList') || []
+      this.amountMap = storage.get("balanceList") || [];
       updateBalance().then((res) => {
         if (res) {
-          this.amountMap = res
+          this.amountMap = res;
         }
       });
     },
@@ -265,7 +276,7 @@ export default {
             }
           }
           .content-icon {
-            color: #4C9778;
+            color: #4c9778;
           }
         }
 
@@ -276,7 +287,7 @@ export default {
         }
         .tip {
           font-size: 26rpx;
-          color: #3C3C3C;
+          color: #3c3c3c;
           margin-top: 50rpx;
         }
       }
@@ -340,10 +351,10 @@ export default {
     align-items: center;
     justify-content: space-between;
     font-size: 26rpx;
-    color: #7A7A7A;
+    color: #7a7a7a;
     .sure-val {
       max-width: 400rpx;
-      color: #3C3C3C;
+      color: #3c3c3c;
       margin-left: 80rpx;
       word-break: break-all;
     }

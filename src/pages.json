@@ -689,7 +689,7 @@
       {
         "pagePath": "pages/trade/index",
         "iconPath": "static/tab/trade.png",
-        "selectedIconPath": "static/tab/trade-active.png",
+        "selectedIconPath": "static/tab/trade.png",
         "text": "交易"
       },
       {

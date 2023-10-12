@@ -5,7 +5,7 @@
     <u-sticky offsetTop="0" customNavHeight="0">
       <view class="top">
         <u-image
-        @click="jump('/pages/customer/index')"
+          @click="jump('/pages/customer/index')"
           class="icon"
           src="/static/images/index/kefu.png"
           width="46rpx"
@@ -26,7 +26,7 @@
       <!-- 轮播 -->
       <index-banner />
       <!-- 用户资产 -->
-      <user-balance />
+      <user-balance ref="ub" />
       <!-- 导航 -->
       <view class="navs">
         <view class="nav" @click="jump('/pages/confirmTrade/index?type=1')">
@@ -60,15 +60,29 @@
 import indexBanner from "./components/index-banner.vue";
 import userBalance from "./components/user-balance.vue";
 import indexMenu from "./components/index-menu.vue";
+import storage from "@/utils/storage";
 
 export default {
   data() {
-    return {};
+    return {
+      userInfo: {},
+    };
   },
   components: {
     indexBanner,
     userBalance,
     indexMenu,
+  },
+  onShow() {
+    this.userInfo = storage.get("userInfo") || {};
+    if (!this.userInfo.payPasswordStatus) {
+      uni.navigateTo({
+        url: "/pages/setPayPassword/index",
+      });
+    }
+  },
+  onHide() {
+    this.$refs.ub.closeSelectCoin();
   },
   methods: {
     jump(name) {

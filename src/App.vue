@@ -11,7 +11,7 @@ export default {
     console.log("App启动");
     this.checkUpdate();
     // #ifdef APP-PLUS
-    plus.navigator.setFullscreen(true);//隐藏状态栏
+    plus.navigator.setFullscreen(true); //隐藏状态栏
     const jpushModule = uni.requireNativePlugin("JG-JPush");
 
     if (!jpushModule) return;
@@ -216,16 +216,16 @@ uni-toast {
   z-index: 999999;
 }
 .u-navbar__content {
-  height: calc(104rpx + env(safe-area-inset-top))!important;
-  background-color: #0c1114!important;
+  height: calc(104rpx + env(safe-area-inset-top)) !important;
+  background-color: #0c1114 !important;
 }
-.u-navbar__content__left .uicon-arrow-left{
-  color: #fff!important;
+.u-navbar__content__left .uicon-arrow-left {
+  color: #fff !important;
 }
 .u-navbar__content__title {
-  color: #fff!important;
-  font-size: 19px!important;
-  font-weight: 400!important;
+  color: #fff !important;
+  font-size: 19px !important;
+  font-weight: 400 !important;
 }
 .self-body {
   /* padding-top: calc(85rpx + var(--status-bar-height)); */
@@ -249,20 +249,20 @@ uni-toast {
   padding: 40rpx;
 }
 .info-page-btn {
-  display: flex!important;
-  width: 451rpx!important;
-  height: 96rpx!important;
+  display: flex !important;
+  width: 451rpx !important;
+  height: 96rpx !important;
   background-color: #449367;
-  color: #fff!important;
-  border-radius: 6rpx!important;
+  color: #fff !important;
+  border-radius: 6rpx !important;
   align-items: center;
   justify-content: center;
-  font-size: 30rpx!important;
-  border: none!important;
+  font-size: 30rpx !important;
+  border: none !important;
 }
 .info-page-disabled {
-  color: #323233!important;
-  background-color: #ccc!important;
+  color: #323233 !important;
+  background-color: #ccc !important;
 }
 
 .uni-scroll-view {
@@ -292,13 +292,12 @@ uni-toast {
 .checked {
   border: 1px solid #449367;
   position: relative;
-  
 }
 .checked .in {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: #449367;
-    display: block;
-  }
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #449367;
+  display: block;
+}
 </style>

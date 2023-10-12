@@ -8,12 +8,20 @@
       </view>
 
       <scroll-view scroll-y="true" class="content">
-
-        <view class="item" v-for="(item, i) in list" :key="i" @click="handleClick(item)">
-          <u-image class="img" :src="iconMap[item.coin]" width="51rpx" height="51rpx"></u-image>
+        <view
+          class="item"
+          v-for="(item, i) in list"
+          :key="i"
+          @click="handleClick(item)"
+        >
+          <u-image
+            class="img"
+            :src="iconMap[item.coin]"
+            width="51rpx"
+            height="51rpx"
+          ></u-image>
           <text>{{ item.name }}</text>
         </view>
-
       </scroll-view>
     </view>
   </uni-popup>
@@ -32,14 +40,19 @@ export default {
   data() {
     return {
       iconMap,
-      list: [{
-        coin: 'USDT',
-        name: 'USDT_TRC20'
-      }, {
-        coin: 'CFB',
-        name: 'CFB'
-      }]
-    }
+      list: [
+        {
+          coin: "USDT",
+          name: "USDT",
+          chain: "TRC20",
+        },
+        {
+          coin: "CFB",
+          name: "CFB",
+          chain: "CFB",
+        },
+      ],
+    };
   },
   methods: {
     // 打开
@@ -52,8 +65,8 @@ export default {
     },
     // 点击
     handleClick(item) {
-      this.$emit('select', item)
-    }
+      this.$emit("select", item);
+    },
   },
 };
 </script>
@@ -95,7 +108,7 @@ export default {
     padding: 40rpx 50rpx;
 
     .item {
-      border: 1px solid #C4BFCB;
+      border: 1px solid #c4bfcb;
       border-radius: 6rpx;
       height: 120rpx;
       padding: 0 40rpx;
@@ -104,7 +117,7 @@ export default {
       display: flex;
       justify-content: flex-start;
       margin-bottom: 23rpx;
-      color: #38363B;
+      color: #38363b;
       font-size: 26rpx;
 
       .img {
@@ -112,4 +125,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>

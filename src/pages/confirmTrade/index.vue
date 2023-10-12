@@ -175,7 +175,7 @@ export default {
   methods: {
     // 购买
     submit() {
-      if (this.isDisabled) return
+      // if (this.isDisabled) return
       if (this.type == 1) {
         this.$refs.matchBox.open();
       } else {

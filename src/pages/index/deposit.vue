@@ -1,7 +1,11 @@
 <!-- 充币 -->
 <template>
   <view class="page-deposit">
-    <u-navbar :safeAreaInsetTop="false" :title="'充值'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="false"
+      :title="'充值'"
+      @leftClick="() => $routers.back()"
+    />
     <!-- 浮标 -->
     <!-- <u-image class="right-icon" style="right:130rpx" src="/static/images/index/icon-help.png" width="42rpx" height="42rpx"></u-image>
         <u-image class="right-icon" src="/static/images/index/icon-his.png" width="45rpx" height="42rpx"></u-image> -->
@@ -9,7 +13,7 @@
     <!-- 币种 -->
     <view class="coin-box" @click="() => $refs.coinSelect.open()">
       <coin-icon class="icon" :coin="currency" />
-      <view class="coin">{{ currency }}-{{ chain }}</view>
+      <view class="coin">{{ currency }}</view>
       <u-image
         class="right"
         src="/static/images/index/more.png"
@@ -31,7 +35,7 @@
     <view class="address" v-if="address">
       <view style="width: 90%; word-break: break-all">{{ address }}</view>
       <u-image
-        @click="copy('已复制的地址')"
+        @click="copy(address)"
         class="right"
         src="/static/images/mine/copy.png"
         width="26rpx"
@@ -144,6 +148,7 @@ export default {
     selectCoin(item) {
       this.$refs.coinSelect.close();
       this.currency = item.coin;
+      this.chain = item.chain;
       this.getAddress();
     },
     // 复制

@@ -53,41 +53,44 @@
     <!-- 余额 -->
     <view class="amount">
       <view>≈</view>
-      <view class="num">234.32</view>
-      <view class="select">
+      <view class="num">{{ showMoney ? "222.22" : "****" }}</view>
+      <view class="select" @click="showSelect = !showSelect">
         <u-image
           class="icon"
-          src="/static/images/index/usdt.png"
+          :src="iconMap[currCoin]"
           width="34rpx"
           height="34rpx"
         ></u-image>
-        <view>USDT</view>
+        <view>{{ currCoin }}</view>
         <u-image
           class="more"
           src="/static/images/index/more.png"
           width="13rpx"
           height="8rpx"
+          :style="{ transform: showSelect ? 'rotate(180deg)' : 'rotate(0deg)' }"
         ></u-image>
+
+        <!-- 选择弹窗 -->
+        <view class="select-dialog" v-show="showSelect">
+          <view
+            class="select-item"
+            v-for="(item, i) in coins"
+            :key="i"
+            @click.stop="selectCoin(item)"
+          >
+            <u-image
+              class="icon"
+              :src="iconMap[item.coin]"
+              width="30rpx"
+              height="30rpx"
+            ></u-image>
+            <text>{{ item.name }}</text>
+          </view>
+        </view>
+
+        <view class="select-dialog-bg" v-show="showSelect"></view>
       </view>
     </view>
-
-    <!-- 详情 -->
-    <!-- <view class="detail">
-      <view class="item">
-        <view>可售(CFB)</view>
-        <view class="num">400.00</view>
-      </view>
-      <view class="line"></view>
-      <view class="item">
-        <view>不可售(CFB)</view>
-        <view class="num">400.00</view>
-      </view>
-      <view class="line"></view>
-      <view class="item">
-        <view>已上架(CFB)</view>
-        <view class="num">400.00</view>
-      </view>
-    </view> -->
 
     <!-- 收益 -->
     <view class="income">
@@ -99,7 +102,7 @@
           height="43rpx"
         ></u-image>
         <view>
-          <view class="num">$1.88</view>
+          <view class="num">${{ showMoney ? "222.22" : "****" }}</view>
           <text>今日收益</text>
         </view>
       </view>
@@ -112,35 +115,56 @@
           height="41rpx"
         ></u-image>
         <view>
-          <view class="num">$8.88</view>
+          <view class="num">${{ showMoney ? "222.22" : "****" }}</view>
           <text>累计收益</text>
         </view>
       </view>
     </view>
-
-    <!-- 统计弹窗 -->
-    <!-- <total ref="totalDialog" /> -->
   </view>
 </template>
 
 <script>
 // import total from "./total";
+import usdtIcon from "@/static/images/index/usdt.png";
+import cfbIcon from "@/static/images/index/cfb.png";
+const iconMap = {
+  USDT: usdtIcon,
+  CFB: cfbIcon,
+};
 
 export default {
   name: "user-banlance",
   data() {
     return {
+      iconMap,
       showInfo: false, // 是否展示详情
       showMoney: true, // 是否展示数字
+      showSelect: false, // 是否展示币种选择
+      currCoin: "USDT",
+      coins: [
+        {
+          coin: "USDT",
+          name: "USDT",
+          chain: "TRC20",
+        },
+        {
+          coin: "CFB",
+          name: "CFB",
+          chain: "CFB",
+        },
+      ],
     };
   },
-  components: {
-    // total,
-  },
   methods: {
-    // 打开饼状图
-    openCanvas() {
-      // this.$refs.totalDialog.open();
+    // 选择币种
+    selectCoin(item) {
+      this.currCoin = item.coin;
+      setTimeout(() => {
+        this.showSelect = false;
+      }, 0);
+    },
+    closeSelectCoin() {
+      this.showSelect = false;
     },
   },
 };
@@ -190,11 +214,41 @@ export default {
       font-size: 22rpx;
       font-weight: 400;
       padding: 0 20rpx;
+      position: relative;
       .icon {
         margin-right: 10rpx;
       }
       .more {
         margin-left: 10rpx;
+      }
+      .select-dialog {
+        width: 100%;
+        position: absolute;
+        height: 140rpx;
+        left: 0;
+        bottom: -140rpx;
+        background-color: #fff;
+        z-index: 9;
+        box-sizing: border-box;
+        padding: 10rpx;
+        border: 1px solid #e2e2e2;
+        border-top: none;
+        .select-item {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          height: 60rpx;
+          padding-left: 10rpx;
+        }
+      }
+      .select-dialog-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background-color: rgba(0, 0, 0, 0);
       }
     }
   }
@@ -229,7 +283,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #8C8C8C;
+      color: #8c8c8c;
       font-size: 22rpx;
       .ball {
         margin-right: 30rpx;
@@ -242,7 +296,7 @@ export default {
     .line {
       margin: 0 40rpx;
       height: 52rpx;
-      background-color: #38363B;
+      background-color: #38363b;
       width: 1px;
     }
   }

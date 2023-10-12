@@ -338,3 +338,15 @@ export const bankList = (id) => {
     custom: { auth: true, toast: true },
   });
 };
+// 获取所有可用banner
+export const getAllBanner = (id) => {
+  return http.get(`/banner/getAll`, null, {
+    custom: { auth: true, toast: true },
+  });
+};
+// 帮助中心分页列表
+export const helpList = (data) => {
+  return http.post(`/article/help/page`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
