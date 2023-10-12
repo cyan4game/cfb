@@ -200,6 +200,18 @@ export const certificateAdd = (data) => {
     custom: { auth: true, toast: true },
   });
 };
+// 基础认证
+export const basicCertification = (data) => {
+  return http.post(`/memberCertificate/basicCertification`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
+// 标准认证
+export const standardCertification = (data) => {
+  return http.post(`/memberCertificate/standardCertification`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
 // 修改实名认证
 export const certificateModify = (data) => {
   return http.post(`/member-certificate/modify`, data, {
@@ -208,7 +220,7 @@ export const certificateModify = (data) => {
 };
 // 查询实名认证-登录用户
 export const certificateQuery = (data) => {
-  return http.post(`/member-certificate/queryByMember`, data, {
+  return http.get(`/memberCertificate/queryCertification`, data, {
     custom: { auth: true, toast: true },
   });
 };

@@ -262,7 +262,7 @@ export default {
     position: fixed;
     z-index: 9999;
     right: 40rpx;
-    top: 28rpx;
+    top: 36rpx;
   }
   .content-box {
     color: #7a7a7a;

@@ -26,6 +26,9 @@
           </view>
           <view class="address">{{ item.address }}</view>
         </view>
+        <view class="nodata" @click="goAddress">
+          暂无地址 <text class="go">去添加</text>
+        </view>
       </scroll-view>
     </view>
   </uni-popup>
@@ -67,6 +70,12 @@ export default {
         }
       });
     },
+    // 去地址管理
+    goAddress() {
+      uni.navigateTo({
+         url: '/pages/coinAddress/index'
+      })
+    }
   },
 };
 </script>
@@ -108,6 +117,16 @@ export default {
     box-sizing: border-box;
     padding: 24rpx 54rpx;
     overflow: hidden;
+    .nodata {
+      margin: 100rpx auto 0 auto;
+      font-size: 26rpx;
+      color: #757575;
+      text-align: center;
+      .go {
+        color: #4C9778;
+        margin-left: 20rpx;
+      }
+    }
   }
 
   .tip {

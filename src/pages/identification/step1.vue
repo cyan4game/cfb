@@ -21,7 +21,7 @@
 
 <script>
 
-import { certificateAdd, certificateModify } from '@/api/api'
+import { basicCertification, certificateModify } from '@/api/api'
 import storage from "@/utils/storage";
 import { idReg, nameReg } from '@/utils/utils'
 
@@ -61,13 +61,16 @@ export default {
         // 判断并提交
         submit() {
             const first = true // 首次提交
-            const Req = first ? certificateAdd : certificateModify
+            const Req = first ? basicCertification : certificateModify
             const params = this.form
             if (!first) {
                 params.id = this.idenInfo.id
             }
             this.loading = true
-            Req(params).then(res => {
+            Req({
+                idCard: params.idCard,
+                idName: params.realName
+            }).then(res => {
                 if (res.code == 200) {
                     uni.showToast({
                         title: '资料提交成功',

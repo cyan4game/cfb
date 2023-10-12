@@ -12,12 +12,12 @@
                     <!-- 状态 -->
                     <view class="title">
                         <view class="name">基础认证</view>
-                        <view class="btn-box un" v-if="idenInfo.type == 0">未认证</view>
-                        <view class="btn-box ed" v-if="idenInfo.type > 0">已认证</view>
+                        <view class="btn-box un" v-if="idenInfo.certificationType <= 1">未认证</view>
+                        <view class="btn-box ed" v-if="idenInfo.certificationType > 1">已认证</view>
                         <view style="flex:1"></view>
-                        <view class="text ing" v-if="idenInfo.type == 0 && [2].includes(idenInfo.auditStatus)">审核中</view>
-                        <view class="text fail" v-if="idenInfo.type == 0 && [3].includes(idenInfo.auditStatus)">审核失败:原因</view>
-                        <view class="btn-box btn" v-if="idenInfo.type == 0 && [0, 3].includes(idenInfo.auditStatus)" @click="jump('/pages/identification/step1')">去认证</view>
+                        <view class="text ing" v-if="idenInfo.certificationType <= 1 && [2].includes(idenInfo.certificationStatus)">审核中</view>
+                        <view class="text fail" v-if="idenInfo.certificationType <= 1 && [4].includes(idenInfo.certificationStatus)">审核失败</view>
+                        <view class="btn-box btn" v-if="idenInfo.certificationType <= 1 && [1, 4].includes(idenInfo.certificationStatus)" @click="jump('/pages/identification/step1')">去认证</view>
                     </view>
                     <!-- 详情 -->
                     <view class="intro">
@@ -65,12 +65,12 @@
                     <!-- 状态 -->
                     <view class="title">
                         <view class="name">标准认证</view>
-                        <view class="btn-box un" v-if="idenInfo.type <= 1">未认证</view>
-                        <view class="btn-box ed" v-if="idenInfo.type > 1">已认证</view>
+                        <view class="btn-box un" v-if="idenInfo.certificationType <= 2">未认证</view>
+                        <view class="btn-box ed" v-if="idenInfo.certificationType > 2">已认证</view>
                         <view style="flex:1"></view>
-                        <view class="text ing" v-if="idenInfo.type == 1 && [2].includes(idenInfo.auditStatus)">审核中</view>
-                        <view class="text fail" v-if="idenInfo.type == 1 && [3].includes(idenInfo.auditStatus)">审核失败:原因</view>
-                        <view class="btn-box btn" v-if="idenInfo.type == 1 && [0, 3].includes(idenInfo.auditStatus)" @click="jump('/pages/identification/step2')">去认证</view>
+                        <view class="text ing" v-if="idenInfo.certificationType == 2 && [2].includes(idenInfo.certificationStatus)">审核中</view>
+                        <view class="text fail" v-if="idenInfo.certificationType == 2 && [4].includes(idenInfo.certificationStatus)">审核失败</view>
+                        <view class="btn-box btn" v-if="idenInfo.certificationType == 2 && [1, 4].includes(idenInfo.certificationStatus)" @click="jump('/pages/identification/step2')">去认证</view>
                     </view>
                     <!-- 详情 -->
                     <view class="intro">
@@ -118,12 +118,12 @@
                     <!-- 状态 -->
                     <view class="title">
                         <view class="name">高级认证</view>
-                        <view class="btn-box un" v-if="!(idenInfo.type == 2 && [1].includes(idenInfo.auditStatus))">未认证</view>
-                        <view class="btn-box ed" v-if="idenInfo.type == 2 && [1].includes(idenInfo.auditStatus)">已认证</view>
+                        <view class="btn-box un" v-if="!(idenInfo.certificationType == 3 && [3].includes(idenInfo.certificationStatus))">未认证</view>
+                        <view class="btn-box ed" v-if="idenInfo.certificationType == 3 && [3].includes(idenInfo.certificationStatus)">已认证</view>
                         <view style="flex:1"></view>
-                        <view class="text ing" v-if="idenInfo.type == 2 && [2].includes(idenInfo.auditStatus)">审核中</view>
-                        <view class="text fail" v-if="idenInfo.type == 2 && [3].includes(idenInfo.auditStatus)">审核失败:原因</view>
-                        <view class="btn-box btn" v-if="idenInfo.type == 2 && [0, 3].includes(idenInfo.auditStatus)">去认证</view>
+                        <view class="text ing" v-if="idenInfo.certificationType == 3 && [2].includes(idenInfo.certificationStatus)">审核中</view>
+                        <view class="text fail" v-if="idenInfo.certificationType == 3 && [4].includes(idenInfo.certificationStatus)">审核失败</view>
+                        <view class="btn-box btn" v-if="idenInfo.certificationType == 3 && [1, 4].includes(idenInfo.certificationStatus)">去认证</view>
                     </view>
                     <!-- 详情 -->
                     <view class="intro">
@@ -179,8 +179,8 @@ export default {
         return {
             userInfo: {},
             idenInfo: {
-                type: 0, // 认证类型 0-基础认证，1-标准认证，2-高级认证	
-                auditStatus: 0, // 认证审核状态 0未认证 1已认证 2 审核中 3认证失败
+                certificationType: 0, // 认证类型 1-基础认证，2-标准认证，3-高级认证
+                certificationStatus: 0, // 认证状态 1 未认证 2 审核中 3 认证成功 4 审核驳回
             },
             amounts: { // 不同级别的额度
                 0: {},
@@ -195,8 +195,7 @@ export default {
         this.getIdenInfo()
     },
     onLoad() {
-        
-        this.getAmount()
+        // this.getAmount()
     },
     methods: {
         // 获取认证信息
@@ -204,8 +203,8 @@ export default {
             certificateQuery().then(res => {
                 if (res.code == 200) {
                     this.idenInfo = res.data || {
-                        type: 0,
-                        auditStatus: 0,
+                        certificationType: 0,
+                        certificationStatus: 0,
                     }
                     storage.set('idenInfo', this.idenInfo)
                 }

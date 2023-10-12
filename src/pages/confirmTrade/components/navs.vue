@@ -70,7 +70,7 @@ export default {
     height: 248rpx;
     border-radius: 8px;
     right: 40rpx;
-    top: 90rpx;
+    top: 100rpx;
     border-top-right-radius: 0;
     padding-left: 35rpx;
     display: flex;
@@ -94,7 +94,7 @@ export default {
     height: 0;
     position: absolute;
     right: 46rpx;
-    top: 76rpx;
+    top: 86rpx;
     transform: scaleX(2);
     border-left: 6rpx solid transparent; /* 左边透明 */
     border-right: 6rpx solid transparent; /* 右边透明 */

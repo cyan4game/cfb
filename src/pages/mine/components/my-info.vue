@@ -1,16 +1,30 @@
 <!-- 我的-基本信息 -->
 <template>
-    <view class="my-info">
-        <view class="avatar" @click="goInfo">
-            <u-image v-if="!userInfo.avatar" class="icon" src="/static/images/mine/avatar.png" width="100rpx" height="100rpx"></u-image>
-            <u-image v-if="userInfo.avatar" class="icon" :src="userInfo.avatar" width="100rpx" height="100rpx"></u-image>
-        </view>
-        <view class="info" @click="goInfo">
-            <view class="name">{{ userInfo.nickname || '未设置昵称' }}</view>
-            <view>{{ userInfo.phoneNumber ? hiddenStr(userInfo.phoneNumber) : '未绑定手机号' }}</view>
-        </view>
-        <view class="btn" @click="goIden">{{ idenText }}</view>
+  <view class="my-info">
+    <view class="avatar" @click="goInfo">
+      <u-image
+        v-if="!userInfo.avatar"
+        class="icon"
+        src="/static/images/mine/avatar.png"
+        width="100rpx"
+        height="100rpx"
+      ></u-image>
+      <u-image
+        v-if="userInfo.avatar"
+        class="icon"
+        :src="userInfo.avatar"
+        width="100rpx"
+        height="100rpx"
+      ></u-image>
     </view>
+    <view class="info" @click="goInfo">
+      <view class="name">{{ userInfo.nickname || "未设置昵称" }}</view>
+      <view>{{
+        userInfo.phoneNumber ? hiddenStr(userInfo.phoneNumber) : "未绑定手机号"
+      }}</view>
+    </view>
+    <view class="btn" @click="goIden">{{ idenText }}</view>
+  </view>
 </template>
 
 <script>
@@ -30,10 +44,13 @@ export default {
     computed: {
         idenText() { // 认证状态
             const iden = this.idenInfo
-            if (!iden || !iden.type) return '未认证'
-            if (iden.type == 1 || (iden.type == 2 && iden.auditStatus != 1)) return '基础认证'
-            if (iden.type == 2 && iden.auditStatus == 1) return '标准认证'
-            return '--'
+            let status = '未认证'
+            if (iden) {
+                if (iden.certificationType > 1) status = '基础认证'
+                if (iden.certificationType > 2) status = '标准认证'
+                if (iden.certificationType == 3 && iden.certificationStatus == 3) status = '高级认证'
+            }
+            return status
         }
     },
     methods: {
@@ -55,47 +72,46 @@ export default {
         }
     }
 }
-
 </script>
 
 <style lang="scss">
 .my-info {
-    padding-left: 40rpx;
+  padding-left: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20rpx;
+
+  .avatar {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .info {
+    flex: 1;
+    padding-left: 20rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 24rpx;
+    color: #fffffd;
+    .name {
+      font-size: 28rpx;
+    }
+  }
+  .btn {
+    background-color: #f0f0f0;
+    height: 47rpx;
+    border-top-left-radius: 24rpx;
+    border-bottom-left-radius: 24rpx;
+    padding: 0 16rpx 0 24rpx;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 20rpx;
-    
-    .avatar {
-        width: 100rpx;
-        height: 100rpx;
-        border-radius: 50%;
-        overflow: hidden;
-    }
-    .info {
-        flex: 1;
-        padding-left: 20rpx;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        font-size: 24rpx;
-        color: #FFFFFD;
-        .name {
-            font-size: 28rpx;
-        }
-    }
-    .btn {
-        background-color: #F0F0F0;
-        height: 47rpx;
-        border-top-left-radius: 24rpx;
-        border-bottom-left-radius: 24rpx;
-        padding: 0 16rpx 0 24rpx;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #0c1114;
-        font-size: 26rpx;
-    }
+    justify-content: center;
+    color: #0c1114;
+    font-size: 26rpx;
+  }
 }
 </style>

@@ -221,7 +221,7 @@ uni-toast {
   z-index: 999999;
 }
 .u-navbar__content {
-  height: calc(85rpx + env(safe-area-inset-top))!important;
+  height: calc(104rpx + env(safe-area-inset-top))!important;
   background-color: #0c1114!important;
 }
 .u-navbar__content__left .uicon-arrow-left{
@@ -234,7 +234,7 @@ uni-toast {
 }
 .self-body {
   /* padding-top: calc(85rpx + var(--status-bar-height)); */
-  padding-top: 85rpx;
+  padding-top: 104rpx;
 }
 .info-page-bg {
   /* 详情页背景 */

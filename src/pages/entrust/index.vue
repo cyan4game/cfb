@@ -200,7 +200,7 @@ export default {
     padding: 0;
     .post {
       position: fixed;
-      top: 26rpx;
+      top: 36rpx;
       right: 40rpx;
       color: #fff;
       z-index: 9999;

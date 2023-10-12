@@ -21,7 +21,7 @@
     <view class="protocol">
       <checkbox-group @change="changeProtocol">
         <label>
-          <checkbox value="protocol" :checked="protocol" />
+          <checkbox class="protocol-box" value="protocol" :checked="protocol" />
           我已阅读并同意《财富宝用户协议》
         </label>
       </checkbox-group>
@@ -142,14 +142,20 @@ export default {
   .protocol {
     position: fixed;
     bottom: 60rpx;
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    left: 0;
+    white-space: nowrap;
+    left: 50%;
     color: #38363B;
-    transform: scale(0.7);
-    transform-origin: center center;
+    transform: translateX(-50%);
+    font-size: 12px;
+    .protocol-box {
+      transform: scale(0.7);
+      position: relative;
+      top: -2px;
+    }
+    // transform-origin: center center;
   }
 }
 </style>

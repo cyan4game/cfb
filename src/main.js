@@ -50,7 +50,9 @@ Vue.prototype.$routers = {
     // #ifdef H5
     const pages = getCurrentPages();
     if (pages.length === 1) {
-      history.back();
+      uni.reLaunch({
+        url: "/pages/index/index",
+      });
     } else {
       // #endif
       uni.navigateBack({});

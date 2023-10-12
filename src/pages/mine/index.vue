@@ -176,8 +176,8 @@ export default {
       certificateQuery().then((res) => {
         if (res.code == 200) {
           this.idenInfo = res.data || {
-            type: 0,
-            auditStatus: 0,
+            certificationType: 1,
+            certificationStatus: 1,
           };
           storage.set("idenInfo", this.idenInfo);
         }

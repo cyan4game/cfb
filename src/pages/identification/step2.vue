@@ -52,7 +52,7 @@
 
 import { hiddenIden } from '@/utils/utils'
 import storage from "@/utils/storage";
-import { certificateModify, _upload } from '@/api/api'
+import { standardCertification, _upload } from '@/api/api'
 
 export default {
     name: 'iden-step2',
@@ -131,9 +131,10 @@ export default {
                 icon: 'none',
                 duration: 2000
             })
-            certificateModify({
-                ...this.form,
-                id: this.idenInfo.id,
+            standardCertification({
+                idCardBack: this.form.idCardBackImage,
+                idCardFront: this.form.idCardFrontImage,
+                idCardHold: this.form.idCardHand,
             }).then(res => {
                 if (res.code == 200) {
                     uni.showToast({
