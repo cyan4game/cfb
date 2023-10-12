@@ -1,6 +1,6 @@
 <template>
   <view class="page">
-    <u-navbar
+    <u-navbar :safeAreaInsetTop="false"
       style="width: 100%"
       title="完成"
       bgColor="#505bde"

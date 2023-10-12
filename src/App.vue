@@ -16,6 +16,7 @@ export default {
     console.log("App启动");
     this.checkUpdate();
     // #ifdef APP-PLUS
+    plus.navigator.setFullscreen(true);//隐藏状态栏
     const jpushModule = uni.requireNativePlugin("JG-JPush");
 
     if (!jpushModule) return;
@@ -232,6 +233,7 @@ uni-toast {
   font-weight: 400!important;
 }
 .self-body {
+  /* padding-top: calc(85rpx + var(--status-bar-height)); */
   padding-top: 85rpx;
 }
 .info-page-bg {

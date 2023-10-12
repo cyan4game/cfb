@@ -1,7 +1,7 @@
 <!-- 客服 -->
 <template>
   <view class="info-page-bg self-body page-customer">
-    <u-navbar :title="'在线客服'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'在线客服'" @leftClick="() => $routers.back()" />
     <view class="info-page-content content-box">
       <view class="top"
         >您好，很抱歉我们暂时无法为您提供服务，如需帮助，

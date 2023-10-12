@@ -1,7 +1,7 @@
 <!-- 资金明细 -->
 <template>
     <view class="info-page-bg self-body page-funds">
-        <u-navbar :title="'资金明细'" @leftClick="() => $router.back()" />
+        <u-navbar :safeAreaInsetTop="false" :title="'资金明细'" @leftClick="() => $routers.back()" />
         <view class="info-page-content content-box">
 
             <!-- 类型选择 -->
@@ -294,12 +294,10 @@ export default {
         },
         // 加载更多
         loadMore() {
-            console.error('加载更多')
             if (this.loading || this.finish) return
             this.loading = true
             this.page++
             financeQuery(this.getParams()).then(res => {
-                console.error(res)
                 if (res.code == 200) {
                     const datas = res.data
                     if (!datas.data) return

@@ -1,7 +1,7 @@
 <!-- 订单 -->
 <template>
   <view class="info-page-bg self-body page-myorder">
-    <u-navbar :title="'订单'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'订单'" @leftClick="() => $routers.back()" />
     <view class="info-page-content content-box">
       <!-- 状态导航 -->
       <view class="tabs">
@@ -251,7 +251,6 @@ export default {
           if (this.list.length >= res.data.total) {
             this.finish = true;
           }
-          console.error("----", this.list[0]);
         })
         .finally(() => {
           this.loading = false;

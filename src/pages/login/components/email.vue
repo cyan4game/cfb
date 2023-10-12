@@ -150,7 +150,6 @@ export default {
       this.loading = true;
       emailRegister(params)
         .then((res) => {
-          console.error('登录', res)
           if (res.code.toString() === '200') {
             const data = {
               ...params,

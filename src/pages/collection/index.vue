@@ -1,7 +1,7 @@
 <!-- 收款方式 -->
 <template>
   <view class="info-page-bg self-body page-collection-list">
-    <u-navbar :title="'收款方式'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'收款方式'" @leftClick="() => $routers.back()" />
     <view class="info-page-content content-box">
       <!-- 支付宝 -->
       <view class="item" @click="jump('/pages/collection/alipay')">

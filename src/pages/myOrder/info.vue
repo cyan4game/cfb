@@ -1,7 +1,7 @@
 <!-- 详情 -->
 <template>
   <view class="info-page-bg self-body order-info">
-    <u-navbar :title="'订单详情'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'订单详情'" @leftClick="() => $routers.back()" />
     <view class="info-page-content content-box">
       <view class="title">{{ orderStatusMap[item.orderStatus] || "--" }}</view>
 
@@ -269,7 +269,6 @@ export default {
     },
     // 取消申诉
     appealCancelHandle() {
-      console.error("取消申诉");
       this.$refs.appealCancel.close();
     },
     // 取消交易

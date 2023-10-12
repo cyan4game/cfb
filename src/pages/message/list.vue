@@ -1,7 +1,7 @@
 <!-- 消息列表 -->
 <template>
   <view class="info-page-bg self-body page-message">
-    <u-navbar :title="'消息列表'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'消息列表'" @leftClick="() => $routers.back()" />
     <scroll-view
       class="info-page-content content-box"
       scroll-y="true"

@@ -1,7 +1,7 @@
 <!-- 申诉 -->
 <template>
   <view class="info-page-bg self-body page-appeal">
-    <u-navbar :title="'申诉'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'申诉'" @leftClick="() => $routers.back()" />
     <!-- 表单 -->
     <view class="info-page-content content-box">
       <!-- 订单编号 -->
@@ -149,7 +149,6 @@ export default {
   onLoad(data) {
     this.userInfo = storage.get("userInfo") || {};
     this.item = storage.get("curr-order") || {};
-    console.error('??', this.item)
   },
   methods: {
     // 确认删除
@@ -218,7 +217,6 @@ export default {
         // modifyUser: this.userInfo.id,
         images: images,
       };
-      console.error("---参数", params);
       this.successHandle(params);
     },
     successHandle(params) {

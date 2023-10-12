@@ -1,5 +1,5 @@
 <template>
-  <u-navbar
+  <u-navbar :safeAreaInsetTop="false"
     title="支付管理"
     height="55px"
     :titleStyle="{ color: '#fff' }"

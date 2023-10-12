@@ -1,7 +1,7 @@
 <!-- 充币 -->
 <template>
   <view class="page-deposit">
-    <u-navbar :title="'充值'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'充值'" @leftClick="() => $routers.back()" />
     <!-- 浮标 -->
     <!-- <u-image class="right-icon" style="right:130rpx" src="/static/images/index/icon-help.png" width="42rpx" height="42rpx"></u-image>
         <u-image class="right-icon" src="/static/images/index/icon-his.png" width="45rpx" height="42rpx"></u-image> -->
@@ -127,7 +127,6 @@ export default {
       });
       getWalletAddress(this.currency, this.chain)
         .then((res) => {
-          console.error(res);
           if (res.code == 200) {
             this.address = res.data;
             setTimeout(() => {

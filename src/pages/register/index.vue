@@ -1,6 +1,6 @@
 <template>
   <view class="main-page">
-    <!-- <u-navbar
+    <!-- <u-navbar :safeAreaInsetTop="false"
       title="注册"
       height="50px"
       :titleStyle="{ color: '#fff' }"

@@ -1,6 +1,6 @@
 <template>
   <u-sticky style="width: 100%" offsetTop="0" customNavHeight="0">
-    <u-navbar
+    <u-navbar :safeAreaInsetTop="false"
       :title="title"
       :titleStyle="{ color: '#fff' }"
       placeholder

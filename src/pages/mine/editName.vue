@@ -1,7 +1,7 @@
 <!-- 修改昵称 -->
 <template>
   <view class="info-page-bg self-body page-setting">
-    <u-navbar :title="'修改昵称'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'修改昵称'" @leftClick="() => $routers.back()" />
 
     <view class="info-page-content page-content">
       <!-- 内容 -->

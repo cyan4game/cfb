@@ -1,6 +1,6 @@
 <template>
   <view class="info-page-bg self-body mobile-view">
-    <u-navbar :title="'设置支付密码'" :leftIcon="''"  />
+    <u-navbar :safeAreaInsetTop="false" :title="'设置支付密码'" :leftIcon="''"  />
     <view class=" info-page-content  page-box">
       <u-form class="form" :model="form" ref="form" :rules="rules">
         <u-form-item prop="password">

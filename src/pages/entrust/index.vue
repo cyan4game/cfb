@@ -1,7 +1,7 @@
 <!-- 委托 -->
 <template>
   <view class="info-page-bg self-body page-entrust">
-    <u-navbar :title="'委托'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'委托'" @leftClick="() => $routers.back()" />
     <view class="info-page-content content-box">
       <!-- 发布委托 -->
       <view class="post" @click="goPost">发布委托</view>
@@ -136,7 +136,6 @@ export default {
       this.loading = true;
       entrustPage(this.params)
         .then((res) => {
-          console.error(res.data.list[0]);
           if (res.code == 200) {
             this.list = res.data.list || [];
             if (this.list.length >= res.data.total) {

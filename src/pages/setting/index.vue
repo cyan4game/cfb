@@ -1,7 +1,7 @@
 <!-- 设置 -->
 <template>
     <view class="info-page-bg self-body page-setting">
-        <u-navbar :title="'设置'" @leftClick="() => $router.back()" />
+        <u-navbar :safeAreaInsetTop="false" :title="'设置'" @leftClick="() => $routers.back()" />
         <view class="info-page-content content-box">
             <!-- 开关 -->
             <view class="switch-box">
@@ -41,7 +41,6 @@ export default {
                 title: ''
             });
             soundNotificationSettings(e.target.value).then(res => {
-                console.error(res)
                 if (res.code != 200) {
                     checked = !e.target.value
                 } else {

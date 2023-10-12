@@ -1,7 +1,7 @@
 <!-- h5 扫码页 -->
 <template>
   <view class="h5-scan">
-    <u-navbar :title="'扫码'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'扫码'" @leftClick="() => $routers.back()" />
     <view class="xc" @click="chooseFile">相册</view>
 
     <view class="scan-box">

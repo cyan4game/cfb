@@ -1,7 +1,7 @@
 <!-- 转账 -->
 <template>
   <view class="info-page-bg self-body page-withdraw">
-    <u-navbar :title="'转账'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'转账'" @leftClick="() => $routers.back()" />
     <!-- 表单 -->
     <view class="info-page-content content-box">
       <view class="form">

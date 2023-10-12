@@ -1,6 +1,6 @@
 <!-- 导航功能弹窗 -->
 <template>
-  <cover-view class="cover-box" @click="close">
+  <view class="cover-box" @click="close">
     <div class="triangle"></div>
     <view class="cover-content">
       <view class="item" @click="jump('/pages/collection/index')">
@@ -31,7 +31,7 @@
         <text>客服</text>
       </view>
     </view>
-  </cover-view>
+  </view>
 </template>
 
 <script>

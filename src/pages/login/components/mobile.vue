@@ -218,7 +218,6 @@ export default {
       this.loading = true;
       phoneRegister(params)
         .then((res) => {
-          console.error("登录", res);
           this.router("pages/index/index");
           if (res.code.toString() === "200") {
             const data = {

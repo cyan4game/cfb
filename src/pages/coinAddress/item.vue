@@ -1,7 +1,7 @@
 <!-- 添加和编辑地址 -->
 <template>
     <view class="info-page-bg self-body page-address-list">
-        <u-navbar :title="'地址'" @leftClick="() => $router.back()" />
+        <u-navbar :safeAreaInsetTop="false" :title="'地址'" @leftClick="() => $routers.back()" />
 
         <!-- 表单 -->
         <view class="info-page-content content-box">
@@ -174,7 +174,6 @@ export default {
         },
         // 选择币种
         clickCurrency(item) {
-            console.error(item)
             this.form.currency = item.name
             this.$refs.currencyPopup.close()
         },

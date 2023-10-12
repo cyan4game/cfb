@@ -1,7 +1,7 @@
 <!-- 购买 -->
 <template>
   <view class="info-page-bg self-body page-trade">
-    <u-navbar :title="'交易'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'交易'" @leftClick="() => $routers.back()" />
     <!-- 菜单按钮 -->
     <u-image
       @click="showNav = true"
@@ -194,7 +194,6 @@ export default {
         title: ''
       })
       cfbOtcOrder(params).then(res => {
-        console.error('出售结果', res)
         if (res.code == 200) {
           this.form.payAmount = ''
           uni.showToast({

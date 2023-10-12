@@ -1,7 +1,7 @@
 <!-- 收款方式-支付宝 -->
 <template>
   <view class="info-page-bg self-body page-collection-alipay">
-    <u-navbar :title="'支付宝'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'支付宝'" @leftClick="() => $routers.back()" />
 
     <view class="info-page-content content-box">
       <view class="item">
@@ -140,7 +140,6 @@ export default {
         // memberId: this.userInfo.id
       })
         .then((res) => {
-          console.error("绑定", res);
           if (res.code == 200) {
             uni.showToast({
               title: "绑定成功",

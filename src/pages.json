@@ -304,26 +304,23 @@
         }
       }
     },
-
-
-
-
-
     {
-      "path": "pages/update",
-      "style": {
-        "navigationBarBackgroundColor": "#0c1114",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "版本更新"
-      }
-    },
-    {
-      "path": "pages/page-market/index",
+      "path": "pages/trade/index", // 交易
       "style": {
         "navigationStyle": "custom",
         "navigationBarTextStyle": "white"
       }
     },
+    {
+      "path": "pages/mine/index", // 我的
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTextStyle": "white"
+      }
+    },
+
+
+
     {
       "path": "pages/balanceDetails/index",
       "style": {
@@ -706,7 +703,7 @@
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "财富宝",
-    "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationBarBackgroundColor": "#0c1114",
     "backgroundColor": "#F8F8F8",
     "maxWidth": 750,
     "rpxCalcMaxDeviceWidth": 750,

@@ -1,6 +1,6 @@
 <template>
   <view class="info-page-bg self-body mobile-view">
-    <u-navbar :title="'绑定手机号'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'绑定手机号'" @leftClick="() => $routers.back()" />
     <view class="info-page-content page-box">
       <u-form class="form" :model="form" ref="form">
 

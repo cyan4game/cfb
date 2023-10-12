@@ -1,7 +1,7 @@
 <!-- 地址管理 -->
 <template>
   <view class="info-page-bg self-body page-address-list">
-    <u-navbar :title="'地址簿'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'地址簿'" @leftClick="() => $routers.back()" />
     <scroll-view scroll-y="true" class="info-page-content content-box">
       <!-- 列表 -->
       <uni-swipe-action>

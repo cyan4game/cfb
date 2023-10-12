@@ -1,6 +1,6 @@
 <template>
   <view class="info-page-bg self-body first-rest-pwd">
-    <u-navbar :title="'变更支付密码'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'变更支付密码'" @leftClick="() => $routers.back()" />
     <view class="info-page-content page-box">
       <u-form :model="form" ref="form" :rules="rules">
         <u-form-item class="item" prop="oldPassWord">

@@ -1,7 +1,7 @@
 <!-- 认证第二步-身份证照片 -->
 <template>
     <view class="info-page-bg self-body page-iden-2">
-        <u-navbar :title="'实名认证'" @leftClick="() => $router.back()" />
+        <u-navbar :safeAreaInsetTop="false" :title="'实名认证'" @leftClick="() => $routers.back()" />
         <view class="info-page-content content-box">
 
             <view class="title">姓名</view>

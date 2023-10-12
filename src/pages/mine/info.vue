@@ -1,7 +1,7 @@
 <!-- 个人资料 -->
 <template>
   <view class="info-page-bg self-body mine-info">
-    <u-navbar :title="'个人资料'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'个人资料'" @leftClick="() => $routers.back()" />
 
     <view class="info-page-content content-box">
       <!-- 信息面板 -->

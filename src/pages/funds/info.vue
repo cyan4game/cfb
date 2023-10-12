@@ -1,7 +1,7 @@
 <!-- 交易详情 -->
 <template>
     <view class="info-page-bg self-body page-fundsinfo">
-        <u-navbar :title="'交易详情'" @leftClick="() => $router.back()" />
+        <u-navbar :safeAreaInsetTop="false" :title="'交易详情'" @leftClick="() => $routers.back()" />
         <view class="info-page-content content-box">
 
             <view class="info-box title">交易详情</view>
@@ -84,7 +84,6 @@ export default {
         // 获取详细数据
         getInfoData() {
             businessDetail(1, 1).then(res => {
-                console.error('---详细数据', res)
                 if (res.code == 200) {
                     this.info = res.data
                 }

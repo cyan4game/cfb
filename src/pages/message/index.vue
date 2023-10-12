@@ -1,7 +1,7 @@
 <!-- 消息中心 -->
 <template>
   <view class="info-page-bg self-body page-message">
-    <u-navbar :title="'消息'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'消息'" @leftClick="() => $routers.back()" />
     <view class="info-page-content content-box">
       <view class="item" @click="goList(3)">
         <view class="icon">
@@ -103,7 +103,6 @@ export default {
     // 获取最后一条消息
     getLastMsg(type) {
       notification(1, 1, type).then((res) => {
-        console.error(res);
         if (res.data?.data?.length) {
           switch (type) {
             case 1:

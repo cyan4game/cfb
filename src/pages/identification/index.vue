@@ -2,7 +2,7 @@
 <template>
     <view class="info-page-bg self-body page-iden">
 
-        <u-navbar :title="'实名认证'" @leftClick="() => $router.back()" />
+        <u-navbar :safeAreaInsetTop="false" :title="'实名认证'" @leftClick="() => $routers.back()" />
 
         <view class="info-page-content content-box">
             <view class="info">用户名：{{ userInfo.nickname || '--' }}</view>
@@ -215,7 +215,6 @@ export default {
         getAmount() {
             this.amounts = storage.get('amounts') || {0:{},1:{},2:{}}
             queryOtcLimit().then(res => {
-                console.error('--额度', res)
                 if (res.code == 200) {
                     this.amounts = res.data
                     storage.set('amounts', this.amounts)

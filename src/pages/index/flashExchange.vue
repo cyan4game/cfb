@@ -8,7 +8,7 @@
       width="36rpx"
       height="36rpx"
     ></u-image> -->
-    <u-navbar :title="'闪兑'" @leftClick="() => $router.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="'闪兑'" @leftClick="() => $routers.back()" />
 
     <view class="rate">
       <text>汇率：</text>
@@ -138,7 +138,6 @@ export default {
         toCoin: this.form.toCoin,
       })
         .then((res) => {
-          console.error("res", res);
           if (res.code == 200) {
             uni.showToast({
               title: "兑换成功",
@@ -185,7 +184,6 @@ export default {
     // 币种选择
     coinSelect(item) {
       this.$refs.coinSelect.close();
-      console.error(item);
     },
     // 查询余额和汇率
     getInfo(backLoading = false) {
@@ -199,7 +197,6 @@ export default {
         toCoin: this.form.toCoin,
       })
         .then((res) => {
-          console.error("--结果", res);
           if (res.code == 200) {
             const d = res.data;
             this.form.amount = d.balance;

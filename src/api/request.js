@@ -32,16 +32,9 @@ export function handleLogout() {
       "/pages/retrievePassword/index",
     ].includes(currentPage)
   ) {
-    // #ifdef H5
     uni.reLaunch({
-      url: "/pages/login/index" + location.search,
+      url: "/pages/login/index" + (location ? location.search : ''),
     });
-    // #endif
-    // #ifndef H5
-    uni.reLaunch({
-      url: "/pages/login/index",
-    });
-    // #endif
   }
 }
 

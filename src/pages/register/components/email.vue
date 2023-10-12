@@ -194,7 +194,6 @@ export default {
   },
   methods: {
     checkCaptcha() {
-      console.error(this.$refs.form);
       this.$refs.form && this.$refs.form.validateField("captcha");
     },
     handleAreaCodeClose() {

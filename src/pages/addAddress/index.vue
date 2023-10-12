@@ -138,7 +138,6 @@ export default {
       uni.scanCode({
         scanType: ["qrCode"],
         success: (res) => {
-          console.error(JSON.stringify(res))
           if (res.result) {
             this.form.address = res.result
           }
