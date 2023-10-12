@@ -294,6 +294,7 @@ export default {
   .content-box {
     font-size: 26rpx;
     color: #433f48;
+    padding-bottom: 150rpx;
 
     .top {
       padding: 0 44rpx 80rpx 44rpx;

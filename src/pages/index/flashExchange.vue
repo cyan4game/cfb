@@ -44,7 +44,7 @@
         <view class="total">
           <text>可用余额：</text>
           <text class="money"
-            >{{ form.amount || "--" }} {{ form.fromCoin }}</text
+            >{{ form.amount || "0.00" }} {{ form.fromCoin }}</text
           >
         </view>
         <view class="all" @click="all">全部</view>
@@ -114,7 +114,7 @@ export default {
         from: "0.00",
         toCoin: "CFB",
         to: "0.00",
-        amount: "--", // 余额
+        amount: "0.00", // 余额
         rate: "--", // 汇率
       },
       loading: false,
@@ -122,7 +122,7 @@ export default {
   },
   computed: {
     disabled() {
-      return this.loading || !Number(this.form.from);
+      return this.loading || !Number(this.form.from) || !(Number(this.form.from) > 0 && Number(this.form.from) <= Number(this.form.amount));
     },
   },
   onShow() {
