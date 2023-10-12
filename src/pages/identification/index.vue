@@ -21,7 +21,7 @@
                     </view>
                     <!-- 详情 -->
                     <view class="intro">
-                        <view class="intro-item">证件姓名：{{ idenInfo.realName || '--' }}</view>
+                        <view class="intro-item">证件姓名：{{ idenInfo.idName || '--' }}</view>
                         <view class="intro-item">身份证号：{{ idenInfo.idCard || '--' }}</view>
                     </view>
                     <!-- 权限 -->

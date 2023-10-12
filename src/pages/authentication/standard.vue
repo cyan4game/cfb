@@ -161,7 +161,6 @@ export default {
         );
         fileListLen++;
       }
-      console.log(this.fileList1, this.fileList2, this.fileList3);
     },
     uploadFilePromise(url) {
       return new Promise((resolve, reject) => {

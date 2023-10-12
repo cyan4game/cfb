@@ -84,8 +84,6 @@ export default {
       uni.scanCode({
         scanType: ["qrCode"],
         success: function (res) {
-          console.log("条码类型：" + res.scanType);
-          console.log("条码内容：" + res.result);
           const rs = res.result;
           if (isValidTRONAddress(rs)) {
             // 解析成功

@@ -1,7 +1,11 @@
 <!-- 收款方式-微信 -->
 <template>
   <view class="info-page-bg self-body page-collection-alipay">
-    <u-navbar :safeAreaInsetTop="false" :title="'微信'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="false"
+      :title="'微信'"
+      @leftClick="() => $routers.back()"
+    />
 
     <view class="info-page-content content-box">
       <view class="item">
@@ -11,7 +15,7 @@
           class="item-ipt"
           placeholder="请输入微信姓名"
           type="text"
-          v-model.trim="form.realName"
+          v-model.trim="form.idName"
         />
       </view>
 
@@ -46,11 +50,10 @@
 
       <view style="height: 240rpx"></view>
     </view>
-
     <u-button
       v-if="!form.id"
       @click="submit"
-      :disabled="!(form.realName && form.accountName && form.qrCode) || loading"
+      :disabled="!(form.idName && form.accountName && form.qrCode) || loading"
       class="info-page-btn btn"
       type="primary"
       text="确定"
@@ -76,9 +79,7 @@
       <u-button
         v-if="editing"
         @click="submit"
-        :disabled="
-          !(form.realName && form.accountName && form.qrCode) || loading
-        "
+        :disabled="!(form.idName && form.accountName && form.qrCode) || loading"
         class="btn2"
         type="primary"
         text="修改"
@@ -89,11 +90,7 @@
 
 <script>
 import storage from "@/utils/storage";
-import {
-  _upload,
-  memberPaymodelBind,
-  queryByMemberAndPaytype,
-} from "@/api/api";
+import { _upload, memberPayModelUpdate, queryPayBindInfo } from "@/api/api";
 
 export default {
   name: "collectionWechat",
@@ -105,7 +102,7 @@ export default {
       idenInfo: {},
       form: {
         payType: 2,
-        realName: "", // 真实姓名
+        idName: "", // 真实姓名
         accountName: "", // 账号 银行卡是卡号；微信是微信号；微信是微信账号；云闪付是
         qrCode: "", // 支付二维码地址或者银行卡号，默认为空
       },
@@ -114,30 +111,42 @@ export default {
   onShow() {
     this.userInfo = storage.get("userInfo") || {};
     this.idenInfo = storage.get("idenInfo") || {};
-    this.form.realName = this.idenInfo.realName;
+    this.form.idName = this.idenInfo.idName;
     this.getInfo();
   },
   methods: {
     // 获取绑定详情
     getInfo() {
-      queryByMemberAndPaytype({
-        // memberId: this.userInfo.id,
-        payType: this.form.payType,
-      }).then((res) => {
-        if (res.code == 200 && res.data) {
-          this.form.id = res.data.id;
-          this.form.realName = res.data.realName;
-          this.form.accountName = res.data.accountName;
-          this.form.qrCode = res.data.qrCode;
-        }
+      uni.showLoading({
+        title: "",
       });
+      queryPayBindInfo()
+        .then((res) => {
+          if (res.code == 200 && res.data) {
+            const target = res.data.find(
+              (item) => item.payType == this.form.payType
+            );
+            if (target) {
+              this.form.id = target.id;
+              this.form.idName = target.username;
+              this.form.accountName = target.account;
+              this.form.qrCode = target.qrCode;
+            }
+          }
+        })
+        .finally(() => {
+          uni.hideLoading();
+        });
     },
     // 提交
     submit() {
       this.loading = true;
-      memberPaymodelBind({
-        ...this.form,
-        // memberId: this.userInfo.id
+      memberPayModelUpdate({
+        id: this.form.id || null,
+        account: this.form.accountName,
+        username: this.form.idName,
+        payType: this.form.payType,
+        qrCode: this.form.qrCode,
       })
         .then((res) => {
           if (res.code == 200) {

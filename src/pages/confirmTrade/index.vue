@@ -125,7 +125,7 @@ import sellDialog from "./components/sellDialog";
 import navsDialog from "./components/navs";
 import storage  from '@/utils/storage'
 import { updateBalance } from '@/utils/utils'
-import { queryByPaymodelMember, cfbOtcOrder } from '@/api/api'
+import { queryPayBindInfo, cfbOtcOrder } from '@/api/api'
 
 const payWayMap = {
   1: "支付宝",
@@ -222,15 +222,15 @@ export default {
     bindPayWayChange(e) {
       this.paywayIndex = e.target.value
       this.form.payType = this.payways[this.paywayIndex].payType
-      this.form.gatherNo = this.payways[this.paywayIndex].accountName
+      this.form.gatherNo = this.payways[this.paywayIndex].account
     },
     // 查询支付方式
     getPayways() {
       this.payways = storage.get('mypayways') || []
-      queryByPaymodelMember().then(res => {
+      queryPayBindInfo().then(res => {
         if (res.code == 200) {
           this.payways = res.data.map(item => {
-            item._accountName = payWayMap[item.payType] + '-' + item.accountName
+            item._accountName = payWayMap[item.payType] + '-' + item.account
             return item
           })
           storage.set('mypayways', this.payways)

@@ -7,11 +7,6 @@ export default {
     // 判断切换页面的交易类型
     switchTranType: null,
   },
-  watch: {
-    $route() {
-      console.log(this.$route);
-    },
-  },
   onLaunch() {
     console.log("App启动");
     this.checkUpdate();
@@ -257,7 +252,7 @@ uni-toast {
   display: flex!important;
   width: 451rpx!important;
   height: 96rpx!important;
-  background-color: #449367!important;
+  background-color: #449367;
   color: #fff!important;
   border-radius: 6rpx!important;
   align-items: center;

@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { entrustRelease, queryByPaymodelMember, entrustUpdate } from '@/api/api'
+import { entrustRelease, queryPayBindInfo, entrustUpdate } from '@/api/api'
 import storage from '@/utils/storage'
 import { updateBalance } from '@/utils/utils'
 
@@ -184,10 +184,10 @@ export default {
     // 查询支付方式
     getPayways() {
       this.payways = storage.get('mypayways') || []
-      queryByPaymodelMember().then(res => {
+      queryPayBindInfo().then(res => {
         if (res.code == 200) {
           this.payways = res.data.map(item => {
-            item._accountName = payWayMap[item.payType] + '-' + item.accountName
+            item._accountName = payWayMap[item.payType] + '-' + item.account
             return item
           })
           storage.set('mypayways', this.payways)

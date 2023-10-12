@@ -18,7 +18,7 @@
         v-for="(item, i) in bankList"
         :key="i"
       >
-        <view class="bank-label">{{ item.realName }}</view>
+        <view class="bank-label">{{ item.idName }}</view>
         <view class="bank-label bank-name">{{ item.bankName }}</view>
         <view class="bank-value">{{ item.accountName }}</view>
       </view>

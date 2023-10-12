@@ -124,13 +124,19 @@ export const delAddress = (id) => {
 };
 // 查询支付绑定状态信息-根据memberId
 export const queryPayBindInfo = () => {
-  return http.post(`/member-paymodel/queryBindInfo`, null, {
+  return http.get(`/memberPayModel/list`, null, {
     custom: { toast: true, auth: true },
   });
 };
 // 绑定支付方式
 export const memberPaymodelBind = (data) => {
   return http.post(`/member-paymodel/bind`, data, {
+    custom: { toast: true, auth: true },
+  });
+};
+// 更新支付方式
+export const memberPayModelUpdate = (data) => {
+  return http.post(`/memberPayModel/update`, data, {
     custom: { toast: true, auth: true },
   });
 };
@@ -323,6 +329,12 @@ export const orderCancel = (data) => {
 // 确认付款
 export const confirmPay = (data) => {
   return http.post(`/cfbOtcOrder/confirmPay`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
+// 银行列表
+export const bankList = (id) => {
+  return http.get(`/bank/list`, null, {
     custom: { auth: true, toast: true },
   });
 };

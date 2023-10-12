@@ -4,15 +4,9 @@ import { BASE_ADDRESS, PROXY_PRE } from "../config/api";
 export function handleLogout() {
   uni.removeStorage({
     key: "token",
-    success: function (res) {
-      console.log("删除token成功!");
-    },
   });
   uni.removeStorage({
     key: "pushToken",
-    success: function (res) {
-      console.log("删除pushToken成功!");
-    },
   });
   const pages = getCurrentPages(); // 获取栈实例
   const page = pages[pages.length - 1];

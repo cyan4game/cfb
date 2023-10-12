@@ -213,7 +213,7 @@
       <!--      已绑定-->
       <view v-else class="flex-box-between bind-bank">
         <view>
-          <view class="bank-label">{{ bankInfo.realName }}</view>
+          <view class="bank-label">{{ bankInfo.idName }}</view>
           <view class="flex-box">
             <text class="bank-label">{{ bankInfo.bankName }}</text>
             <text class="bank-value">{{ bankInfo.accountName }}</text>

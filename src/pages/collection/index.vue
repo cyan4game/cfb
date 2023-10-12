@@ -106,7 +106,7 @@ export default {
     },
     // 跳转
     jump(name) {
-      if (!this.idenInfo.type) return this.$refs.idDialog.open();
+      if (this.idenInfo.certificationType <= 1) return this.$refs.idDialog.open();
       uni.navigateTo({
         url: name,
       });
@@ -118,9 +118,13 @@ export default {
         this.status = paywayMap;
       }
       queryPayBindInfo().then((res) => {
-        if (res.code == 200) {
-          this.status = res.data;
-          storage.set("paywayMap", res.data);
+        if (res.code == 200 && res.data && res.data.length) {
+          this.status = {
+            alipay: res.data.some(item => item.payType == 1),
+            wechat: res.data.some(item => item.payType == 2),
+            bank: res.data.some(item => item.payType == 3),
+          }
+          storage.set("paywayMap", this.status);
         }
       });
     },

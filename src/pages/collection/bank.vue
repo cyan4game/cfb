@@ -1,22 +1,26 @@
 <!-- 收款方式-支付宝 -->
 <template>
   <view class="info-page-bg self-body page-collection-alipay">
-    <u-navbar :safeAreaInsetTop="false" :title="'银行卡'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="false"
+      :title="'银行卡'"
+      @leftClick="() => $routers.back()"
+    />
 
     <view class="info-page-content content-box">
       <view class="item">
-        <text>姓名</text>
+        <text class="subtitle">姓名</text>
         <input
           disabled
           class="item-ipt"
           placeholder="请输入银行卡姓名"
           type="text"
-          v-model.trim="form.realName"
+          v-model.trim="form.idName"
         />
       </view>
 
       <view class="item">
-        <text>银行卡账号</text>
+        <text class="subtitle">银行卡账号</text>
         <input
           :disabled="form.id && !editing"
           class="item-ipt"
@@ -27,14 +31,11 @@
       </view>
 
       <view class="item">
-        <text>开户银行</text>
-        <input
-          class="item-ipt"
-          disabled
-          placeholder="请选择开户银行"
-          type="text"
-          v-model.trim="form.bankName"
-        />
+        <text class="subtitle">开户银行</text>
+        <view class="item-ipt" v-if="form.id && !editing">{{ form.bankName }}</view>
+        <picker v-else class="item-ipt" @change="bindPickerChange" :range-key="'name'" :value="bankIndex" :range="bankList">
+						<view>{{ form.bankName || '请选择开户银行'}}</view>
+					</picker>
         <u-image
           class="icon"
           src="/static/images/index/more.png"
@@ -44,7 +45,7 @@
       </view>
 
       <view class="item">
-        <text>银行分行</text>
+        <text class="subtitle">银行分行</text>
         <input
           :disabled="form.id && !editing"
           class="item-ipt"
@@ -62,7 +63,7 @@
       @click="submit"
       :disabled="
         !(
-          form.realName &&
+          form.idName &&
           form.bankName &&
           form.accountName &&
           form.branchName
@@ -95,7 +96,7 @@
         @click="submit"
         :disabled="
           !(
-            form.realName &&
+            form.idName &&
             form.bankName &&
             form.accountName &&
             form.branchName
@@ -111,11 +112,7 @@
 
 <script>
 import storage from "@/utils/storage";
-import {
-  _upload,
-  memberPaymodelBind,
-  queryByMemberAndPaytype,
-} from "@/api/api";
+import { _upload, memberPayModelUpdate, queryPayBindInfo, bankList } from "@/api/api";
 
 export default {
   name: "collectionBank",
@@ -126,41 +123,80 @@ export default {
       userInfo: {},
       form: {
         payType: 3,
-        realName: "", // 真实姓名
+        idName: "", // 真实姓名
         bankName: "", // 银行名称
         accountName: "", // 账号 银行卡是卡号；微信是微信号；支付宝是支付宝账号；云闪付是
         branchName: "", // 支行名称
       },
+      bankList: [], // 银行列表
+      bankIndex: '',
     };
   },
   onShow() {
     this.userInfo = storage.get("userInfo") || {};
     this.idenInfo = storage.get("idenInfo") || {};
-    this.form.realName = this.idenInfo.realName;
+    this.form.idName = this.idenInfo.idName;
     this.getInfo();
   },
+  onLoad() {
+    this.getBankList()
+  },
   methods: {
+    bindPickerChange(e) {
+      const i = e.target.value
+      this.bankIndex = i
+      this.form.bankName = this.bankList[i].name
+    },
+    // 获取银行列表
+    getBankList() {
+      bankList().then(res => {
+        console.error('银行', res)
+        if (res.code == 200) {
+          this.bankList = res.data || []
+          if (this.form.bankName) {
+            this.bankIndex = this.bankList.findIndex(item => item.name == this.form.bankName)
+          }
+        }
+      })
+    },
     // 获取绑定详情
     getInfo() {
-      queryByMemberAndPaytype({
-        // memberId: this.userInfo.id,
-        payType: this.form.payType,
-      }).then((res) => {
-        if (res.code == 200 && res.data) {
-          this.form.id = res.data.id;
-          this.form.realName = res.data.realName;
-          this.form.bankName = res.data.bankName;
-          this.form.accountName = res.data.accountName;
-          this.form.branchName = res.data.branchName;
-        }
+      uni.showLoading({
+        title: "",
       });
+      queryPayBindInfo()
+        .then((res) => {
+          if (res.code == 200 && res.data) {
+            const target = res.data.find(
+              (item) => item.payType == this.form.payType
+            );
+            if (target) {
+              this.form.id = target.id;
+              this.form.idName = target.username;
+              this.form.accountName = target.account;
+              this.form.branchName = target.branchBankName;
+              this.form.bankName = target.bankName;
+              if (this.bankList.length) {
+              this.bankIndex = this.bankList.findIndex(item => item.name == this.form.bankName)
+            }
+            }
+          }
+        })
+        .finally(() => {
+          uni.hideLoading();
+        });
     },
     // 提交
     submit() {
       this.loading = true;
-      memberPaymodelBind({
+      memberPayModelUpdate({
         ...this.form,
-        // memberId: this.userInfo.id
+        id: this.form.id || null,
+        account: this.form.accountName,
+        username: this.form.idName,
+        payType: this.form.payType,
+        branchBankName: this.form.branchName,
+        bankName: this.form.bankName,
       })
         .then((res) => {
           if (res.code == 200) {
@@ -196,10 +232,16 @@ export default {
       color: #454545;
       font-size: 32rpx;
       padding-left: 40rpx;
+      .subtitle {
+        width: 160rpx;
+      }
       .item-ipt {
         flex: 1;
         margin-left: 40rpx;
         font-size: 28rpx;
+        height: 100%;
+        display: flex;
+        align-items: center;
       }
       .icon {
         margin: 0 40rpx 0 20rpx;

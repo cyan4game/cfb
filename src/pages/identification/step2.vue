@@ -5,7 +5,7 @@
         <view class="info-page-content content-box">
 
             <view class="title">姓名</view>
-            <view class="info">{{ idenInfo.realName }}</view>
+            <view class="info">{{ idenInfo.idName }}</view>
             <view class="title">身份证号</view>
             <view class="info">{{ hiddenIden(idenInfo.idCard) }}</view>
             <view class="title">证件照片</view>

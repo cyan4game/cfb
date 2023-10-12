@@ -82,11 +82,7 @@ QR码属于矩阵式二维码中的一个种类，由DENSO(日本电装)公司�
 export default {
   methods: {
     toTempFilePath() {
-      this.$refs.uQRCode.toTempFilePath({
-        success: res => {
-          console.log(res)
-        }
-      })
+      this.$refs.uQRCode.toTempFilePath({})
     }
   }
 }
@@ -119,11 +115,7 @@ export default {
 export default {
   methods: {
     save() {
-      this.$refs.uQRCode.save({
-        success: res => {
-          console.log(res)
-        }
-      })
+      this.$refs.uQRCode.save()
     }
   }
 }

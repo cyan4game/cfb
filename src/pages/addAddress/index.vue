@@ -134,7 +134,6 @@ export default {
     },
     toQrcode () {
       // #ifndef H5
-      console.log("开始扫一扫")
       uni.scanCode({
         scanType: ["qrCode"],
         success: (res) => {
