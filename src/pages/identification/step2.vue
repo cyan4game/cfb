@@ -43,7 +43,7 @@
                 <view>手持身份证正面照</view>
             </view>
 
-            <u-button :disabled="disabled" class="btn" :text="'提交'" @click="submit"></u-button>
+            <u-button type="primary" :disabled="disabled" class="btn" :text="'提交'" @click="submit"></u-button>
         </view>
     </view>
 </template>

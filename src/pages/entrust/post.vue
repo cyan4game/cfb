@@ -67,7 +67,7 @@
       </view>
 
 
-      <u-button class="submit" :disabled="disabled" @click="post">{{ form.id?'编辑':'发布' }}委托</u-button>
+      <u-button type="primary" class="submit" :disabled="disabled" @click="post">{{ form.id?'编辑':'发布' }}委托</u-button>
     </view>
 
     <!-- 跳转绑定弹窗 -->
@@ -119,11 +119,11 @@ export default {
   },
   computed: {
     disabled() {
-      if (this.type == 'buy') {
+      if (this.type == 'buy') { // 购买
         if (this.form.entrustAmount && !this.loading) return false
         return true
-      } else {
-        if (this.form.entrustAmount && this.form.paymodelId && !this.loading) return false
+      } else { // 出售
+        if (this.form.entrustAmount && this.form.entrustAmount > 0 && this.form.entrustAmount <= this.cfb && this.form.paymodelId && !this.loading) return false
         return true
       }
     },

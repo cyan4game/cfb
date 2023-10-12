@@ -9,7 +9,7 @@
         </view>
         <view class="bottom-box">
             <view class="tip" style="margin-bottom:30rpx">本次人脸识别仅用于身份验证</view>
-        <u-button class="info-page-btn">开始认证</u-button>
+        <u-button type="primary" class="info-page-btn">开始认证</u-button>
         </view>
     </view>
   </view>

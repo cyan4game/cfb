@@ -87,7 +87,7 @@
       </view>
     </view>
 
-    <u-button class="btn" :disabled="disabled" @click="submit">兑换</u-button>
+    <u-button type="primary" class="btn" :disabled="disabled" @click="submit">兑换</u-button>
 
     <coin-select ref="coinSelect" @select="coinSelect"></coin-select>
   </view>

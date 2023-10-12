@@ -15,7 +15,7 @@
             <view class="tip" v-show="!idOk">请输入正确的身份证号码</view>
         </view>
 
-        <u-button :disabled="disabled" class="btn" :text="'提交'" @click="submit"></u-button>
+        <u-button type="primary" :disabled="disabled" class="btn" :text="'提交'" @click="submit"></u-button>
     </view>
 </template>
 

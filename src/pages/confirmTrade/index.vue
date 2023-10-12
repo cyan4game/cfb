@@ -102,7 +102,7 @@
       </view>
     </view>
 
-    <u-button :class="{'info-page-disabled':isDisabled}" class="info-page-btn submit" @click="submit"
+    <u-button type="primary" :class="{'info-page-disabled':isDisabled}" class="info-page-btn submit" @click="submit"
       >立即{{ type == 1 ? "购买" : "出售" }}</u-button
     >
 
@@ -162,7 +162,7 @@ export default {
   computed: {
     isDisabled() {
       if (this.type == 1) return true
-      return !(this.form.payAmount && this.form.payAmount <= this.cfb)
+      return !(this.form.payAmount && this.form.payAmount > 0 && this.form.payAmount <= this.cfb)
     }
   },
   onLoad(data) {
