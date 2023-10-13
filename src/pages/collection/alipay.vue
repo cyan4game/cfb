@@ -11,7 +11,7 @@
       <view class="item">
         <text>支付宝姓名</text>
         <input
-          disabled
+          
           class="item-ipt"
           placeholder="请输入支付宝姓名"
           type="text"
@@ -120,6 +120,7 @@ export default {
     getInfo() {
       uni.showLoading({
         title: "",
+        mask: true,
       });
       queryPayBindInfo({
         // memberId: this.userInfo.id,
@@ -188,6 +189,7 @@ export default {
     uploadImg(file) {
       uni.showLoading({
         title: "",
+        mask: true,
       });
       _upload(
         file,

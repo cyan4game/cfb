@@ -174,6 +174,7 @@ export default {
       this.$refs.sureDialog.close();
       uni.showLoading({
         title: "",
+        mask: true,
       });
       complaintMessage(this.form)
         .then((res) => {
@@ -210,6 +211,7 @@ export default {
         return new Promise((resolve) => {
           uni.showLoading({
             title: "上传中",
+            mask: true,
           });
           _upload(
             file,

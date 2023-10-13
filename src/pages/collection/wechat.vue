@@ -11,7 +11,7 @@
       <view class="item">
         <text>微信姓名</text>
         <input
-          disabled
+          
           class="item-ipt"
           placeholder="请输入微信姓名"
           type="text"
@@ -119,6 +119,7 @@ export default {
     getInfo() {
       uni.showLoading({
         title: "",
+        mask: true,
       });
       queryPayBindInfo()
         .then((res) => {
@@ -183,6 +184,7 @@ export default {
     uploadImg(file) {
       uni.showLoading({
         title: "",
+        mask: true,
       });
       _upload(
         file,

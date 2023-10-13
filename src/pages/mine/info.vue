@@ -113,6 +113,7 @@ export default {
     uploadAvatar(file) {
       uni.showLoading({
         title: "",
+        mask: true,
       });
       _upload(
         file,
@@ -155,6 +156,7 @@ export default {
     setAvatar(url) {
       uni.showLoading({
         title: "",
+        mask: true,
       });
       avatarSettings({
         avatar: url,

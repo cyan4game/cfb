@@ -7,7 +7,14 @@
     :mask-click="false"
   >
     <view class="tip-dialog-content">
-      <view class="close" @click="close">×</view>
+      <view class="close" @click="close"
+        ><u-image
+          mode="contain"
+          src="/static/images/index/close.png"
+          width="24rpx"
+          height="24rpx"
+        ></u-image
+      ></view>
       <view class="title">{{ title || "提示" }}</view>
       <view class="content" v-html="content"></view>
       <view class="btns">

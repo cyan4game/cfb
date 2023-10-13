@@ -83,7 +83,7 @@ export default {
   },
   computed: {
     disabled() {
-      return this.loading || !(this.form.realName && this.form.idCard);
+      return this.loading || !(this.form.realName && this.form.idCard && this.file.path);
     },
     nameOk() {
       if (!this.form.realName) return true;
@@ -143,6 +143,7 @@ export default {
       return new Promise((resolve) => {
         uni.showLoading({
           title: "上传中",
+          mask: true,
         });
         _upload(
           file,

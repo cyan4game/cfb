@@ -81,18 +81,18 @@
           ></u-image> -->
           <view class="info">
             <view class="title">
-              <text>{{ typeMap[item.type] || '--' }}</text>
-              <text v-if="item.type == 3">{{ item.payCoin }}-{{ item.receiveCoin }}</text>
+              <text>{{ typeMap[item.type] || "--" }}</text>
+              <text v-if="item.type == 3"
+                >{{ item.payCoin }}-{{ item.receiveCoin }}</text
+              >
               <!-- <u-image class="item-dir" src="@/static/images/funds/left.png" width="30rpx" height="16rpx"></u-image>
                             <text class="name">捕鱼</text> -->
             </view>
             <view>{{ getTimestr(item.createDate) }}</view>
           </view>
           <view class="info2">
-            <view class="num"
-              >{{ item.amount }} {{ item.payCoin }}</view
-            >
-            <view>余额  {{ item.curBalance }} {{ item.payCoin }}</view>
+            <view class="num">{{ item.amount }} {{ item.payCoin }}</view>
+            <view>余额 {{ item.curBalance }} {{ item.payCoin }}</view>
           </view>
         </view>
 
@@ -142,7 +142,12 @@
                         <view class="time-tab" @click="params.time.tab = 2" :class="{ 'active-time-tab': params.time.tab == 2 }">
                             自定义时间</view>
                     </view>
-                    <view class="close" @click="() => $refs['timePopup'].close()">×</view>
+                    <view class="close" @click="() => $refs['timePopup'].close()"><u-image
+          mode="contain"
+          src="/static/images/index/close.png"
+          width="24rpx"
+          height="24rpx"
+        ></u-image></view>
                 </view>
 
                 <view class="dialog-content">
@@ -201,7 +206,12 @@
             <view class="params-dialog" style="height:500rpx">
                 <view class="title">
                     <text>金额范围</text>
-                    <view class="close" @click="() => $refs['moneyPopup'].close()">×</view>
+                    <view class="close" @click="() => $refs['moneyPopup'].close()"><u-image
+          mode="contain"
+          src="/static/images/index/close.png"
+          width="24rpx"
+          height="24rpx"
+        ></u-image></view>
                 </view>
                 <view class="dialog-content">
                     <view class="range-box">
@@ -221,17 +231,17 @@
 <script>
 import storage from "@/utils/storage";
 import { financeList } from "@/api/api";
-import { getTimestr } from '@/utils/time'
+import { getTimestr } from "@/utils/time";
 
 // 前端定义 -1  全部 类型列表（多类型查询） 1充币 2转账 3闪兑 4购买 5出售
 // 	类型 (转账)(1充币 2转账) 3闪兑 (交易)(4购买 5出售)
 const typeMap = {
-    1: '充币',
-    2: '转账',
-    3: '闪兑',
-    4: '购买',
-    5: '出售'
-}
+  1: "充币",
+  2: "转账",
+  3: "闪兑",
+  4: "购买",
+  5: "出售",
+};
 const tabsMap = {
   1: "转账",
   2: "交易",
@@ -247,8 +257,8 @@ export default {
   name: "funds",
   data() {
     return {
-        typeMap,
-    showTimeSelect: false,
+      typeMap,
+      showTimeSelect: false,
       showCoinSelect: false,
       tabsMap, // 分类Map
       userInfo: {}, // 用户数据
@@ -308,7 +318,7 @@ export default {
     getTimestr,
     // 查看详情
     goInfo(item) {
-      storage.set('fund-info', item)
+      storage.set("fund-info", item);
       uni.navigateTo({
         url: "/pages/funds/info",
       });
@@ -336,7 +346,10 @@ export default {
         // minTotalAmount: this.params.range.min,
         // maxTotalAmount: this.params.range.max,
         startTime: Date.parse(new Date(this.params.time.start)),
-        endTime: Date.parse(new Date(this.params.time.end)) + 24 * 60 * 60 * 1000 - 1000,
+        endTime:
+          Date.parse(new Date(this.params.time.end)) +
+          24 * 60 * 60 * 1000 -
+          1000,
         // memberId: this.userInfo.id,
       };
       if (!data.coinType) delete data.coinType;
@@ -349,7 +362,7 @@ export default {
       this.page++;
       financeList(this.getParams())
         .then((res) => {
-            console.error(res.data)
+          console.error(res.data);
           if (res.code == 200) {
             const datas = res.data;
             if (!datas.list) return;
@@ -439,7 +452,7 @@ export default {
         const d2 = date2.getDate();
         this.params.time.start = year2 + "-" + month2 + "-" + d2;
       }
-      this.reset()
+      this.reset();
     },
     // 月份选择器变化
     changeDate(e) {

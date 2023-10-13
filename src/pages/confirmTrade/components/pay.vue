@@ -4,7 +4,14 @@
     <view class="pay-dialog">
       <view class="title">
         <text>付款凭证</text>
-        <view class="close" @click="clsoe">×</view>
+        <view class="close" @click="clsoe"
+          ><u-image
+            mode="contain"
+            src="/static/images/index/close.png"
+            width="24rpx"
+            height="24rpx"
+          ></u-image
+        ></view>
       </view>
       <view class="tip">您若未付款，产生纠纷，信用将会受到影响 </view>
 

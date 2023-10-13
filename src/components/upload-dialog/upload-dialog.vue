@@ -8,7 +8,14 @@
     :mask-click="false"
   >
     <view class="tip-dialog-content">
-      <view class="close" @click="close">×</view>
+      <view class="close" @click="close"
+        ><u-image
+          mode="contain"
+          src="/static/images/index/close.png"
+          width="24rpx"
+          height="24rpx"
+        ></u-image
+      ></view>
       <view class="title">上传图片凭证</view>
       <view class="upload-box" @click="chooseFile">
         <u-image
@@ -77,6 +84,7 @@ export default {
       if (this.img) return this.$emit("success", this.img);
       uni.showLoading({
         title: "",
+        mask: true,
       });
       _upload(
         this.file,

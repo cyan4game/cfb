@@ -113,10 +113,11 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20rpx 60rpx;
+    padding: 0 60rpx;
     color: #fff;
     font-size: 38rpx;
     background-color: #0c1114;
+    height: 104rpx;
   }
 
   .page-content {

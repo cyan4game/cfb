@@ -85,7 +85,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20rpx;
 
   .avatar {
     width: 100rpx;

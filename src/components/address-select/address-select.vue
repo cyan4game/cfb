@@ -9,7 +9,14 @@
     <view class="select-doalog">
       <view class="title">
         <text>选择地址</text>
-        <view class="close" @click="close">×</view>
+        <view class="close" @click="close"
+          ><u-image
+            mode="contain"
+            src="/static/images/index/close.png"
+            width="24rpx"
+            height="24rpx"
+          ></u-image
+        ></view>
       </view>
       <scroll-view scroll-y="true" class="scroll-Y">
         <view
@@ -26,7 +33,7 @@
           </view>
           <view class="address">{{ item.address }}</view>
         </view>
-        <view class="nodata" @click="goAddress">
+        <view class="nodata" @click="goAddress" v-if="!list.length">
           暂无地址 <text class="go">去添加</text>
         </view>
       </scroll-view>

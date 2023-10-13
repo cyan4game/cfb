@@ -4,7 +4,14 @@
     <view class="coin-select-content">
       <view class="title">
         <text>选择充币币种</text>
-        <view class="close" @click="() => $refs.popup.close()">×</view>
+        <view class="close" @click="() => $refs.popup.close()"
+          ><u-image
+            mode="contain"
+            src="/static/images/index/close.png"
+            width="24rpx"
+            height="24rpx"
+          ></u-image
+        ></view>
       </view>
 
       <scroll-view scroll-y="true" class="content">

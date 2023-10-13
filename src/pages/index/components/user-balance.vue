@@ -4,7 +4,14 @@
     <!-- 弹出详情 -->
     <view class="dialog-box-bg" v-show="showInfo" @click="showInfo = false">
       <view class="dialog-box">
-        <view class="close">×</view>
+        <view class="close">
+          <u-image
+            mode="contain"
+            src="/static/images/index/close.png"
+            width="24rpx"
+            height="24rpx"
+          ></u-image>
+        </view>
         <view class="item">
           <text>CFB余额</text>
           <text class="val">{{ assets.cfbBalance || "0.00" }}</text>
@@ -56,7 +63,7 @@
     <!-- 余额 -->
     <view class="amount">
       <view>≈</view>
-      <view class="num">{{ showMoney ? total : "****" }}</view>
+      <view class="num">{{ showMoney ? _fixed(total) : "****" }}</view>
       <view class="select" @click="showSelect = !showSelect">
         <u-image
           class="icon"
@@ -105,7 +112,7 @@
           height="36rpx"
         ></u-image>
         <view>
-          <view class="num">${{ showMoney ? "--" : "****" }}</view>
+          <view class="num">${{ showMoney ? "0.00" : "****" }}</view>
           <text>今日收益</text>
         </view>
       </view>
@@ -118,7 +125,7 @@
           height="32rpx"
         ></u-image>
         <view>
-          <view class="num">${{ showMoney ? "--" : "****" }}</view>
+          <view class="num">${{ showMoney ? "0.00" : "****" }}</view>
           <text>累计收益</text>
         </view>
       </view>
@@ -131,6 +138,7 @@
 import { memberAsset } from "@/api/api";
 import usdtIcon from "@/static/images/index/usdt.png";
 import cfbIcon from "@/static/images/index/cfb.png";
+import { _fixed } from "@/utils/utils";
 const iconMap = {
   USDT: usdtIcon,
   CFB: cfbIcon,
@@ -169,6 +177,7 @@ export default {
     },
   },
   methods: {
+    _fixed,
     // 获取资产
     getAssets() {
       memberAsset().then((res) => {
@@ -224,7 +233,7 @@ export default {
     margin: 32rpx 0;
     .num {
       font-size: 62rpx;
-      margin: 0 20rpx 0 0;
+      margin: 0 20rpx 0 20rpx;
       word-break: break-all;
       flex: 1;
     }
@@ -236,7 +245,7 @@ export default {
       border-radius: 6rpx;
       font-size: 22rpx;
       font-weight: 400;
-      padding: 0 10rpx;
+      padding: 0 12rpx;
       position: relative;
       .icon {
         margin-right: 10rpx;
@@ -352,10 +361,7 @@ export default {
       align-items: center;
       justify-content: center;
       background-color: #eee;
-      color: #888;
       border-radius: 50%;
-      padding-bottom: 6rpx;
-      padding-left: 4rpx;
       box-sizing: border-box;
       margin: 10rpx 0 10rpx auto;
     }

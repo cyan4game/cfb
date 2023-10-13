@@ -191,7 +191,8 @@ export default {
         phoneVerifyCode: codes.phoneCode
       }
       uni.showLoading({
-        title: ''
+        title: '',
+        mask: true,
       })
       cfbOtcOrder(params).then(res => {
         if (res.code == 200) {

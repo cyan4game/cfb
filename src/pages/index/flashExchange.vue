@@ -35,7 +35,8 @@
             @input="calcRate('from')"
             v-model="form.from"
             class="num"
-            placeholder=""
+            placeholder="0"
+            placeholder-style="color:#fca223"
           />
         </view>
         <view class="tip">请输入数量</view>
@@ -84,7 +85,8 @@
             @input="calcRate('to')"
             type="number"
             class="num"
-            placeholder=""
+            placeholder="0"
+            placeholder-style="color:#fca223"
           />
           <view class="tip">请输入数量</view>
         </view>
@@ -94,6 +96,12 @@
     <view class="rate">
       <text>1{{ form.fromCoin }} = {{ form.rate }}{{ form.toCoin }}</text>
       <!-- <text class="num">{{ form.rate }}</text> -->
+      <view class="total">
+            <text>可用余额：</text>
+            <text class="money"
+              >{{ form.amount || "0.00" }} {{ form.fromCoin }}</text
+            >
+          </view>
     </view>
 
     <u-button type="primary" class="btn" :disabled="disabled" @click="submit"
@@ -108,7 +116,7 @@
 import { getCoinPairExchangeInfo, toExchange } from "@/api/api";
 import usdtIcon from "@/static/images/index/usdt.png";
 import cfbIcon from "@/static/images/index/cfb.png";
-import { truncateDecimal } from "@/utils/utils";
+import { _fixed } from "@/utils/utils";
 
 const iconMap = {
   USDT: usdtIcon,
@@ -122,9 +130,9 @@ export default {
       iconMap,
       form: {
         fromCoin: "USDT",
-        from: "0",
+        from: "",
         toCoin: "CFB",
-        to: "0",
+        to: "",
         amount: "0.00", // 余额
         rate: "--", // 汇率
       },
@@ -162,8 +170,8 @@ export default {
               icon: "none",
               duration: 2000,
             });
-            this.form.from = "0";
-            this.form.to = "0";
+            this.form.from = "";
+            this.form.to = "";
             this.getInfo(true);
           }
         })
@@ -183,11 +191,13 @@ export default {
       //     this.form.from = num
       // }
       if (type == "from") {
+        if (!this.form.from) return this.form.to = ''
         let num = this.form.from * this.form.rate;
-        this.form.to = truncateDecimal(num, 2);
+        this.form.to = _fixed(num);
       } else {
+        if (!this.form.to) return this.form.from = ''
         let num = this.form.to / this.form.rate;
-        this.form.from = truncateDecimal(num, 2);
+        this.form.from = _fixed(num);
       }
     },
     // 全部
@@ -208,6 +218,7 @@ export default {
       if (!backLoading) {
         uni.showLoading({
           title: "",
+          mask: true,
         });
       }
       getCoinPairExchangeInfo({
@@ -231,8 +242,8 @@ export default {
       const toCoin = this.form.fromCoin;
       this.form.fromCoin = fromCoin;
       this.form.toCoin = toCoin;
-      this.form.from = "0";
-      this.form.to = "0";
+      this.form.from = "";
+      this.form.to = "";
       this.form.rate = "--";
       this.form.amount = "--";
       this.getInfo();

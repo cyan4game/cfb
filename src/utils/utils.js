@@ -23,6 +23,16 @@ export const isValidTRONAddress = (address) => {
 
 /* ---------------------- 地址校验结束 --------------------------- */
 
+// 截取2位小数
+export const _fixed = (number) => {
+  const numberString = number.toString();
+  if (numberString.includes('.')) {
+    const roundedNumberString = numberString.substring(0, numberString.indexOf('.') + 3);
+    return Number(roundedNumberString)
+  }
+  return numberString
+}
+
 // 隐藏手机号
 export const hiddenPhone = (str) => {
   return str.substr(0, 3) + "****" + str.substr(str.length - 3, 3);
@@ -178,17 +188,6 @@ export function secondsToMinutesAndSeconds(seconds) {
   return `${minutesString}:${secondsString}`;
 }
 
-// 截取小数位数
-export function truncateDecimal(number, decimalPlaces) {
-  if (isNaN(number) || isNaN(decimalPlaces)) {
-    return NaN; // 返回NaN以表示输入无效
-  }
-
-  const multiplier = Math.pow(10, decimalPlaces);
-  const truncatedNumber = Math.trunc(number * multiplier) / multiplier;
-
-  return truncatedNumber;
-}
 
 // 保存图片
 export function savePic(imgUrl) {

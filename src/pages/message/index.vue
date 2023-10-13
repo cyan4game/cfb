@@ -8,8 +8,8 @@
           <u-image
             class="more"
             src="/static/images/index/msg-service.png"
-            width="80rpx"
-            height="80rpx"
+            width="66rpx"
+            height="72rpx"
           ></u-image>
         </view>
         <view class="content">
@@ -33,8 +33,8 @@
           <u-image
             class="more"
             src="/static/images/index/msg-active.png"
-            width="80rpx"
-            height="80rpx"
+            width="76rpx"
+            height="68rpx"
           ></u-image>
         </view>
         <view class="content">
@@ -58,8 +58,8 @@
           <u-image
             class="more"
             src="/static/images/index/msg-system.png"
-            width="80rpx"
-            height="80rpx"
+            width="75rpx"
+            height="79rpx"
           ></u-image>
         </view>
         <view class="content">
@@ -152,8 +152,6 @@ export default {
       .icon {
         width: 80rpx;
         height: 80rpx;
-        border-radius: 50%;
-        overflow: hidden;
         margin-right: 40rpx;
       }
       .content {

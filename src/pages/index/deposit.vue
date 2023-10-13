@@ -128,6 +128,7 @@ export default {
     getAddress() {
       uni.showLoading({
         title: "",
+        mask: true,
       });
       getWalletAddress(this.currency, this.chain)
         .then((res) => {
@@ -208,6 +209,7 @@ export default {
       // 如果支持share方法就调用share，如果不支持就尝试复制图片，如果不能复制图片就直接复制地址
       uni.showLoading({
         title: "处理中",
+        mask: true,
       });
       const box = this.$refs.box.$el;
       html2canvas(box)

@@ -156,7 +156,8 @@ export default {
         uploadItem(file) {
             return new Promise(resolve => {
                 uni.showLoading({
-                    title: '上传中'
+                    title: '上传中',
+                    mask: true,
                 })
                 _upload(
                     file,

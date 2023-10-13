@@ -249,6 +249,7 @@ export default {
         return new Promise((resolve) => {
           uni.showLoading({
             title: "图片上传中",
+            mask: true,
           });
           _upload(
             file,
@@ -306,6 +307,7 @@ export default {
         if (!this.videoFile.name) return resolve("");
         uni.showLoading({
           title: "视频上传中",
+          mask: true,
         });
         _upload(
           this.videoFile,

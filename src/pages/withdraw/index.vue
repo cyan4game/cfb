@@ -93,7 +93,14 @@
       <view class="sure-box">
         <view class="title">
           <text>转账确认</text>
-          <view class="close" @click="() => $refs.popup.close()">×</view>
+          <view class="close" @click="() => $refs.popup.close()"
+            ><u-image
+              mode="contain"
+              src="/static/images/index/close.png"
+              width="24rpx"
+              height="24rpx"
+            ></u-image
+          ></view>
         </view>
 
         <view style="padding: 0 30rpx; box-sizing: border-box">
@@ -147,7 +154,8 @@ export default {
       return (
         !(this.form.toAddress && this.form.amount) ||
         this.loading ||
-        this.form.amount > this.money
+        this.form.amount > this.money ||
+        this.form.amount <= 0
       );
     },
     money() {

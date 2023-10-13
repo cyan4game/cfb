@@ -68,7 +68,7 @@ export default {
 <style lang="scss" scoped>
 .index-banner {
   width: 100%;
-  margin-top: 20rpx;
+  // margin-top: 20rpx;
   border-radius: 6rpx;
   height: 280rpx;
 }

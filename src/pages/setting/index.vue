@@ -38,7 +38,8 @@ export default {
         // 开关音效
         switchChange(e) {
             uni.showLoading({
-                title: ''
+                title: '',
+                mask: true,
             });
             soundNotificationSettings(e.target.value).then(res => {
                 if (res.code != 200) {

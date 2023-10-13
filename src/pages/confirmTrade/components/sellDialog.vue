@@ -10,13 +10,22 @@
     <view class="sure-box">
       <view class="title">
         <text>确认出售</text>
-        <view class="close" @click="() => $refs.popup.close()">×</view>
+        <view class="close" @click="() => $refs.popup.close()"
+          ><u-image
+            mode="contain"
+            src="/static/images/index/close.png"
+            width="24rpx"
+            height="24rpx"
+          ></u-image
+        ></view>
       </view>
 
       <view>
         <view class="sure-item">
           <text>收款账号</text>
-          <text class="sure-val">{{ payWayMap[form.payType] }}-{{ form.gatherNo }}</text>
+          <text class="sure-val"
+            >{{ payWayMap[form.payType] }}-{{ form.gatherNo }}</text
+          >
         </view>
         <view class="sure-item">
           <text>数量</text>
@@ -47,12 +56,12 @@ export default {
   props: {
     form: {
       type: Object,
-      dafault: () => {}
-    }
+      dafault: () => {},
+    },
   },
   data() {
     return {
-      payWayMap
+      payWayMap,
     };
   },
   methods: {
@@ -63,9 +72,9 @@ export default {
       this.$refs.popup.close();
     },
     next() {
-      this.close()
-      this.$emit('next')
-    }
+      this.close();
+      this.$emit("next");
+    },
   },
 };
 </script>

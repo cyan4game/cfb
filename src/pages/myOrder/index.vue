@@ -1,7 +1,11 @@
 <!-- 订单 -->
 <template>
   <view class="info-page-bg self-body page-myorder">
-    <u-navbar :safeAreaInsetTop="false" :title="'订单'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="false"
+      :title="'订单'"
+      @leftClick="() => $routers.back()"
+    />
     <view class="info-page-content content-box">
       <!-- 状态导航 -->
       <view class="tabs">
@@ -52,7 +56,14 @@
       <view class="filter-box">
         <view class="title">
           <text>筛选</text>
-          <view class="close" @click="() => $refs.popup.close()">×</view>
+          <view class="close" @click="() => $refs.popup.close()"
+            ><u-image
+              mode="contain"
+              src="/static/images/index/close.png"
+              width="24rpx"
+              height="24rpx"
+            ></u-image
+          ></view>
         </view>
         <!-- 类型选择 -->
         <view class="box type-box">
@@ -152,7 +163,7 @@ export default {
         0: [2, 3],
         1: [0, 7, 8, 9],
         2: [1, 6],
-        3: [4, 5]
+        3: [4, 5],
       },
       activeNav: 1, // 1-未完成 2-完成
       activeTab: -1,
@@ -206,7 +217,8 @@ export default {
     },
     // 获取时间等参数
     getDateParams() {
-      const orderStatusList = this.activeTab == -1 ? null : this.tabMap[this.activeTab]
+      const orderStatusList =
+        this.activeTab == -1 ? null : this.tabMap[this.activeTab];
       if (!this.activeTime)
         return {
           createTimeStart: "",

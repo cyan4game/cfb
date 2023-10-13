@@ -248,6 +248,7 @@ export default {
     sureGetHandle() {
       uni.showLoading({
         title: "",
+        mask: true,
       });
       confirmCollect({
         orderId: this.item.entrustId,
@@ -275,6 +276,7 @@ export default {
     orderCancelHandle() {
       uni.showLoading({
         title: "",
+        mask: true,
       });
       orderCancel({
         orderId: this.item.entrustId,
@@ -298,6 +300,7 @@ export default {
     submitPic(pic) {
       uni.showLoading({
         title: "",
+        mask: true,
       });
       confirmPay({
         orderId: this.item.entrustId,

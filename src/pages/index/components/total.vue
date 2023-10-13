@@ -4,7 +4,14 @@
     <view class="home-total">
       <view class="title">
         <text>资产分布详情</text>
-        <view class="close" @click="close">×</view>
+        <view class="close" @click="close"
+          ><u-image
+            mode="contain"
+            src="/static/images/index/close.png"
+            width="24rpx"
+            height="24rpx"
+          ></u-image
+        ></view>
       </view>
 
       <view class="draw-box">

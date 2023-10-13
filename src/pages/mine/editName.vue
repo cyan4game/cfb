@@ -61,6 +61,7 @@ export default {
       if (!this.userInfo.nickname) return;
       uni.showLoading({
         title: "",
+        mask: true,
       });
       nicknameSettings({ nickname: this.userInfo.nickname })
         .then((res) => {

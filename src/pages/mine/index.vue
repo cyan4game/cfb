@@ -229,11 +229,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20rpx 60rpx;
+    padding: 0 60rpx;
     color: #fff;
     font-size: 36rpx;
     background-color: #0c1114;
     position: relative;
+    height: 104rpx;
     .icon {
       position: absolute;
       right: 40rpx;
