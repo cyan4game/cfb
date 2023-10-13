@@ -467,12 +467,12 @@ export default {
       box-sizing: border-box;
       color: #449367;
       height: 56rpx;
+      width: 153rpx;
       border: 1rpx solid #38363b;
       border-radius: 6rpx;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 20rpx;
       margin: 0 25rpx;
       font-size: 24rpx;
     }

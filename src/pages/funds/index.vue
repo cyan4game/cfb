@@ -82,6 +82,7 @@
           <view class="info">
             <view class="title">
               <text>{{ typeMap[item.type] || '--' }}</text>
+              <text v-if="item.type == 3">{{ item.payCoin }}-{{ item.receiveCoin }}</text>
               <!-- <u-image class="item-dir" src="@/static/images/funds/left.png" width="30rpx" height="16rpx"></u-image>
                             <text class="name">捕鱼</text> -->
             </view>
@@ -306,7 +307,8 @@ export default {
   methods: {
     getTimestr,
     // 查看详情
-    goInfo() {
+    goInfo(item) {
+      storage.set('fund-info', item)
       uni.navigateTo({
         url: "/pages/funds/info",
       });
@@ -629,7 +631,7 @@ export default {
       background-color: #f1f1f1;
       flex: 1;
       overflow: hidden;
-      padding: 49rpx 29rpx;
+      padding: 20rpx;
       box-sizing: border-box;
 
       .more {

@@ -35,7 +35,7 @@
       <view class="form-item">
         <view class="item-title" style="margin-bottom: 0">上传图片凭证</view>
         <view class="tip"
-          >图片支持png、jpg格式，单张图片最大5M,至少上传3张,最多9张图片</view
+          >图片支持png、jpg格式，单张图片最大2M,至少上传3张,最多9张图片</view
         >
 
         <view class="upload-box">
@@ -391,8 +391,9 @@ export default {
       }
 
       .tip {
-        font-size: 24rpx;
+        font-size: 20rpx;
         margin-top: 10rpx;
+        color: #433F48;
       }
     }
 

@@ -348,7 +348,7 @@ export default {
   .list {
     flex: 1;
     overflow: hidden;
-    padding: 28rpx;
+    // padding: 28rpx;
     background-color: #f1f1f1;
     box-sizing: border-box;
 

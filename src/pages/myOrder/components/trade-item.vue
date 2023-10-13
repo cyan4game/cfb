@@ -4,6 +4,7 @@
     <!-- 头部信息 -->
     <view class="top">
       <view class="title">
+        <coin-icon :coin="item.buyCoin || item.payCoin" style="width:50rpx;height:50rpx;margin-right:16rpx" />
         <text class="status">{{ orderTypeMap[item.orderType] || "--" }}</text>
         <text>{{ item.buyCoin || item.payCoin }}</text>
       </view>
@@ -24,7 +25,10 @@
         <view>交易金额(CNY)</view>
         <view class="val">￥{{ item.payAmount }}</view>
       </view>
-      <view class="time">{{ getTimestr(item.dealTime) }}</view>
+      <view class="left">
+        <view>时间</view>
+        <view class="val time">{{ getTimestr(item.dealTime) }}</view>
+      </view>
     </view>
 
     <!-- 底部信息 -->
@@ -98,16 +102,15 @@ export default {
   border-radius: 9rpx;
   background-color: #fff;
   box-sizing: border-box;
-  padding: 0 43rpx;
+  padding: 0 70rpx;
   font-weight: 400;
   .top {
-    height: 103rpx;
+    height: 102rpx;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 26rpx;
     border-bottom: 1px solid #f1f1f1;
-    margin-bottom: 20rpx;
     .title {
       display: flex;
       align-items: center;
@@ -126,29 +129,23 @@ export default {
     }
   }
   .amount-box {
-    flex-wrap: wrap;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     box-sizing: border-box;
+    padding: 20rpx 0;
     .left {
       color: #686868;
       font-size: 28rpx;
-      line-height: 55rpx;
-      flex: 1;
+      line-height: 64rpx;
+      display: flex;
+    align-items: center;
+    justify-content: space-between;
       text-align: center;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       .val {
         color: #8c8c8c;
       }
     }
     .time {
-      margin-top: 20rpx;
-      box-sizing: border-box;
-      width: 100%;
-      border-top: 1px solid #f1f1f1;
-      padding: 30rpx 0;
       color: #686868;
       font-size: 26rpx;
     }

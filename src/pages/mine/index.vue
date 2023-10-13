@@ -169,6 +169,7 @@ export default {
   onShow() {
     this.userInfo = storage.get("userInfo") || {};
     this.idenInfo = storage.get("idenInfo") || {};
+    console.error(this.idenInfo)
   },
   methods: {
     // 获取认证信息

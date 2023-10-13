@@ -57,13 +57,12 @@
 
           <view class="body">
             <view class="row">
-              <view class="row-val">￥{{ item.referenceRate }}</view>
               <view class="row-name">参考汇率（CNY）</view>
+              <view class="row-val">￥{{ item.referenceRate }}</view>
             </view>
-            <view class="line"></view>
             <view class="row">
-              <view class="row-val">{{ item.entrustAmount }}</view>
               <view class="row-name">委托数量</view>
+              <view class="row-val">{{ item.entrustAmount }}</view>
             </view>
           </view>
 
@@ -250,7 +249,7 @@ export default {
   .list {
     flex: 1;
     overflow: hidden;
-    padding: 30rpx;
+    // padding: 30rpx;
     background-color: #f1f1f1;
     box-sizing: border-box;
     .more {
@@ -332,14 +331,13 @@ export default {
           flex-direction: column;
           align-items: center;
           justify-content: space-between;
-          font-size: 23rpx;
+          font-size: 28rpx;
           .row-name {
             color: #696969;
+            margin-bottom: 10rpx;
           }
           .row-val {
-            font-size: 50rpx;
-            color: #38363b;
-            margin-bottom: 10rpx;
+            color: #686868;
           }
         }
         .line {

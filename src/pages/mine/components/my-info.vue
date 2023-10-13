@@ -28,50 +28,55 @@
 </template>
 
 <script>
-import { hiddenPhone } from '@/utils/utils'
+import { hiddenPhone } from "@/utils/utils";
 
 export default {
-    props: {
-        userInfo: { // 用户信息
-            type: Object,
-            default: () => {}
-        },
-        idenInfo: { // 认证信息
-            type: Object,
-            default: () => {}
-        },
+  props: {
+    userInfo: {
+      // 用户信息
+      type: Object,
+      default: () => {},
     },
-    computed: {
-        idenText() { // 认证状态
-            const iden = this.idenInfo
-            let status = '未认证'
-            if (iden) {
-                if (iden.certificationType > 1) status = '基础认证'
-                if (iden.certificationType > 2) status = '标准认证'
-                if (iden.certificationType == 3 && iden.certificationStatus == 3) status = '高级认证'
-            }
-            return status
-        }
+    idenInfo: {
+      // 认证信息
+      type: Object,
+      default: () => {},
     },
-    methods: {
-        // 去个人中心
-        goInfo() {
-            uni.navigateTo({
-                url: '/pages/mine/info'
-            })
-        },
-        // 去认证
-        goIden() {
-            uni.navigateTo({
-                url: '/pages/identification/index'
-            })
-        },
-        // 隐藏
-        hiddenStr(str) {
-            return hiddenPhone(str)
-        }
-    }
-}
+  },
+  computed: {
+    idenText() {
+      // 认证状态
+      // certificationType: 1, 认证类型 认证类型 1-标准认证，2-高级认证
+      //  certificationStatus: 1, 认证状态 1 未认证 2 认证成功 3 认证失败
+      const iden = this.idenInfo;
+      let status = "未认证";
+      if (iden) {
+        if (iden.certificationType > 1 || (iden.certificationType == 1 && iden.certificationStatus == 2)) status = "基础认证";
+        if (iden.certificationType == 2 && iden.certificationStatus == 2)
+          status = "高级认证";
+      }
+      return status;
+    },
+  },
+  methods: {
+    // 去个人中心
+    goInfo() {
+      uni.navigateTo({
+        url: "/pages/mine/info",
+      });
+    },
+    // 去认证
+    goIden() {
+      uni.navigateTo({
+        url: "/pages/identification/index",
+      });
+    },
+    // 隐藏
+    hiddenStr(str) {
+      return hiddenPhone(str);
+    },
+  },
+};
 </script>
 
 <style lang="scss">

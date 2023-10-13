@@ -16,6 +16,7 @@
 </template>
 
 <script>
+// import { advancedCertification } from '@/api/api'
 
 export default {
   name: "iden3",

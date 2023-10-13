@@ -95,7 +95,7 @@ export default {
       type: 'buy', // 出售-sell  购买-buy
       form: {
         currency: 'CFB', // 币种
-        paymodelId: '', // 收款方式id
+        payModelId: '', // 收款方式id
         entrustAmount: '', // 委托数量
         estimatedAmount: '', // 预估成交金额
         referenceRate: '1.00', // 汇率
@@ -123,7 +123,7 @@ export default {
         if (this.form.entrustAmount && !this.loading) return false
         return true
       } else { // 出售
-        if (this.form.entrustAmount && this.form.entrustAmount > 0 && this.form.entrustAmount <= this.cfb && this.form.paymodelId && !this.loading) return false
+        if (this.form.entrustAmount && this.form.entrustAmount > 0 && this.form.entrustAmount <= this.cfb && this.form.payModelId && !this.loading) return false
         return true
       }
     },
@@ -135,7 +135,7 @@ export default {
   },
   onLoad(data) {
     this.type = data.type == 2 ? 'sell' : 'buy'
-    // 'currency', 'paymodelId', 'entrustAmount', 'estimatedAmount', 'referenceRate', 'endTime', 'type'
+    // 'currency', 'payModelId', 'entrustAmount', 'estimatedAmount', 'referenceRate', 'endTime', 'type'
     Object.assign(this.form, data)
 
     
@@ -179,7 +179,7 @@ export default {
     // 选择支付方式
     bindPayWayChange(e) {
       this.paywayIndex = e.target.value
-      this.form.paymodelId = this.payways[this.paywayIndex].id
+      this.form.payModelId = this.payways[this.paywayIndex].id
     },
     // 查询支付方式
     getPayways() {
@@ -191,8 +191,8 @@ export default {
             return item
           })
           storage.set('mypayways', this.payways)
-          if (this.form.paymodelId) {
-            this.paywayIndex = this.payways.findIndex(item => item.id == this.form.paymodelId)
+          if (this.form.payModelId) {
+            this.paywayIndex = this.payways.findIndex(item => item.id == this.form.payModelId)
           }
         }
       })
@@ -209,7 +209,7 @@ export default {
             icon: 'none',
             duration: 2000
           })
-          this.form.paymodelId = ''
+          this.form.payModelId = ''
           this.form.entrustAmount = ''
           this.form.estimatedAmount = ''
           setTimeout(() => {

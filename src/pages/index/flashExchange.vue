@@ -7,10 +7,7 @@
       @leftClick="() => $routers.back()"
     />
 
-    <!-- <view class="rate">
-      <text>汇率：</text>
-      <text class="num">{{ form.rate }}</text>
-    </view> -->
+   
 
     <view class="main-box">
       <view class="box">
@@ -92,6 +89,11 @@
           <view class="tip">请输入数量</view>
         </view>
       </view>
+    </view>
+
+    <view class="rate">
+      <text>1{{ form.fromCoin }} = {{ form.rate }}{{ form.toCoin }}</text>
+      <!-- <text class="num">{{ form.rate }}</text> -->
     </view>
 
     <u-button type="primary" class="btn" :disabled="disabled" @click="submit"
@@ -251,9 +253,9 @@ export default {
 
   .rate {
     text-align: center;
-    color: #7a7a7a;
+    color: #808080;
     font-size: 26rpx;
-    padding: 50rpx 0 8rpx 0;
+    padding: 109rpx 0 8rpx 0;
 
     .num {
       color: #e63c3c;
@@ -357,10 +359,7 @@ export default {
     align-items: center;
     justify-content: center;
     font-size: 30rpx;
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 60rpx;
+    margin: 50rpx auto 0 auto;
   }
 }
 </style>

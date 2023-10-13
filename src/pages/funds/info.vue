@@ -1,63 +1,56 @@
 <!-- 交易详情 -->
 <template>
     <view class="info-page-bg self-body page-fundsinfo">
-        <u-navbar :safeAreaInsetTop="false" :title="'交易详情'" @leftClick="() => $routers.back()" />
+        <u-navbar :safeAreaInsetTop="false" :title="'资金详情'" @leftClick="() => $routers.back()" />
         <view class="info-page-content content-box">
-
-            <view class="info-box title">交易详情</view>
-            <view class="info-box info-text">您已成功出售5USDT</view>
 
             <!-- 状态 -->
             <view class="status-box">
                 <u-image class="status-icon" src="@/static/images/funds/status-1.png" width="80rpx"
                     height="80rpx"></u-image>
                 <view class="status-content">
-                    <view class="status-title">{{ info.status }}</view>
-                    <view>-5 USDT</view>
+                    <view class="status-title">{{ typeMap[info.type] || '' }}成功</view>
+                    <view>{{ info.amount }}{{ info.payCoin }}</view>
                 </view>
             </view>
 
             <!-- 详情 -->
             <view class="info-box details">
                 <view class="detail">
-                    <view class="name">确认数</view>
-                    <view class="content">{{ info.confirmNum }}</view>
+                    <view class="name">数量</view>
+                    <view class="content">{{ info.amount }}{{ info.payCoin }}</view>
                 </view>
                 <view class="detail">
-                    <view class="name">业务单号</view>
-                    <view class="content">{{ info.businessId }}</view>
+                    <view class="name">手续费</view>
+                    <view class="content">{{ info.fee || '--' }}</view>
                 </view>
                 <view class="detail">
-                    <view class="name">网络</view>
-                    <view class="content">{{ info.coin }}</view>
+                    <view class="name">转出地址</view>
+                    <view class="content">{{ info.payAddress || '--' }}</view>
                 </view>
                 <view class="detail">
-                    <view class="name">类型</view>
-                    <view class="content">{{ info.type }}</view>
+                    <view class="name">转入地址</view>
+                    <view class="content">{{ info.receiveAddress }}</view>
                 </view>
                 <view class="detail">
-                    <view class="name">状态</view>
-                    <view class="content">{{ info.status }}</view>
+                    <view class="name">交易哈希</view>
+                    <view class="content">{{ info.transactionHash }}</view>
                 </view>
-                <view class="detail">
+                <!-- <view class="detail">
                     <view class="name">充币地址</view>
                     <view class="content" @click="copy('复制的内容')">
                         <u-image class="copy-icon" src="@/static/images/funds/copy.png" width="26rpx"
                     height="31rpx"></u-image>
                         <text>{{ info.address }}</text>
                     </view>
+                </view> -->
+                <view class="detail">
+                    <view class="name">创建时间</view>
+                    <view class="content">{{ getTimestr(info.createDate) }}</view>
                 </view>
                 <view class="detail">
-                    <view class="name">区块链交易ID</view>
-                    <view class="content" @click="copy('复制的内容')">
-                        <u-image class="copy-icon" src="@/static/images/funds/copy.png" width="26rpx"
-                    height="31rpx"></u-image>
-                        <text>{{ info.transactionHash }}</text>
-                    </view>
-                </view>
-                <view class="detail">
-                    <view class="name">时间</view>
-                    <view class="content">{{ info.createTime }}</view>
+                    <view class="name">完成时间</view>
+                    <view class="content">{{ getTimestr(info.finishDate) }}</view>
                 </view>
             </view>
 
@@ -66,14 +59,22 @@
 </template>
 
 <script>
-
 import { copyTxt } from '@/utils/utils'
 import { businessDetail } from '@/api/api'
-
+import storage from '@/utils/storage'
+import { getTimestr } from '@/utils/time'
+const typeMap = {
+    1: '充币',
+    2: '转账',
+    3: '闪兑',
+    4: '购买',
+    5: '出售'
+}
 export default {
     name: 'fundsInfo',
     data() {
         return {
+            typeMap,
             info: {}, // 详情
         }
     },
@@ -81,13 +82,11 @@ export default {
         this.getInfoData()
     },
     methods: {
+        getTimestr,
         // 获取详细数据
         getInfoData() {
-            businessDetail(1, 1).then(res => {
-                if (res.code == 200) {
-                    this.info = res.data
-                }
-            })
+            this.info = storage.get('fund-info')
+            console.error('详情', this.info)
         },
         // 复制
         copy(txt) {
@@ -154,7 +153,7 @@ export default {
                 display: flex;
                 align-items: flex-start;
                 justify-content: space-between;
-                min-height: 80rpx;
+                min-height: 50rpx;
                 margin-bottom: 20rpx;
                 font-size: 26rpx;
                 .name {

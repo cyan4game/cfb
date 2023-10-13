@@ -192,7 +192,7 @@ export default {
       const params = JSON.parse(
         JSON.stringify(this.info, [
           "currency",
-          "paymodelId",
+          "payModelId",
           "entrustAmount",
           "estimatedAmount",
           "referenceRate",

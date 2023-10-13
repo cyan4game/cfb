@@ -136,6 +136,7 @@ export default {
 <style lang="scss" scoped>
 .page-message {
   .content-box {
+    padding: 0 26rpx;
     .item {
       background-color: #fff;
       padding: 40rpx;
@@ -143,9 +144,11 @@ export default {
       display: flex;
       align-items: center;
       color: #8c8c8c;
-      font-size: 26rpx;
+      font-size: 24rpx;
       line-height: 40rpx;
-      margin-bottom: 20rpx;
+      height: 180rpx;
+      box-sizing: border-box;
+      border-bottom: 1px solid #CECECE;
       .icon {
         width: 80rpx;
         height: 80rpx;
@@ -157,7 +160,7 @@ export default {
         flex: 1;
         overflow: hidden;
         .title {
-          font-size: 36rpx;
+          font-size: 32rpx;
           color: #484848;
         }
         .info {
@@ -165,7 +168,7 @@ export default {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          margin-top: 10rpx;
+          margin-top: 8rpx;
         }
       }
       .time {

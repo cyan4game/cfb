@@ -4,22 +4,23 @@
     <!-- 弹出详情 -->
     <view class="dialog-box-bg" v-show="showInfo" @click="showInfo = false">
       <view class="dialog-box">
+        <view class="close">×</view>
         <view class="item">
-        <text>CFB余额</text>
-        <text class="val">{{ assets.cfbBalance || '0.00' }}</text>
-      </view>
-      <view class="item">
-        <text>USDT余额</text>
-        <text class="val">{{ assets.usdtBalance || '0.00' }}</text>
-      </view>
-      <view class="item">
-        <text>委托中USDT</text>
-        <text class="val">{{ assets.usdtEntrust || '0.00' }}</text>
-      </view>
-      <view class="item">
-        <text>委托中CFB</text>
-        <text class="val">{{ assets.cfbEntrust || '0.00' }}</text>
-      </view>
+          <text>CFB余额</text>
+          <text class="val">{{ assets.cfbBalance || "0.00" }}</text>
+        </view>
+        <view class="item">
+          <text>USDT余额</text>
+          <text class="val">{{ assets.usdtBalance || "0.00" }}</text>
+        </view>
+        <view class="item">
+          <text>委托中USDT</text>
+          <text class="val">{{ assets.usdtEntrust || "0.00" }}</text>
+        </view>
+        <view class="item">
+          <text>委托中CFB</text>
+          <text class="val">{{ assets.cfbEntrust || "0.00" }}</text>
+        </view>
       </view>
     </view>
 
@@ -47,8 +48,8 @@
         @click="() => (showInfo = !showInfo)"
         class="time"
         src="/static/images/index/total.png"
-        width="34rpx"
-        height="34rpx"
+        width="33rpx"
+        height="32rpx"
       ></u-image>
     </view>
 
@@ -100,8 +101,8 @@
         <u-image
           class="ball"
           src="/static/images/index/total-1.png"
-          width="42rpx"
-          height="43rpx"
+          width="35rpx"
+          height="36rpx"
         ></u-image>
         <view>
           <view class="num">${{ showMoney ? "--" : "****" }}</view>
@@ -113,8 +114,8 @@
         <u-image
           class="ball"
           src="/static/images/index/total-2.png"
-          width="55rpx"
-          height="41rpx"
+          width="42rpx"
+          height="32rpx"
         ></u-image>
         <view>
           <view class="num">${{ showMoney ? "--" : "****" }}</view>
@@ -127,7 +128,7 @@
 
 <script>
 // import total from "./total";
-import { memberAsset } from '@/api/api'
+import { memberAsset } from "@/api/api";
 import usdtIcon from "@/static/images/index/usdt.png";
 import cfbIcon from "@/static/images/index/cfb.png";
 const iconMap = {
@@ -161,20 +162,20 @@ export default {
   },
   computed: {
     total() {
-      let t = '0.00'
-      if (this.currCoin == 'USDT') t = this.assets.usdtTotalBalance
-      if (this.currCoin == 'CFB') t = this.assets.cfbTotalBalance 
-      return t || '0.00'
-    }
+      let t = "0.00";
+      if (this.currCoin == "USDT") t = this.assets.usdtTotalBalance;
+      if (this.currCoin == "CFB") t = this.assets.cfbTotalBalance;
+      return t || "0.00";
+    },
   },
   methods: {
     // 获取资产
     getAssets() {
-      memberAsset().then(res => {
+      memberAsset().then((res) => {
         if (res.code == 200) {
-          this.assets = res.data
+          this.assets = res.data;
         }
-      })
+      });
     },
     // 选择币种
     selectCoin(item) {
@@ -329,14 +330,14 @@ export default {
     top: 0;
     left: 0;
     z-index: 999;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
   }
   .dialog-box {
     border: 1px solid #d7d7d7;
     border-top: none;
     width: 630rpx;
     position: absolute;
-    top: calc(500rpx + var(--status-bar-height))!important;
+    top: calc(450rpx + var(--status-bar-height)) !important;
     left: 50%;
     transform: translateX(-50%);
     background-color: #fff;
@@ -344,6 +345,20 @@ export default {
     border-radius: 6rpx;
     padding: 20rpx 40rpx;
     box-sizing: border-box;
+    .close {
+      width: 40rpx;
+      height: 40rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #eee;
+      color: #888;
+      border-radius: 50%;
+      padding-bottom: 6rpx;
+      padding-left: 4rpx;
+      box-sizing: border-box;
+      margin: 10rpx 0 10rpx auto;
+    }
     .item {
       display: flex;
       align-items: center;
@@ -352,9 +367,9 @@ export default {
       font-size: 28rpx;
       box-sizing: border-box;
       height: 91rpx;
-      border-bottom: 1px solid #DFDFDF;
+      border-bottom: 1px solid #dfdfdf;
       &:last-child {
-        border-bottom:none;
+        border-bottom: none;
       }
       .val {
         color: #262626;

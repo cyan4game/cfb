@@ -230,6 +230,12 @@ export const certificateQuery = (data) => {
     custom: { auth: true, toast: true },
   });
 };
+// 高级认证
+export const advancedCertification = (data) => {
+  return http.post(`/memberCertificate/advancedCertification`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
 // 查询不同认证级别额度
 export const queryOtcLimit = (data) => {
   return http.post(`/member-certificate/queryOtcLimit`, data, {
