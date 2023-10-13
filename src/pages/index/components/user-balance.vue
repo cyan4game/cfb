@@ -2,22 +2,24 @@
 <template>
   <view class="user-banlance">
     <!-- 弹出详情 -->
-    <view class="dialog-box" v-show="showInfo">
-      <view class="item">
+    <view class="dialog-box-bg" v-show="showInfo" @click="showInfo = false">
+      <view class="dialog-box">
+        <view class="item">
         <text>CFB余额</text>
-        <text class="val">3000.00</text>
+        <text class="val">{{ assets.cfbBalance || '0.00' }}</text>
       </view>
       <view class="item">
         <text>USDT余额</text>
-        <text class="val">3000.00</text>
+        <text class="val">{{ assets.usdtBalance || '0.00' }}</text>
       </view>
       <view class="item">
         <text>委托中USDT</text>
-        <text class="val">3000.00</text>
+        <text class="val">{{ assets.usdtEntrust || '0.00' }}</text>
       </view>
       <view class="item">
         <text>委托中CFB</text>
-        <text class="val">3000.00</text>
+        <text class="val">{{ assets.cfbEntrust || '0.00' }}</text>
+      </view>
       </view>
     </view>
 
@@ -53,7 +55,7 @@
     <!-- 余额 -->
     <view class="amount">
       <view>≈</view>
-      <view class="num">{{ showMoney ? "222.22" : "****" }}</view>
+      <view class="num">{{ showMoney ? total : "****" }}</view>
       <view class="select" @click="showSelect = !showSelect">
         <u-image
           class="icon"
@@ -102,7 +104,7 @@
           height="43rpx"
         ></u-image>
         <view>
-          <view class="num">${{ showMoney ? "222.22" : "****" }}</view>
+          <view class="num">${{ showMoney ? "--" : "****" }}</view>
           <text>今日收益</text>
         </view>
       </view>
@@ -115,7 +117,7 @@
           height="41rpx"
         ></u-image>
         <view>
-          <view class="num">${{ showMoney ? "222.22" : "****" }}</view>
+          <view class="num">${{ showMoney ? "--" : "****" }}</view>
           <text>累计收益</text>
         </view>
       </view>
@@ -125,6 +127,7 @@
 
 <script>
 // import total from "./total";
+import { memberAsset } from '@/api/api'
 import usdtIcon from "@/static/images/index/usdt.png";
 import cfbIcon from "@/static/images/index/cfb.png";
 const iconMap = {
@@ -136,6 +139,7 @@ export default {
   name: "user-banlance",
   data() {
     return {
+      assets: {},
       iconMap,
       showInfo: false, // 是否展示详情
       showMoney: true, // 是否展示数字
@@ -155,7 +159,23 @@ export default {
       ],
     };
   },
+  computed: {
+    total() {
+      let t = '0.00'
+      if (this.currCoin == 'USDT') t = this.assets.usdtTotalBalance
+      if (this.currCoin == 'CFB') t = this.assets.cfbTotalBalance 
+      return t || '0.00'
+    }
+  },
   methods: {
+    // 获取资产
+    getAssets() {
+      memberAsset().then(res => {
+        if (res.code == 200) {
+          this.assets = res.data
+        }
+      })
+    },
     // 选择币种
     selectCoin(item) {
       this.currCoin = item.coin;
@@ -202,8 +222,10 @@ export default {
     font-weight: 66rpx;
     margin: 32rpx 0;
     .num {
-      font-size: 72rpx;
-      margin: 0 50rpx 0 10rpx;
+      font-size: 62rpx;
+      margin: 0 20rpx 0 0;
+      word-break: break-all;
+      flex: 1;
     }
     .select {
       display: flex;
@@ -213,7 +235,7 @@ export default {
       border-radius: 6rpx;
       font-size: 22rpx;
       font-weight: 400;
-      padding: 0 20rpx;
+      padding: 0 10rpx;
       position: relative;
       .icon {
         margin-right: 10rpx;
@@ -300,18 +322,27 @@ export default {
       width: 1px;
     }
   }
+  .dialog-box-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background-color: rgba(0,0,0,0.5);
+  }
   .dialog-box {
     border: 1px solid #d7d7d7;
     border-top: none;
-    width: 100%;
-    height: 384rpx;
+    width: 630rpx;
     position: absolute;
-    top: 130rpx;
-    left: 0;
+    top: calc(500rpx + var(--status-bar-height))!important;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: #fff;
     z-index: 9;
     border-radius: 6rpx;
-    padding-top: 20rpx;
+    padding: 20rpx 40rpx;
     box-sizing: border-box;
     .item {
       display: flex;
@@ -320,8 +351,11 @@ export default {
       color: #8c8c8c;
       font-size: 28rpx;
       box-sizing: border-box;
-      padding: 0 42rpx;
-      margin-bottom: 50rpx;
+      height: 91rpx;
+      border-bottom: 1px solid #DFDFDF;
+      &:last-child {
+        border-bottom:none;
+      }
       .val {
         color: #262626;
       }

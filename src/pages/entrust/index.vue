@@ -369,7 +369,7 @@ export default {
     font-size: 26rpx;
     width: 164rpx;
     position: absolute;
-    top: calc(210rpx + env(safe-area-inset-top))!important;
+    top: calc(210rpx + var(--status-bar-height))!important;
     left: 50rpx;
     .select-item {
       height: 72rpx;

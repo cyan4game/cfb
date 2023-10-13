@@ -80,6 +80,10 @@ export default {
         url: "/pages/setPayPassword/index",
       });
     }
+
+    setTimeout(() => {
+      this.$refs.ub.getAssets()
+    }, 100)
   },
   onHide() {
     this.$refs.ub.closeSelectCoin();

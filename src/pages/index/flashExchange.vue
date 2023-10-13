@@ -1,93 +1,102 @@
 <!-- 闪兑 -->
 <template>
   <view class="page-fe">
-    <!-- 右上角功能按钮 -->
-    <!-- <u-image
-      class="time-icon"
-      src="/static/images/home/time.png"
-      width="36rpx"
-      height="36rpx"
-    ></u-image> -->
-    <u-navbar :safeAreaInsetTop="false" :title="'闪兑'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="false"
+      :title="'闪兑'"
+      @leftClick="() => $routers.back()"
+    />
 
-    <view class="rate">
+    <!-- <view class="rate">
       <text>汇率：</text>
       <text class="num">{{ form.rate }}</text>
-    </view>
+    </view> -->
 
-    <view class="box">
-      <view class="top">
-        <view class="select">
-          <u-image
-            class="img"
-            :src="iconMap[form.fromCoin]"
-            width="34rpx"
-            height="34rpx"
-          ></u-image>
-          <text>{{ form.fromCoin }}</text>
-          <u-image
-            class="more"
-            src="/static/images/index/more.png"
-            width="13rpx"
-            height="8rpx"
-          ></u-image>
+    <view class="main-box">
+      <view class="box">
+        <view class="top">
+          <view class="select">
+            <u-image
+              class="img"
+              :src="iconMap[form.fromCoin]"
+              width="34rpx"
+              height="34rpx"
+            ></u-image>
+            <view>
+              <view style="margin-bottom: 4rpx">{{ form.fromCoin }}</view>
+              <text class="tip" style="font-size: 15rpx">转出数量</text>
+            </view>
+            <u-image
+              class="more"
+              src="/static/images/index/more.png"
+              width="13rpx"
+              height="8rpx"
+            ></u-image>
+          </view>
+          <input
+            type="number"
+            @input="calcRate('from')"
+            v-model="form.from"
+            class="num"
+            placeholder=""
+          />
         </view>
-        <input
-          type="number"
-          @input="calcRate('from')"
-          v-model="form.from"
-          class="num"
-          placeholder=""
-        />
+        <view class="tip">请输入数量</view>
+        <!-- <view class="bottom">
+          <view class="total">
+            <text>可用余额：</text>
+            <text class="money"
+              >{{ form.amount || "0.00" }} {{ form.fromCoin }}</text
+            >
+          </view>
+          <view class="all" @click="all">全部</view>
+        </view> -->
       </view>
-      <view class="bottom">
-        <view class="total">
-          <text>可用余额：</text>
-          <text class="money"
-            >{{ form.amount || "0.00" }} {{ form.fromCoin }}</text
-          >
+
+      <view class="trans-icon" @click="changeCoin">
+        <u-image
+          class="more"
+          src="/static/images/home/trans.png"
+          width="43rpx"
+          height="39rpx"
+        ></u-image>
+      </view>
+
+      <view class="box box2">
+        <view class="top">
+          <view class="select">
+            <u-image
+              class="img"
+              :src="iconMap[form.toCoin]"
+              width="34rpx"
+              height="34rpx"
+            ></u-image>
+            <view>
+              <view style="margin-bottom: 4rpx">{{ form.toCoin }}</view>
+              <text class="tip" style="font-size: 15rpx">接受数量</text>
+            </view>
+            <u-image
+              class="more"
+              src="/static/images/index/more.png"
+              width="13rpx"
+              height="8rpx"
+            ></u-image>
+          </view>
+          <input
+            v-model="form.to"
+            @input="calcRate('to')"
+            type="number"
+            class="num"
+            placeholder=""
+          />
+          <view class="tip">请输入数量</view>
         </view>
-        <view class="all" @click="all">全部</view>
       </view>
     </view>
 
-    <view class="trans-icon" @click="changeCoin">
-      <u-image
-        class="more"
-        src="/static/images/home/trans.png"
-        width="51rpx"
-        height="47rpx"
-      ></u-image>
-    </view>
-
-    <view class="box box2">
-      <view class="top">
-        <view class="select">
-          <u-image
-            class="img"
-            :src="iconMap[form.toCoin]"
-            width="34rpx"
-            height="34rpx"
-          ></u-image>
-          <text>{{ form.toCoin }}</text>
-          <u-image
-            class="more"
-            src="/static/images/index/more.png"
-            width="13rpx"
-            height="8rpx"
-          ></u-image>
-        </view>
-        <input
-          v-model="form.to"
-          @input="calcRate('to')"
-          type="number"
-          class="num"
-          placeholder=""
-        />
-      </view>
-    </view>
-
-    <u-button type="primary" class="btn" :disabled="disabled" @click="submit">兑换</u-button>
+    <u-button type="primary" class="btn" :disabled="disabled" @click="submit"
+      >闪兑</u-button
+    >
 
     <coin-select ref="coinSelect" @select="coinSelect"></coin-select>
   </view>
@@ -111,9 +120,9 @@ export default {
       iconMap,
       form: {
         fromCoin: "USDT",
-        from: "0.00",
+        from: "0",
         toCoin: "CFB",
-        to: "0.00",
+        to: "0",
         amount: "0.00", // 余额
         rate: "--", // 汇率
       },
@@ -122,7 +131,14 @@ export default {
   },
   computed: {
     disabled() {
-      return this.loading || !Number(this.form.from) || !(Number(this.form.from) > 0 && Number(this.form.from) <= Number(this.form.amount));
+      return (
+        this.loading ||
+        !Number(this.form.from) ||
+        !(
+          Number(this.form.from) > 0 &&
+          Number(this.form.from) <= Number(this.form.amount)
+        )
+      );
     },
   },
   onShow() {
@@ -144,8 +160,8 @@ export default {
               icon: "none",
               duration: 2000,
             });
-            this.form.from = "0.00";
-            this.form.to = "0.00";
+            this.form.from = "0";
+            this.form.to = "0";
             this.getInfo(true);
           }
         })
@@ -213,8 +229,8 @@ export default {
       const toCoin = this.form.fromCoin;
       this.form.fromCoin = fromCoin;
       this.form.toCoin = toCoin;
-      this.form.from = "0.00";
-      this.form.to = "0.00";
+      this.form.from = "0";
+      this.form.to = "0";
       this.form.rate = "--";
       this.form.amount = "--";
       this.getInfo();
@@ -243,27 +259,34 @@ export default {
       color: #e63c3c;
     }
   }
+  .main-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #cdcdcd;
+    width: 647rpx;
+    height: 300rpx;
+    margin: 0 auto;
+    border-radius: 15rpx;
+  }
 
   .box {
-    padding: 50rpx 50rpx 80rpx 50rpx;
     box-sizing: border-box;
-    border: 1px solid #cdcdcd;
-    margin: 17rpx 50rpx;
-
+    flex: 1;
     .top {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
 
       .select {
         display: flex;
         align-items: center;
         justify-content: space-between;
         box-sizing: border-box;
-        height: 55rpx;
         background-color: #f0f0f0;
         border-radius: 7rpx;
-        padding: 0 15rpx;
+        padding: 16rpx 15rpx 6rpx 12rpx;
         color: #454545;
         font-size: 22rpx;
 
@@ -277,10 +300,16 @@ export default {
       }
 
       .num {
-        text-align: right;
+        text-align: center;
         color: #fca223;
         font-size: 56rpx;
+        margin: 10rpx 0 16rpx 0;
       }
+    }
+    .tip {
+      color: #808080;
+      font-size: 18rpx;
+      text-align: center;
     }
 
     .bottom {
@@ -302,17 +331,15 @@ export default {
   }
 
   .box2 {
-    padding-top: 80rpx;
     position: relative;
     z-index: 1;
   }
 
   .trans-icon {
     background-color: #f0f0f0;
-    width: 92rpx;
-    height: 92rpx;
+    width: 70rpx;
+    height: 70rpx;
     border-radius: 12rpx;
-    margin: -50rpx auto -50rpx auto;
     position: relative;
     z-index: 2;
     display: flex;

@@ -106,7 +106,7 @@ export default {
     },
     // 跳转
     jump(name) {
-      if (this.idenInfo.certificationType <= 1) return this.$refs.idDialog.open();
+      // if (this.idenInfo.certificationType <= 1) return this.$refs.idDialog.open();
       uni.navigateTo({
         url: name,
       });

@@ -136,7 +136,6 @@ export default {
               this.form.accountName = target.account;
               this.form.qrCode = target.qrCode;
             }
-            console.error("???", this.form);
           }
         })
         .finally(() => {

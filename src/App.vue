@@ -227,6 +227,9 @@ uni-toast {
   font-size: 19px !important;
   font-weight: 400 !important;
 }
+uni-button:after {
+  border: none;
+}
 .self-body {
   /* padding-top: calc(85rpx + var(--status-bar-height)); */
   padding-top: 104rpx;

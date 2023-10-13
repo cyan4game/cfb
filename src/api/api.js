@@ -350,3 +350,15 @@ export const helpList = (data) => {
     custom: { auth: true, toast: true },
   });
 };
+// 个人资产
+export const memberAsset = (id) => {
+  return http.get(`/member/asset`, null, {
+    custom: { auth: true, toast: true },
+  });
+};
+// 资金流水分页列表
+export const financeList = (data) => {
+  return http.post(`/finance/queryPage`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
