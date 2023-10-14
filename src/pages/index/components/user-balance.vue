@@ -7,13 +7,13 @@
         <view class="dialog-title">
           <text>资产详情</text>
           <view class="close">
-          <u-image
-            mode="contain"
-            src="/static/images/index/close.png"
-            width="24rpx"
-            height="24rpx"
-          ></u-image>
-        </view>
+            <u-image
+              mode="contain"
+              src="/static/images/index/close.png"
+              width="24rpx"
+              height="24rpx"
+            ></u-image>
+          </view>
         </view>
         <view class="item">
           <text>CFB余额</text>
@@ -87,6 +87,7 @@
         <view class="select-dialog" v-show="showSelect">
           <view
             class="select-item"
+            :class="{ 'active-item': item.coin == currCoin }"
             v-for="(item, i) in coins"
             :key="i"
             @click.stop="selectCoin(item)"
@@ -159,14 +160,14 @@ export default {
       currCoin: "USDT",
       coins: [
         {
-          coin: "USDT",
-          name: "USDT",
-          chain: "TRC20",
-        },
-        {
           coin: "CFB",
           name: "CFB",
           chain: "CFB",
+        },
+        {
+          coin: "USDT",
+          name: "USDT",
+          chain: "TRC20",
         },
       ],
     };
@@ -259,21 +260,25 @@ export default {
       .select-dialog {
         width: 100%;
         position: absolute;
-        height: 140rpx;
+        height: 116rpx;
         left: 0;
-        bottom: -140rpx;
-        background-color: #fff;
+        bottom: -116rpx;
+        background-color: #f0f0f0;
         z-index: 9;
         box-sizing: border-box;
-        padding: 10rpx;
-        border: 1px solid #e2e2e2;
-        border-top: none;
+        border: 1px solid #5c5c5c;
+        border-radius: 6rpx;
+
         .select-item {
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          height: 60rpx;
-          padding-left: 10rpx;
+          height: 56rpx;
+          padding-left: 11rpx;
+          box-sizing: border-box;
+        }
+        .active-item {
+          background-color: #fff;
         }
       }
       .select-dialog-bg {
@@ -355,7 +360,7 @@ export default {
     background-color: #fff;
     z-index: 9;
     border-radius: 6rpx;
-    padding: 20rpx 40rpx;
+    padding: 28rpx 40rpx 6rpx 40rpx;
     box-sizing: border-box;
     font-weight: 400;
     .dialog-title {
@@ -380,7 +385,7 @@ export default {
         right: 0;
       }
     }
-    
+
     .item {
       display: flex;
       align-items: center;

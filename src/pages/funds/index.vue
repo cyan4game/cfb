@@ -91,7 +91,7 @@
           </view>
           <view class="info2">
             <view class="num">{{ item.amount }}{{ item.payCoin }}</view>
-            <view>余额 {{ item.curBalance }}</view>
+            <view style="color:#449367">余额 {{ item.curBalance }}</view>
           </view>
         </view>
 
