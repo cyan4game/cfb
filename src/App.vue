@@ -227,6 +227,11 @@ uni-toast {
   font-size: 19px !important;
   font-weight: 400 !important;
 }
+.u-navbar__content__title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 uni-button:after {
   border: none;
 }

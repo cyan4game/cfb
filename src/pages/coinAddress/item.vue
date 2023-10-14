@@ -19,14 +19,14 @@
                 </view>
 
                 <!-- 提现网络 -->
-                <!-- <view class="form-item">
+                <view class="form-item">
                     <view class="item-title">提现网络</view>
                     <view class="item-content" @click="openChain">
                         <view class="ipt">{{ form.chain || '请选择提现网络' }}</view>
-                        <u-image class="content-icon" src="@/static/images/index/more.png" width="15rpx"
-                            height="9rpx"></u-image>
+                        <u-image class="content-icon" src="@/static/images/mine/right.png" width="15rpx"
+                            height="29rpx"></u-image>
                     </view>
-                </view> -->
+                </view>
 
                 <!-- 提现地址 -->
                 <view class="form-item">
@@ -61,7 +61,7 @@
         <!-- 币种选择 -->
         <coin-select ref="currencyPopup" @select="clickCurrency" />
         <!-- 网络选择 -->
-        <chain-select ref="chainPopup" @select="clickChain" />
+        <chain-select :coin="form.currency" ref="chainPopup" @select="clickChain" />
     </view>
 </template>
 
@@ -78,7 +78,7 @@ export default {
             type: 1, // 页面类型 1-添加  2-修改
             form: {
                 address: '', // 地址
-                currency: 'USDT_TRC20', // 币种
+                currency: 'USDT', // 币种
                 chain: '', // 链
                 name: '', // 备注
             },
@@ -89,7 +89,7 @@ export default {
     },
     computed: {
         disabled() {
-            return !(this.form.address && this.form.currency && this.passAddress) || this.loading
+            return !(this.form.address && this.form.currency && this.passAddress && this.form.chain) || this.loading
         }
     },
     onLoad(data) {
@@ -101,7 +101,7 @@ export default {
         if (this.type == 2) { // 编辑时初始化数据
             this.form.address = data.address
             this.form.currency = data.currency
-            // this.form.chain = data.chain
+            this.form.chain = data.chain
             this.form.name = data.name
             this.form.id = data.id
             this.checkAddress()
@@ -125,7 +125,6 @@ export default {
         submit() {
             if (this.disabled) return
             if (this.type == 1) {
-                // 同一条链同一币种只能有一个地址的校验
                 const list = storage.get('coin_address_list') || []
                 const stop = list.some(item => item.address == `${this.form.address}`)
                 if (stop) return uni.showToast({
@@ -146,8 +145,8 @@ export default {
             const form = {
                 id: this.form.id || null,
                 address: this.form.address, // 地址
-                currency: this.form.currency.split('_')[0], // 币种
-                chain: 'TRC20', // 链
+                currency: this.form.currency, // 币种
+                chain: this.form.chain, // 链
                 name: this.form.name, // 备注
             }
             req({
@@ -175,6 +174,7 @@ export default {
         // 选择币种
         clickCurrency(item) {
             this.form.currency = item.name
+            this.form.chain = ''
             this.$refs.currencyPopup.close()
         },
         // 打开网络选择
@@ -182,7 +182,8 @@ export default {
             this.$refs.chainPopup.open()
         },
         // 选择网络
-        clickChain() {
+        clickChain(item) {
+            this.form.chain = item.chain
             this.$refs.chainPopup.close()
             this.checkAddress()
         },

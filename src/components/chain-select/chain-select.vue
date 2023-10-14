@@ -37,13 +37,8 @@
           :key="i"
           @click="handleClick(item)"
         >
-          <u-image
-            class="icon"
-            src="/static/images/index/usdt.png"
-            width="50rpx"
-            height="50rpx"
-          ></u-image>
-          <view>TRC20</view>
+          <coin-icon style="width:50rpx;height:50rpx" class="icon" :coin="item.coin" />
+          <view>{{ item.coin }}_{{ item.chain }}</view>
         </view>
       </scroll-view>
     </view>
@@ -51,17 +46,49 @@
 </template>
 
 <script>
+import { getNetwork } from '@/api/api'
+
 export default {
   name: "coinSelect",
+  props: {
+    coin: {
+      type: String,
+      default: () => {}
+    }
+  },
   data() {
     return {
-      list: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+      list: [],
+      map: {}
     };
   },
   methods: {
     // 打开
     open() {
+      this.list = []
+      if (!this.coin) return uni.showToast({
+        title: '请先选择币种',
+        icon: 'none',
+        duration: 2000
+      })
+      this.getNets()
       this.$refs.popup.open();
+    },
+    // 获取网络
+    getNets() {
+      if (this.map[this.coin]) return this.list = this.map[this.coin]
+      uni.showLoading({
+        title: '',
+        mask: true
+      })
+      getNetwork(this.coin).then(res => {
+        if (res.code == 200) {
+          this.list = res.data
+          this.map[this.coin] = res.data
+        }
+      }).finally(() => {
+        uni.hideLoading();
+      })
     },
     // 关闭
     close() {

@@ -35,7 +35,9 @@
             @input="calcRate('from')"
             v-model="form.from"
             class="num"
-            placeholder="0"
+            @focus="fromIptFocus = true"
+            @blur="fromIptFocus = false"
+            :placeholder="fromIptFocus ? '' : '0'"
             placeholder-style="color:#fca223"
           />
         </view>
@@ -83,9 +85,11 @@
           <input
             v-model="form.to"
             @input="calcRate('to')"
+            @focus="toIptFocus = true"
+            @blur="toIptFocus = false"
             type="number"
             class="num"
-            placeholder="0"
+            :placeholder="toIptFocus ? '' : '0'"
             placeholder-style="color:#fca223"
           />
           <view class="tip">请输入数量</view>
@@ -127,6 +131,8 @@ export default {
   name: "flashExchange",
   data() {
     return {
+      fromIptFocus: false,
+      toIptFocus: false,
       iconMap,
       form: {
         fromCoin: "USDT",

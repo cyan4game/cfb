@@ -211,6 +211,7 @@ export default {
         title: "处理中",
         mask: true,
       });
+      copyTxt(this.address);
       const box = this.$refs.box.$el;
       html2canvas(box)
         .then(async (canvas) => {

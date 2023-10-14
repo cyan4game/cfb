@@ -100,11 +100,12 @@ export default {
     .close {
       width: 40rpx;
       height: 40rpx;
-      text-align: center;
       background-color: #eeeeee;
       border-radius: 50%;
-      line-height: 36rpx;
       color: #888888;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 

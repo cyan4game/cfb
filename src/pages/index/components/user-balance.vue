@@ -4,13 +4,16 @@
     <!-- 弹出详情 -->
     <view class="dialog-box-bg" v-show="showInfo" @click="showInfo = false">
       <view class="dialog-box">
-        <view class="close">
+        <view class="dialog-title">
+          <text>资产详情</text>
+          <view class="close">
           <u-image
             mode="contain"
             src="/static/images/index/close.png"
             width="24rpx"
             height="24rpx"
           ></u-image>
+        </view>
         </view>
         <view class="item">
           <text>CFB余额</text>
@@ -346,7 +349,7 @@ export default {
     border-top: none;
     width: 630rpx;
     position: absolute;
-    top: calc(450rpx + var(--status-bar-height)) !important;
+    top: calc(520rpx + var(--status-bar-height)) !important;
     left: 50%;
     transform: translateX(-50%);
     background-color: #fff;
@@ -354,17 +357,30 @@ export default {
     border-radius: 6rpx;
     padding: 20rpx 40rpx;
     box-sizing: border-box;
-    .close {
-      width: 40rpx;
-      height: 40rpx;
+    font-weight: 400;
+    .dialog-title {
+      color: #323232;
+      font-size: 35rpx;
+      margin-bottom: 27rpx;
+      font-weight: 500;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #eee;
-      border-radius: 50%;
-      box-sizing: border-box;
-      margin: 10rpx 0 10rpx auto;
+      position: relative;
+      .close {
+        width: 40rpx;
+        height: 40rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #eee;
+        border-radius: 50%;
+        box-sizing: border-box;
+        position: absolute;
+        right: 0;
+      }
     }
+    
     .item {
       display: flex;
       align-items: center;

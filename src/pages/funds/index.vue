@@ -8,7 +8,7 @@
     />
     <view class="info-page-content content-box">
       <!-- 类型选择 -->
-      <scroll-view class="tabs" scroll-x="true">
+      <view class="tabs">
         <view
           class="tab"
           @click="changeTab(-1)"
@@ -23,7 +23,7 @@
           :key="key"
           >{{ val }}</view
         >
-      </scroll-view>
+      </view>
 
       <!-- 筛选框 -->
       <view class="search-box">
@@ -58,13 +58,12 @@
       </view>
 
       <!-- 统计 -->
-      <!-- 这里展示开始的月份，不管年份 chris -->
-      <!-- <view class="total">
-                
+      
+      <view class="total">
                 <view class="date"><text class="num">{{ params.time.start ? params.time.start.split('-')[1] : '--' }}</text>月</view>
-                <view class="income">收入：<text class="up">--</text></view>
-                <view class="out">支出：<text class="down">--</text></view>
-            </view> -->
+                <!-- <view class="income">收入：<text class="up">--</text></view>
+                <view class="out">支出：<text class="down">--</text></view> -->
+      </view>
 
       <scroll-view class="list" scroll-y="true" @scrolltolower="loadMore">
         <view
@@ -81,7 +80,7 @@
           ></u-image> -->
           <view class="info">
             <view class="title">
-              <text>{{ typeMap[item.type] || "--" }}</text>
+              <text>{{ typeMap[item.type] || "--" }}{{ item.payCoin }}</text>
               <text v-if="item.type == 3"
                 >{{ item.payCoin }}-{{ item.receiveCoin }}</text
               >
@@ -91,8 +90,8 @@
             <view>{{ getTimestr(item.createDate) }}</view>
           </view>
           <view class="info2">
-            <view class="num">{{ item.amount }} {{ item.payCoin }}</view>
-            <view>余额 {{ item.curBalance }} {{ item.payCoin }}</view>
+            <view class="num">{{ item.amount }}{{ item.payCoin }}</view>
+            <view>余额 {{ item.curBalance }}</view>
           </view>
         </view>
 
@@ -124,7 +123,7 @@
       v-if="showTimeSelect"
     >
       <view class="select" style="right: 60rpx">
-        <view class="s-item s-title">币种</view>
+        <view class="s-item s-title">时间</view>
         <view class="s-item b-item" @click="sureFasterTime(0)">今日</view>
         <view class="s-item b-item" @click="sureFasterTime(1)">昨日</view>
         <view class="s-item" @click="sureFasterTime(7)">近一周</view>
@@ -236,8 +235,8 @@ import { getTimestr } from "@/utils/time";
 // 前端定义 -1  全部 类型列表（多类型查询） 1充币 2转账 3闪兑 4购买 5出售
 // 	类型 (转账)(1充币 2转账) 3闪兑 (交易)(4购买 5出售)
 const typeMap = {
-  1: "充币",
-  2: "转账",
+  1: "转入",
+  2: "转出",
   3: "闪兑",
   4: "购买",
   5: "出售",
@@ -345,11 +344,9 @@ export default {
         coinType: this.params.coin,
         // minTotalAmount: this.params.range.min,
         // maxTotalAmount: this.params.range.max,
-        startTime: Date.parse(new Date(this.params.time.start)),
+        startTime: Date.parse(new Date(this.params.time.start + ' 00:00:00')),
         endTime:
-          Date.parse(new Date(this.params.time.end)) +
-          24 * 60 * 60 * 1000 -
-          1000,
+          Date.parse(new Date(this.params.time.end + ' 23:59:59')),
         // memberId: this.userInfo.id,
       };
       if (!data.coinType) delete data.coinType;
@@ -362,7 +359,6 @@ export default {
       this.page++;
       financeList(this.getParams())
         .then((res) => {
-          console.error(res.data);
           if (res.code == 200) {
             const datas = res.data;
             if (!datas.list) return;
@@ -451,6 +447,9 @@ export default {
         const month2 = date2.getMonth() + 1;
         const d2 = date2.getDate();
         this.params.time.start = year2 + "-" + month2 + "-" + d2;
+      }
+      if (days == 1) { // 昨天
+        this.params.time.end = this.params.time.start
       }
       this.reset();
     },
@@ -566,22 +565,28 @@ export default {
 
     .tabs {
       height: 108rpx;
-      white-space: nowrap;
       border-bottom: 1px solid #cecece;
       padding-top: 35rpx;
       box-sizing: border-box;
       margin: 0 40rpx;
       width: 670rpx;
-
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       .tab {
+        flex: 1;
         height: 38rpx;
-        line-height: 38rpx;
-        padding: 0 40rpx;
+        line-height: 30rpx;
         border-right: 1px solid #bebebe;
-        display: inline-block;
         color: #868686;
         font-weight: 400;
         font-size: 30rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:last-child {
+          border-right: none
+        }
       }
 
       .active-tab {
@@ -614,16 +619,18 @@ export default {
     }
 
     .total {
-      height: 124rpx;
+      height: 96rpx;
       display: flex;
       align-items: flex-end;
       justify-content: flex-start;
       font-size: 24rpx;
       color: #8c8c8c;
       box-sizing: border-box;
-      padding-bottom: 50rpx;
-      padding-left: 60rpx;
+      padding-bottom: 22rpx;
+      padding-left: 32rpx;
       line-height: 24rpx;
+      margin: 0 40rpx;
+      border-bottom: 1px solid #CECECE;
 
       .date {
         margin-right: 47rpx;
@@ -632,6 +639,8 @@ export default {
 
         .num {
           font-size: 50rpx;
+          font-weight: bold;
+          color: #449367;
         }
       }
 
@@ -641,10 +650,10 @@ export default {
     }
 
     .list {
-      background-color: #f1f1f1;
+      background-color: #fff;
       flex: 1;
       overflow: hidden;
-      padding: 20rpx;
+      padding: 20rpx 40rpx;
       box-sizing: border-box;
 
       .more {
@@ -656,7 +665,7 @@ export default {
 
       .item {
         width: 100%;
-        height: 163rpx;
+        height: 185rpx;
         border-radius: 9rpx;
         background-color: #fff;
         margin-bottom: 21rpx;
@@ -667,6 +676,7 @@ export default {
         display: flex;
         align-items: center;
         box-sizing: border-box;
+        border-bottom: 1px solid #CECECE;
 
         .item-icon {
           margin-right: 33rpx;
@@ -732,9 +742,9 @@ export default {
       height: 40rpx;
       border-radius: 50%;
       background-color: #eeeeee;
-      text-align: center;
-      line-height: 36rpx;
-      color: #888;
+      color: #888;display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .time-tabs {
@@ -909,7 +919,7 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0);
   z-index: 999;
   .select {
     position: absolute;
@@ -919,6 +929,7 @@ export default {
     top: calc(300rpx + var(--status-bar-height));
     right: 0;
     overflow: hidden;
+    border: 1px solid rgba(92,92,92,0.6);
   }
   .s-item {
     display: flex;
@@ -930,8 +941,7 @@ export default {
   }
   .s-title {
     height: 49rpx;
-    color: #fff;
-    background-color: #449367;
+    background-color: #F0F0F0;
   }
   .b-item {
     border-bottom: 1px solid #adadad;

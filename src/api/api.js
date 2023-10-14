@@ -368,3 +368,9 @@ export const financeList = (data) => {
     custom: { auth: true, toast: true },
   });
 };
+// 获取提现网络
+export const getNetwork = (coin) => {
+  return http.get(`/member-address/getNetwork/${coin}`, null, {
+    custom: { auth: true, toast: true },
+  });
+};
