@@ -15,7 +15,7 @@
         v-if="menuName === 'mobile'"></mobile>
       <!-- <email @loginSuccess="loginSuccess" :protocol="protocol" :inviteCode="inviteCode" :showTip="showTip"
         v-if="menuName === 'email'"></email> -->
-      <text style="color: #38363B;font-size: 26rpx;margin: 0 auto;display: block;text-align: center;position: relative;top:-20rpx" @click="router('pages/login/index')" >接收不到短信？</text>
+      <text style="color: #38363B;font-size: 28rpx;margin: 55rpx auto 0 auto;display: block;text-align: center;position: relative;top:-20rpx" @click="router('pages/login/index')" >接收不到短信？</text>
     </view>
 
     <view class="protocol">
@@ -100,12 +100,12 @@ export default {
   background: #fff;
 
   .login-bg {
-    height: 588rpx;
+    height: 600rpx;
     background-color: #0c1114;
     position: relative;
     background-image: url('../../static/images/login/login-bg.png');
     background-size: 100% 100%;
-    top: -2px;
+    top: -20px;
 
     .service-icon {
       top: 44rpx;
@@ -121,7 +121,7 @@ export default {
 
     .welcome-icon {
       position: absolute;
-      top: 200rpx;
+      top: 210rpx;
       left: 100rpx;
     }
   }
@@ -131,7 +131,7 @@ export default {
     margin: 30rpx;
     border-radius: 6rpx;
     background-color: #fff;
-    top: -300rpx;
+    top: -350rpx;
     overflow: hidden;
   }
 

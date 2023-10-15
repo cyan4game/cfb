@@ -59,7 +59,7 @@
 
     <!-- 海报弹窗 -->
     <uni-popup ref="popup">
-      <view class="share-dialog">
+      <view class="share-dialog" :class="{ 'saving-dialog': saving }">
         <view class="share-title">
           <coin-icon style="width: 42rpx; height: 42rpx; margin-right: 20rpx" />
           <text>充值二维码</text>
@@ -109,6 +109,7 @@ export default {
   name: "deposit",
   data() {
     return {
+      saving: false, // 是否保存截图种  h5保存中的时候要把内容挪出屏幕外
       fullwin: false,
       currency: "USDT",
       chain: "TRC20",
@@ -170,6 +171,9 @@ export default {
     },
     // 保存二维码
     saveCode() {
+      // #ifdef H5
+      this.saving = true;
+      // #endif
       this.openDialog();
       setTimeout(() => {
         this.cut();
@@ -178,6 +182,14 @@ export default {
     // 截屏
     cut() {
       // #ifdef H5
+      uni.showLoading({
+        title: "",
+        mask: false,
+      });
+      setTimeout(() => {
+        this.saving = false;
+        uni.hideLoading();
+      }, 2000);
       const box = this.$refs.box.$el;
       try {
         html2canvas(box).then((canvas) => {
@@ -592,5 +604,10 @@ export default {
       border-radius: 6rpx;
     }
   }
+}
+.saving-dialog {
+  position: absolute;
+  left: 1000rpx;
+  top: 5000rpx;
 }
 </style>

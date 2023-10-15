@@ -254,7 +254,7 @@ uni-button:after {
   background-color: #fff;
   border-top-right-radius: 22rpx;
   border-top-left-radius: 22rpx;
-  padding: 40rpx;
+  padding: 40rpx 28rpx 0 28rpx;
 }
 .info-page-btn {
   display: flex !important;

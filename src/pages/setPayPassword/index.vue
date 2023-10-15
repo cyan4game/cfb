@@ -3,9 +3,9 @@
     <u-navbar :safeAreaInsetTop="false" :title="'设置支付密码'" :leftIcon="''"  />
     <view class=" info-page-content  page-box">
       <u-form class="form" :model="form" ref="form" :rules="rules">
-        <u-form-item prop="password">
-          <view class="item">
-            <u-text color="#7A7A7A" text="支付密码 "></u-text>
+        <u-form-item prop="password" class="item">
+          <view style="width:100%">
+            <u-text color="#535353" text="支付密码 "></u-text>
             <u-input
               class="ipt"
               :type="showPassWord ? 'text' : 'password'"
@@ -22,9 +22,9 @@
             </u-input>
           </view>
         </u-form-item>
-        <u-form-item prop="confirmPassword">
-          <view class="item">
-            <u-text color="#7A7A7A" text="确认密码"></u-text>
+        <u-form-item prop="confirmPassword" class="item">
+          <view style="width:100%">
+            <u-text color="#535353" text="确认密码"></u-text>
             <u-input
               class="ipt"
               type="number"
@@ -163,8 +163,11 @@ export default {
 <style lang="scss" scoped>
 .mobile-view {
 }
-
+.form {
+  margin-top: -8rpx;
+}
 .page-box {
+  padding-top: 32rpx;
 }
 
 .ipt {
@@ -181,6 +184,7 @@ export default {
   position: fixed;
   bottom: 100rpx;
   left: 50%;
+  font-size: 30rpx;
   transform: translateX(-50%);
   width: 451rpx;
   height: 96rpx;
@@ -194,5 +198,8 @@ export default {
 
 .item {
   width: 100%;
+  ::v-deep .u-form-item__body__right__message {
+    margin-left: 0!important;
+  }
 }
 </style>

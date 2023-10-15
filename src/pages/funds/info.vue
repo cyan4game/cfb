@@ -83,10 +83,13 @@ export default {
     },
     methods: {
         getTimestr,
+        getCoinStr(str) {
+            if (str && str.includes('_')) return str.split('_')[0]
+            return str
+        },
         // 获取详细数据
         getInfoData() {
             this.info = storage.get('fund-info')
-            console.error('详情', this.info)
         },
         // 复制
         copy(txt) {

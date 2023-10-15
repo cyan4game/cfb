@@ -210,7 +210,7 @@ export default {
   margin-top: 20rpx;
   border-radius: 6rpx;
   border: 1px solid #d7d7d7;
-  padding: 40rpx 40rpx 32rpx 40rpx;
+  padding: 46rpx 48rpx 31rpx 48rpx;
   background-color: #fff;
   box-sizing: border-box;
   position: relative;
@@ -237,7 +237,7 @@ export default {
     margin: 32rpx 0;
     .num {
       font-size: 62rpx;
-      margin: 0 20rpx 0 20rpx;
+      margin: 0 11rpx 0 11rpx;
       word-break: break-all;
       flex: 1;
     }
@@ -331,6 +331,7 @@ export default {
       .num {
         color: #404040;
         font-size: 33rpx;
+        margin-bottom: 10rpx;
       }
     }
     .line {

@@ -19,7 +19,6 @@ export default {
     },
     onShow() {
         this.info = storage.get('help-info') || {}
-        console.error('---',this.info)
     },
     methods: {
 

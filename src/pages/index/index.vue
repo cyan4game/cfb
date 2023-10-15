@@ -86,7 +86,9 @@ export default {
     }, 100)
   },
   onHide() {
-    this.$refs.ub.closeSelectCoin();
+    if (this.$refs.ub) {
+      this.$refs.ub.closeSelectCoin();
+    }
   },
   methods: {
     jump(name) {
@@ -127,10 +129,10 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 42rpx;
+      margin-top: 25rpx;
 
       .nav {
-        width: 49%;
+        width: 49.4%;
         height: 111rpx;
         background-color: #f1f1f1;
         border-radius: 6rpx;
@@ -138,7 +140,7 @@ export default {
         align-items: center;
         justify-content: space-between;
         box-sizing: border-box;
-        padding: 0 40rpx;
+        padding: 0 40rpx 0 42rpx;
         color: #38373c;
         font-size: 30rpx;
         font-weight: 500;

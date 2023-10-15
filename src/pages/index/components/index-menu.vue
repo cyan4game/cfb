@@ -5,14 +5,15 @@
       class="item"
       v-for="item in navs"
       :key="item.key"
+      :style="{paddingTop:[6,3].includes(item.key)?'0':'6rpx'}"
       @click="handleClick(item)"
     >
       <u-image
         fit="fill"
         class="icon"
         :src="item.icon"
-        :width="'53rpx'"
-        :height="'53rpx'"
+        :width="item.iconW + 'rpx'"
+        :height="item.iconH + 'rpx'"
       ></u-image>
       <view>{{ item.name }}</view>
     </view>
@@ -31,36 +32,48 @@ export default {
           key: 1,
           name: "扫一扫",
           icon: "/static/images/index/nav-1.png",
+          iconW: 68,
+          iconH: 61,
           route: "",
         },
         {
           key: 2,
           name: "转账",
           icon: "/static/images/index/nav-2.png",
+          iconW: 67,
+          iconH: 65,
           route: "/pages/withdraw/index",
         },
         {
           key: 6,
           name: "链上充币",
           icon: "/static/images/index/nav-7.png",
+          iconW: 69,
+          iconH: 75,
           route: "/pages/index/deposit",
         },
         {
           key: 3,
           name: "闪兑",
           icon: "/static/images/index/nav-8.png",
+          iconW: 69,
+          iconH: 71,
           route: "/pages/index/flashExchange",
         },
         {
           key: 4,
           name: "我的订单",
           icon: "/static/images/index/nav-5.png",
+          iconW: 76,
+          iconH: 61,
           route: "/pages/myOrder/index",
         },
         {
           key: 5,
           name: "我的委托",
           icon: "/static/images/index/nav-6.png",
+          iconW: 78,
+          iconH: 66,
           route: "/pages/entrust/index",
         },
       ],
@@ -122,18 +135,19 @@ export default {
   width: calc(100% + 48rpx);
   position: relative;
   left: -24rpx;
-  margin: 63rpx 0 0 0;
+  margin: 58rpx 0 0 0;
 
   .item {
     width: 33%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     font-size: 30rpx;
     color: #5d5d5d;
     line-height: 30rpx;
     margin-bottom: 120rpx;
+    box-sizing: border-box;
 
     .icon {
       margin-bottom: 50rpx;

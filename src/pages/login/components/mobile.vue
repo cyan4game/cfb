@@ -6,11 +6,10 @@
         <view class="item">
           <!-- <u-text color="#343434" text="手机号码"></u-text> -->
           <u-row class="item-content">
-            <u-col span="2">
+            <u-col span="2" style="border-right:1px solid #848484">
               <u-text
                 :text="form.areaCode"
                 color="#343434"
-                suffixIcon="arrow-down"
                 @click="showAreaCode = true"
                 :iconStyle="{
                   fontSize: '14px',
@@ -237,9 +236,9 @@ export default {
 
 <style lang="scss" scoped>
 .item-box {
-  padding: 0 36rpx 0;
   width: 100%;
   box-sizing: border-box;
+  margin-bottom: 46rpx;
 }
 
 .item {
@@ -256,11 +255,14 @@ export default {
 
   .item-content {
     flex: 1;
+    font-size: 28rpx;
   }
+  
 }
 
 .mobile-view {
-  margin: 20px 0 30px;
+  box-sizing: border-box;
+  margin: 53rpx 42rpx 0 46rpx;
 }
 
 .get-button {
@@ -286,9 +288,10 @@ export default {
 .login-button {
   background: #449367;
   border-color: #449367;
-  margin-top: 30px;
-  width: 450rpx;
-  height: 112rpx;
+  margin-top: 35rpx;
+  font-size: 24rpx;
+  width: 451rpx;
+  height: 113rpx;
 }
 
 .u-button--disabled {
@@ -300,6 +303,6 @@ export default {
 .subtitle {
   color: #343434;
   font-size: 32rpx;
-  padding: 20rpx 0 10rpx 46rpx;
+  margin-bottom: 26rpx;
 }
 </style>

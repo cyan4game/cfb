@@ -84,12 +84,12 @@
         </template>
         <!-- 交易中 -->
         <template v-if="info.state == 1">
-          <view class="btn">查看收款信息</view>
-          <view class="submit">确认付款</view>
+          <view class="btn" @click="goOrderInfo">查看收款信息</view>
+          <view class="submit" @click="() => $refs.uploadDialog.open()">确认付款</view>
         </template>
         <!-- 已关闭-配对成功 -->
         <template v-if="info.state == -1">
-          <view class="btn">查看订单</view>
+          <view class="btn" @click="goOrderInfo">查看订单</view>
           <view class="submit" @click="rePost(true)">再次下单</view>
         </template>
         <!-- 已关闭-未配对成功 -->
@@ -108,13 +108,19 @@
       :btn="'取消委托'"
       :btnHandle="cancel"
     ></confirm-dialog>
+
+    <!-- 提交凭证弹窗 -->
+   <upload-dialog @success="submitPic" ref="uploadDialog" />
   </view>
+
+   
 </template>
 
 <script>
-import { entrustPage, entrustCancel } from "@/api/api";
+import { entrustPage, entrustCancel, confirmPay } from "@/api/api";
 import { getTimestr } from "@/utils/time";
 import { copyTxt } from "@/utils/utils";
+import storage from '@/utils/storage'
 
 // 状态：-1关闭,0发布中,1交易中，2完成
 const stateMap = {
@@ -150,6 +156,31 @@ export default {
   },
   methods: {
     getTimestr,
+    // 确认付款
+    submitPic(pic) {
+      uni.showLoading({
+        title: "",
+        mask: true,
+      });
+      confirmPay({
+        orderId: this.info.id,
+        paymentVoucher: pic,
+      })
+        .then((res) => {
+          if (res.code == 200) {
+            this.$refs.uploadDialog.close();
+            uni.showToast({
+              title: "操作成功",
+              icon: "none",
+              duration: 2000,
+            });
+            this.getInfo();
+          }
+        })
+        .finally(() => {
+          uni.hideLoading();
+        });
+    },
     copy(txt) {
       copyTxt(txt);
       uni.showToast({
@@ -157,6 +188,15 @@ export default {
         icon: "none",
         duration: 2000,
       });
+    },
+    // 跳转订单详情
+    goOrderInfo() {
+      storage.set("curr-order", this.info);
+      setTimeout(() => {
+        uni.navigateTo({
+          url: "/pages/myOrder/info",
+        });
+      }, 0);
     },
     // 获取详情
     getInfo() {

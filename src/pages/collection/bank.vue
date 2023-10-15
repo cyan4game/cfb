@@ -150,7 +150,6 @@ export default {
     // 获取银行列表
     getBankList() {
       bankList().then(res => {
-        console.error('银行', res)
         if (res.code == 200) {
           this.bankList = res.data || []
           if (this.form.bankName) {

@@ -82,7 +82,6 @@ export default {
         count: 1,
         sourceType: ["camera"],
         success: (res) => {
-          console.error(res.tempFiles[0]);
           qrcode.decode(res.tempFiles[0].path);
           qrcode.callback = (rs) => {
             if (rs.includes("error")) {

@@ -202,7 +202,7 @@ export default {
       item: {},
     };
   },
-  onLoad() {
+  onShow() {
     this.item = storage.get("curr-order") || {};
     setTimeout(() => {
       this.getInfo();
@@ -212,9 +212,9 @@ export default {
     getTimestr,
     // 获取订单详情
     getInfo() {
-      if (!this.item.entrustId) return;
+      if (!this.item.entrustId && !this.item.id) return;
       pageOtcMyOrder({
-        entrustId: this.item.entrustId,
+        entrustId: this.item.entrustId || this.item.id,
         pageNo: 1,
         pageSize: 1,
       }).then((res) => {

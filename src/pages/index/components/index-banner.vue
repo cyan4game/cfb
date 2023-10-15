@@ -70,6 +70,7 @@ export default {
   width: 100%;
   // margin-top: 20rpx;
   border-radius: 6rpx;
+  overflow: hidden;
   height: 280rpx;
 }
 </style>

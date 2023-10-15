@@ -315,6 +315,10 @@ export default {
   },
   methods: {
     getTimestr,
+    getCoinStr(str) {
+      if (str && str.includes('_')) return str.split('_')[0]
+      return str
+    },
     // 查看详情
     goInfo(item) {
       storage.set("fund-info", item);
@@ -362,7 +366,11 @@ export default {
           if (res.code == 200) {
             const datas = res.data;
             if (!datas.list) return;
-            this.list.push(...datas.list);
+            this.list.push(...datas.list.map(item => {
+              item.payCoin = this.getCoinStr(item.payCoin)
+              item.receiveCoin = this.getCoinStr(item.receiveCoin)
+              return item
+            }));
 
             // 完成状态
             if (!this.list.length || this.list.length >= datas.total) {
