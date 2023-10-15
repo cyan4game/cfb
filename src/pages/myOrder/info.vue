@@ -214,7 +214,7 @@ export default {
     getInfo() {
       if (!this.item.entrustId && !this.item.id) return;
       pageOtcMyOrder({
-        entrustId: this.item.entrustId || this.item.id,
+        entrustId:  this.item.entrustId || this.item.id,
         pageNo: 1,
         pageSize: 1,
       }).then((res) => {
@@ -251,7 +251,7 @@ export default {
         mask: true,
       });
       confirmCollect({
-        orderId: this.item.entrustId,
+        orderId: this.item.orderId,
       })
         .then((res) => {
           if (res.code == 200) {
@@ -279,7 +279,7 @@ export default {
         mask: true,
       });
       orderCancel({
-        orderId: this.item.entrustId,
+        orderId: this.item.orderId,
       })
         .then((res) => {
           if (res.code == 200) {
@@ -303,7 +303,7 @@ export default {
         mask: true,
       });
       confirmPay({
-        orderId: this.item.entrustId,
+        orderId: this.item.orderId,
         paymentVoucher: pic,
       })
         .then((res) => {

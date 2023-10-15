@@ -7,15 +7,22 @@
       @leftClick="() => $routers.back()"
     />
     <view class="info-page-content content-box">
-      <uni-collapse accordion>
+      <uni-collapse accordion v-model="collapse">
         <uni-collapse-item
+        :class="{'active': collapse == i, 'unactive': collapse != i}"
           :title="item.title"
           v-for="(item, i) in list"
           :key="i"
         >
-          <view style="padding-bottom: 40rpx">
+          <view>
             <view class="link" @click="handleClick(link)" v-for="link in item.list" :key="link.id">
               <text>{{ link.title }}</text>
+              <u-image
+            class="more"
+            src="/static/images/mine/right.png"
+            width="10rpx"
+            height="18rpx"
+          ></u-image>
             </view>
             <view v-if="!item.list.length" class="nodata">暂无数据</view>
           </view>
@@ -33,6 +40,7 @@ export default {
   name: "pageCustomer",
   data() {
     return {
+      collapse: '-1',
       list: [
         { title: "帮助中心", type: 1, list: [] },
         { title: "用户协议", type: 2, list: [] },
@@ -74,19 +82,39 @@ export default {
 <style lang="scss" scoped>
 .page-customer {
   .content-box {
+    padding: 30rpx 0 0 0;
     font-size: 26rpx;
     color: #433f48;
+    .active {
+      padding: 0;
+      ::v-deep .uni-collapse-item__title-text {
+        padding: 0 40rpx;
+      }
+      ::v-deep .uni-collapse-item__title-arrow {
+        margin-right: 60rpx;
+      }
+    }
+    .unactive {
+      padding: 0 40rpx;
+    }
     .link {
-      margin: 20rpx 0 0 60rpx;
-      padding-bottom: 20rpx;
-      width: 550rpx;
+      width: 100vw;
+      height: 100rpx;
+      background-color: #F1F1F1;
       border-bottom: 1px solid #e4e4e4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 70rpx 0 88rpx;
+      color: #595959;
+      font-size: 30rpx;
+      box-sizing: border-box;
     }
     .nodata {
       font-size: 26rpx;
       color: #888;
       text-align: center;
-      padding-top: 20rpx;
+      padding: 20rpx;
     }
   }
 }

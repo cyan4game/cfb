@@ -114,9 +114,9 @@ export default {
       padding: 40rpx;
       border-radius: 9rpx;
       color: #8c8c8c;
-      font-size: 26rpx;
+      font-size: 24rpx;
       line-height: 40rpx;
-      margin-bottom: 20rpx;
+      border-bottom: 1px solid #CECECE;
 
       .title {
         font-size: 36rpx;

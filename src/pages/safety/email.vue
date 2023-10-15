@@ -215,6 +215,7 @@ export default {
   border-radius: 6rpx;
   margin-top: 35rpx;
   font-size: 28rpx;
+  box-sizing: border-box;
 }
 
 .code-box {

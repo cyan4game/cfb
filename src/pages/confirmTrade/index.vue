@@ -351,6 +351,7 @@ export default {
       align-items: center;
       justify-content: space-between;
       padding: 0 30rpx;
+      box-sizing: border-box;
       .input {
         font-size: 28rpx;
         color: #333;

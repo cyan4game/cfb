@@ -163,7 +163,7 @@ export default {
         mask: true,
       });
       confirmPay({
-        orderId: this.info.id,
+        orderId: this.info.id, // 
         paymentVoucher: pic,
       })
         .then((res) => {

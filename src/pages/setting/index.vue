@@ -6,7 +6,7 @@
             <!-- 开关 -->
             <view class="switch-box">
                 <text>音效通知</text>
-                <switch class="switch" :checked="checked" @change="switchChange" />
+                <switch color="#449367" class="switch" :checked="checked" @change="switchChange" />
                 <view class="line"></view>
             </view>
 

@@ -100,7 +100,7 @@ export default {
 .safety-page {
   
   .page-box {
-    background-color: #F1F1F1;
+    background-color: #fff;
   }
   .safety-item {
     background-color: #fff;
@@ -109,11 +109,13 @@ export default {
     border-radius: 9rpx;
     margin-bottom: 27rpx;
     font-size: 26rpx;
-    color: #484848;
+    color: #757575;
+    border-bottom: 1px solid #CECECE;
 
     .title {
-      font-size: 30rpx;
+      font-size: 32rpx;
       margin-bottom: 7rpx;
+      color: #454545;
     }
 
     .item {
@@ -133,7 +135,7 @@ export default {
         font-size: 22rpx;
 
         .icon {
-          margin-left: 12rpx;
+          margin-left: 29rpx;
           position: relative;
           top: 2rpx;
         }

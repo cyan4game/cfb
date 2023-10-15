@@ -246,6 +246,7 @@ export default {
   border-radius: 6rpx;
   margin-top: 35rpx;
   font-size: 28rpx;
+  box-sizing: border-box;
 }
 
 .code-box {
@@ -257,7 +258,7 @@ export default {
   justify-content: center;
   margin-left: 20rpx;
   margin-top: 35rpx;
-
+  box-sizing: border-box;
 }
 
 .login-button {

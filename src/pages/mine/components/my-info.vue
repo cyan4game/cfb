@@ -81,6 +81,7 @@ export default {
 
 <style lang="scss">
 .my-info {
+  padding-top: 15rpx;
   padding-left: 40rpx;
   display: flex;
   align-items: center;
@@ -103,6 +104,7 @@ export default {
     color: #fffffd;
     .name {
       font-size: 28rpx;
+      margin-bottom: 10rpx;
     }
   }
   .btn {
@@ -116,6 +118,9 @@ export default {
     justify-content: center;
     color: #0c1114;
     font-size: 26rpx;
+    position: relative;
+    top: -18rpx;
+    left: -4rpx;
   }
 }
 </style>

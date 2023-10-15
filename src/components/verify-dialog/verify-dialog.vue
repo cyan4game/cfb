@@ -298,10 +298,11 @@ export default {
       top: 0;
     }
     .ipt {
-      height: 70rpx;
+      height: 72rpx;
       background-color: #f1f1f1;
       border-radius: 6rpx;
       display: flex;
+      box-sizing: border-box;
       align-items: center;
       justify-content: space-between;
     }

@@ -27,7 +27,7 @@
       <my-info
         style="
           background-color: #0c1114;
-          padding-bottom: 30rpx;
+          padding-bottom: 50rpx;
           position: relative;
           top: -2rpx;
           width: calc(100% - 38rpx);
@@ -252,10 +252,9 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 50rpx;
+      padding: 44rpx 55rpx 37rpx 55rpx;
       font-size: 28rpx;
       color: #5d5d5d;
-      margin-top: 30rpx;
       border-bottom: 12rpx solid #f0f0f0;
       .tab {
         display: flex;

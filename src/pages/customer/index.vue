@@ -3,20 +3,21 @@
   <view class="info-page-bg self-body page-customer">
     <u-navbar :safeAreaInsetTop="false" :title="'在线客服'" @leftClick="() => $routers.back()" />
     <view class="info-page-content content-box">
-      <view class="top"
+      <!-- <view class="top"
         >您好，很抱歉我们暂时无法为您提供服务，如需帮助，
         请留言，我们将尽快联系并解决您的问题
-      </view>
-      <view class="title"> 电话<text class="red">*</text> </view>
+      </view> -->
+      <view class="title"> <text>*</text>电话： </view>
       <view class="ipt">
         <u-text
+          class="area"
           :text="form.countryCode"
-          color="#505bde"
-          suffixIcon="arrow-down"
+          color="#343434"
+          suffixIcon=""
           @click="showAreaCode = true"
           :iconStyle="{
             fontSize: '14px',
-            color: '#505bde',
+            color: '#343434',
           }"
         ></u-text>
         <input
@@ -26,7 +27,7 @@
           placeholder="请输入"
         />
       </view>
-      <view class="title"> 留言内容<text class="red">*</text> </view>
+      <view class="title"> <text>*</text>留言内容：  <text class="tip"></text> </view>
       <textarea
         v-model="form.content"
         class="ipt textarea"
@@ -60,7 +61,7 @@
         </view>
       </view>
       <view class="top"
-        >支持jpg 、png、gif、bmp格式的图片，可上传5张， 单张最大2M
+        >图片支持png、jpg格式，单张图片最大2M
       </view>
     </view>
 
@@ -271,7 +272,7 @@ export default {
           let errMsg = false;
           res.tempFiles.forEach((item) => {
             if (!accepts.includes(item.type)) {
-              errMsg = "只支持jpg 、png、gif、bmp格式的图片";
+              errMsg = "只支持jpg 、png格式的图片";
             }
             if (item.size > 2 * 1024 * 1024) {
               errMsg = "单张最大2M";
@@ -297,9 +298,10 @@ export default {
     font-size: 26rpx;
     color: #433f48;
     padding-bottom: 150rpx;
+    padding-top: 50rpx;
 
     .top {
-      padding: 0 44rpx 80rpx 44rpx;
+      padding: 0 24rpx 80rpx 44rpx;
     }
 
     .title {
@@ -309,6 +311,10 @@ export default {
 
       .red {
         color: #eb3131;
+      }
+      .tip {
+        color: #959595;
+        font-size: 20rpx;
       }
     }
 
@@ -321,10 +327,21 @@ export default {
       font-size: 28rpx;
       color: #433f48;
       display: flex;
+      box-sizing: border-box;
       align-items: center;
       .input {
         flex: 3;
         font-size: 28rpx;
+      }
+      .area {
+        position: relative;
+        &::after {
+          content: '|';
+          color: #848484;
+          position: absolute;
+          right: 40rpx;
+          top: 0;
+        }
       }
     }
 
@@ -349,8 +366,9 @@ export default {
         flex-direction: column;
         justify-content: center;
         background-color: #f1f1f1;
-        border: 1px dashed #999;
         position: relative;
+        border-radius: 6rpx;
+        color: #808080;
 
         .err-status {
           position: absolute;
@@ -372,7 +390,7 @@ export default {
 
       .upload {
         font-size: 28rpx;
-        color: #433f48;
+        color: #808080;
 
         .icon {
           font-size: 100rpx;

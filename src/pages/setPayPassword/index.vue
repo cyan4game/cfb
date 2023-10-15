@@ -142,6 +142,10 @@ export default {
               icon: "none",
               duration: 2000,
             });
+            // 手动设置缓存状态
+            const userInfo = storage.get("userInfo") || {};
+            userInfo.payPasswordStatus = true
+            storage.set("userInfo", userInfo)
             updatUserInfo()
             setTimeout(() => {
               uni.switchTab({
@@ -175,6 +179,7 @@ export default {
   height: 72rpx;
   border-radius: 6rpx;
   margin-top: 35rpx;
+  box-sizing: border-box;
   font-size: 28rpx;
 }
 
