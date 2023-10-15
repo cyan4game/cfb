@@ -39,9 +39,8 @@
         </view>
         <!-- 时间 -->
         <view class="search-item" @click="showTimeSelect = true">
-          <text>{{
-            params.time.start.replace("-", "/").replace("-", "/")
-          }}</text>
+          <!-- <text>{{params.time.start.replace("-", "/").replace("-", "/")}}</text> -->
+          <text>{{ dayStr }}</text>
           <u-image
             class="more-icon"
             src="@/static/images/index/more.png"
@@ -82,7 +81,7 @@
             <view class="title">
               <text>{{ typeMap[item.type] || "--" }}{{ item.payCoin }}</text>
               <text v-if="item.type == 3"
-                >{{ item.payCoin }}-{{ item.receiveCoin }}</text
+                >-{{ item.receiveCoin }}</text
               >
               <!-- <u-image class="item-dir" src="@/static/images/funds/left.png" width="30rpx" height="16rpx"></u-image>
                             <text class="name">捕鱼</text> -->
@@ -90,7 +89,7 @@
             <view>{{ getTimestr(item.createDate) }}</view>
           </view>
           <view class="info2">
-            <view class="num">{{ item.amount }}{{ item.payCoin }}</view>
+            <view class="num">{{ preMap[item.item.type] || '' }}{{ item.amount }}{{ item.payCoin }}</view>
             <view style="color:#449367">余额 {{ item.curBalance }}</view>
           </view>
         </view>
@@ -251,14 +250,23 @@ const tabMapVal = {
   2: [4, 5],
   3: [3],
 };
+const preMap = {
+  1: '+',
+  2: '-',
+  3: '',
+  4: '+',
+  5: '-',
+}
 
 export default {
   name: "funds",
   data() {
     return {
+      preMap,
       typeMap,
       showTimeSelect: false,
       showCoinSelect: false,
+      dayStr: '今日',
       tabsMap, // 分类Map
       userInfo: {}, // 用户数据
       params: {
@@ -443,6 +451,12 @@ export default {
       ];
     },
     sureFasterTime(days) {
+      this.dayStr = {
+        0: '今日',
+        1: '昨日',
+        7: '近一周',
+        30: '近一月'
+      }[days]
       const date = new Date();
       const year = date.getFullYear();
       const month = date.getMonth() + 1;
