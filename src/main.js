@@ -11,10 +11,10 @@ import utc from "dayjs/plugin/utc";
 
 
 // 移除打印信息
-try {
-  window.console.log = () => {}
-  window.console.error = () => {}
-} catch {}
+// try {
+//   window.console.log = () => {}
+//   window.console.error = () => {}
+// } catch {}
 
 dayjs.locale("zh-cn");
 dayjs.extend(utc);

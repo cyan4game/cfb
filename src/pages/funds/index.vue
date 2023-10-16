@@ -57,10 +57,15 @@
       </view>
 
       <!-- 统计 -->
-      
+
       <view class="total">
-                <view class="date"><text class="num">{{ params.time.start ? params.time.start.split('-')[1] : '--' }}</text>月</view>
-                <!-- <view class="income">收入：<text class="up">--</text></view>
+        <view class="date"
+          ><text class="num">{{
+            params.time.start ? params.time.start.split("-")[1] : "--"
+          }}</text
+          >月</view
+        >
+        <!-- <view class="income">收入：<text class="up">--</text></view>
                 <view class="out">支出：<text class="down">--</text></view> -->
       </view>
 
@@ -80,17 +85,18 @@
           <view class="info">
             <view class="title">
               <text>{{ typeMap[item.type] || "--" }}{{ item.payCoin }}</text>
-              <text v-if="item.type == 3"
-                >-{{ item.receiveCoin }}</text
-              >
+              <text v-if="item.type == 3">-{{ item.receiveCoin }}</text>
               <!-- <u-image class="item-dir" src="@/static/images/funds/left.png" width="30rpx" height="16rpx"></u-image>
                             <text class="name">捕鱼</text> -->
             </view>
             <view>{{ getTimestr(item.createDate) }}</view>
           </view>
           <view class="info2">
-            <view class="num">{{ preMap[item.item.type] || '' }}{{ item.amount }}{{ item.payCoin }}</view>
-            <view style="color:#449367">余额 {{ item.curBalance }}</view>
+            <view class="num"
+              >{{ preMap[item.incomeType] || "" }}{{ item.amount
+              }}{{ item.payCoin }}</view
+            >
+            <view style="color: #449367">余额 {{ item.curBalance }}</view>
           </view>
         </view>
 
@@ -251,12 +257,9 @@ const tabMapVal = {
   3: [3],
 };
 const preMap = {
-  1: '+',
-  2: '-',
-  3: '',
-  4: '+',
-  5: '-',
-}
+  0: "-",
+  1: "+",
+};
 
 export default {
   name: "funds",
@@ -266,7 +269,7 @@ export default {
       typeMap,
       showTimeSelect: false,
       showCoinSelect: false,
-      dayStr: '今日',
+      dayStr: "今日",
       tabsMap, // 分类Map
       userInfo: {}, // 用户数据
       params: {
@@ -324,8 +327,8 @@ export default {
   methods: {
     getTimestr,
     getCoinStr(str) {
-      if (str && str.includes('_')) return str.split('_')[0]
-      return str
+      if (str && str.includes("_")) return str.split("_")[0];
+      return str;
     },
     // 查看详情
     goInfo(item) {
@@ -356,9 +359,8 @@ export default {
         coinType: this.params.coin,
         // minTotalAmount: this.params.range.min,
         // maxTotalAmount: this.params.range.max,
-        startTime: Date.parse(new Date(this.params.time.start + ' 00:00:00')),
-        endTime:
-          Date.parse(new Date(this.params.time.end + ' 23:59:59')),
+        startTime: Date.parse(new Date(this.params.time.start + " 00:00:00")),
+        endTime: Date.parse(new Date(this.params.time.end + " 23:59:59")),
         // memberId: this.userInfo.id,
       };
       if (!data.coinType) delete data.coinType;
@@ -374,11 +376,13 @@ export default {
           if (res.code == 200) {
             const datas = res.data;
             if (!datas.list) return;
-            this.list.push(...datas.list.map(item => {
-              item.payCoin = this.getCoinStr(item.payCoin)
-              item.receiveCoin = this.getCoinStr(item.receiveCoin)
-              return item
-            }));
+            this.list.push(
+              ...datas.list.map((item) => {
+                item.payCoin = this.getCoinStr(item.payCoin);
+                item.receiveCoin = this.getCoinStr(item.receiveCoin);
+                return item;
+              })
+            );
 
             // 完成状态
             if (!this.list.length || this.list.length >= datas.total) {
@@ -452,11 +456,11 @@ export default {
     },
     sureFasterTime(days) {
       this.dayStr = {
-        0: '今日',
-        1: '昨日',
-        7: '近一周',
-        30: '近一月'
-      }[days]
+        0: "今日",
+        1: "昨日",
+        7: "近一周",
+        30: "近一月",
+      }[days];
       const date = new Date();
       const year = date.getFullYear();
       const month = date.getMonth() + 1;
@@ -470,8 +474,9 @@ export default {
         const d2 = date2.getDate();
         this.params.time.start = year2 + "-" + month2 + "-" + d2;
       }
-      if (days == 1) { // 昨天
-        this.params.time.end = this.params.time.start
+      if (days == 1) {
+        // 昨天
+        this.params.time.end = this.params.time.start;
       }
       this.reset();
     },
@@ -607,7 +612,7 @@ export default {
         align-items: center;
         justify-content: center;
         &:last-child {
-          border-right: none
+          border-right: none;
         }
       }
 
@@ -652,7 +657,7 @@ export default {
       padding-left: 32rpx;
       line-height: 24rpx;
       margin: 0 40rpx;
-      border-bottom: 1px solid #CECECE;
+      border-bottom: 1px solid #cecece;
 
       .date {
         margin-right: 47rpx;
@@ -698,7 +703,7 @@ export default {
         display: flex;
         align-items: center;
         box-sizing: border-box;
-        border-bottom: 1px solid #CECECE;
+        border-bottom: 1px solid #cecece;
 
         .item-icon {
           margin-right: 33rpx;
@@ -764,7 +769,8 @@ export default {
       height: 40rpx;
       border-radius: 50%;
       background-color: #eeeeee;
-      color: #888;display: flex;
+      color: #888;
+      display: flex;
       align-items: center;
       justify-content: center;
     }
@@ -951,7 +957,7 @@ export default {
     top: calc(300rpx + var(--status-bar-height));
     right: 0;
     overflow: hidden;
-    border: 1px solid rgba(92,92,92,0.6);
+    border: 1px solid rgba(92, 92, 92, 0.6);
   }
   .s-item {
     display: flex;
@@ -963,7 +969,7 @@ export default {
   }
   .s-title {
     height: 49rpx;
-    background-color: #F0F0F0;
+    background-color: #f0f0f0;
   }
   .b-item {
     border-bottom: 1px solid #adadad;
