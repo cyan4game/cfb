@@ -4,7 +4,7 @@ import { BASE_ADDRESS, PROXY_PRE } from "../config/api";
 // 上传文件
 export const _upload = (file, successFunc, errorFunc, finishFunc) => {
   return uni.uploadFile({
-    url: BASE_ADDRESS + PROXY_PRE + "file/upload",
+    url: process.env.NODE_ENV === 'development' ? BASE_ADDRESS + PROXY_PRE + "file/upload" : PROXY_PRE + "file/upload",
     name: "file",
     formData: {
       file: file,
@@ -185,7 +185,7 @@ export const businessDetail = (type, businessId) => {
 // 在线客服-新增留言
 export const complaintMessage = (data) => {
   return http.post(`/complaintMessage/add`, data, {
-    custom: { toast: true, auth: true },
+    custom: { toast: true, auth: false },
   });
 };
 // 支付密码设置

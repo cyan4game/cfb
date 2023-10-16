@@ -11,7 +11,7 @@ export default {
     console.log("App启动");
     this.checkUpdate();
     // #ifdef APP-PLUS
-    plus.navigator.setFullscreen(true); //隐藏状态栏
+    // plus.navigator.setFullscreen(true); //隐藏状态栏
     const jpushModule = uni.requireNativePlugin("JG-JPush");
 
     if (!jpushModule) return;

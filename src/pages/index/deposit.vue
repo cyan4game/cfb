@@ -99,6 +99,7 @@
 
     <!-- 币种选择 -->
     <coin-select @select="selectCoin" ref="coinSelect" />
+    
   </view>
 </template>
 

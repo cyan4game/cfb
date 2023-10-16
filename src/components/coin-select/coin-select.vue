@@ -35,30 +35,15 @@
 </template>
 
 <script>
-import usdtIcon from "@/static/images/index/usdt.png";
-import cfbIcon from "@/static/images/index/cfb.png";
-const iconMap = {
-  USDT: usdtIcon,
-  CFB: cfbIcon,
-};
+
+import { coinList, iconMap } from '@/utils/dataMap.js'
 
 export default {
   name: "coinSelect",
   data() {
     return {
       iconMap,
-      list: [
-        {
-          coin: "USDT",
-          name: "USDT",
-          chain: "TRC20",
-        },
-        {
-          coin: "CFB",
-          name: "CFB",
-          chain: "CFB",
-        },
-      ],
+      list: coinList
     };
   },
   methods: {

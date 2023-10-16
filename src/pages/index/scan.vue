@@ -33,6 +33,9 @@ export default {
     return {
       type: "", // 没有的时候默认转账扫码， addAddress-添加地址
       html5QrcodeScanner: {},
+      html5QrCode: {},
+
+      stop: false, // 扫码成功后就停止
     };
   },
   mounted() {
@@ -41,11 +44,14 @@ export default {
   onLoad(data) {
     this.type = data.type;
   },
+  onShow() {
+    this.stop = false
+  },
   methods: {
     // 初始化
     init() {
-      const html5QrCode = new Html5Qrcode("reader");
-      html5QrCode
+      this.html5QrCode = new Html5Qrcode("reader");
+      this.html5QrCode
         .start(
           { facingMode: "environment" },
           { fps: 10, qrbox: { width: 250, height: 250 } },
@@ -119,6 +125,8 @@ export default {
       const pages = getCurrentPages();
       const prevPage = pages[pages.length - 2]; //上一个页面
       if (isValidTRONAddress(rs)) {
+        if (this.stop) return
+        this.stop = true
         // 解析成功
         // 根据不同页面 跳转不同结果
         switch (this.type) {
@@ -127,7 +135,7 @@ export default {
             uni.navigateBack();
             break;
           default:
-            uni.navigateTo({
+            uni.redirectTo({
               url: `/pages/withdraw/index?address=${rs}`,
             });
         }

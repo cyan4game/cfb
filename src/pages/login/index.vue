@@ -15,7 +15,7 @@
         v-if="menuName === 'mobile'"></mobile>
       <!-- <email @loginSuccess="loginSuccess" :protocol="protocol" :inviteCode="inviteCode" :showTip="showTip"
         v-if="menuName === 'email'"></email> -->
-      <text style="color: #38363B;font-size: 28rpx;margin: 55rpx auto 0 auto;display: block;text-align: center;position: relative;top:-20rpx" @click="router('pages/login/index')" >接收不到短信？</text>
+      <text style="color: #38363B;font-size: 28rpx;margin: 55rpx auto 0 auto;display: block;text-align: center;position: relative;top:-20rpx" @click="router('pages/customer/index')" >接收不到短信？</text>
     </view>
 
     <view class="protocol">

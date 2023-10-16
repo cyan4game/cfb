@@ -44,7 +44,7 @@ module.exports = (vm) => {
     config.baseURL = BASE_ADDRESS + PROXY_PRE;
     // #endif
     // #ifdef H5
-    config.baseURL = PROXY_PRE; // 开发环境
+    config.baseURL = PROXY_PRE;
     // #endif
     return config;
   });

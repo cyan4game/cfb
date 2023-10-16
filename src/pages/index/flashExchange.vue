@@ -112,7 +112,6 @@
       >闪兑</u-button
     >
 
-    <coin-select ref="coinSelect" @select="coinSelect"></coin-select>
   </view>
 </template>
 
@@ -196,28 +195,24 @@ export default {
       //     num = Math.ceil(num * 100) / 100
       //     this.form.from = num
       // }
-      if (type == "from") {
+      setTimeout(() => {
+        if (type == "from") {
         if (!this.form.from) return this.form.to = ''
+        this.form.from = _fixed(this.form.from, 8)
         let num = this.form.from * this.form.rate;
-        this.form.to = _fixed(num);
+        this.form.to = _fixed(num, 8);
       } else {
         if (!this.form.to) return this.form.from = ''
+        this.form.to = _fixed(this.form.to, 8)
         let num = this.form.to / this.form.rate;
-        this.form.from = _fixed(num);
+        this.form.from = _fixed(num, 8);
       }
+      }, 0)
     },
     // 全部
     all() {
       this.form.from = this.form.amount;
       this.calcRate("from");
-    },
-    // 开始选择
-    openCoinSelect() {
-      this.$refs.coinSelect.open();
-    },
-    // 币种选择
-    coinSelect(item) {
-      this.$refs.coinSelect.close();
     },
     // 查询余额和汇率
     getInfo(backLoading = false) {

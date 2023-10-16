@@ -11,7 +11,7 @@
                 <view class="item">
                     <!-- 状态 -->
                     <view class="title">
-                        <view class="name">未认证</view>
+                        <view class="name">未认证</view> <!-- @click="jump('/pages/identification/step3')" -->
                     </view>
                     <!-- 权限 -->
                     <view class="bottom-box">
@@ -58,7 +58,7 @@
                         <view class="btn-box ed" v-if="idenInfo.certificationType > 1">已认证</view>
                         <view style="flex:1"></view>
                         <view class="text fail" v-if="idenInfo.certificationType == 1 && [3].includes(idenInfo.certificationStatus)">认证失败</view>
-                        <view class="btn-box btn" v-if="idenInfo.certificationType == 1 && [1, 3].includes(idenInfo.certificationStatus)" @click="jump('/pages/identification/step3')">去认证</view>
+                        <view class="btn-box btn" v-if="idenInfo.certificationType == 1 && [1, 3].includes(idenInfo.certificationStatus)" @click="jump('/pages/identification/step1')">去认证</view>
                     </view>
                     <!-- 详情 -->
                     <!-- 详情 -->

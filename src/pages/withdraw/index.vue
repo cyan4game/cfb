@@ -79,7 +79,8 @@
     <verify-dialog :password="true" ref="vd" @success="successHandle" />
 
     <!-- 币种选择 -->
-    <coin-select ref="currencyPopup" @select="clickCurrency" />
+    <coin-select  @select="clickCurrency" />
+    <coin-select-inner ref="currencyPopup" :coin="form.currency" :width="'691rpx'" @select="clickCurrency" :top="'calc(204rpx + env(safe-area-inset-top))'" :left="'30rpx'" />
 
     <!-- 转账地址选择 -->
     <address-select ref="addressPopup" @select="selectAddress" />
@@ -181,7 +182,7 @@ export default {
     // 输入数量过滤
     inputNum() {
       setTimeout(() => {
-        this.form.amount = _fixed(this.form.amount, 6);
+        this.form.amount = _fixed(this.form.amount, 8);
       }, 0);
     },
     // 获取币种余额
