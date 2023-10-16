@@ -27,7 +27,7 @@
           placeholder="请输入"
         />
       </view>
-      <view class="title"> <text>*</text>留言内容：  <text class="tip"></text> </view>
+      <view class="title"> <text>*</text>留言内容：  <text class="tip">您好如需帮助请留言，我们将尽快解决您的问题</text> </view>
       <textarea
         v-model="form.content"
         class="ipt textarea"
@@ -140,7 +140,7 @@ export default {
   computed: {
     disabled() {
       return (
-        !(this.form.phoneNumber && this.form.content && this.imgList.length) ||
+        !(this.form.phoneNumber && this.form.content) ||
         this.loading
       );
     },
@@ -348,6 +348,7 @@ export default {
     .textarea {
       padding: 20rpx 40rpx;
       min-height: 200rpx;
+      width: 100%;
     }
 
     .upload-box {
@@ -393,7 +394,7 @@ export default {
         color: #808080;
 
         .icon {
-          font-size: 100rpx;
+          font-size: 90rpx;
           line-height: 90rpx;
           font-weight: 200;
         }

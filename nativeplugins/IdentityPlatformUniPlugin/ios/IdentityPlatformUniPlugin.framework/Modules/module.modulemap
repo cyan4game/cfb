@@ -1,0 +1,6 @@
+framework module IdentityPlatformUniPlugin {
+  umbrella header "IdentityPlatformUniPlugin.h"
+
+  export *
+  module * { export * }
+}

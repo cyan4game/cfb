@@ -1,0 +1,79 @@
+{
+	"name": "IdentityPlatformUniPlugin",
+	"id": "IdentityPlatformUniPlugin",
+	"version": "1.0.5",
+	"description": "智能核身SDK Uniapp插件",
+	"_dp_type": "nativeplugin",
+	"_dp_nativeplugin": {
+		"android": {
+		            "plugins": [
+		                {
+		                    "type": "module",
+		                    "name": "IdentityPlatformUniPlugin",
+		                    "class": "com.aliyun.aliyunverify.AliyunVerifyModule"
+		                }
+		            ],
+		            "integrateType": "aar",
+		            "dependencies": [
+						"com.squareup.okhttp3:okhttp:3.11.0",
+						"com.squareup.okio:okio:2.2.2",
+		                "com.aliyun.dpa:oss-android-sdk:+",
+		                "com.alibaba:fastjson:1.2.83_noneautotype"
+		            ],
+		            "compileOptions": { 
+		                "sourceCompatibility": "1.8",
+		                "targetCompatibility": "1.8"
+		            },
+		            "abis": [
+		                "armeabi",
+						"armeabi-v7a",
+		                "arm64-v8a"
+		            ],
+		            "minSdkVersion": "18",
+		            "permissions": [
+		                "android.permission.CAMERA",
+		                "android.permission.ACCESS_NETWORK_STATE",
+		                "android.permission.INTERNET"
+
+		            ],
+		            "parameters": {
+		                
+		            }
+		        },
+		"ios": {
+			"plugins": [{
+				"type": "module",
+				"name": "IdentityPlatformUniPlugin",
+				"class": "IdentityPlatformUniPlugin"
+			}],
+			"frameworks": [
+                "ToygerService.framework",
+                "AliyunIdentityFace.framework",
+                "AliyunOSSiOS.framework",
+                "AdSupport.framework",
+                "SystemConfiguration.framework",
+                "AliyunIdentityUtils.framework",
+                "AliyunIdentityPlatform.framework",
+                "CoreTelephony.framework",
+                "deviceiOS.framework",
+                "CoreMotion.framework",
+                "Accelerate.framework",
+                "libc++.tbd",
+                "libsqlite3.tbd",
+                "libresolv.tbd",
+                "libz.tbd"
+            ],
+            "resources": [
+                "AliyunIdentityFace.bundle",
+                "AliyunIdentityOCR.bundle",
+                "ToygerService.bundle",
+                "AliyunIdentityPlatform.bundle"
+            ],
+            "privacies": [
+                "NSCameraUsageDescription"
+            ],
+			"integrateType": "framework",
+			"deploymentTarget": "9.0"
+		}
+	}
+}

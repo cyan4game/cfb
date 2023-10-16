@@ -23,11 +23,12 @@ export const isValidTRONAddress = (address) => {
 
 /* ---------------------- 地址校验结束 --------------------------- */
 
-// 截取2位小数
-export const _fixed = (number) => {
+// 截取l位小数 默认2
+export const _fixed = (number, l = 2) => {
   const numberString = number.toString();
   if (numberString.includes('.')) {
-    const roundedNumberString = numberString.substring(0, numberString.indexOf('.') + 3);
+    const arr = numberString.split('.')
+    const roundedNumberString = arr[0] + '.' + arr[1].substr(0, l)
     return Number(roundedNumberString)
   }
   return numberString

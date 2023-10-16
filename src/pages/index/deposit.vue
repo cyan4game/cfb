@@ -23,12 +23,14 @@
     </view>
     <view class="line"></view>
     <view class="qr-box" v-if="address">
-      <tki-qrcode :key="'out'" ref="qrcode" :size="340" :val="address" />
+      <tki-qrcode @result="result" :key="'out'" ref="qrcode" :size="340" :val="address" />
+      <img class="qrcode-img" v-if="qrImg" :src="qrImg" alt="">
     </view>
-    <view class="btns" v-if="address">
+    <!-- <view class="btns" v-if="address">
       <view class="btn" @click="saveCode">保存至相册</view>
       <view class="btn btn2" @click="openDialog">分享地址</view>
-    </view>
+    </view> -->
+    <view class="save-tip">长按保存二维码</view>
     <view class="item" v-if="address">
       <text>收款地址</text>
     </view>
@@ -115,6 +117,7 @@ export default {
       chain: "TRC20",
       userInfo: {},
       address: "",
+      qrImg: '', // 二维码图片
     };
   },
   onShow() {
@@ -125,6 +128,9 @@ export default {
     // this.$refs.qrcode._makeCode();
   },
   methods: {
+    result(val) {
+      this.qrImg = val
+    },
     // 查询钱包地址
     getAddress() {
       uni.showLoading({
@@ -149,6 +155,8 @@ export default {
     // 选择币种
     selectCoin(item) {
       this.$refs.coinSelect.close();
+      this.address = ''
+      this.qrImg = ''
       this.currency = item.coin;
       this.chain = item.chain;
       this.getAddress();
@@ -463,6 +471,21 @@ export default {
     margin: 33rpx auto 27rpx auto;
     box-sizing: border-box;
     padding: 20rpx;
+    position: relative;
+    .qrcode-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 99;
+      top: 0;
+      left: 0;
+    }
+  }
+  .save-tip {
+    font-size: 24rpx;
+    text-align: center;
+    padding-bottom: 20rpx;
+    color: #696969;
   }
   .qr-box2 {
     width: 380rpx;

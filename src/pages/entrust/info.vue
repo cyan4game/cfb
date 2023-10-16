@@ -259,13 +259,15 @@ export default {
   .content-box {
     overflow: auto;
     font-weight: 400;
+    padding-left: 50rpx;
+    padding-right: 50rpx;
   }
   .title {
     color: #38363b;
     font-size: 40rpx;
     font-weight: bold;
     margin-bottom: 44rpx;
-    padding-left: 20rpx;
+    padding-left: 21rpx;
   }
   .info {
     height: 120rpx;
@@ -289,6 +291,7 @@ export default {
     font-size: 26rpx;
     align-items: center;
     justify-content: space-between;
+    padding-left: 16rpx;
     height: 80rpx;
     .val {
       color: #3c3c3c;

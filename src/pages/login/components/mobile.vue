@@ -191,7 +191,7 @@ export default {
       sendSMS(params)
         .then((res) => {
           if (res.code.toString() === "200") {
-            this.showTip("验证码已发送，请留意信息！");
+            this.showTip("验证码已发送");
             this.$refs.uCode.start();
           }
         })

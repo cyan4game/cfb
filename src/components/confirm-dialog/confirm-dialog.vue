@@ -85,7 +85,7 @@ export default {
 <style lang="scss">
 .tip-dialog-content {
   width: 630rpx;
-  border-radius: 12rpx;
+  border-radius: 6rpx;
   background-color: #fff;
   box-sizing: border-box;
   padding: 60rpx 56rpx;
@@ -127,7 +127,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12rpx;
+    border-radius: 6rpx;
     margin-top: 23rpx;
     box-sizing: border-box;
   }

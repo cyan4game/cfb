@@ -17,7 +17,7 @@
         ></u-image>
         <view class="status-content">
           <view class="status-title">{{ typeMap[info.type] || "" }}成功</view>
-          <view>{{ info.amount }}{{ info.payCoin }}</view>
+          <view>{{ preMap[info.incomeType] || "" }}{{ info.amount }}{{ info.payCoin }}</view>
         </view>
       </view>
 

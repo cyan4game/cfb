@@ -263,7 +263,7 @@ export default {
         height: 116rpx;
         left: 0;
         bottom: -116rpx;
-        background-color: #f0f0f0;
+        background-color: #fff;
         z-index: 9;
         box-sizing: border-box;
         border: 1px solid #5c5c5c;
@@ -278,7 +278,7 @@ export default {
           box-sizing: border-box;
         }
         .active-item {
-          background-color: #fff;
+          background-color: #f0f0f0;
         }
       }
       .select-dialog-bg {

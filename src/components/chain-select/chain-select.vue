@@ -147,6 +147,8 @@ export default {
       padding: 40rpx;
       display: flex;
       align-items: center;
+      color: #38363B;
+      font-size: 26rpx;
 
       .icon {
         margin-right: 28rpx;

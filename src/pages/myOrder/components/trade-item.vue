@@ -4,7 +4,10 @@
     <!-- 头部信息 -->
     <view class="top">
       <view class="title">
-        <coin-icon :coin="item.buyCoin || item.payCoin" style="width:50rpx;height:50rpx;margin-right:16rpx" />
+        <coin-icon
+          :coin="item.buyCoin || item.payCoin"
+          style="width: 55rpx; height: 54rpx; margin-right: 10rpx"
+        />
         <text class="status">{{ orderTypeMap[item.orderType] || "--" }}</text>
         <text>{{ item.buyCoin || item.payCoin }}</text>
       </view>
@@ -102,42 +105,41 @@ export default {
   border-radius: 9rpx;
   background-color: #fff;
   box-sizing: border-box;
-  padding: 0 70rpx;
+  padding: 27rpx 43rpx 0 56rpx;
   font-weight: 400;
+  height: 267rpx;
   .top {
-    height: 102rpx;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 26rpx;
-    border-bottom: 1px solid #f1f1f1;
+    font-size: 30rpx;
+    margin-bottom: 20rpx;
     .title {
       display: flex;
       align-items: center;
       font-weight: 500;
       color: #343635;
       .status {
-        color: #da3030;
+        color: #c81829;
         margin-right: 10rpx;
       }
     }
     .time {
-      color: #f09831;
+      color: #449367;
       .timedown {
-        margin-right: 10rpx;
+        // margin-right: 10rpx;
       }
     }
   }
   .amount-box {
     box-sizing: border-box;
-    padding: 20rpx 0;
     .left {
       color: #686868;
       font-size: 28rpx;
-      line-height: 64rpx;
+      line-height: 50rpx;
       display: flex;
-    align-items: center;
-    justify-content: space-between;
+      align-items: center;
+      justify-content: space-between;
       text-align: center;
       display: flex;
       justify-content: space-between;

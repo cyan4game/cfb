@@ -235,6 +235,9 @@ uni-toast {
 uni-button:after {
   border: none;
 }
+.uni-tabbar__label {
+  font-size: 24rpx!important;
+}
 .self-body {
   /* padding-top: calc(85rpx + var(--status-bar-height)); */
   padding-top: 104rpx;

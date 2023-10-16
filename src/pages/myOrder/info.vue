@@ -22,8 +22,8 @@
         {{ orderStatusTipMap[item.orderStatus] }}
         <!-- 成功 -->
         <text v-if="item.orderStatus == 0"
-          >{{ orderTypeMap[item.orderType] }}{{ item.buyAmount
-          }}{{ item.buyCoin }}</text
+          >{{ orderTypeMap[item.orderType] }} {{ item.buyAmount
+          }} {{ item.buyCoin || item.payCoin }}</text
         >
       </view>
 
@@ -60,15 +60,15 @@
         </view>
         <view class="info-item">
           <view class="item-name">金额</view>
-          <view class="item-box">
+          <view class="item-box" style="color:#449367">
             <text>￥{{ item.payAmount }}</text>
-            <u-image
+            <!-- <u-image
               @click="copy(item.payAmount)"
               class="copy"
               src="/static/images/funds/copy.png"
               width="26rpx"
               height="31rpx"
-            ></u-image>
+            ></u-image> -->
           </view>
         </view>
       </view>
@@ -204,6 +204,7 @@ export default {
   },
   onShow() {
     this.item = storage.get("curr-order") || {};
+    console.error('??', this.item)
     setTimeout(() => {
       this.getInfo();
     }, 0);
@@ -332,6 +333,7 @@ export default {
   .content-box {
     border-top-right-radius: 6rpx;
     border-top-left-radius: 6rpx;
+    padding: 74rpx 60rpx 20rpx 60rpx;
     overflow: auto;
   }
   .title {
@@ -399,6 +401,7 @@ export default {
       justify-content: space-between;
       margin-bottom: 44rpx;
       color: #7a7a7a;
+      font-size: 26rpx;
       .item-box {
         display: flex;
         align-items: center;
@@ -416,7 +419,7 @@ export default {
     }
   }
   .btns {
-    margin: 80rpx 0;
+    margin: 100rpx 0 0 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -437,7 +440,7 @@ export default {
     .submit {
       box-sizing: border-box;
       border-radius: 6rpx;
-      flex: 2;
+      flex: 1;
       height: 96rpx;
       background-color: #449367;
       display: flex;

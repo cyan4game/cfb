@@ -51,6 +51,7 @@
           <view class="item-title">转账数量</view>
           <view class="item-content">
             <input
+              @input="inputNum"
               v-model="form.amount"
               type="number"
               class="ipt"
@@ -63,7 +64,7 @@
               {{ form.currency.replace("_TRC20", "") }}</view
             >
             <view style="margin-bottom: 8rpx">手续费</view>
-            <view>-- USDT</view>
+            <view>0 USDT</view>
           </view>
         </view>
       </view>
@@ -110,15 +111,15 @@
           </view>
           <view class="sure-item">
             <text>转账数量</text>
-            <text class="sure-val">{{ form.amount }} USDT</text>
+            <text class="sure-val">{{ form.amount }} {{ form.currency }}</text>
           </view>
           <view class="sure-item">
             <text>手续费</text>
-            <text class="sure-val">0 USDT</text>
+            <text class="sure-val">0 {{ form.currency }}</text>
           </view>
           <view class="sure-item">
             <text>实际到账</text>
-            <text class="sure-val">{{ form.amount }} USDT</text>
+            <text class="sure-val">{{ form.amount }} {{ form.currency }}</text>
           </view>
         </view>
         <view class="submit" @click="next">确认转账</view>
@@ -130,7 +131,7 @@
 <script>
 import { withdraw } from "@/api/api";
 import storage from "@/utils/storage";
-import { isValidTRONAddress, updateBalance } from "@/utils/utils";
+import { isValidTRONAddress, updateBalance, _fixed } from "@/utils/utils";
 
 export default {
   name: "addressList",
@@ -139,7 +140,7 @@ export default {
       type: 1, // 页面类型 1-添加  2-修改
       form: {
         toAddress: "", // 地址
-        currency: "USDT_TRC20", // 币种
+        currency: "USDT", // 币种
         amount: "", // 数量
       },
       loading: false,
@@ -177,6 +178,12 @@ export default {
     this.getAmounts();
   },
   methods: {
+    // 输入数量过滤
+    inputNum() {
+      setTimeout(() => {
+        this.form.amount = _fixed(this.form.amount, 6);
+      }, 0);
+    },
     // 获取币种余额
     getAmounts() {
       this.amountMap = storage.get("balanceList") || [];
@@ -214,10 +221,16 @@ export default {
     },
     successHandle(codes) {
       this.loading = true;
-      withdraw({
-        ...this.form,
-        // ...codes,
-      })
+      const params = JSON.parse(JSON.stringify(this.form));
+      switch (params.currency) {
+        case "USDT":
+          params.currency = "USDT_TRC20";
+          break;
+        case "CFB":
+          params.currency = "CFB_CFB";
+          break;
+      }
+      withdraw(params)
         .then((res) => {
           if (res.code == 200) {
             uni.showToast({
@@ -227,6 +240,7 @@ export default {
             });
             this.form.toAddress = "";
             this.form.amount = "";
+            this.getAmounts();
           }
         })
         .finally(() => {

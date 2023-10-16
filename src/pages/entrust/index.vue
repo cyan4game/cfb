@@ -32,10 +32,8 @@
           ></u-image>
         </view>
         <view class="show" @click="changeHidden">
-          <view class="check" :class="{ checked: params.isHide == 1 }">
-            <view class="in"></view
-          ></view>
-          <text>{{ params.isHide == 1 ? "隐藏" : "显示" }}关闭委托</text>
+          <checkbox value="cb" :checked="params.isHide == 1" color="#449367" style="transform:scale(0.7)" />
+          <text>{{ params.isHide == 1 ? "隐藏" : "显示" }}已关闭委托</text>
         </view>
       </view>
 
@@ -52,22 +50,23 @@
           <view class="top">
             <view class="status">{{ item.type == 2 ? "出售" : "购买" }}</view>
             <view class="name">{{ item.currency }}</view>
-            <view class="state">{{ stateMap[item.state] || "--" }}</view>
+            
           </view>
 
           <view class="body">
             <view class="row">
-              <view class="row-name">参考汇率（CNY）</view>
-              <view class="row-val">￥{{ item.referenceRate }}</view>
-            </view>
-            <view class="row">
               <view class="row-name">委托数量</view>
               <view class="row-val">{{ item.entrustAmount }}</view>
+            </view>
+            <view class="row">
+              <view class="row-name">参考汇率（CNY）</view>
+              <view class="row-val">{{ item.referenceRate }}</view>
             </view>
           </view>
 
           <!-- 底部 -->
           <view class="bottom">
+            <view class="state">{{ stateMap[item.state] || "--" }}</view>
             <view class="icons">
               <!-- <u-image
                 class="icon"
@@ -83,7 +82,7 @@
               ></u-image> -->
             </view>
             <!-- <view class="btn">订单</view> -->
-            <view class="btn">查看详情</view>
+            <view class="btn">查看详情&gt;</view>
           </view>
         </view>
 
@@ -96,7 +95,7 @@
     <!-- 类型选择 -->
     <view class="picker-box" v-if="showPicker" @click="showPicker = false">
       <view class="select-box">
-        <view class="select-item" @click="bindPickerChange(i)" v-for="(item, i) in array" :key="i">{{
+        <view class="select-item" :class="{'active-item':index == i}" @click="bindPickerChange(i)" v-for="(item, i) in array" :key="i">{{
           item.name
         }}</view>
       </view>
@@ -229,12 +228,17 @@ export default {
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    padding: 0 31rpx 0 59rpx;
+    padding: 0 30rpx;
     .types {
       display: flex;
       align-items: center;
       color: #38363b;
       font-size: 32rpx;
+      border: 1px solid #5C5C5C;
+      padding: 0 20rpx;
+      height: 70rpx;
+      width: 196rpx;
+      box-sizing: border-box;
       .icon {
         margin-left: 10rpx;
       }
@@ -244,13 +248,16 @@ export default {
       align-items: center;
       color: #827e88;
       font-size: 30rpx;
+      ::v-deep .uni-checkbox-input-checked {
+        border: 1px solid #449367;
+      }
     }
   }
   .list {
     flex: 1;
     overflow: hidden;
-    // padding: 30rpx;
-    background-color: #f1f1f1;
+    padding: 10rpx 30rpx;
+    background-color: #fff;
     box-sizing: border-box;
     .more {
       padding: 50rpx 0;
@@ -260,11 +267,12 @@ export default {
     }
     .item {
       border-radius: 9rpx;
-      background-color: #fff;
-      margin-bottom: 26rpx;
-      padding: 0 42rpx;
+      background-color: #F6F5F5;
+      margin-bottom: 10rpx;
+      padding: 0 50rpx 0 40rpx;
       box-sizing: border-box;
       font-weight: 400;
+      height: 245rpx;
       .top {
         height: 103rpx;
         display: flex;
@@ -294,10 +302,15 @@ export default {
       }
       .bottom {
         border-top: 1px solid #e5e5e5;
-        height: 112rpx;
+        height: 66rpx;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        line-height: 26rpx;
+        .state {
+          color: #449367;
+          font-size: 26rpx;
+        }
         .icons {
           flex: 1;
           display: flex;
@@ -309,11 +322,11 @@ export default {
         .btn {
           height: 56rpx;
           padding: 0 20rpx;
-          background-color: #449367;
+          // background-color: #449367;
+          color: #827E88;
           border-radius: 6rpx;
           margin-left: 17rpx;
-          font-size: 24rpx;
-          color: #fff;
+          font-size: 26rpx;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -322,19 +335,17 @@ export default {
       }
       .body {
         box-sizing: border-box;
-        padding: 30rpx 0;
+        height: 74rpx;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         .row {
-          flex: 1;
           display: flex;
-          flex-direction: column;
           align-items: center;
           justify-content: space-between;
-          font-size: 28rpx;
+          font-size: 30rpx;
           .row-name {
             color: #696969;
-            margin-bottom: 10rpx;
           }
           .row-val {
             color: #686868;
@@ -356,29 +367,33 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0);
   z-index: 9999;
   .select-box {
-    background-color: #f2f3f5;
+    background-color: #fff;
     border-top-right-radius: 6rpx;
     border-top-left-radius: 6rpx;
     overflow: hidden;
     color: #454545;
+    box-sizing: border-box;
     font-size: 26rpx;
-    width: 164rpx;
+    width: 196rpx;
+    border: 1px solid #5C5C5C;
     position: absolute;
-    top: calc(210rpx + var(--status-bar-height))!important;
-    left: 50rpx;
+    top: calc(200rpx + var(--status-bar-height))!important;
+    left: 30rpx;
     .select-item {
       height: 72rpx;
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-bottom: 1px solid #808080;
       &:last-child {
         border-bottom: none;
       }
+    }
+    .active-item {
+      background-color: #f0f0f0;
     }
   }
 }
