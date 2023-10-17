@@ -511,10 +511,10 @@
 
 					.checkobx__list {
 						border-right-width: 1px;
-						border-right-color: #007aff;
+						border-right-color: #449367;
 						border-right-style: solid;
 						border-bottom-width:1px;
-						border-bottom-color: #007aff;
+						border-bottom-color: #449367;
 						border-bottom-style: solid;
 						height: 12px;
 						width: 6px;

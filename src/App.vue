@@ -232,6 +232,10 @@ uni-toast {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.uni-picker-container .uni-picker-action-confirm {
+        color: #449367 !important;
+    }
 uni-button:after {
   border: none;
 }

@@ -336,7 +336,7 @@
 		width: 16px;
 		height: 16px;
 		line-height: 16px;
-		background-color: #007aff;
+		background-color: #449367;
 		color: #fff;
 	}
 

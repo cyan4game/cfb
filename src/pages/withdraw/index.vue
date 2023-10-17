@@ -79,7 +79,7 @@
     <verify-dialog :password="true" ref="vd" @success="successHandle" />
 
     <!-- 币种选择 -->
-    <coin-select  @select="clickCurrency" />
+    <!-- <coin-select  @select="clickCurrency" /> -->
     <coin-select-inner ref="currencyPopup" :coin="form.currency" :width="'691rpx'" @select="clickCurrency" :top="'calc(204rpx + env(safe-area-inset-top))'" :left="'30rpx'" />
 
     <!-- 转账地址选择 -->
@@ -231,6 +231,8 @@ export default {
           params.currency = "CFB_CFB";
           break;
       }
+      params.smsVerifyCode = codes.phoneCode
+      params.payPassword = codes.payPass
       withdraw(params)
         .then((res) => {
           if (res.code == 200) {

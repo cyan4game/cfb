@@ -1,7 +1,7 @@
 <!-- 发布委托 -->
 <template>
   <view class="info-page-bg self-body entrust-post">
-    <u-navbar :safeAreaInsetTop="false" :title="'发布委托'" @leftClick="() => $routers.back()" />
+    <u-navbar :safeAreaInsetTop="false" :title="form.id ? '编辑委托' : '发布委托'" @leftClick="() => $routers.back()" />
     <view class="info-page-content content-box">
       <view class="types">
         <text class="name">广告类型</text>

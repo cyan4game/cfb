@@ -269,11 +269,11 @@ export default {
 }
 
 .selected-item-active {
-  border-bottom: 2px solid #007aff;
+  border-bottom: 2px solid #449367;
 }
 
 .selected-item-text {
-  color: #007aff;
+  color: #449367;
 }
 
 .tab-c {
@@ -323,7 +323,7 @@ export default {
 
 .check {
   margin-right: 5px;
-  border: 2px solid #007aff;
+  border: 2px solid #449367;
   border-left: 0;
   border-top: 0;
   height: 12px;

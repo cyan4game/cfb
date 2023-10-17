@@ -52,7 +52,7 @@ export default {
       let status = "未认证";
       if (iden) {
         if (iden.certificationType > 1 || (iden.certificationType == 1 && iden.certificationStatus == 2)) status = "基础认证";
-        if (iden.certificationType == 2 && iden.certificationStatus == 2)
+        if (iden.certificationType == 3 && iden.certificationStatus == 2)
           status = "高级认证";
       }
       return status;

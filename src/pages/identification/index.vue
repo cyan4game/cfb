@@ -171,7 +171,7 @@ export default {
         return {
             userInfo: {},
             idenInfo: {
-                certificationType: 1, // 认证类型 认证类型 1-标准认证，2-高级认证
+                certificationType: 1, // 认证类型 认证类型 1-标准认证，3-高级认证
                 certificationStatus: 1, // 认证状态 1 未认证 2 认证成功 3 认证失败
             },
             amounts: { // 不同级别的额度
@@ -280,6 +280,7 @@ export default {
             .text {
                 font-weight: 500;
                 font-size: 24rpx;
+                margin-right: 20rpx;
             }
             .ing {
                 color: #F09831;

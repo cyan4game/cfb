@@ -104,7 +104,7 @@
       ref="cancelBox"
       :title="'取消委托'"
       :content="'确认取消该委托吗？'"
-      :borderBtn="'不取消'"
+      :borderBtn="'关闭'"
       :btn="'取消委托'"
       :btnHandle="cancel"
     ></confirm-dialog>

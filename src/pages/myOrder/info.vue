@@ -155,7 +155,7 @@
       :title="'取消交易'"
       :btn="'取消交易'"
       :content="'确认取消交易吗？'"
-      :borderBtn="'不取消'"
+      :borderBtn="'关闭'"
       :btnHandle="orderCancelHandle"
     />
     <!-- 撤销申诉确认 -->

@@ -233,6 +233,7 @@ export default {
       display: flex;
       align-items: center;
       color: #38363b;
+      font-weight: bold;
       font-size: 32rpx;
       border: 1px solid #5C5C5C;
       padding: 0 20rpx;

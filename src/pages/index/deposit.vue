@@ -23,41 +23,51 @@
     </view>
     <view class="line"></view>
     <view class="qr-box" v-if="address">
-      <tki-qrcode @result="result" :key="'out'" ref="qrcode" :size="340" :val="address" />
-      <img class="qrcode-img" v-if="qrImg" :src="qrImg" alt="">
+      <tki-qrcode
+        @result="result"
+        :key="'out'"
+        ref="qrcode"
+        :size="340"
+        :val="address"
+      />
+      <img class="qrcode-img" v-if="qrImg" :src="qrImg" alt="" />
     </view>
     <!-- <view class="btns" v-if="address">
       <view class="btn" @click="saveCode">保存至相册</view>
       <view class="btn btn2" @click="openDialog">分享地址</view>
     </view> -->
     <view class="save-tip">长按保存二维码</view>
-    <view class="item" v-if="address">
-      <text>收款地址</text>
-    </view>
-    <view class="address" v-if="address">
-      <view style="width: 90%; word-break: break-all">{{ address }}</view>
-      <u-image
-        @click="copy(address)"
-        class="right"
-        src="/static/images/mine/copy.png"
-        width="26rpx"
-        height="31rpx"
-      ></u-image>
-    </view>
-    <view class="line" v-if="address"></view>
+    <view class="box">
+      <view class="item" v-if="address">
+        <text>收款地址</text>
+      </view>
+      <view class="address" v-if="address">
+        <view style="flex1; word-break: break-all">{{ address }}</view>
+        <u-image
+          @click="copy(address)"
+          class="right"
+          src="/static/images/mine/copy.png"
+          width="26rpx"
+          height="31rpx"
+        ></u-image>
+      </view>
+      <view class="line" v-if="address"></view>
 
-    <!-- 详情 -->
-    <view style="height: 30rpx"></view>
-    <view class="tip"
-      >1. 该地址仅支持
-      {{ currency }}
-      收款，请勿用于其他币种，否则会导致资产丢失并不可找回。</view
-    >
-    <view class="tip"
-      >2.
-      请使用TRC20（TRON）协议进行转入，使用其他协议转入会导致资产丢失并不可找回。</view
-    >
-    <view class="tip">3. 您的充值地址不会经常改变，可截图保存并重复充值。</view>
+      <!-- 详情 -->
+      <view style="height: 30rpx"></view>
+      <view class="tip"
+        >1. 该地址仅支持
+        {{ currency }}
+        收款，请勿用于其他币种，否则会导致资产丢失并不可找回。</view
+      >
+      <view class="tip"
+        >2.
+        请使用TRC20（TRON）协议进行转入，使用其他协议转入会导致资产丢失并不可找回。</view
+      >
+      <view class="tip"
+        >3. 您的充值地址不会经常改变，可截图保存并重复充值。</view
+      >
+    </view>
 
     <!-- 海报弹窗 -->
     <uni-popup ref="popup">
@@ -98,8 +108,7 @@
     </uni-popup>
 
     <!-- 币种选择 -->
-    <coin-select @select="selectCoin" ref="coinSelect" />
-    
+    <coin-select-inner ref="coinSelect" :coin="currency" :width="'690rpx'" @select="selectCoin" :top="'calc(214rpx + env(safe-area-inset-top))'" :left="'30rpx'" />
   </view>
 </template>
 
@@ -118,7 +127,7 @@ export default {
       chain: "TRC20",
       userInfo: {},
       address: "",
-      qrImg: '', // 二维码图片
+      qrImg: "", // 二维码图片
     };
   },
   onShow() {
@@ -130,7 +139,7 @@ export default {
   },
   methods: {
     result(val) {
-      this.qrImg = val
+      this.qrImg = val;
     },
     // 查询钱包地址
     getAddress() {
@@ -156,8 +165,8 @@ export default {
     // 选择币种
     selectCoin(item) {
       this.$refs.coinSelect.close();
-      this.address = ''
-      this.qrImg = ''
+      this.address = "";
+      this.qrImg = "";
       this.currency = item.coin;
       this.chain = item.chain;
       this.getAddress();
@@ -408,7 +417,7 @@ export default {
 
 <style lang="scss" scoped>
 .page-deposit {
-  padding: 140rpx 66rpx 53rpx 66rpx;
+  padding: 140rpx 30rpx 53rpx 30rpx;
   box-sizing: border-box;
   .right-icon {
     position: fixed;
@@ -422,9 +431,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-sizing: border-box;
     color: #454545;
     font-size: 26rpx;
-    padding-right: 20rpx;
+    padding: 0 30rpx;
     background-color: #f1f1f1;
     border-radius: 6rpx;
     margin-bottom: 44rpx;
@@ -464,8 +474,13 @@ export default {
     margin-bottom: 25rpx;
     display: flex;
     justify-content: space-between;
+    padding: 0 14rpx 0 20rpx;
+    align-items: center;
   }
 
+  .box {
+    padding: 20rpx 35rpx 0 35rpx;
+  }
   .qr-box {
     width: 380rpx;
     height: 380rpx;
@@ -535,6 +550,7 @@ export default {
     color: #696969;
     font-size: 26rpx;
     margin-bottom: 26rpx;
+    padding-left: 26rpx;
 
     .val {
       color: #3c3c3c;

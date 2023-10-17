@@ -124,7 +124,7 @@ export const delAddress = (id) => {
 };
 // 查询支付绑定状态信息-根据memberId
 export const queryPayBindInfo = () => {
-  return http.get(`/memberPayModel/list`, null, {
+  return http.get(`/memberPayModel/list`, {
     custom: { toast: true, auth: true },
   });
 };
@@ -225,8 +225,8 @@ export const certificateModify = (data) => {
   });
 };
 // 查询实名认证-登录用户
-export const certificateQuery = (data) => {
-  return http.get(`/memberCertificate/queryCertification`, data, {
+export const certificateQuery = () => {
+  return http.get(`/memberCertificate/queryCertification`, {
     custom: { auth: true, toast: true },
   });
 };
@@ -261,8 +261,8 @@ export const toExchange = (data) => {
   });
 };
 // 获取可转账余额
-export const memberWalletList = (data) => {
-  return http.get(`/memberWallet/list`, data, {
+export const memberWalletList = () => {
+  return http.get(`/memberWallet/list`, {
     custom: { auth: true, toast: true },
   });
 };
@@ -292,7 +292,7 @@ export const entrustPage = (data) => {
 };
 // 取消委托
 export const entrustCancel = (id) => {
-  return http.get(`/entrust/cancel/${id}`, null, {
+  return http.get(`/entrust/cancel/${id}`, {
     custom: { auth: true, toast: true },
   });
 };
@@ -310,7 +310,7 @@ export const pageOtcMyOrder = (data) => {
 };
 // 查询币种钱包地址
 export const getWalletAddress = (currency, chain) => {
-  return http.get(`/memberWalletAddress/get/${currency}/${chain}`, null, {
+  return http.get(`/memberWalletAddress/get/${currency}/${chain}`, {
     custom: { auth: true, toast: true },
   });
 };
@@ -339,14 +339,14 @@ export const confirmPay = (data) => {
   });
 };
 // 银行列表
-export const bankList = (id) => {
-  return http.get(`/bank/list`, null, {
+export const bankList = () => {
+  return http.get(`/bank/list`, {
     custom: { auth: true, toast: true },
   });
 };
 // 获取所有可用banner
-export const getAllBanner = (id) => {
-  return http.get(`/banner/getAll`, null, {
+export const getAllBanner = () => {
+  return http.get(`/banner/getAll`, {
     custom: { auth: true, toast: true },
   });
 };
@@ -357,8 +357,8 @@ export const helpList = (data) => {
   });
 };
 // 个人资产
-export const memberAsset = (id) => {
-  return http.get(`/member/asset`, null, {
+export const memberAsset = () => {
+  return http.get(`/member/asset`, {
     custom: { auth: true, toast: true },
   });
 };
@@ -370,7 +370,19 @@ export const financeList = (data) => {
 };
 // 获取提现网络
 export const getNetwork = (coin) => {
-  return http.get(`/member-address/getNetwork/${coin}`, null, {
+  return http.get(`/member-address/getNetwork/${coin}`, {
     custom: { auth: true, toast: true },
+  });
+};
+// 人脸认证初始化
+export const initFaceVerify = (data) => {
+  return http.post(`/memberCertificate/initFaceVerify`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
+// 获取人脸认证结果
+export const describeFaceVerify = (verifySource) => {
+  return http.get(`/memberCertificate/describeFaceVerify/${verifySource}`, {
+    custom: { auth: true, toast: false },
   });
 };

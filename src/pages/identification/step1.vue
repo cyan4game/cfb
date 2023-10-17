@@ -29,11 +29,56 @@
       <view class="tip" v-show="!idOk">请输入正确的身份证号码</view>
 
       <!-- 上传图片 -->
-      <view class="item" @click="selectFile">
-        <view class="img">
+      <!-- 正面 -->
+      <view class="item">
+        <view class="img" @click="selectFile('idCardFrontImage')">
           <u-image
             class="pic"
-            v-if="!file.path"
+            v-if="!files.idCardFrontImage.path"
+            src="/static/images/mine/iden-1.png"
+            width="100%"
+            height="100%"
+          ></u-image>
+          <u-image
+            mode="fit"
+            class="pic"
+            v-if="files.idCardFrontImage.path"
+            :src="files.idCardFrontImage.path"
+            width="100%"
+            height="100%"
+          ></u-image>
+        </view>
+        <view class="txt">身份证正面照</view>
+      </view>
+
+      <!--反面 -->
+      <view class="item">
+        <view class="img" @click="selectFile('idCardBackImage')">
+          <u-image
+            class="pic"
+            v-if="!files.idCardBackImage.path"
+            src="/static/images/mine/iden-2.png"
+            width="100%"
+            height="100%"
+          ></u-image>
+          <u-image
+            mode="fit"
+            class="pic"
+            v-if="files.idCardBackImage.path"
+            :src="files.idCardBackImage.path"
+            width="100%"
+            height="100%"
+          ></u-image>
+        </view>
+        <view class="txt">身份证反面照</view>
+      </view>
+
+      <!-- 手持 -->
+      <view class="item">
+        <view class="img" @click="selectFile('idCardHand')">
+          <u-image
+            class="pic"
+            v-if="!files.idCardHand.path"
             src="/static/images/mine/iden-3.png"
             width="100%"
             height="100%"
@@ -41,13 +86,13 @@
           <u-image
             mode="fit"
             class="pic"
-            v-if="file.path"
-            :src="file.path"
+            v-if="files.idCardHand.path"
+            :src="files.idCardHand.path"
             width="100%"
             height="100%"
           ></u-image>
         </view>
-        <view>人像照片</view>
+        <view class="txt">人像面照片</view>
       </view>
     </view>
 
@@ -77,13 +122,29 @@ export default {
         realName: "",
         idCard: "",
         type: 0,
+        idCardFrontImage: "",
+        idCardBackImage: "",
+        idCardHand: "",
       },
-      file: {},
+      files: {
+        idCardFrontImage: {
+          path: "",
+        },
+        idCardBackImage: {
+          path: "",
+        },
+        idCardHand: {
+          path: "",
+        },
+      },
     };
   },
   computed: {
     disabled() {
-      return this.loading || !(this.form.realName && this.form.idCard && this.file.path);
+      return (
+        this.loading ||
+        !(this.form.realName && this.form.idCard && this.files.idCardFrontImage.path && this.files.idCardBackImage.path && this.files.idCardHand.path)
+      );
     },
     nameOk() {
       if (!this.form.realName) return true;
@@ -96,20 +157,39 @@ export default {
   },
   onLoad() {
     this.idenInfo = storage.get("idenInfo") || {};
+    console.error('??', this.idenInfo)
     this.form.realName = this.idenInfo.realName || "";
     this.form.idCard = this.idenInfo.idCard || "";
+    this.form.realName = this.idenInfo.idName
+    this.files.idCardFrontImage.path = this.form.idCardFrontImage = this.idenInfo.idCardFrontPictureUrl
+    this.files.idCardBackImage.path = this.form.idCardBackImage = this.idenInfo.idCardBackPictureUrl
+    this.files.idCardHand.path = this.form.idCardHand = this.idenInfo.faceContrastPictureUrl
   },
   methods: {
     // 判断并提交
     async submit() {
+      if (!this.form.idCardFrontImage) {
+          this.form.idCardFrontImage = await this.uploadItem(this.files.idCardFrontImage)
+      }
+      if (!this.form.idCardBackImage) {
+          this.form.idCardBackImage = await this.uploadItem(this.files.idCardBackImage)
+      }
+      if (!this.form.idCardHand) {
+          this.form.idCardHand = await this.uploadItem(this.files.idCardHand)
+      }
+      if (!this.form.idCardFrontImage || !this.form.idCardBackImage || !this.form.idCardHand) return uni.showToast({
+          title: '上传失败，请重新提交',
+          icon: 'none',
+          duration: 2000
+      })
       const params = this.form;
       this.loading = true;
-      const rs = await this.uploadItem(this.file);
-      if (!rs) return (this.loading = false);
       standardCertification({
         idCard: params.idCard,
         idName: params.realName,
-        faceContrastPictureUrl: rs,
+        idCardFrontPictureUrl: this.form.idCardFrontImage,
+        idCardBackPictureUrl: this.form.idCardBackImage,
+        faceContrastPictureUrl: this.form.idCardHand,
       })
         .then((res) => {
           if (res.code == 200) {
@@ -129,12 +209,12 @@ export default {
           }, 1000);
         });
     },
-    // 选择照片
-    selectFile() {
+    // 选择文件
+    selectFile(key) {
       uni.chooseImage({
         count: 1,
         success: (res) => {
-          this.file = res.tempFiles[0];
+          this.files[key] = res.tempFiles[0];
         },
       });
     },
@@ -190,6 +270,7 @@ export default {
 <style lang="scss" scoped>
 .page-iden-1 {
   .content-box {
+    padding-bottom: 200rpx;
     .title {
       font-size: 26rpx;
       color: #7a7a7a;
@@ -222,6 +303,9 @@ export default {
       color: #000;
       font-size: 26rpx;
       margin-top: 40rpx;
+      .txt {
+        width: 200rpx;
+      }
 
       .img {
         width: 166rpx;

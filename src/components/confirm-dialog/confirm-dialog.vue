@@ -7,7 +7,7 @@
     :mask-click="false"
   >
     <view class="tip-dialog-content">
-      <view class="close" @click="close"
+      <view v-if="showClose" class="close" @click="close"
         ><u-image
           mode="contain"
           src="/static/images/index/close.png"
@@ -62,6 +62,10 @@ export default {
       // 边框按钮回调
       type: Function,
     },
+    showClose: { // 是否展示关闭按钮
+      type: Boolean,
+      default: true
+    }
   },
   methods: {
     open() {
