@@ -11,7 +11,7 @@
 
       <view class="item">
         <text>委托人</text>
-        <text class="val">{{ info.realName }}</text>
+        <text class="val">{{ info.memberNickname }}</text>
       </view>
       <view class="item">
         <text>委托类型</text>

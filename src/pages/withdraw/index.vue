@@ -182,7 +182,7 @@ export default {
     // 输入数量过滤
     inputNum() {
       setTimeout(() => {
-        this.form.amount = _fixed(this.form.amount, 6);
+        this.form.amount = _fixed(this.form.amount, 4);
       }, 0);
     },
     // 获取币种余额

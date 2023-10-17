@@ -146,7 +146,7 @@ export default {
   methods: {
     inputNum() {
       setTimeout(() => {
-        this.form.entrustAmount = _fixed(this.form.entrustAmount, 6);
+        this.form.entrustAmount = _fixed(this.form.entrustAmount, 4);
         this.form.estimatedAmount = this.form.referenceRate * this.form.entrustAmount
       }, 0);
     },

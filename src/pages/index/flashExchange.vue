@@ -200,14 +200,14 @@ export default {
       setTimeout(() => {
         if (type == "from") {
         if (!this.form.from) return this.form.to = ''
-        this.form.from = _fixed(this.form.from, 6)
+        this.form.from = _fixed(this.form.from, 4)
         let num = this.form.from * this.form.rate;
-        this.form.to = _fixed(num, 6);
+        this.form.to = _fixed(num, 4);
       } else {
         if (!this.form.to) return this.form.from = ''
-        this.form.to = _fixed(this.form.to, 6)
+        this.form.to = _fixed(this.form.to, 4)
         let num = this.form.to / this.form.rate;
-        this.form.from = _fixed(num, 6);
+        this.form.from = _fixed(num, 4);
       }
       }, 0)
     },

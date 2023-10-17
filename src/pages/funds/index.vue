@@ -87,7 +87,7 @@
               <text v-if="item.type != 3">{{ typeMap[item.type] || "--" }}&nbsp;&nbsp;{{ item.payCoin }}</text>
               <text v-if="item.type == 3">
                 {{ typeMap[item.type] || "--" }}&nbsp;&nbsp;
-                {{ info.incomeType == 0 ? `${info.payCoin}-${info.receiveCoin}` : `${info.receiveCoin}-${info.payCoin}` }}
+                {{ item.incomeType == 0 ? `${item.payCoin}-${item.receiveCoin}` : `${item.receiveCoin}-${item.payCoin}` }}
               </text>
             </view>
             <view>{{ getTimestr(item.createDate) }}</view>
