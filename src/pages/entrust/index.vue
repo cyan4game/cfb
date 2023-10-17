@@ -3,7 +3,7 @@
   <view class="info-page-bg self-body page-entrust">
     <u-navbar
       :safeAreaInsetTop="false"
-      :title="'委托'"
+      :title="'委托管理'"
       @leftClick="() => $routers.back()"
     />
     <view class="info-page-content content-box">
@@ -59,7 +59,7 @@
               <view class="row-val">{{ item.entrustAmount }}</view>
             </view>
             <view class="row">
-              <view class="row-name">参考汇率（CNY）</view>
+              <view class="row-name">参考汇率(CNY)</view>
               <view class="row-val">{{ item.referenceRate }}</view>
             </view>
           </view>
@@ -347,6 +347,7 @@ export default {
           font-size: 30rpx;
           .row-name {
             color: #696969;
+            margin-right: 18rpx;
           }
           .row-val {
             color: #686868;

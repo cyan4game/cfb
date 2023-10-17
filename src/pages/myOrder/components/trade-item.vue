@@ -12,7 +12,7 @@
         <text>{{ item.buyCoin || item.payCoin }}</text>
       </view>
       <view class="time">
-        <text class="timedown">{{
+        <text class="timedown" :style="{'color':orderStatusColorMap[item.orderStatus]}">{{
           orderStatusMap[item.orderStatus] || "--"
         }}</text>
       </view>
@@ -47,7 +47,7 @@
 
 <script>
 import { secondsToMinutesAndSeconds } from "@/utils/utils";
-import { orderStatusMap, orderTypeMap } from "../map.js";
+import { orderStatusMap, orderTypeMap, orderStatusColorMap } from "../map.js";
 import { getTimestr } from "@/utils/time";
 import storage from "@/utils/storage";
 
@@ -61,6 +61,7 @@ export default {
   },
   data() {
     return {
+      orderStatusColorMap,
       orderTypeMap,
       orderStatusMap,
       interval: null,

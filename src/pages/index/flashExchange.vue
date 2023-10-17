@@ -21,7 +21,7 @@
             ></u-image>
             <view>
               <view style="margin-bottom: 4rpx">{{ form.fromCoin }}</view>
-              <text class="tip" style="font-size: 15rpx">转出数量</text>
+              <!-- <text class="tip" style="font-size: 15rpx">转出数量</text> -->
             </view>
             <u-image
               class="more"
@@ -41,8 +41,8 @@
             placeholder-style="color:#fca223"
           />
         </view>
-        <view class="tip">请输入数量</view>
-        <!-- <view class="bottom">
+        <!-- <view class="tip">请输入数量</view> -->
+        <view class="bottom">
           <view class="total">
             <text>可用余额：</text>
             <text class="money"
@@ -50,7 +50,7 @@
             >
           </view>
           <view class="all" @click="all">全部</view>
-        </view> -->
+        </view>
       </view>
 
       <view class="trans-icon" @click="changeCoin">
@@ -73,7 +73,7 @@
             ></u-image>
             <view>
               <view style="margin-bottom: 4rpx">{{ form.toCoin }}</view>
-              <text class="tip" style="font-size: 15rpx">接受数量</text>
+              <!-- <text class="tip" style="font-size: 15rpx">接受数量</text> -->
             </view>
             <u-image
               class="more"
@@ -92,20 +92,22 @@
             :placeholder="toIptFocus ? '' : '0'"
             placeholder-style="color:#fca223"
           />
-          <view class="tip">请输入数量</view>
+          <!-- <view class="tip">请输入数量</view> -->
+        </view>
+        <view class="bottom">
+          <view class="total">
+            <text>汇率：</text>
+            <text class="money" style="color:#E63C3C"
+              >{{ form.rate || "--" }}</text
+            >
+          </view>
         </view>
       </view>
     </view>
 
     <view class="rate">
-      <text>1{{ form.fromCoin }} = {{ form.rate }}{{ form.toCoin }}</text>
+      <text>1{{ form.fromCoin }} ~ {{ form.rate }}{{ form.toCoin }}</text>
       <!-- <text class="num">{{ form.rate }}</text> -->
-      <view class="total">
-            <text>可用余额：</text>
-            <text class="money"
-              >{{ form.amount || "0.00" }} {{ form.fromCoin }}</text
-            >
-          </view>
     </view>
 
     <u-button type="primary" class="btn" :disabled="disabled" @click="submit"
@@ -274,22 +276,21 @@ export default {
     }
   }
   .main-box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #cdcdcd;
     width: 647rpx;
-    height: 300rpx;
     margin: 0 auto;
     border-radius: 15rpx;
+    position: relative;
   }
 
   .box {
     box-sizing: border-box;
     flex: 1;
+    border: 1px solid #CDCDCD;
+    height: 236rpx;
+    padding: 34rpx 44rpx 50rpx 50rpx;
+    border-radius: 15rpx;
     .top {
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
 
@@ -302,6 +303,8 @@ export default {
         border-radius: 7rpx;
         padding: 16rpx 15rpx 6rpx 12rpx;
         color: #454545;
+        height: 72rpx;
+        min-width: 178rpx;
         font-size: 22rpx;
 
         .img {
@@ -314,7 +317,7 @@ export default {
       }
 
       .num {
-        text-align: center;
+        text-align: right;
         color: #fca223;
         font-size: 56rpx;
         margin: 10rpx 0 16rpx 0;
@@ -330,9 +333,9 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 50rpx;
       color: #252525;
       font-size: 26rpx;
+      margin-top: 16rpx;
 
       .money {
         color: #449367;
@@ -345,20 +348,21 @@ export default {
   }
 
   .box2 {
-    position: relative;
-    z-index: 1;
+    margin-top: 14rpx;
   }
 
   .trans-icon {
     background-color: #f0f0f0;
-    width: 70rpx;
-    height: 70rpx;
+    width: 92rpx;
+    height: 92rpx;
     border-radius: 12rpx;
-    position: relative;
+    position: absolute;
     z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
+    transform: translateX(-50%) translateY(calc(-50% + 7rpx));
+    left: 50%;
   }
 
   .btn {

@@ -101,6 +101,14 @@
         </view>
 
         <!-- 状态 -->
+
+        <u-image
+          v-if="finish && !list.length"
+          class="nodata-icon"
+          src="@/static/images/mine/null.png"
+          width="258rpx"
+          height="293rpx"
+        ></u-image>
         <view class="more">{{
           finish ? "没有更多了" : loading ? "加载中" : "加载更多"
         }}</view>
@@ -643,7 +651,14 @@ export default {
           margin-left: 17rpx;
         }
       }
+      
     }
+    .nodata-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 60rpx auto 0 auto;
+      }
 
     .total {
       height: 96rpx;

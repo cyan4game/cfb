@@ -19,7 +19,7 @@
                 </view>
 
                 <!-- 提现网络 -->
-                <view class="form-item">
+                <view class="form-item" v-show="form.currency != 'CFB'">
                     <view class="item-title">提现网络</view>
                     <view class="item-content" @click="openChain">
                         <view class="ipt">{{ form.chain || '请选择提现网络' }}</view>
@@ -175,6 +175,9 @@ export default {
         clickCurrency(item) {
             this.form.currency = item.name
             this.form.chain = ''
+            if (item.name == 'CFB') {
+                this.form.chain = 'CFB'
+            }
             this.$refs.currencyPopup.close()
         },
         // 打开网络选择
