@@ -19,9 +19,9 @@
             </view>
 
             <u-image
-              src="@/static/images/mine/right.png"
-              width="15rpx"
-              height="29rpx"
+              src="@/static/images/index/more.png"
+              width="16rpx"
+              height="9rpx"
             ></u-image>
           </view>
         </view>
@@ -182,7 +182,7 @@ export default {
     // 输入数量过滤
     inputNum() {
       setTimeout(() => {
-        this.form.amount = _fixed(this.form.amount, 8);
+        this.form.amount = _fixed(this.form.amount, 6);
       }, 0);
     },
     // 获取币种余额
@@ -213,7 +213,7 @@ export default {
     },
     // 提交
     submit() {
-      if (this.disabled) return;
+      // if (this.disabled) return;
       this.$refs.popup.open();
     },
     next() {
@@ -378,10 +378,11 @@ export default {
     font-size: 26rpx;
     color: #7a7a7a;
     .sure-val {
-      max-width: 400rpx;
+      max-width: 420rpx;
       color: #3c3c3c;
-      margin-left: 80rpx;
+      margin-left: 60rpx;
       word-break: break-all;
+      text-align: right;
     }
   }
 

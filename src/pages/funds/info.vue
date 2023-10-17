@@ -17,7 +17,10 @@
         ></u-image>
         <view class="status-content">
           <view class="status-title">{{ typeMap[info.type] || "" }}成功</view>
-          <view>{{ preMap[info.incomeType] || "" }}{{ info.amount }}{{ info.payCoin }}</view>
+          <view
+            >{{ preMap[info.incomeType] || "" }}{{ info.amount
+            }}{{ info.payCoin }}</view
+          >
         </view>
       </view>
 
@@ -30,30 +33,60 @@
             }}{{ info.payCoin }}</view
           >
         </view>
-        <view class="detail">
-          <view class="name">手续费</view>
-          <view class="content">--</view>
-        </view>
-        <view class="detail">
-          <view class="name">转出地址</view>
-          <view class="content">{{ info.payAddress || "--" }}</view>
-        </view>
-        <view class="detail">
-          <view class="name">转入地址</view>
-          <view class="content">{{ info.receiveAddress }}</view>
-        </view>
-        <view class="detail">
-          <view class="name">交易哈希</view>
-          <view class="content">{{ info.transactionHash }}</view>
-        </view>
-        <!-- <view class="detail">
-                    <view class="name">充币地址</view>
-                    <view class="content" @click="copy('复制的内容')">
-                        <u-image class="copy-icon" src="@/static/images/funds/copy.png" width="26rpx"
-                    height="31rpx"></u-image>
-                        <text>{{ info.address }}</text>
-                    </view>
-                </view> -->
+        <!-- 闪兑 -->
+        <template v-if="info.type == 3">
+          <view class="detail">
+            <view class="name">闪兑币种</view>
+            <view class="content">
+              {{ info.incomeType == 0 ? `${info.payCoin}-${info.receiveCoin}` : `${info.receiveCoin}-${info.payCoin}` }}
+            </view>
+          </view>
+          <view class="detail">
+            <view class="name">订单编号</view>
+            <view class="content" @click="copy(info.orderNo)">
+              <text>{{ info.orderNo }}</text>
+              <u-image
+                class="copy-icon"
+                src="@/static/images/funds/copy.png"
+                width="22rpx"
+                height="26rpx"
+              ></u-image>
+            </view>
+          </view>
+        </template>
+        <!-- 其他 -->
+        <template v-if="info.type != 3">
+          <view class="detail">
+            <view class="name">手续费</view>
+            <view class="content">--</view>
+          </view>
+          <view class="detail">
+            <view class="name">转出地址</view>
+            <view class="content">{{ info.payAddress }}</view>
+          </view>
+          <view class="detail">
+            <view class="name">转入地址</view>
+            <view class="content">{{ info.receiveAddress }}</view>
+          </view>
+          <view class="detail" v-if="info.payCoin != 'CFB_CFB'">
+            <view class="name">交易哈希</view>
+            <view class="content">{{ info.transactionHash }}</view>
+          </view>
+          <view class="detail" v-if="info.payCoin == 'CFB_CFB'">
+            <view class="name">订单编号</view>
+            <view class="content" @click="copy(info.orderNo)">
+              
+              <text>{{ info.orderNo }}</text>
+              <u-image
+                class="copy-icon"
+                src="@/static/images/funds/copy.png"
+                width="22rpx"
+                height="26rpx"
+              ></u-image>
+            </view>
+          </view>
+        </template>
+
         <view class="detail">
           <view class="name">创建时间</view>
           <view class="content">{{ getTimestr(info.createDate) }}</view>
@@ -72,18 +105,13 @@ import { copyTxt } from "@/utils/utils";
 import { businessDetail } from "@/api/api";
 import storage from "@/utils/storage";
 import { getTimestr } from "@/utils/time";
+import { fundTypeMap } from "@/utils/dataMap.js";
 
 const preMap = {
   0: "-",
   1: "+",
 };
-const typeMap = {
-  1: "充币",
-  2: "转账",
-  3: "闪兑",
-  4: "购买",
-  5: "出售",
-};
+const typeMap = fundTypeMap;
 export default {
   name: "fundsInfo",
   data() {
@@ -105,6 +133,7 @@ export default {
     // 获取详细数据
     getInfoData() {
       this.info = storage.get("fund-info");
+      console.error(this.info);
     },
     // 复制
     copy(txt) {
@@ -188,7 +217,7 @@ export default {
           .copy-icon {
             position: relative;
             top: 6rpx;
-            margin-right: 10rpx;
+            margin-left: 10rpx;
           }
         }
       }

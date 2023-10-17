@@ -62,7 +62,7 @@ export default {
   height: 100%;
   overflow: hidden;
   z-index: 99999;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0);
   .cover-content {
     position: absolute;
     background-color: #fff;
@@ -94,7 +94,7 @@ export default {
     height: 0;
     position: absolute;
     right: 46rpx;
-    top: 86rpx;
+    top: 88rpx;
     transform: scaleX(2);
     border-left: 6rpx solid transparent; /* 左边透明 */
     border-right: 6rpx solid transparent; /* 右边透明 */

@@ -9,6 +9,9 @@ export default {
   },
   onLaunch() {
     console.log("App启动");
+    // 事件监听
+    // uni.$on('401', data => {})
+
     this.checkUpdate();
     // #ifdef APP-PLUS
     // plus.navigator.setFullscreen(true); //隐藏状态栏

@@ -22,7 +22,7 @@
         <text v-show="type=='sell'" class="balance">可用余额{{ cfb }}CFB</text>
       </view>
       <view class="ipt">
-        <input v-model="form.entrustAmount" @input="() => form.estimatedAmount = form.referenceRate * form.entrustAmount" class="input" type="number" placeholder="数量" />
+        <input v-model="form.entrustAmount" @input="inputNum" class="input" type="number" placeholder="数量" />
         <text>CFB</text>
       </view>
       <view style="display: flex;">
@@ -78,7 +78,7 @@
 <script>
 import { entrustRelease, queryPayBindInfo, entrustUpdate } from '@/api/api'
 import storage from '@/utils/storage'
-import { updateBalance } from '@/utils/utils'
+import { updateBalance, _fixed } from '@/utils/utils'
 
 
 const payWayMap = {
@@ -120,25 +120,23 @@ export default {
   computed: {
     disabled() {
       if (this.type == 'buy') { // 购买
-        if (this.form.entrustAmount && !this.loading) return false
+        if (Number(this.form.entrustAmount) && !this.loading) return false
         return true
       } else { // 出售
-        if (this.form.entrustAmount && this.form.entrustAmount > 0 && this.form.entrustAmount <= this.cfb && this.form.payModelId && !this.loading) return false
+        if (Number(this.form.entrustAmount) && Number(this.form.entrustAmount) > 0 && Number(this.form.entrustAmount) <= this.cfb && this.form.payModelId && !this.loading) return false
         return true
       }
     },
     cfb() {
       const target = this.amountMap.find(item => item.currency == 'CFB')
-      if (target) return target.balance
-      return '0'
+      if (target) return Number(target.balance)
+      return 0
     }
   },
   onLoad(data) {
     this.type = data.type == 2 ? 'sell' : 'buy'
     // 'currency', 'payModelId', 'entrustAmount', 'estimatedAmount', 'referenceRate', 'endTime', 'type'
     Object.assign(this.form, data)
-
-    
     this.index = this.array.findIndex(item => item.val == this.form.endTime)
   },
   onShow() {
@@ -146,6 +144,12 @@ export default {
     this.getAmounts()
   },
   methods: {
+    inputNum() {
+      setTimeout(() => {
+        this.form.entrustAmount = _fixed(this.form.entrustAmount, 6);
+        this.form.estimatedAmount = this.form.referenceRate * this.form.entrustAmount
+      }, 0);
+    },
     // 获取币种余额
     getAmounts() {
       this.amountMap = storage.get('balanceList') || []

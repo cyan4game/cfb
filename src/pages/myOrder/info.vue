@@ -1,9 +1,16 @@
 <!-- 详情 -->
 <template>
   <view class="info-page-bg self-body order-info">
-    <u-navbar :safeAreaInsetTop="false" :title="'订单详情'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="false"
+      :title="'订单详情'"
+      @leftClick="() => $routers.back()"
+    />
     <view class="info-page-content content-box">
-      <view class="title">{{ orderStatusMap[item.orderStatus] || "--" }}</view>
+      <view class="title">
+        <text>{{ orderStatusMap[item.orderStatus] }}</text>
+        <text class="money" v-if="item.orderStatus==2">￥{{ item.payAmount }}</text>
+      </view>
 
       <!-- 
         申诉中-订单正在申诉中请您耐心等待
@@ -22,8 +29,8 @@
         {{ orderStatusTipMap[item.orderStatus] }}
         <!-- 成功 -->
         <text v-if="item.orderStatus == 0"
-          >{{ orderTypeMap[item.orderType] }} {{ item.buyAmount
-          }} {{ item.buyCoin || item.payCoin }}</text
+          >{{ orderTypeMap[item.orderType] }} {{ item.buyAmount }}
+          {{ item.buyCoin || item.payCoin }}</text
         >
       </view>
 
@@ -54,36 +61,66 @@
         </view>
         <view class="info-item">
           <view class="item-name">数量</view>
-          <view class="item-box"
+          <view class="item-box" :style="{color: item.orderStatus==2?'#449367':''}"
             >{{ item.buyAmount }}{{ item.buyCoin || item.payCoin }}</view
           >
         </view>
-        <view class="info-item">
+        <view class="info-item" v-if="item.orderStatus!=2">
           <view class="item-name">金额</view>
-          <view class="item-box" style="color:#449367">
-            <text>￥{{ item.payAmount }}</text>
-            <!-- <u-image
-              @click="copy(item.payAmount)"
-              class="copy"
-              src="/static/images/funds/copy.png"
-              width="26rpx"
-              height="31rpx"
-            ></u-image> -->
-          </view>
+          <view class="item-box" :style="{color: '#449367'}"
+            >￥{{ item.payAmount }}</view
+          >
         </view>
+      </view>
+
+      <view
+        class="container"
+        style="border-bottom: 1px solid #dfdfdf; padding: 84rpx 0 43rpx 0"
+      >
+        收款信息
       </view>
 
       <view class="container" style="border-bottom: 1px solid #dfdfdf">
         <view class="info-item">
           <view class="item-name">收款方式</view>
-          <view class="item-box bank">{{
-            payWayMap[item.payWay] || "--"
-          }}</view>
+          <view class="item-box">
+            <u-image
+              v-if="payWayIcons[item.payWay]"
+              style="margin-right: 10rpx"
+              :src="payWayIcons[item.payWay]"
+              width="31rpx"
+              height="31rpx"
+            ></u-image>
+            <text>{{ paywayMap[item.payWay] }}</text>
+          </view>
+        </view>
+        <view class="info-item">
+          <view class="item-name">收款人姓名</view>
+          <view class="item-box">
+            <text>{{ item.gatherUserName }}</text>
+          </view>
         </view>
         <view class="info-item">
           <view class="item-name">收款账号</view>
-          <view class="item-box">{{ item.gatherNo }}</view>
+          <view class="item-box">
+            <text>{{ item.gatherNo }}</text>
+            <u-image
+              v-if="item.gatherNo"
+              @click="copy(item.gatherNo)"
+              class="copy"
+              src="/static/images/funds/copy.png"
+              width="26rpx"
+              height="31rpx"
+            ></u-image>
+          </view>
         </view>
+        <!-- v-if="[2, 3].includes(item.payWay) && item.orderStatus==2" item.gatherQR -->
+        <!-- <view class="info-item">
+          <view class="item-name">收款二维码</view>
+          <view class="item-box">
+            <text style="color: #F71919;">查看二维码</text>
+          </view>
+        </view> -->
       </view>
 
       <view class="container">
@@ -92,6 +129,7 @@
           <view class="item-box">
             <text>{{ item.orderNo }}</text>
             <u-image
+              v-if="item.orderNo"
               @click="copy(item.orderNo)"
               class="copy"
               src="/static/images/funds/copy.png"
@@ -103,6 +141,10 @@
         <view class="info-item">
           <view class="item-name">交易时间</view>
           <view class="item-box">{{ getTimestr(item.dealTime) }}</view>
+        </view>
+        <view class="info-item">
+          <view class="item-name">交易结束时间</view>
+          <view class="item-box">{{ getTimestr(item.finishTime) }}</view>
         </view>
       </view>
 
@@ -144,7 +186,7 @@
       :key="'sure-get'"
       :title="'确认收款'"
       :btn="'确认收款'"
-      :content="'确认已经收款成功了吗？'"
+      :content="'你已经成功收款了吗？'"
       :borderBtn="'取消'"
       :btnHandle="sureGetHandle"
     />
@@ -170,11 +212,16 @@
     />
     <!-- 提交凭证弹窗 -->
     <upload-dialog @success="submitPic" ref="uploadDialog" />
+    <!-- 二维码弹窗 -->
+    <view class="qrcode-dialog">
+      <view></view>
+    </view>
   </view>
 </template>
 
 <script>
 import { orderTypeMap, orderStatusMap, orderStatusTipMap } from "./map.js";
+import { paywayMap, payWayIcons } from "@/utils/dataMap.js";
 import storage from "@/utils/storage";
 import { getTimestr } from "@/utils/time";
 import { copyTxt } from "@/utils/utils";
@@ -185,18 +232,13 @@ import {
   confirmPay,
 } from "@/api/api";
 
-const payWayMap = {
-  1: "银行卡",
-  2: "支付宝",
-  3: "微信",
-};
-
 export default {
   name: "orderInfo",
   data() {
     return {
+      payWayIcons,
       orderStatusTipMap,
-      payWayMap,
+      paywayMap,
       orderStatusMap,
       orderTypeMap,
       item: {},
@@ -204,7 +246,6 @@ export default {
   },
   onShow() {
     this.item = storage.get("curr-order") || {};
-    console.error('??', this.item)
     setTimeout(() => {
       this.getInfo();
     }, 0);
@@ -215,7 +256,7 @@ export default {
     getInfo() {
       if (!this.item.entrustId && !this.item.id) return;
       pageOtcMyOrder({
-        entrustId:  this.item.entrustId || this.item.id,
+        entrustId: this.item.entrustId || this.item.id,
         pageNo: 1,
         pageSize: 1,
       }).then((res) => {
@@ -339,7 +380,15 @@ export default {
   .title {
     color: #38363b;
     font-size: 40rpx;
-    margin-bottom: 27rpx;
+    font-weight: bold;
+    margin-bottom: 28rpx;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    .money {
+      position: relative;
+      top: 30rpx;
+    }
   }
   .info {
     color: #38363b;

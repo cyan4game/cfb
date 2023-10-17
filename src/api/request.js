@@ -89,15 +89,16 @@ module.exports = (vm) => {
           });
         } else {
           // 如果没有显式定义custom的toast参数为false的话，默认对报错进行toast弹出提示
+          if (res.code === 401) {
+            throttleFn();
+            // uni.$emit('401', res)
+          }
           if (custom.toast !== false) {
             uni.showToast({
               title: res.message,
               icon: "none",
               duration: 3000,
             });
-          }
-          if (res.code === 401) {
-            throttleFn();
           }
         }
       }

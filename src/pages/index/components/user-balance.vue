@@ -17,19 +17,19 @@
         </view>
         <view class="item">
           <text>CFB余额</text>
-          <text class="val">{{ assets.cfbBalance || "0.00" }}</text>
+          <text class="val">{{ Number(assets.cfbBalance) || 0 }}</text>
         </view>
         <view class="item">
           <text>USDT余额</text>
-          <text class="val">{{ assets.usdtBalance || "0.00" }}</text>
+          <text class="val">{{ Number(assets.usdtBalance) || 0 }}</text>
         </view>
         <view class="item">
           <text>委托中USDT</text>
-          <text class="val">{{ assets.usdtEntrust || "0.00" }}</text>
+          <text class="val">{{ Number(assets.usdtEntrust) || 0 }}</text>
         </view>
         <view class="item">
           <text>委托中CFB</text>
-          <text class="val">{{ assets.cfbEntrust || "0.00" }}</text>
+          <text class="val">{{ Number(assets.cfbEntrust) || 0 }}</text>
         </view>
       </view>
     </view>
@@ -116,7 +116,7 @@
           height="36rpx"
         ></u-image>
         <view>
-          <view class="num">${{ showMoney ? "0.00" : "****" }}</view>
+          <view class="num">${{ showMoney ? "0" : "****" }}</view>
           <text>今日收益</text>
         </view>
       </view>
@@ -129,7 +129,7 @@
           height="32rpx"
         ></u-image>
         <view>
-          <view class="num">${{ showMoney ? "0.00" : "****" }}</view>
+          <view class="num">${{ showMoney ? "0" : "****" }}</view>
           <text>累计收益</text>
         </view>
       </view>
@@ -174,10 +174,10 @@ export default {
   },
   computed: {
     total() {
-      let t = "0.00";
+      let t = 0;
       if (this.currCoin == "USDT") t = this.assets.usdtTotalBalance;
       if (this.currCoin == "CFB") t = this.assets.cfbTotalBalance;
-      return t || "0.00";
+      return t || 0;
     },
   },
   methods: {

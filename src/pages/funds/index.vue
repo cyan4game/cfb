@@ -84,10 +84,11 @@
           ></u-image> -->
           <view class="info">
             <view class="title">
-              <text>{{ typeMap[item.type] || "--" }}{{ item.payCoin }}</text>
-              <text v-if="item.type == 3">-{{ item.receiveCoin }}</text>
-              <!-- <u-image class="item-dir" src="@/static/images/funds/left.png" width="30rpx" height="16rpx"></u-image>
-                            <text class="name">捕鱼</text> -->
+              <text v-if="item.type != 3">{{ typeMap[item.type] || "--" }}&nbsp;&nbsp;{{ item.payCoin }}</text>
+              <text v-if="item.type == 3">
+                {{ typeMap[item.type] || "--" }}&nbsp;&nbsp;
+                {{ info.incomeType == 0 ? `${info.payCoin}-${info.receiveCoin}` : `${info.receiveCoin}-${info.payCoin}` }}
+              </text>
             </view>
             <view>{{ getTimestr(item.createDate) }}</view>
           </view>
@@ -244,16 +245,11 @@
 import storage from "@/utils/storage";
 import { financeList } from "@/api/api";
 import { getTimestr } from "@/utils/time";
+import { fundTypeMap } from '@/utils/dataMap.js'
 
 // 前端定义 -1  全部 类型列表（多类型查询） 1充币 2转账 3闪兑 4购买 5出售
 // 	类型 (转账)(1充币 2转账) 3闪兑 (交易)(4购买 5出售)
-const typeMap = {
-  1: "转入",
-  2: "转出",
-  3: "闪兑",
-  4: "购买",
-  5: "出售",
-};
+const typeMap = fundTypeMap
 const tabsMap = {
   1: "转账",
   2: "交易",

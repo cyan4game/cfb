@@ -29,7 +29,7 @@ export const _fixed = (number, l = 2) => {
   if (numberString.includes('.')) {
     const arr = numberString.split('.')
     const roundedNumberString = arr[0] + '.' + arr[1].substr(0, l)
-    return Number(roundedNumberString)
+    return roundedNumberString
   }
   return numberString
 }
