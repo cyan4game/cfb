@@ -10,7 +10,7 @@
               <u-text
                 :text="form.areaCode"
                 color="#343434"
-                @click="showAreaCode = true"
+                @click="() => $refs.areaCode.open()"
                 :iconStyle="{
                   fontSize: '14px',
                   color: '#343434',
@@ -94,6 +94,9 @@
         <view>若另一台设备登录成功，您将被强制下线。</view>
       </template>
     </tip-dialog> -->
+
+    <!-- 区号弹窗 -->
+    <area-code @sure="item => form.areaCode = item.code" ref="areaCode" />
   </view>
 </template>
 
@@ -103,8 +106,7 @@ import { sendSMS, phoneRegister } from "@/api/api";
 import storage from "../../../utils/storage";
 
 const phoneReg = /^\d{7,16}$/;
-const chPhoneReg =
-/^1\d{10}$/;
+const chPhoneReg = /^1\d{10}$/;
 const phPhoneReg = /^9\d{10}$/;
 
 export default {
@@ -138,7 +140,7 @@ export default {
           {
             required: true,
             message: "请输入手机号",
-            trigger: ["blur", "change", 'input'],
+            trigger: ["blur", "change", "input"],
           },
           // {
           //   pattern: /^\d{7,16}$/,
@@ -179,7 +181,7 @@ export default {
         pass &&
         captcha &&
         areaCode &&
-        phone && 
+        phone &&
         // phoneReg.test(phone) &&
         !this.loading
       );
@@ -187,7 +189,7 @@ export default {
     // 获取验证码按钮禁用
     buttonDisabled() {
       const { phone, areaCode } = this.form;
-      const tip = this.tips.substr(0,1)
+      const tip = this.tips.substr(0, 1);
       let pass = true;
       if (this.form.areaCode == "+86") pass = chPhoneReg.test(phone);
       // if (this.form.areaCode == "+63") pass = phPhoneReg.test(phone);

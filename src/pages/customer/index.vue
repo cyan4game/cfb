@@ -1,7 +1,11 @@
 <!-- 客服 -->
 <template>
   <view class="info-page-bg self-body page-customer">
-    <u-navbar :safeAreaInsetTop="false" :title="'在线客服'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="false"
+      :title="'在线客服'"
+      @leftClick="() => $routers.back()"
+    />
     <view class="info-page-content content-box">
       <!-- <view class="top"
         >您好，很抱歉我们暂时无法为您提供服务，如需帮助，
@@ -14,7 +18,7 @@
           :text="form.countryCode"
           color="#343434"
           suffixIcon=""
-          @click="showAreaCode = true"
+          @click="() => $refs.areaCode.open()"
           :iconStyle="{
             fontSize: '14px',
             color: '#343434',
@@ -27,7 +31,10 @@
           placeholder="请输入"
         />
       </view>
-      <view class="title"> <text>*</text>留言内容：  <text class="tip">您好如需帮助请留言，我们将尽快解决您的问题</text> </view>
+      <view class="title">
+        <text>*</text>留言内容：
+        <text class="tip">您好如需帮助请留言，我们将尽快解决您的问题</text>
+      </view>
       <textarea
         v-model="form.content"
         class="ipt textarea"
@@ -60,9 +67,7 @@
           <text>上传图片</text>
         </view>
       </view>
-      <view class="top"
-        >图片支持png、jpg格式，单张图片最大2M
-      </view>
+      <view class="top">图片支持png、jpg格式，单张图片最大2M </view>
     </view>
 
     <u-button
@@ -104,6 +109,9 @@
       :show="showAreaCode"
       :columns="areaCode"
     ></u-picker>
+
+     <!-- 区号弹窗 -->
+     <area-code @sure="item => form.countryCode = item.code" ref="areaCode" />
   </view>
 </template>
 
@@ -139,10 +147,7 @@ export default {
   },
   computed: {
     disabled() {
-      return (
-        !(this.form.phoneNumber && this.form.content) ||
-        this.loading
-      );
+      return !(this.form.phoneNumber && this.form.content) || this.loading;
     },
   },
   methods: {
@@ -336,7 +341,7 @@ export default {
       .area {
         position: relative;
         &::after {
-          content: '|';
+          content: "|";
           color: #848484;
           position: absolute;
           right: 40rpx;
