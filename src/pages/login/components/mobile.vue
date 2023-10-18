@@ -1,7 +1,7 @@
 <template>
   <view class="mobile-view" style="font-size: 28rpx">
     <u-form labelWidth="0" class="form" :model="form" ref="form" :rules="rules">
-      <view class="subtitle">手机</view>
+      <view class="subtitle">手机号</view>
       <u-form-item prop="phone" class="item-box">
         <view class="item">
           <!-- <u-text color="#343434" text="手机号码"></u-text> -->
@@ -179,7 +179,7 @@ export default {
       // if (this.form.areaCode == "+63") pass = phPhoneReg.test(phone);
       return !(
         pass &&
-        captcha &&
+        captcha.length == 6 &&
         areaCode &&
         phone &&
         // phoneReg.test(phone) &&
