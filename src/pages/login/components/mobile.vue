@@ -104,7 +104,7 @@ import storage from "../../../utils/storage";
 
 const phoneReg = /^\d{7,16}$/;
 const chPhoneReg =
-  /^(13[0-9]|14[5-9]|15[0-3,5-9]|16[6]|17[0-8]|18[0-9]|19[8-9])\d{8}$/;
+/^1\d{10}$/;
 const phPhoneReg = /^9\d{10}$/;
 
 export default {
@@ -140,19 +140,19 @@ export default {
             message: "请输入手机号",
             trigger: ["blur", "change", 'input'],
           },
-          {
-            pattern: /^\d{7,16}$/,
-            transform(value) {
-              return String(value);
-            },
-            message: "请输入正确的手机号",
-            trigger: ["blur", "change"],
-          },
+          // {
+          //   pattern: /^\d{7,16}$/,
+          //   transform(value) {
+          //     return String(value);
+          //   },
+          //   message: "请输入正确的手机号",
+          //   trigger: ["blur", "change"],
+          // },
           {
             // 自定义验证函数，见上说明
             validator: (rule, value, callback) => {
               if (this.form.areaCode == "+86") return chPhoneReg.test(value);
-              if (this.form.areaCode == "+63") return phPhoneReg.test(value);
+              // if (this.form.areaCode == "+63") return phPhoneReg.test(value);
               return true;
             },
             message: "请输入正确的手机号",
@@ -174,13 +174,13 @@ export default {
       const { phone, captcha, areaCode } = this.form;
       let pass = true;
       if (this.form.areaCode == "+86") pass = chPhoneReg.test(phone);
-      if (this.form.areaCode == "+63") pass = phPhoneReg.test(phone);
+      // if (this.form.areaCode == "+63") pass = phPhoneReg.test(phone);
       return !(
         pass &&
         captcha &&
         areaCode &&
         phone && 
-        phoneReg.test(phone) &&
+        // phoneReg.test(phone) &&
         !this.loading
       );
     },
@@ -190,13 +190,13 @@ export default {
       const tip = this.tips.substr(0,1)
       let pass = true;
       if (this.form.areaCode == "+86") pass = chPhoneReg.test(phone);
-      if (this.form.areaCode == "+63") pass = phPhoneReg.test(phone);
+      // if (this.form.areaCode == "+63") pass = phPhoneReg.test(phone);
       return !(
         pass &&
         areaCode &&
         phone &&
         isNaN(Number(tip)) &&
-        phoneReg.test(phone) &&
+        // phoneReg.test(phone) &&
         !this.loading
       );
     },

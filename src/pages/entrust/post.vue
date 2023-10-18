@@ -2,7 +2,7 @@
 <template>
   <view class="info-page-bg self-body entrust-post">
     <u-navbar :safeAreaInsetTop="false" :title="form.id ? '编辑委托' : '发布委托'" @leftClick="() => $routers.back()" />
-    <view class="info-page-content content-box">
+    <view class="info-page-content content-box" :class="{'edit-page': form.id}">
       <view class="types">
         <text class="name">广告类型</text>
         <view class="type">
@@ -28,13 +28,13 @@
       <view style="display: flex;">
         <view style="flex:1">
           <view class="subtitle">参考汇率</view>
-          <view class="ipt">
+          <view class="ipt disabled-box">
             <text class="input">{{ form.referenceRate }}</text>
           </view>
         </view>
         <view style="flex:2;margin-left: 20rpx;">
           <view class="subtitle">预估成交金额</view>
-          <view class="ipt">
+          <view class="ipt disabled-box">
             <text class="input">{{ form.estimatedAmount }}</text>
           </view>
         </view>
@@ -229,6 +229,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.edit-page {
+  .checked {
+    border-color: #DFDEDE;
+    .in {
+      background-color: #DFDEDE;
+    }
+  }
+}
 .entrust-post {
   .content-box {
     overflow: auto;
@@ -300,6 +308,9 @@ export default {
       margin-right: 20rpx;
       font-size: 28rpx;
     }
+  }
+  .disabled-box {
+    background-color: #DBDADA;
   }
   .submit {
     width: 451rpx;

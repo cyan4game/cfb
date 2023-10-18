@@ -68,11 +68,11 @@
             <view class="name">转入地址</view>
             <view class="content">{{ info.receiveAddress }}</view>
           </view>
-          <view class="detail" v-if="info.payCoin != 'CFB_CFB'">
+          <view class="detail" v-if="info.payCoin != 'CFB'">
             <view class="name">交易哈希</view>
             <view class="content">{{ info.transactionHash }}</view>
           </view>
-          <view class="detail" v-if="info.payCoin == 'CFB_CFB'">
+          <view class="detail" v-if="info.payCoin == 'CFB'">
             <view class="name">订单编号</view>
             <view class="content" @click="copy(info.orderNo)">
               

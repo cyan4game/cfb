@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { helpList } from "@/api/api";
+import { articlePage } from "@/api/api";
 import storage from '@/utils/storage'
 
 export default {
@@ -59,7 +59,7 @@ export default {
     },
     // 获取帮助中心列表
     getList() {
-      helpList({
+      articlePage({
         pageNo: 1,
         pageSize: 1000,
       }).then((res) => {

@@ -19,7 +19,8 @@ export const BASE_ADDRESS = "http://dev-app.cfbaopay.com"
 // 代理前缀
 export const PROXY_PRE = '/app/'
 
-export const AREA_CODE = [['中国+86',
+export const AREA_CODE = [[
+    '中国+86',
     '菲律宾+63',
     '台湾+886',
     '香港+852',
@@ -143,6 +144,5 @@ export const AREA_CODE = [['中国+86',
     '智利+56',
     '哥伦比亚+57',
     '委内瑞拉+58'
-
 ]]
 

@@ -25,6 +25,7 @@
           :disabled="form.id && !editing"
           class="item-ipt"
           placeholder="请输入银行卡账号"
+          maxlength="30"
           type="text"
           v-model.trim="form.accountName"
         />

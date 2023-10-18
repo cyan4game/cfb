@@ -95,6 +95,7 @@ export default {
       if (!this.userInfo.avatarYearUpdateLastCount)
         return uni.showToast({
           title: "头像可更改次数：0",
+          icon: 'none',
           duration: 2000,
         });
       this.$refs.tipDialog.open();

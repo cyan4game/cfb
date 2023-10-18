@@ -386,3 +386,9 @@ export const describeFaceVerify = (verifySource) => {
     custom: { auth: true, toast: false },
   });
 };
+// 内容分页列表（帮助中心，用户协议）
+export const articlePage = (data) => {
+  return http.post(`/article/page`, data, {
+    custom: { auth: true, toast: true },
+  });
+};
