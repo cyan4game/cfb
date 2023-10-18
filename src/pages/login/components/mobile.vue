@@ -1,12 +1,12 @@
 <template>
-  <view class="mobile-view" style="font-size: 28rpx;">
+  <view class="mobile-view" style="font-size: 28rpx">
     <u-form labelWidth="0" class="form" :model="form" ref="form" :rules="rules">
       <view class="subtitle">手机</view>
       <u-form-item prop="phone" class="item-box">
         <view class="item">
           <!-- <u-text color="#343434" text="手机号码"></u-text> -->
           <u-row class="item-content">
-            <u-col span="2" style="border-right:1px solid #848484">
+            <u-col span="2" style="border-right: 1px solid #848484">
               <u-text
                 :text="form.areaCode"
                 color="#343434"
@@ -51,7 +51,10 @@
               <text
                 :disabled="buttonDisabled"
                 class="get-button"
-                :style="{ color: buttonDisabled ? '#999' : '#3A9861', backgroundColor: 'rgba(0,0,0,0)' }"
+                :style="{
+                  color: buttonDisabled ? '#999' : '#3A9861',
+                  backgroundColor: 'rgba(0,0,0,0)',
+                }"
                 @tap="getCode"
                 type="success"
                 size="small"
@@ -70,7 +73,7 @@
         @click="toNext"
         type="primary"
       >
-        <text style="font-size: 34rpx;">登录</text>
+        <text style="font-size: 34rpx">登录</text>
       </u-button>
     </u-form>
     <u-picker
@@ -95,10 +98,14 @@
 </template>
 
 <script>
-const phoneReg = /^\d*$/g;
 import { BASE_ADDRESS, AREA_CODE } from "@/config/api";
 import { sendSMS, phoneRegister } from "@/api/api";
 import storage from "../../../utils/storage";
+
+const phoneReg = /^\d{7,16}$/;
+const chPhoneReg =
+  /^(13[0-9]|14[5-9]|15[0-3,5-9]|16[6]|17[0-8]|18[0-9]|19[8-9])\d{8}$/;
+const phPhoneReg = /^9\d{10}$/;
 
 export default {
   name: "mobile",
@@ -131,15 +138,25 @@ export default {
           {
             required: true,
             message: "请输入手机号",
-            trigger: ["blur", "change"],
+            trigger: ["blur", "change", 'input'],
           },
           {
-            pattern: /^\d*$/g,
+            pattern: /^\d{7,16}$/,
             transform(value) {
               return String(value);
             },
-            message: "手机号只能包含数字",
+            message: "请输入正确的手机号",
             trigger: ["blur", "change"],
+          },
+          {
+            // 自定义验证函数，见上说明
+            validator: (rule, value, callback) => {
+              if (this.form.areaCode == "+86") return chPhoneReg.test(value);
+              if (this.form.areaCode == "+63") return phPhoneReg.test(value);
+              return true;
+            },
+            message: "请输入正确的手机号",
+            trigger: ["change", "blur"],
           },
         ],
         captcha: [
@@ -154,23 +171,34 @@ export default {
   },
   computed: {
     isDisabled() {
-      let phoneReg = /^\d*$/g;
       const { phone, captcha, areaCode } = this.form;
+      let pass = true;
+      if (this.form.areaCode == "+86") pass = chPhoneReg.test(phone);
+      if (this.form.areaCode == "+63") pass = phPhoneReg.test(phone);
       return !(
+        pass &&
         captcha &&
         areaCode &&
+        phone && 
         phoneReg.test(phone) &&
-        !this.loading &&
-        this.protocol
+        !this.loading
       );
     },
     // 获取验证码按钮禁用
     buttonDisabled() {
-      const { phone } = this.form;
-      let phoneReg = /^\d+$/g;
-      // if(phoneReg.test(phone)){}
-      const count = parseInt(this.tips);
-      return !isNaN(count) || !phoneReg.test(phone) || this.loading;
+      const { phone, areaCode } = this.form;
+      const tip = this.tips.substr(0,1)
+      let pass = true;
+      if (this.form.areaCode == "+86") pass = chPhoneReg.test(phone);
+      if (this.form.areaCode == "+63") pass = phPhoneReg.test(phone);
+      return !(
+        pass &&
+        areaCode &&
+        phone &&
+        isNaN(Number(tip)) &&
+        phoneReg.test(phone) &&
+        !this.loading
+      );
     },
   },
   methods: {
@@ -257,7 +285,6 @@ export default {
     flex: 1;
     font-size: 28rpx;
   }
-  
 }
 
 .mobile-view {
@@ -272,16 +299,16 @@ export default {
   justify-content: center;
   height: 67rpx;
   font-size: 28rpx;
-  background: rgba(0,0,0,0);
-  border-color: rgba(0,0,0,0);
+  background: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
   white-space: nowrap;
   ::v-deep .uni-button {
     &::after {
-      border: none!important
+      border: none !important;
     }
   }
   ::v-deep .u-button--disabled {
-    background-color: rgba(0,0,0,0)!important;
+    background-color: rgba(0, 0, 0, 0) !important;
   }
 }
 

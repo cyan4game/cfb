@@ -24,11 +24,11 @@
           <text class="val">{{ Number(assets.usdtBalance) || 0 }}</text>
         </view>
         <view class="item">
-          <text>委托中USDT</text>
+          <text>冻结中USDT</text>
           <text class="val">{{ Number(assets.usdtEntrust) || 0 }}</text>
         </view>
         <view class="item">
-          <text>委托中CFB</text>
+          <text>冻结中CFB</text>
           <text class="val">{{ Number(assets.cfbEntrust) || 0 }}</text>
         </view>
       </view>

@@ -9,7 +9,7 @@
             <u-input
               class="ipt"
               :type="showPassWord ? 'text' : 'password'"
-              placeholder="请输入支付密码,6位数字"
+              placeholder="请输入6位数字的支付密码"
               v-model="form.password"
             >
               <template slot="suffix">
