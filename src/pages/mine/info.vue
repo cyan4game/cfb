@@ -170,7 +170,7 @@ export default {
             updatUserInfo();
             uni.showToast({
               title: "更新成功",
-              icon: false,
+              icon: 'none',
               duration: 2000,
             });
           }
