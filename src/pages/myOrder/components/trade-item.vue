@@ -8,7 +8,7 @@
           :coin="item.buyCoin || item.payCoin"
           style="width: 55rpx; height: 54rpx; margin-right: 10rpx"
         />
-        <text class="status">{{ orderTypeMap[item.orderType] || "--" }}</text>
+        <text class="status">{{ item.orderTypeStr }}</text>
         <text>{{ item.buyCoin || item.payCoin }}</text>
       </view>
       <view class="time">

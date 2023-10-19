@@ -123,6 +123,7 @@ export default {
         },
         // 提交
         submit() {
+            console.error(storage.get('coin_address_list'))
             if (this.disabled) return
             if (this.type == 1) {
                 const list = storage.get('coin_address_list') || []
@@ -130,6 +131,12 @@ export default {
                 if (stop) return uni.showToast({
                     icon: 'none',
                     title: `地址已存在`,
+                    duration: 2000
+                });
+                const max = list.filter(item => item.currency == this.form.currency).length
+                if (max >= 10) return uni.showToast({
+                    icon: 'none',
+                    title: `最多支持10个地址`,
                     duration: 2000
                 });
             }

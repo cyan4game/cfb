@@ -29,7 +29,7 @@
       <user-balance ref="ub" />
       <!-- 导航 -->
       <view class="navs">
-        <view class="nav" @click="jump('/pages/confirmTrade/index?type=1')">
+        <view class="nav" @click="switchTab(1)">
           <text>购买CFB</text>
           <view class="icon">
             <u-image
@@ -39,7 +39,7 @@
             ></u-image>
           </view>
         </view>
-        <view class="nav" @click="jump('/pages/confirmTrade/index?type=2')">
+        <view class="nav" @click="switchTab(2)">
           <text>出售CFB</text>
           <view class="icon">
             <u-image
@@ -96,6 +96,12 @@ export default {
         url: name,
       });
     },
+    switchTab(key) {
+      storage.set('trade-tab', key)
+      uni.switchTab({
+        url: '/pages/confirmTrade/index',
+      });
+    }
   },
 };
 </script>

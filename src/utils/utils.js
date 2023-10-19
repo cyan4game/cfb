@@ -1,5 +1,10 @@
 import { memberInfo, memberWalletList } from "@/api/api";
 import storage from "./storage";
+import md5Libs from "./md5";
+
+export const _md5 = val => {
+  return md5Libs.md5(val)
+}
 
 /* ---------------------- 地址校验 --------------------------- */
 

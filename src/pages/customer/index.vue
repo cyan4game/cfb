@@ -36,12 +36,17 @@
         <text>*</text>留言内容：
         <text class="tip">您好如需帮助请留言，我们将尽快解决您的问题</text>
       </view>
-      <textarea
+      <view style="position: relative;">
+        <textarea
         v-model="form.content"
         class="ipt textarea"
         auto-height
+        maxlength="200"
         placeholder="请输入"
       />
+      <view class="num-tip">{{form.content.length}}/200</view>
+      </view>
+      
 
       <view class="upload-box">
         <view
@@ -362,6 +367,12 @@ export default {
       padding: 20rpx 40rpx;
       min-height: 200rpx;
       width: 100%;
+    }
+    .num-tip {
+      position: absolute;
+      bottom: 10rpx;
+      right: 10rpx;
+      font-size: 24rpx;
     }
 
     .upload-box {

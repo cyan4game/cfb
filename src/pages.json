@@ -362,9 +362,9 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/trade/index",
+        "pagePath": "pages/confirmTrade/index",
         "iconPath": "static/tab/trade.png",
-        "selectedIconPath": "static/tab/trade.png",
+        "selectedIconPath": "static/tab/trade-active.png",
         "text": "交易"
       },
       {

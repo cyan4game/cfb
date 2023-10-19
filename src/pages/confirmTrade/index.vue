@@ -15,13 +15,13 @@
       <view class="box type-box">
         <view
           class="type"
-          @click="type = 1"
+          @click="changeTab(1)"
           :class="{ 'active-type': type == 1 }"
           >购买</view
         >
         <view
           class="type"
-          @click="type = 2"
+          @click="changeTab(2)"
           :class="{ 'active-type': type == 2 }"
           >出售</view
         >
@@ -165,14 +165,16 @@ export default {
       return !(this.form.payAmount && this.form.payAmount > 0 && this.form.payAmount <= this.cfb)
     }
   },
-  onLoad(data) {
-    this.type = data.type || 1;
-  },
   onShow() {
+    this.type = storage.get('trade-tab') || 1
     this.getAmounts()
     this.getPayways()
   },
   methods: {
+    changeTab(key) {
+      this.type = key
+      storage.set('trade-tab', key)
+    },
     // 购买
     submit() {
       // if (this.isDisabled) return
@@ -186,6 +188,7 @@ export default {
     submitSell(codes) {
       const params = {
         ...this.form,
+        payModelId: this.form.payModelId,
         gatherWay: this.form.payType,
         payAmount: Number(this.form.payAmount),
         phoneVerifyCode: codes.phoneCode
@@ -222,8 +225,10 @@ export default {
     // 选择支付方式
     bindPayWayChange(e) {
       this.paywayIndex = e.target.value
+      console.error(this.payways[this.paywayIndex])
       this.form.payType = this.payways[this.paywayIndex].payType
       this.form.gatherNo = this.payways[this.paywayIndex].account
+      this.form.payModelId = this.payways[this.paywayIndex].id
     },
     // 查询支付方式
     getPayways() {
@@ -268,7 +273,7 @@ export default {
   .content-box {
     color: #7a7a7a;
     font-size: 26rpx;
-    padding-bottom: 160rpx;
+    padding-bottom: 200rpx;
     .box {
       height: 100rpx;
       border-bottom: 1px solid #cecece;
@@ -388,7 +393,7 @@ export default {
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 60rpx;
+    bottom: 160rpx;
   }
 }
 </style>
