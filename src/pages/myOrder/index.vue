@@ -68,6 +68,12 @@
         <!-- 类型选择 -->
         <view class="box type-box">
           <view class="subtitle">交易类型</view>
+          <view class="type-item" @click="form.orderType = ''">
+            <text>全部</text>
+            <view class="check" :class="{ checked: form.orderType == '' }"
+              ><view class="in"></view
+            ></view>
+          </view>
           <view class="type-item" @click="form.orderType = 1">
             <text>购买</text>
             <view class="check" :class="{ checked: form.orderType == 1 }"
@@ -171,7 +177,7 @@ export default {
       form: {
         pageNo: 0,
         pageSize: 10,
-        orderType: 1, // 1-购买 2-支付
+        orderType: '', // 1-购买 2-支付
         createTimeStart: "",
         createTimeEnd: "",
       },
@@ -200,7 +206,7 @@ export default {
     },
     // 重置弹框参数
     resetParams() {
-      this.form.orderType = 1;
+      this.form.orderType = '';
       this.form.createTimeStart = "";
       this.form.createTimeEnd = "";
       this.activeTime = "";
@@ -254,6 +260,7 @@ export default {
       this.loading = true;
       pageOtcMyOrder({
         ...this.form,
+        orderType: this.form.orderType ? this.form.orderType : null,
         ...this.getDateParams(),
       })
         .then((res) => {
@@ -377,7 +384,7 @@ export default {
   }
 
   .filter-box {
-    height: 836rpx;
+    height: 916rpx;
     background-color: #fff;
     border-top-right-radius: 3rpx;
     border-top-left-radius: 3rpx;
@@ -418,6 +425,7 @@ export default {
     }
     .type-box {
       border-bottom: 1px solid #dfdfdf;
+      height: 380rpx;
       .type-item {
         display: flex;
         align-items: center;

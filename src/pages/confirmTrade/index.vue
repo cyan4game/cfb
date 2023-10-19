@@ -159,6 +159,7 @@ export default {
         payAmount: '',
         payCoin: 'CFB',
         realName: '',
+        bankName: '',
       },
 
       showNav: false, // 是否打开菜单
@@ -282,6 +283,7 @@ export default {
         realName: this.form.realName,
         payModelId: this.form.payModelId,
         gatherWay: this.form.payType,
+        bankName: this.form.bankName,
         payAmount: Number(this.form.payAmount),
         phoneVerifyCode: codes.phoneCode
       }
@@ -322,6 +324,7 @@ export default {
       this.form.gatherNo = this.payways[this.paywayIndex].account
       this.form.payModelId = this.payways[this.paywayIndex].id
       this.form.realName = this.payways[this.paywayIndex].username
+      this.form.bankName = this.payways[this.paywayIndex].bankName
     },
     // 查询支付方式
     getPayways() {

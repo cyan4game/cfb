@@ -216,7 +216,6 @@ export default {
 .page-mine {
   height: 100%;
   box-sizing: border-box;
-  padding-bottom: 100rpx;
   background: linear-gradient(
     to bottom,
     #0c1114 488rpx,
@@ -246,7 +245,8 @@ export default {
   .page-content {
     margin: 0 25rpx;
     background-color: #fff;
-    min-height: 100%;
+    // min-height: 100%;
+    padding-bottom: 160rpx;
     .tabs {
       background-color: #fff;
       display: flex;

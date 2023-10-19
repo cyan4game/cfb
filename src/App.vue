@@ -318,4 +318,8 @@ uni-button:after {
   background-color: #449367;
   display: block;
 }
+
+.page-help-info img {
+  max-width: 100%!important;
+}
 </style>

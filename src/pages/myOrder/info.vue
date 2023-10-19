@@ -295,7 +295,7 @@ export default {
         mask: true,
       });
       confirmCollect({
-        orderId: this.item.orderId,
+        orderId: this.item.id,
       })
         .then((res) => {
           if (res.code == 200) {
@@ -323,7 +323,7 @@ export default {
         mask: true,
       });
       orderCancel({
-        orderId: this.item.orderId,
+        orderId: this.item.id,
       })
         .then((res) => {
           if (res.code == 200) {
@@ -347,7 +347,7 @@ export default {
         mask: true,
       });
       confirmPay({
-        orderId: this.item.orderId,
+        orderId: this.item.id,
         paymentVoucher: pic,
       })
         .then((res) => {

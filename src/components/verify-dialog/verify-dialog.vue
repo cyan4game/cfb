@@ -146,8 +146,7 @@ export default {
     };
   },
   beforeDestroy() {
-    if (this.emailInterval) clearInterval(this.emailInterval);
-    if (this.phoneInterval) clearInterval(this.phoneInterval);
+    this.destoryInterval()
   },
   methods: {
     hiddenPhone,
@@ -162,6 +161,15 @@ export default {
     },
     close() {
       this.$refs.popup.close();
+      this.destoryInterval()
+    },
+    destoryInterval() {
+      this.emailTimedown = 0
+      this.emailLoading = false
+      this.phoneTimedown = 0
+      this.phoneLoading = false
+      if (this.emailInterval) clearInterval(this.emailInterval);
+      if (this.phoneInterval) clearInterval(this.phoneInterval);
     },
     // 验证
     goCheck() {

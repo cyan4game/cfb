@@ -141,7 +141,7 @@ export default {
 
   .protocol {
     position: fixed;
-    bottom: 60rpx;
+    bottom: 20rpx;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -25,9 +25,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-.page-help-info {
-
-}
-</style>
