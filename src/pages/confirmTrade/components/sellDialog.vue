@@ -86,7 +86,8 @@ export default {
   background-color: #fff;
   box-sizing: border-box;
   padding: 50rpx 60rpx 40rpx 80rpx;
-
+  position: relative;
+  bottom: 160rpx;
   .title {
     color: #38363b;
     font-size: 36rpx;

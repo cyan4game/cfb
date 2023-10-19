@@ -1,5 +1,12 @@
+
+// 订单类型
+export const orderTypeMap = {
+  1: "购买",
+  2: "出售",
+};
+
 // 订单状态
-// 状态 0订单完成 1申诉中 2代付款 3 收款待确认 4超时 5交易取消 6申诉处理中 7申诉成功（收款成功） 8申诉失败（收款失败）9驳回
+// 状态 0订单完成 1申诉中 2 购买时-待付款 出售时-待收款 3 收款待确认 4超时 5交易取消 6申诉处理中 7申诉成功（收款成功） 8申诉失败（收款失败）9驳回
 export const orderStatusMap = {
   0: "订单完成",
   1: "申诉中",
@@ -12,6 +19,10 @@ export const orderStatusMap = {
   8: "申诉失败",
   9: "驳回",
 };
+export const orderStatusMap2 = {
+  1: "待付款",
+  2: "待收款",
+}
 export const orderStatusColorMap = {
   0: "#449367",
   1: "#3EABC2",
@@ -49,8 +60,4 @@ export const orderStatusTipMap = {
   9: "您的申诉已被驳回",
 };
 
-// 订单类型
-export const orderTypeMap = {
-  1: "购买",
-  2: "出售",
-};
+

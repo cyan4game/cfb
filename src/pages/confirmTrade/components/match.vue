@@ -19,14 +19,14 @@
 
       <!-- 列表 -->
       <scroll-view scroll-y="true" class="list">
-        <view class="item" v-for="i in 20" :key="i"
-          >34.65CFB = 464.76575VNY</view
+        <view class="item" @click="activeIndex = i" :class="{'active-item': activeIndex == i}" v-for="(item, i) in matchResultItemList" :key="i"
+          >{{ item.coinAmount }}</view
         >
       </scroll-view>
 
       <!-- 按钮 -->
       <view class="btns">
-        <view class="btn">取消订单</view>
+        <view class="btn" @click="close">取消订单</view>
         <view class="btn active-btn" @click="buy">立即购买</view>
       </view>
     </view>
@@ -36,6 +36,17 @@
 <script>
 export default {
   name: "matchDialog",
+  props: {
+    matchResultItemList: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data() {
+    return {
+      activeIndex: 0,
+    }
+  },
   methods: {
     open() {
       this.$refs.popup.open();
@@ -44,9 +55,8 @@ export default {
       this.$refs.popup.close();
     },
     buy() {
-      uni.navigateTo({
-        url: "/pages/confirmTrade/wait",
-      });
+      this.close()
+      this.$emit('buy', this.matchResultItemList[this.activeIndex])
     },
   },
 };
@@ -105,6 +115,11 @@ export default {
       padding: 0 30rpx;
       display: flex;
       align-items: center;
+      box-sizing: border-box;
+    }
+    .active-item {
+      border: 1px solid #449367;
+        color: #449367;
     }
   }
   .btns {

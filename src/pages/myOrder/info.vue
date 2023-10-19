@@ -8,7 +8,7 @@
     />
     <view class="info-page-content content-box">
       <view class="title">
-        <text>{{ orderStatusMap[item.orderStatus] }}</text>
+        <text>{{ item.orderStatus == 2 ? orderStatusMap2[item.orderType] : orderStatusMap[item.orderStatus] || "--" }}</text>
         <text class="money" v-if="item.orderStatus==2">￥{{ item.payAmount }}</text>
       </view>
 
@@ -25,7 +25,7 @@
       -->
       <view class="info">
         <!-- 待付款 -->
-        <text v-if="item.orderStatus == 2">倒计时 </text>
+        <!-- <text v-if="item.orderStatus == 2">倒计时 </text> -->
         {{ orderStatusTipMap[item.orderStatus] }}
         <!-- 成功 -->
         <text v-if="item.orderStatus == 0"
@@ -160,7 +160,8 @@
           <view class="btn" @click="() => $refs.orderCancel.open()"
             >取消交易</view
           >
-          <view class="submit" @click="() => $refs.uploadDialog.open()"
+          <!-- 购买才有此按钮 -->
+          <view v-if="item.orderType == 1" class="submit" @click="() => $refs.uploadDialog.open()"
             >确认付款</view
           >
         </template>
@@ -220,7 +221,7 @@
 </template>
 
 <script>
-import { orderTypeMap, orderStatusMap, orderStatusTipMap } from "./map.js";
+import { orderTypeMap, orderStatusMap, orderStatusMap2, orderStatusTipMap } from "./map.js";
 import { paywayMap, payWayIcons } from "@/utils/dataMap.js";
 import storage from "@/utils/storage";
 import { getTimestr } from "@/utils/time";
@@ -239,6 +240,7 @@ export default {
       payWayIcons,
       orderStatusTipMap,
       paywayMap,
+      orderStatusMap2,
       orderStatusMap,
       orderTypeMap,
       item: {},

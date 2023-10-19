@@ -8,7 +8,7 @@
   >
     <view
       class="msg-doalog"
-      :style="{ height: password ? '750rpx' : '600rpx' }"
+      :style="{ height: password ? '750rpx' : '600rpx', bottom: paddingBottom ? '160rpx' : '' }"
     >
       <view class="title">
         <text>安全验证</text>
@@ -124,6 +124,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    paddingBottom: { // 是否是tab页面 底部需要上浮
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -237,6 +241,7 @@ export default {
   width: 100%;
   height: 600rpx;
   background-color: #fff;
+  position: relative;
 
   .title {
     padding: 60rpx 37rpx 20rpx 63rpx;

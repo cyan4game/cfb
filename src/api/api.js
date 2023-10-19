@@ -392,3 +392,29 @@ export const articlePage = (data) => {
     custom: { auth: true, toast: true },
   });
 };
+
+// 代付固定金额列表(出售时的快捷金额)
+export const paymentBehalf = () => {
+  return http.get(`/cfbOtcOrder/paymentBehalf`, {
+    custom: { auth: true, toast: false },
+  });
+};
+// C端获取快捷购买金额(购买时的快捷金额)
+export const quickPayAmount = () => {
+  return http.post(`/cfbOtcOrder/quickPayAmount`, null,  {
+    custom: { auth: true, toast: false },
+  });
+};
+
+// 撮合购买订单金额(购买时匹配金额)
+export const matchMoney = (data) => {
+  return http.post(`/cfbOtcOrder/match`, data,  {
+    custom: { auth: true, toast: false },
+  });
+};
+// 确认购买
+export const confirmBuyOrder = (data) => {
+  return http.post(`/cfbOtcOrder/confirmBuyOrder`, data,  {
+    custom: { auth: true, toast: false },
+  });
+};

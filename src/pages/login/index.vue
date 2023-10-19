@@ -22,7 +22,7 @@
       <checkbox-group @change="changeProtocol">
         <label>
           <checkbox class="protocol-box" value="protocol" :checked="protocol" />
-          我已阅读并同意《财富宝用户协议》
+          我已阅读并同意<text style="color:#F98905">《财富宝用户协议》</text>
         </label>
       </checkbox-group>
     </view>

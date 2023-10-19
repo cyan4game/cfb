@@ -1,7 +1,7 @@
 <!-- 购买 -->
 <template>
   <view class="info-page-bg self-body page-trade">
-    <u-navbar :safeAreaInsetTop="false" :title="'交易'" @leftClick="() => $routers.back()" />
+    <u-navbar :safeAreaInsetTop="false" :leftIcon="''" :title="'交易'"  />
     <!-- 菜单按钮 -->
     <u-image
       @click="showNav = true"
@@ -52,7 +52,7 @@
         <view class="title">
           <text>{{ type == 2 ? "出售" : "请选择购买金额" }}</text>
           <text class="amount" v-show="type == 2">可用余额{{cfb}}CFB</text>
-          <view class="refresh">
+          <view class="refresh" @click="getFaters">
             <text>刷新</text>
             <u-image
               class="refresh-icon"
@@ -66,11 +66,11 @@
           <input v-model="form.payAmount" class="input" type="number" placeholder="限额  100-20000" />
         </view>
         <view class="fasters">
-          <view class="faster" v-for="item in fasters" :key="item" @click="form.payAmount = item">{{
+          <view class="faster" :class="{'active-faster': buy.chooseMoney == item}" v-for="item in fasters" :key="item" @click="clickFaster(item)">{{
             item
           }}</view>
           <view class="faster" v-show="type == 1">
-            <input class="input" type="number" placeholder="其他金额" />
+            <input class="input" @input="buy.chooseMoney = buy.inputMoney" v-model="buy.inputMoney" type="number" placeholder="其他金额" />
           </view>
         </view>
       </view>
@@ -92,7 +92,7 @@
       <view class="box bottom-box">
         <view>预计{{ type == 1 ? "支付" : "到账" }}</view>
         <view v-if="type == 2">￥{{ form.payAmount || 0 }}</view>
-        <view v-if="type == 1">￥--</view>
+        <view v-if="type == 1">￥{{ buy.chooseMoney || 0 }}</view>
       </view>
       <view class="bottom">
         <view>交易提醒：</view>
@@ -107,15 +107,17 @@
     >
 
     <!-- 匹配弹窗 -->
-    <MatchDialog ref="matchBox" />
+    <MatchDialog @buy="submitBuy" ref="matchBox" :matchResultItemList="matchResultItemList" />
     <!-- 出售确认 -->
     <sellDialog @next="() => $refs.verifyBox.open()" ref="sellBox" :form="form" />
     <!-- 菜单弹窗 -->
     <navsDialog  ref="navsBox" @close="showNav = false" v-if="showNav" />
     <!-- 安全验证 -->
-    <verify-dialog @success="submitSell" ref="verifyBox" :password="true" />
+    <verify-dialog :paddingBottom="true" @success="submitSell" ref="verifyBox" :password="true" />
     <!-- 跳转绑定弹窗 -->
-    <confirm-dialog ref="bindDialog" :title="'绑定收款账号'" :content="'你还未绑定收款账号，去绑定？'" :borderBtn="'取消'" :btn="'去绑定'" :btnHandle="goBindPage"></confirm-dialog>
+    <confirm-dialog :key="'bind'" ref="bindDialog" :title="'绑定收款账号'" :content="'你还未绑定收款账号，去绑定？'" :borderBtn="'取消'" :btn="'去绑定'" :btnHandle="goBindPage"></confirm-dialog>
+    <!-- 购买时没有匹配到订单的提示 -->
+    <confirm-dialog :key="'nodata'" ref="nodataDialog" :title="'提示'" :content="'您提交的购买数量暂没有相近订单，您可以选择固定购买数量或发布购买委托'" :borderBtn="'重新选择'" :btn="'发布委托'" :btnHandle="goEntrustPage"></confirm-dialog>
   </view>
 </template>
 
@@ -125,7 +127,7 @@ import sellDialog from "./components/sellDialog";
 import navsDialog from "./components/navs";
 import storage  from '@/utils/storage'
 import { updateBalance } from '@/utils/utils'
-import { queryPayBindInfo, cfbOtcOrder } from '@/api/api'
+import { queryPayBindInfo, cfbOtcOrder, paymentBehalf, quickPayAmount, matchMoney, confirmBuyOrder } from '@/api/api'
 
 const payWayMap = {
   1: "支付宝",
@@ -143,25 +145,32 @@ export default {
     return {
       amountMap: {}, // 余额
       type: 1, // 1-购买 2-出售
-      fasters: [100, 300, 500, 1100, 1800, 2100],
+      fasters: [], // 快捷金额
+      buyFasters: [], // 快捷金额 含订单号
       cfb: 0, // cfb 余额
 
+      buy: {
+        chooseMoney: '',
+        inputMoney: ''
+      },
       form: {
         payType: '',
         gatherNo: '',
         payAmount: '',
-        payCoin: 'CFB'
+        payCoin: 'CFB',
+        realName: '',
       },
 
       showNav: false, // 是否打开菜单
 
       payways: [], // 支付方式
       paywayIndex: -1,
+      matchResultItemList: [], // 匹配列表
     };
   },
   computed: {
     isDisabled() {
-      if (this.type == 1) return true
+      if (this.type == 1) return !this.buy.chooseMoney
       return !(this.form.payAmount && this.form.payAmount > 0 && this.form.payAmount <= this.cfb)
     }
   },
@@ -169,25 +178,108 @@ export default {
     this.type = storage.get('trade-tab') || 1
     this.getAmounts()
     this.getPayways()
+    this.getFaters()
   },
   methods: {
+    // 点击快捷金额
+    clickFaster(val) {
+      if (this.type == 1) { // 购买
+        this.buy.chooseMoney = val
+      } else { // 出售
+        this.form.payAmount = val
+      }
+    },
+    // 改变类型
     changeTab(key) {
+      if (this.type == key) return
+      this.buy.chooseMoney = ''
+      this.buy.inputMoney = ''
+      this.form.payAmount = ''
       this.type = key
       storage.set('trade-tab', key)
+      this.getFaters()
+    },
+    // 获取快捷支付
+    getFaters() {
+      this.fasters = []
+      this.buyFasters = []
+      this.buy.chooseMoney = ''
+      this.buy.inputMoney = ''
+      uni.showLoading({
+        title: '',
+        mask: true,
+      });
+      if (this.type == 1) { // 购买
+        quickPayAmount().then(res => {
+          console.error('购买', res)
+          this.buyFasters = res.data || []
+          this.fasters = (this.buyFasters.map(item => {
+            return item.coinAmount
+          })).slice(0, 8)
+        }).finally(() => {
+          uni.hideLoading();
+        })
+      } else { // 出售
+        paymentBehalf().then(res => {
+          this.fasters = (res.data || []).slice(0, 6)
+        }).finally(() => {
+          uni.hideLoading();
+        })
+      }
     },
     // 购买
     submit() {
-      // if (this.isDisabled) return
-      if (this.type == 1) {
-        this.$refs.matchBox.open();
-      } else {
+      if (this.isDisabled) return
+      if (this.type == 1) { // 购买
+        // 如果是快捷金额则直接下单，如果不是则请求撮合，如果结果只有一个则直接下单，否则弹窗让用户选择金额后下单
+        const target = this.buyFasters.find(item => item.coinAmount == this.buy.chooseMoney)
+        if (!target) {
+          uni.showLoading({
+            title: '',
+            mask: true
+          });
+          this.matchResultItemList = []
+          matchMoney({ buyAmount: this.buy.chooseMoney }).then(res => {
+            console.error('匹配结果', res.data)
+            if (res.code !== 200) return
+            if (res.data.status == -1) { // 没有匹配上
+              return this.$refs.nodataDialog.open()
+            }
+            if (res.data.matchResultItemList.length == 1) { // 只有一个 直接下单
+              this.submitBuy(res.data.matchResultItemList[0])
+            } else { // 用户选择
+              this.matchResultItemList = res.data.matchResultItemList
+              this.$refs.matchBox.open()
+            }
+          }).finally(() => {
+            uni.hideLoading();
+          })
+        } else {
+          this.submitBuy(target)
+        }
+        // this.$refs.matchBox.open();
+      } else { // 出售
         this.$refs.sellBox.open();
       }
+    },
+    // 确认购买
+    submitBuy(target) {
+      console.error('确认购买', target)
+      uni.showLoading({
+        title: '',
+        mask: true
+      });
+      confirmBuyOrder({ matchNo: target.matchOrderNo }).then(res => {
+        console.error('结果', res)
+      }).finally(() => {
+        uni.hideLoading();
+      })
     },
     // 确认出售
     submitSell(codes) {
       const params = {
         ...this.form,
+        realName: this.form.realName,
         payModelId: this.form.payModelId,
         gatherWay: this.form.payType,
         payAmount: Number(this.form.payAmount),
@@ -224,11 +316,12 @@ export default {
     },
     // 选择支付方式
     bindPayWayChange(e) {
-      this.paywayIndex = e.target.value
       console.error(this.payways[this.paywayIndex])
+      this.paywayIndex = e.target.value
       this.form.payType = this.payways[this.paywayIndex].payType
       this.form.gatherNo = this.payways[this.paywayIndex].account
       this.form.payModelId = this.payways[this.paywayIndex].id
+      this.form.realName = this.payways[this.paywayIndex].username
     },
     // 查询支付方式
     getPayways() {
@@ -257,6 +350,13 @@ export default {
          url: '/pages/collection/index'
       })
     },
+    // 跳转委托页面
+    goEntrustPage() {
+      this.$refs.nodataDialog.close()
+      uni.navigateTo({
+         url: '/pages/entrust/index'
+      })
+    }
   },
 };
 </script>
@@ -366,13 +466,14 @@ export default {
     .fasters {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       flex-wrap: wrap;
       .faster {
         width: 213rpx;
         height: 72rpx;
         border-radius: 6px;
         margin-bottom: 28rpx;
+        margin-right: 18rpx;
         background-color: #f1f1f1;
         display: flex;
         align-items: center;
@@ -386,6 +487,11 @@ export default {
           font-size: 28rpx;
           text-align: center;
         }
+      }
+      .active-faster {
+        border: 1px solid #449367;
+        color: #449367;
+        background-color: #fff;
       }
     }
   }
