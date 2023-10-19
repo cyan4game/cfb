@@ -31,6 +31,7 @@
           placeholder="请输入"
         />
       </view>
+      <view v-show="showPhoneTip" style="font-size: 24rpx;color: #f56c6c;line-height: 24rpx;position: relative;top: -30rpx;">请输入正确的手机号</view>
       <view class="title">
         <text>*</text>留言内容：
         <text class="tip">您好如需帮助请留言，我们将尽快解决您的问题</text>
@@ -125,7 +126,7 @@ const accepts = [
   "image/gif",
   "image/bmp",
 ];
-
+const chPhoneReg = /^1\d{10}$/;
 export default {
   name: "pageCustomer",
   data() {
@@ -147,8 +148,15 @@ export default {
   },
   computed: {
     disabled() {
+      if (this.form.phoneNumber && this.form.countryCode == '+86') {
+        if (!chPhoneReg.test(this.form.phoneNumber)) return true
+      }
       return !(this.form.phoneNumber && this.form.content) || this.loading;
     },
+    showPhoneTip() {
+      if (this.form.phoneNumber && this.form.countryCode == '+86') return !(chPhoneReg.test(this.form.phoneNumber))
+      return false
+    }
   },
   methods: {
     handleAreaCodeConfirm(e) {

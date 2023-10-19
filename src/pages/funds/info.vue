@@ -58,7 +58,7 @@
         <template v-if="info.type != 3">
           <view class="detail">
             <view class="name">手续费</view>
-            <view class="content">--</view>
+            <view class="content">{{ info.fee }}</view>
           </view>
           <view class="detail">
             <view class="name">转出地址</view>

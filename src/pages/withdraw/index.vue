@@ -213,7 +213,7 @@ export default {
     },
     // 提交
     submit() {
-      // if (this.disabled) return;
+      if (this.disabled) return;
       this.$refs.popup.open();
     },
     next() {

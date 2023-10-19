@@ -75,7 +75,7 @@
         </u-form>
         <u-button
           @click="goCheck"
-          :disabled="!checkForm.codePhone || (password && !checkForm.payPass)"
+          :disabled="!checkForm.codePhone || (password && checkForm.payPass.length != 6 )"
           class="login-button2"
           type="primary"
           text="确认"
