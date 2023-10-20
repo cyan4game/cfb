@@ -27,7 +27,7 @@ export function handleLogout() {
     ].includes(currentPage)
   ) {
     uni.reLaunch({
-      url: "/pages/login/index" + (location ? location.search : ''),
+      url: "/pages/login/index" + (location ? location.search : ""),
     });
   }
 }
@@ -67,8 +67,8 @@ module.exports = (vm) => {
           throw new Error("当前token已失效,请重新登录");
         }
       }
-      if (config && config.custom && config.custom['Content-Type']) {
-        config.header['Content-Type'] = config.custom['Content-Type']
+      if (config && config.custom && config.custom["Content-Type"]) {
+        config.header["Content-Type"] = config.custom["Content-Type"];
       }
       return config;
     },
@@ -85,11 +85,16 @@ module.exports = (vm) => {
       const res = response.data;
       // 自定义参数
       const custom = response.config?.custom;
+
       if (res.code !== 200) {
         if (Number(res.code) === 1001) {
+          // ip禁止
           uni.reLaunch({
             url: `/pages/ip-limit?ip=${res.data.ip}&address=${res.data.address}`,
           });
+        } else if (Number(res.code) === 5000) {
+          // 重设手机号
+          uni.$emit("5000", res);
         } else {
           // 如果没有显式定义custom的toast参数为false的话，默认对报错进行toast弹出提示
           if (res.code === 401) {

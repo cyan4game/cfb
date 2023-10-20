@@ -10,7 +10,27 @@ export default {
   onLaunch() {
     console.log("App启动");
     // 事件监听
-    // uni.$on('401', data => {})
+    uni.$on("5000", (data) => {
+      // 重置手机号
+      uni.showModal({
+        title: "重置手机号",
+        content: "您的手机号码已被重置，请更换您的手机号码",
+        cancelText: "取消登录",
+        confirmText: "更换手机号",
+        success: (val) => {
+          if (val.confirm) {
+            uni.reLaunch({
+              url: "/pages/login/resetPhone",
+            });
+          }
+          if (val.cancel) {
+            uni.reLaunch({
+              url: "/pages/login/index",
+            });
+          }
+        },
+      });
+    });
 
     this.checkUpdate();
     // #ifdef APP-PLUS
@@ -237,13 +257,19 @@ uni-toast {
 }
 
 .uni-picker-container .uni-picker-action-confirm {
-        color: #449367 !important;
-    }
+  color: #449367 !important;
+}
 uni-button:after {
   border: none;
 }
 .uni-tabbar__label {
-  font-size: 24rpx!important;
+  font-size: 24rpx !important;
+}
+.uni-modal__btn {
+  font-size: 32rpx !important;
+}
+.uni-modal__btn_primary {
+  color: #449367 !important;
 }
 .self-body {
   /* padding-top: calc(85rpx + var(--status-bar-height)); */
@@ -320,6 +346,6 @@ uni-button:after {
 }
 
 .page-help-info img {
-  max-width: 100%!important;
+  max-width: 100% !important;
 }
 </style>

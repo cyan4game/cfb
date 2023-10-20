@@ -27,7 +27,7 @@
       </view>
       <view class="item">
         <text>参考汇率</text>
-        <text class="val">￥{{ info.referenceRate }}</text>
+        <text class="val">{{ info.referenceRate }}</text>
       </view>
       <view class="item">
         <text>预估成交金额</text>

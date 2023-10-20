@@ -425,3 +425,10 @@ export const getCoinConfig = (currency) => {
     custom: { auth: true, toast: true },
   });
 };
+
+// 重置电话号码
+export const restPhone = (data) => {
+  return http.post(`/member-security/restPhone`, data,  {
+    custom: { auth: true, toast: true },
+  });
+};
