@@ -114,7 +114,7 @@
 <script>
 import { mailSecurity, smsSecurity } from "@/api/api";
 import storage from "@/utils/storage";
-import { hiddenPhone } from "@/utils/utils";
+import { hiddenPhone, _md5 } from "@/utils/utils";
 
 export default {
   name: "msgDialog",
@@ -177,7 +177,7 @@ export default {
         emailCode: "666666",
         // emailCode: this.checkForm.codeEmail,
         phoneCode: this.checkForm.codePhone,
-        payPass: this.checkForm.payPass,
+        payPass: _md5(this.checkForm.payPass),
       });
       this.close();
     },

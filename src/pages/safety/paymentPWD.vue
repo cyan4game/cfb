@@ -52,6 +52,7 @@
 
 <script>
 import { paypasswordModify } from "@/api/api";
+import { _md5 } from '@/utils/utils'
 
 const pawReg = /^[0-9]{6}$/
 export default {
@@ -122,8 +123,8 @@ export default {
     },
     successHandle(codes) {
       const params = {
-        payPassword: this.form.newPassWord1,
-        oldPayPassword: this.form.oldPassWord,
+        payPassword: _md5(this.form.newPassWord1),
+        oldPayPassword: _md5(this.form.oldPassWord),
         ...codes,
       }
       paypasswordModify(params).then(res => {

@@ -13,7 +13,7 @@
       </view>
       <view class="time">
         <text class="timedown" :style="{'color':orderStatusColorMap[item.orderStatus]}">{{
-          item.orderStatus == 2 ? orderStatusMap2[item.orderType] : orderStatusMap[item.orderStatus] || "--"
+          getOrderStatusMap(item.orderType)[item.orderStatus] || '--'
         }}</text>
       </view>
     </view>
@@ -47,7 +47,7 @@
 
 <script>
 import { secondsToMinutesAndSeconds } from "@/utils/utils";
-import { orderStatusMap, orderTypeMap, orderStatusColorMap, orderStatusMap2 } from "../map.js";
+import { getOrderStatusMap, orderTypeMap, orderStatusColorMap } from "../map.js";
 import { getTimestr } from "@/utils/time";
 import storage from "@/utils/storage";
 
@@ -61,10 +61,8 @@ export default {
   },
   data() {
     return {
-      orderStatusMap2,
       orderStatusColorMap,
       orderTypeMap,
-      orderStatusMap,
       interval: null,
       time: 300,
       timeStr: "",
@@ -88,6 +86,7 @@ export default {
     if (this.interval) clearInterval(this.interval);
   },
   methods: {
+    getOrderStatusMap,
     getTimestr,
     // 跳转到详情
     goDetail() {

@@ -58,7 +58,7 @@
 
 <script>
 import { paypasswordSet } from "../../api/api";
-import { updatUserInfo } from '@/utils/utils'
+import { updatUserInfo, _md5 } from '@/utils/utils'
 import storage from '@/utils/storage'
 
 const pawReg = /^[0-9]{6}$/;
@@ -133,7 +133,7 @@ export default {
         form: { password, confirmPassword },
       } = this;
       const params = {
-        payPassword: password,
+        payPassword: _md5(password),
       };
       paypasswordSet(params)
         .then((res) => {

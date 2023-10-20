@@ -418,3 +418,10 @@ export const confirmBuyOrder = (data) => {
     custom: { auth: true, toast: true },
   });
 };
+
+// 具体币种信息（获取手续费配置）
+export const getCoinConfig = (currency) => {
+  return http.get(`/coin/get/${currency}`, {
+    custom: { auth: true, toast: true },
+  });
+};

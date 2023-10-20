@@ -8,7 +8,7 @@
     />
     <view class="info-page-content content-box"> 
       <view class="title">
-        <text>{{ item.orderStatus == 2 ? orderStatusMap2[item.orderType] : orderStatusMap[item.orderStatus] || "--" }}</text>
+        <text>{{ getOrderStatusMap(item.orderType)[item.orderStatus] || "--" }}</text>
         <text class="money" v-if="item.orderStatus==2">￥{{ item.payAmount }}</text>
       </view>
 
@@ -155,17 +155,17 @@
             >撤销申诉</view
           >
         </template>
-        <!-- 待付款 -->
+        <!-- 待付款/待收款 -->
         <template v-if="item.orderStatus == 2">
           <view class="btn" @click="() => $refs.orderCancel.open()"
             >取消交易</view
           >
           <!-- 购买才有此按钮 -->
-          <view v-if="item.orderType == 1" class="submit" @click="() => $refs.uploadDialog.open()"
+          <view v-if="item.buyUserId == userInfo.id" class="submit" @click="() => $refs.uploadDialog.open()"
             >确认付款</view
           >
         </template>
-        <!-- 收款待确认 -->
+        <!-- 已付款/收款待确认 -->
         <template v-if="item.orderStatus == 3">
           <view class="btn" @click="appeal">申诉</view>
           <!-- 卖家才有此按钮 -->
@@ -222,7 +222,7 @@
 </template>
 
 <script>
-import { orderTypeMap, orderStatusMap, orderStatusMap2, orderStatusTipMap } from "./map.js";
+import { orderTypeMap, getOrderStatusMap, orderStatusTipMap } from "./map.js";
 import { paywayMap, payWayIcons } from "@/utils/dataMap.js";
 import storage from "@/utils/storage";
 import { getTimestr } from "@/utils/time";
@@ -242,8 +242,6 @@ export default {
       payWayIcons,
       orderStatusTipMap,
       paywayMap,
-      orderStatusMap2,
-      orderStatusMap,
       orderTypeMap,
       item: {},
     };
@@ -258,6 +256,7 @@ export default {
     }, 0);
   },
   methods: {
+    getOrderStatusMap,
     getTimestr,
     // 获取订单详情
     getInfo() {

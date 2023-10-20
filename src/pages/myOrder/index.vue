@@ -279,7 +279,6 @@ export default {
     openFilter() {
       this.$refs.popup.open();
     },
-    //
     changeFilter() {
       this.$refs.popup.close();
       this.reset();

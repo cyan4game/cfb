@@ -64,7 +64,7 @@
               {{ form.currency.replace("_TRC20", "") }}</view
             >
             <view style="margin-bottom: 8rpx">手续费</view>
-            <view>0 USDT</view>
+            <view>{{ fee }} {{ form.currency }}</view>
           </view>
         </view>
       </view>
@@ -80,7 +80,14 @@
 
     <!-- 币种选择 -->
     <!-- <coin-select  @select="clickCurrency" /> -->
-    <coin-select-inner ref="currencyPopup" :coin="form.currency" :width="'691rpx'" @select="clickCurrency" :top="'calc(204rpx + env(safe-area-inset-top))'" :left="'30rpx'" />
+    <coin-select-inner
+      ref="currencyPopup"
+      :coin="form.currency"
+      :width="'691rpx'"
+      @select="clickCurrency"
+      :top="'calc(204rpx + env(safe-area-inset-top))'"
+      :left="'30rpx'"
+    />
 
     <!-- 转账地址选择 -->
     <address-select ref="addressPopup" @select="selectAddress" />
@@ -116,11 +123,11 @@
           </view>
           <view class="sure-item">
             <text>手续费</text>
-            <text class="sure-val">0 {{ form.currency }}</text>
+            <text class="sure-val">{{ fee }} {{ form.currency }}</text>
           </view>
           <view class="sure-item">
             <text>实际到账</text>
-            <text class="sure-val">{{ form.amount }} {{ form.currency }}</text>
+            <text class="sure-val">{{ form.amount - fee }} {{ form.currency }}</text>
           </view>
         </view>
         <view class="submit" @click="next">确认转账</view>
@@ -130,9 +137,10 @@
 </template>
 
 <script>
-import { withdraw } from "@/api/api";
+import { withdraw, getCoinConfig } from "@/api/api";
 import storage from "@/utils/storage";
 import { isValidTRONAddress, updateBalance, _fixed } from "@/utils/utils";
+import { coinList } from "@/utils/dataMap";
 
 export default {
   name: "addressList",
@@ -149,6 +157,8 @@ export default {
       passAddress: false, // 是否通过地址格式校验
 
       amountMap: [],
+
+      coinConfig: {}, // 币种配置信息
     };
   },
   computed: {
@@ -161,11 +171,31 @@ export default {
       );
     },
     money() {
-      const currency =
-        this.form.currency == "USDT_TRC20" ? "USDT" : this.form.currency;
+      const currency = this.form.currency;
       const target = this.amountMap.find((item) => item.currency == currency);
       if (target) return target.balance;
       return "--";
+    },
+    fee() {
+      if (!this.coinConfig[this.form.currency]) return 0;
+      const config = this.coinConfig[this.form.currency];
+      let val = 0;
+      switch (
+        config.withdrawState // 提现手续费类型：1-固定值 2-百分比 3-固定值+百分比
+      ) {
+        case 1:
+          val = config.withdrawFeeFixed;
+          break;
+        case 2:
+          val = (config.withdrawFeePercentage / 100) * (this.form.amount || 0);
+          break;
+        case 3:
+          val =
+            config.withdrawFeeFixed +
+            (config.withdrawFeePercentage / 100) * (this.form.amount || 0);
+          break;
+      }
+      return val;
     },
   },
   onLoad(data) {
@@ -177,6 +207,7 @@ export default {
   },
   onShow() {
     this.getAmounts();
+    this.getConfig();
   },
   methods: {
     // 输入数量过滤
@@ -194,11 +225,27 @@ export default {
         }
       });
     },
+    // 获取币种配置
+    getConfig() {
+      if (this.coinConfig[this.form.currency]) retrun;
+      getCoinConfig(this.getCoinParams(this.form.currency)).then((res) => {
+        if (res.code == 200) {
+          this.coinConfig[this.form.currency] = res.data;
+        }
+      });
+    },
+    // 获取币种参数
+    getCoinParams(coin) {
+      const target = coinList.find((item) => item.coin == coin);
+      if (target)  return target.coin + "_" + target.chain;
+      return coin;
+    },
     // 选择币种
     clickCurrency(item) {
       this.form.currency = item.name;
       this.$refs.currencyPopup.close();
       this.checkAddress();
+      this.getConfig();
     },
     // 校验地址是否合法
     checkAddress() {
@@ -213,7 +260,7 @@ export default {
     },
     // 提交
     submit() {
-      if (this.disabled) return;
+      // if (this.disabled) return;
       this.$refs.popup.open();
     },
     next() {
@@ -223,16 +270,9 @@ export default {
     successHandle(codes) {
       this.loading = true;
       const params = JSON.parse(JSON.stringify(this.form));
-      switch (params.currency) {
-        case "USDT":
-          params.currency = "USDT_TRC20";
-          break;
-        case "CFB":
-          params.currency = "CFB_CFB";
-          break;
-      }
-      params.smsVerifyCode = codes.phoneCode
-      params.payPassword = codes.payPass
+      params.currency = this.getCoinParams(params.currency);
+      params.smsVerifyCode = codes.phoneCode;
+      params.payPassword = codes.payPass;
       withdraw(params)
         .then((res) => {
           if (res.code == 200) {

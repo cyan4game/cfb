@@ -272,6 +272,19 @@ export default {
       });
       confirmBuyOrder({ matchNo: target.matchOrderNo }).then(res => {
         console.error('结果', res)
+        if (res.code == 200) {
+          setTimeout(() => {
+            uni.showToast({
+              title: '交易成功',
+              icon: 'none',
+              duration: 2000
+            })
+          }, 200)
+          storage.set("curr-order", res.data);
+          uni.navigateTo({
+             url: '/pages/myOrder/info?'
+          })
+        }
       }).finally(() => {
         uni.hideLoading();
       })
