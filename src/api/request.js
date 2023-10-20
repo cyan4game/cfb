@@ -22,8 +22,7 @@ export function handleLogout() {
     !currentPage ||
     ![
       "/pages/login/index",
-      "/pages/register/index",
-      "/pages/retrievePassword/index",
+      "/pages/login/resetPhone",
     ].includes(currentPage)
   ) {
     uni.reLaunch({

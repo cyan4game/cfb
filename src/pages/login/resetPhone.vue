@@ -3,9 +3,9 @@
   <view class="info-page-bg self-body mobile-view">
     <u-navbar :safeAreaInsetTop="false" :title="'重置手机号'" :leftIcon="''" />
     <view class="info-page-content page-box">
-      <u-form class="form" :model="form" ref="form">
+      <u-form class="form" :model="form" ref="form" :rules="rules">
         <!-- 旧手机 -->
-        <u-form-item prop="">
+        <u-form-item prop="oldPhoneNumber">
           <view class="item">
             <u-text color="#7A7A7A" text="旧手机号"></u-text>
             <u-row class="item-content ipt">
@@ -15,7 +15,6 @@
                   :text="form.oldCountryCode"
                   color="#343434"
                   suffixIcon="arrow-down"
-                  @click="() => $refs.oldCountryCode.open()"
                   :iconStyle="{
                     fontSize: '14px',
                     color: '#343434',
@@ -25,6 +24,7 @@
               <u-col offset="1" span="9">
                 <u-input
                   clearable
+                  disabled
                   :type="'number'"
                   placeholder="请输入旧手机号"
                   v-model="form.oldPhoneNumber"
@@ -34,7 +34,7 @@
           </view>
         </u-form-item>
 
-        <u-form-item prop="">
+        <u-form-item prop="oldVerifyCode">
           <view class="item">
             <u-text color="#7A7A7A" text="验证码"></u-text>
             <view style="display: flex; align-items: center">
@@ -57,7 +57,7 @@
         </u-form-item>
 
         <!-- 新手机 -->
-        <u-form-item prop="">
+        <u-form-item prop="newPhoneNumber">
           <view class="item">
             <u-text color="#7A7A7A" text="新手机号"></u-text>
             <u-row class="item-content ipt">
@@ -86,7 +86,7 @@
           </view>
         </u-form-item>
 
-        <u-form-item prop="">
+        <u-form-item prop="newVerifyCode">
           <view class="item">
             <u-text color="#7A7A7A" text="验证码"></u-text>
             <view style="display: flex; align-items: center">
@@ -100,7 +100,7 @@
               </u-input>
               <view
                 class="code-box"
-                :class="{ 'display-code': !form.newPhoneNumber }"
+                :class="{ 'display-code': disabledSms }"
                 @click="sendCode('new')"
                 >{{ timedown2 ? `${timedown2}秒` : "获取验证码" }}</view
               >
@@ -134,6 +134,7 @@
 <script>
 import storage from "@/utils/storage";
 import { sendSMS, restPhone } from "@/api/api";
+const chPhoneReg = /^1\d{10}$/;
 
 const pawReg = /^[0-9]{6}$/;
 export default {
@@ -154,10 +155,43 @@ export default {
       timeInterval: null,
       timedown2: 0,
       timeInterval2: null,
+
+      rules: {
+        newPhoneNumber: [
+          {
+            required: true,
+            message: "请输入手机号",
+            trigger: ["blur", "change", "input"],
+          },
+          {
+            validator: (rule, value, callback) => {
+              if (this.form.newCountryCode == "+86") return chPhoneReg.test(value);
+              return true;
+            },
+            message: "请输入正确的手机号",
+            trigger: ["change", "blur"],
+          },
+        ],
+        oldVerifyCode: [
+          {
+            required: true,
+            message: "请输入验证码",
+            trigger: ["blur", "change"],
+          },
+        ],
+        newVerifyCode: [
+          {
+            required: true,
+            message: "请输入验证码",
+            trigger: ["blur", "change"],
+          },
+        ],
+      },
     };
   },
   computed: {
     isDisabled() {
+      if (this.form.newCountryCode == "+86" && !chPhoneReg.test(this.form.newPhoneNumber)) return true
       return !(
         this.form.oldPhoneNumber &&
         this.form.oldVerifyCode &&
@@ -165,6 +199,15 @@ export default {
         this.form.newVerifyCode
       );
     },
+    disabledSms() {
+      return !this.form.newPhoneNumber || ( this.form.newCountryCode == "+86" && !chPhoneReg.test(this.form.newPhoneNumber) )
+    }
+  },
+  onShow() {
+    const userInfo = storage.get("userInfo") || {};
+    const loginInfo = storage.get("login-info") || {};
+    this.form.oldPhoneNumber = loginInfo.phoneNumber || userInfo.phoneNumber
+    this.form.oldPhoneNumber = loginInfo.phoneNumber || userInfo.phoneNumber
   },
   methods: {
     // 发送验证码
@@ -274,6 +317,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.form {
+  ::v-deep .u-form-item__body__right__message {
+    margin-left: 0!important;
+  }
+}
 .ipt {
   background-color: #f1f1f1;
   height: 72rpx;

@@ -248,9 +248,7 @@ export default {
   },
   onShow() {
     this.userInfo = storage.get("userInfo") || {};
-    console.error(this.userInfo)
     this.item = storage.get("curr-order") || {};
-    console.error(this.item)
     setTimeout(() => {
       this.getInfo();
     }, 0);
@@ -263,6 +261,7 @@ export default {
       if (!this.item.entrustId && !this.item.id) return;
       pageOtcMyOrder({
         id: this.item.id,
+        orderId: this.item.id,
         pageNo: 1,
         pageSize: 1,
       }).then((res) => {

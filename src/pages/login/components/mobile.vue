@@ -142,14 +142,6 @@ export default {
             message: "请输入手机号",
             trigger: ["blur", "change", "input"],
           },
-          // {
-          //   pattern: /^\d{7,16}$/,
-          //   transform(value) {
-          //     return String(value);
-          //   },
-          //   message: "请输入正确的手机号",
-          //   trigger: ["blur", "change"],
-          // },
           {
             // 自定义验证函数，见上说明
             validator: (rule, value, callback) => {
@@ -245,6 +237,7 @@ export default {
         phoneNumber: form.phone,
       };
       this.loading = true;
+      storage.set('login-info', params)
       phoneRegister(params)
         .then((res) => {
           this.router("pages/index/index");
