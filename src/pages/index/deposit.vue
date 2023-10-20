@@ -77,7 +77,7 @@
           <text>充值二维码</text>
         </view>
         <view class="box" :class="{ fullwin: fullwin }" ref="box">
-          <view class="box-title">{{ userInfo.nickname || "--" }}</view>
+          <view class="box-title">{{ userInfo.nickName || "--" }}</view>
           <view class="box-coin">资产类型：{{ chain }}-{{ currency }}</view>
           <view class="qr-box2" v-if="address">
             <tki-qrcode :key="'in'" ref="qrcode2" :size="340" :val="address" />
@@ -250,7 +250,7 @@ export default {
               // 如果浏览器支持分享
               if (navigator.share) {
                 navigator.share({
-                  title: (this.userInfo.nickname || "--") + "的充值二维码",
+                  title: (this.userInfo.nickName || "--") + "的充值二维码",
                   text: this.address,
                   files: [
                     new File([blob], "image.jpg", { type: "image/jpeg" }),

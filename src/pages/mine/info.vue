@@ -35,7 +35,7 @@
         <view class="item" @click="goNickname">
           <text class="name">昵称</text>
           <text class="item-box value">{{
-            userInfo.nickname || "未设置昵称"
+            userInfo.nickName || "未设置昵称"
           }}</text>
           <u-image
             class="right"

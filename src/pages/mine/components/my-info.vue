@@ -18,7 +18,7 @@
       ></u-image>
     </view>
     <view class="info" @click="goInfo">
-      <view class="name">{{ userInfo.nickname || "未设置昵称" }}</view>
+      <view class="name">{{ userInfo.nickName || "未设置昵称" }}</view>
       <view>{{
         userInfo.phoneNumber ? hiddenStr(userInfo.phoneNumber) : "未绑定手机号"
       }}</view>

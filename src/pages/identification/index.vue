@@ -5,7 +5,7 @@
         <u-navbar :safeAreaInsetTop="false" :title="'实名认证'" @leftClick="() => $routers.back()" />
 
         <view class="info-page-content content-box">
-            <view class="info">用户名：{{ userInfo.nickname || '--' }}</view>
+            <view class="info">用户名：{{ userInfo.nickName || '--' }}</view>
 
             <view class="info-box">
                 <view class="item">

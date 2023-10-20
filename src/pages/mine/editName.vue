@@ -10,10 +10,10 @@
           class="input"
           maxlength="20"
           type="text"
-          v-model.trim="userInfo.nickname"
+          v-model.trim="userInfo.nickName"
           placeholder="输入昵称"
         />
-        <view class="count">{{ (userInfo.nickname || "").length }}/20</view>
+        <view class="count">{{ (userInfo.nickName || "").length }}/20</view>
 
         <view class="tip-box"
           >您的昵称将对其他用户可见，您今年还有{{
@@ -32,7 +32,7 @@
       class="submit"
       :class="{
         'disabled-btn':
-          !userInfo.nickname || !userInfo.nicknameYearUpdateLastCount,
+          !userInfo.nickName || !userInfo.nicknameYearUpdateLastCount,
       }"
       @click="submit"
       >提交</view
@@ -58,12 +58,12 @@ export default {
   methods: {
     // 提交
     submit() {
-      if (!this.userInfo.nickname) return;
+      if (!this.userInfo.nickName) return;
       uni.showLoading({
         title: "",
         mask: true,
       });
-      nicknameSettings({ nickname: this.userInfo.nickname })
+      nicknameSettings({ nickname: this.userInfo.nickName })
         .then((res) => {
           if (res.code == 200) {
             storage.set("userInfo", this.userInfo);
