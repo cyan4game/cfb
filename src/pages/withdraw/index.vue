@@ -55,7 +55,15 @@
               v-model="form.amount"
               type="number"
               class="ipt"
-              placeholder="请输入转账数量"
+              :placeholder="`请输入转账数量 ${
+                state.minWithdrawAmount
+                  ? '最小数量:' + state.minWithdrawAmount
+                  : ''
+              }  ${
+                state.maxWithdrawAmount
+                  ? '最大数量:' + state.maxWithdrawAmount
+                  : ''
+              }`"
             />
           </view>
           <view class="tip">
@@ -71,8 +79,15 @@
     </view>
 
     <!-- 按钮 -->
-    <view class="btn" @click="submit" :class="{ 'disabled-btn': disabled }"
+    <view
+      v-show="state.withdrawState == 1"
+      class="btn"
+      @click="submit"
+      :class="{ 'disabled-btn': disabled }"
       >转账</view
+    >
+    <view v-show="state.withdrawState != 1" class="btn-tip"
+      >{{ form.currency }}禁止转账</view
     >
 
     <!-- 验证弹窗 -->
@@ -127,7 +142,9 @@
           </view>
           <view class="sure-item">
             <text>实际到账</text>
-            <text class="sure-val">{{ form.amount - fee }} {{ form.currency }}</text>
+            <text class="sure-val"
+              >{{ form.amount - fee }} {{ form.currency }}</text
+            >
           </view>
         </view>
         <view class="submit" @click="next">确认转账</view>
@@ -163,6 +180,10 @@ export default {
   },
   computed: {
     disabled() {
+      if (this.state.minWithdrawAmount)
+        return this.form.amount < this.state.minWithdrawAmount;
+      if (this.state.maxWithdrawAmount)
+        return this.form.amount > this.state.maxWithdrawAmount;
       return (
         !(this.form.toAddress && this.form.amount) ||
         this.loading ||
@@ -176,12 +197,20 @@ export default {
       if (target) return target.balance;
       return "--";
     },
+    state() {
+      return (
+        this.coinConfig[this.form.currency] || {
+          withdrawState: 0, // 1-可以转账  0-禁止转账
+          minWithdrawAmount: "",
+          maxWithdrawAmount: "",
+        }
+      );
+    },
     fee() {
-      if (!this.coinConfig[this.form.currency]) return 0;
-      const config = this.coinConfig[this.form.currency];
+      const config = this.coinConfig[this.form.currency] || {};
       let val = 0;
       switch (
-        config.withdrawState // 提现手续费类型：1-固定值 2-百分比 3-固定值+百分比
+        config.withdrawFeeType // 提现手续费类型：1-固定值 2-百分比 3-固定值+百分比
       ) {
         case 1:
           val = config.withdrawFeeFixed;
@@ -227,17 +256,26 @@ export default {
     },
     // 获取币种配置
     getConfig() {
-      if (this.coinConfig[this.form.currency]) retrun;
-      getCoinConfig(this.getCoinParams(this.form.currency)).then((res) => {
-        if (res.code == 200) {
-          this.coinConfig[this.form.currency] = res.data;
-        }
+      if (this.coinConfig[this.form.currency]) return;
+      uni.showLoading({
+        title: "",
+        mask: true,
       });
+      getCoinConfig(this.getCoinParams(this.form.currency))
+        .then((res) => {
+          if (res.code == 200) {
+            this.coinConfig[this.form.currency] = res.data;
+            this.coinConfig = JSON.parse(JSON.stringify(this.coinConfig)); // 触发计算手续费
+          }
+        })
+        .finally(() => {
+          uni.hideLoading();
+        });
     },
     // 获取币种参数
     getCoinParams(coin) {
       const target = coinList.find((item) => item.coin == coin);
-      if (target)  return target.coin + "_" + target.chain;
+      if (target) return target.coin + "_" + target.chain;
       return coin;
     },
     // 选择币种
@@ -373,6 +411,14 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     bottom: 60rpx;
+  }
+  .btn-tip {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 60rpx;
+    font-size: 24rpx;
+    color: #dc2727;
   }
 
   .disabled-btn {
