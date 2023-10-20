@@ -6,7 +6,7 @@
       :title="'订单详情'"
       @leftClick="() => $routers.back()"
     />
-    <view class="info-page-content content-box">
+    <view class="info-page-content content-box"> 
       <view class="title">
         <text>{{ item.orderStatus == 2 ? orderStatusMap2[item.orderType] : orderStatusMap[item.orderStatus] || "--" }}</text>
         <text class="money" v-if="item.orderStatus==2">￥{{ item.payAmount }}</text>
@@ -30,7 +30,7 @@
         <!-- 成功 -->
         <text v-if="item.orderStatus == 0"
           >{{ orderTypeMap[item.orderType] }} {{ item.buyAmount }}
-          {{ item.buyCoin || item.payCoin }}</text
+          {{ item.buyCoin || item.payCoin || 'CFB' }}</text
         >
       </view>
 
@@ -46,11 +46,11 @@
       <view class="subtitle">
         <coin-icon
           style="margin-right: 16rpx; width: 50rpx; height: 50rpx"
-          :coin="item.buyCoin || item.payCoin"
+          :coin="item.buyCoin || item.payCoin || 'CFB'"
         />
         <text
           >{{ orderTypeMap[item.orderType]
-          }}{{ item.buyCoin || item.payCoin }}</text
+          }}{{ item.buyCoin || item.payCoin || 'CFB' }}</text
         >
       </view>
 
@@ -62,7 +62,7 @@
         <view class="info-item">
           <view class="item-name">数量</view>
           <view class="item-box" :style="{color: item.orderStatus==2?'#449367':''}"
-            >{{ item.buyAmount }}{{ item.buyCoin || item.payCoin }}</view
+            >{{ item.buyAmount }}{{ item.buyCoin || item.payCoin || 'CFB' }}</view
           >
         </view>
         <view class="info-item" v-if="item.orderStatus!=2">
@@ -168,7 +168,8 @@
         <!-- 收款待确认 -->
         <template v-if="item.orderStatus == 3">
           <view class="btn" @click="appeal">申诉</view>
-          <view class="submit" @click="() => $refs.sureGet.open()"
+          <!-- 卖家才有此按钮 -->
+          <view v-if="item.sellUserId == userInfo.id" class="submit" @click="() => $refs.sureGet.open()"
             >确认收款</view
           >
         </template>
@@ -237,6 +238,7 @@ export default {
   name: "orderInfo",
   data() {
     return {
+      userInfo: {},
       payWayIcons,
       orderStatusTipMap,
       paywayMap,
@@ -247,7 +249,10 @@ export default {
     };
   },
   onShow() {
+    this.userInfo = storage.get("userInfo") || {};
+    console.error(this.userInfo)
     this.item = storage.get("curr-order") || {};
+    console.error(this.item)
     setTimeout(() => {
       this.getInfo();
     }, 0);
@@ -258,7 +263,7 @@ export default {
     getInfo() {
       if (!this.item.entrustId && !this.item.id) return;
       pageOtcMyOrder({
-        entrustId: this.item.entrustId || this.item.id,
+        id: this.item.id,
         pageNo: 1,
         pageSize: 1,
       }).then((res) => {

@@ -5,11 +5,11 @@
     <view class="top">
       <view class="title">
         <coin-icon
-          :coin="item.buyCoin || item.payCoin"
+          :coin="item.buyCoin || item.payCoin || 'CFB'"
           style="width: 55rpx; height: 54rpx; margin-right: 10rpx"
         />
         <text class="status">{{ orderTypeMap[item.orderType] || '--' }}</text>
-        <text>{{ item.buyCoin || item.payCoin }}</text>
+        <text>{{ item.buyCoin || item.payCoin || 'CFB' }}</text>
       </view>
       <view class="time">
         <text class="timedown" :style="{'color':orderStatusColorMap[item.orderStatus]}">{{
