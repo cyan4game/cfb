@@ -275,11 +275,11 @@ export default {
         if (res.code == 200) {
           setTimeout(() => {
             uni.showToast({
-              title: '交易成功',
+              title: '下单成功',
               icon: 'none',
-              duration: 2000
+              duration: 1000
             })
-          }, 200)
+          }, 100)
           storage.set("curr-order", res.data);
           uni.navigateTo({
              url: '/pages/myOrder/info?'
@@ -515,7 +515,7 @@ export default {
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 160rpx;
+    bottom: 120rpx;
   }
 }
 </style>

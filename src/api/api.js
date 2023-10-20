@@ -323,13 +323,13 @@ export const cfbOtcOrder = (data) => {
 // 确认收款
 export const confirmCollect = (data) => {
   return http.post(`/cfbOtcOrder/confirmCollect`, data, {
-    custom: { auth: true, toast: true },
+    custom: { auth: true, toast: true, "Content-Type": 'application/x-www-form-urlencoded' },
   });
 };
 // 取消交易
 export const orderCancel = (data) => {
   return http.post(`/cfbOtcOrder/cancel`, data, {
-    custom: { auth: true, toast: true },
+    custom: { auth: true, toast: true, "Content-Type": 'application/x-www-form-urlencoded' },
   });
 };
 // 确认付款

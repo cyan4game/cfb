@@ -49,7 +49,7 @@ module.exports = (vm) => {
     return config;
   });
 
-  // 请求拦截
+  // 请求拦截 application/x-www-form-urlencoded
   uni.$u.http.interceptors.request.use(
     (config) => {
       // 可使用async await 做异步操作
@@ -66,6 +66,9 @@ module.exports = (vm) => {
         } else {
           throw new Error("当前token已失效,请重新登录");
         }
+      }
+      if (config && config.custom && config.custom['Content-Type']) {
+        config.header['Content-Type'] = config.custom['Content-Type']
       }
       return config;
     },

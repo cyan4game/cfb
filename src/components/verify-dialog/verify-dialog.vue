@@ -8,7 +8,7 @@
   >
     <view
       class="msg-doalog"
-      :style="{ height: password ? '750rpx' : '600rpx', bottom: paddingBottom ? '160rpx' : '' }"
+      :style="{ height: password ? '750rpx' : '600rpx', bottom: paddingBottom ? '120rpx' : '' }"
     >
       <view class="title">
         <text>安全验证</text>
