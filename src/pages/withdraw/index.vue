@@ -180,15 +180,21 @@ export default {
   },
   computed: {
     disabled() {
-      if (this.state.minWithdrawAmount)
-        return this.form.amount < this.state.minWithdrawAmount;
-      if (this.state.maxWithdrawAmount)
-        return this.form.amount > this.state.maxWithdrawAmount;
+      let minLimit = false
+      let maxLimit = false
+      if (this.state.minWithdrawAmount) {
+        minLimit = this.form.amount < this.state.minWithdrawAmount;
+      }
+      if (this.state.maxWithdrawAmount) {
+        maxLimit =  this.form.amount > this.state.maxWithdrawAmount;
+      }
       return (
         !(this.form.toAddress && this.form.amount) ||
         this.loading ||
         this.form.amount > this.money ||
         this.form.amount <= 0
+        || minLimit
+        || maxLimit
       );
     },
     money() {
