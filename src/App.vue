@@ -130,8 +130,7 @@ export default {
   onShow: function () {
     const token = storage.get("token");
     if (token) {
-      // this.GET_MEMBER_ASSETS();
-      // this.GET_USER_INFO();
+      this.GET_USER_INFO();
     }
     this.INIT_SOCKET();
   },

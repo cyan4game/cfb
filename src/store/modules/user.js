@@ -1,11 +1,13 @@
 import {
+  memberInfo,
   queryIdentityInfo,
   getBankList,
   getMemberAssets,
   logout,
   getQrCodeUrl,
   getOneById,
-  getOtcGlobalConfigByType, unreadMsgCount,
+  getOtcGlobalConfigByType,
+  unreadMsgCount,
 } from "../../api/api";
 
 export default {
@@ -40,7 +42,7 @@ export default {
     },
     // 存储用户详情
     SAVE_USER_INFO(state, data) {
-      // console.log(data, "store");
+      console.log(data, "store");
       state.userInfo = data;
       uni.setStorage({
         key: "info",
@@ -73,40 +75,40 @@ export default {
   },
   actions: {
     // 获取未读通知数量
-    GET_USER_UNREAD_COUNT({dispatch, commit}) {
+    GET_USER_UNREAD_COUNT({ dispatch, commit }) {
       return new Promise((resolve, reject) => {
         const token = uni.getStorageSync("token");
         if (token) {
-          unreadMsgCount().then((res) => {
-            if (res.code.toString() === '0') {
-              commit("SET_USER_UNREAD_COUNT", res.data);
-              resolve(res)
-            } else {
-              reject(res)
-            }
-          }).catch(_ => {
-            reject(_)
-          })
+          unreadMsgCount()
+            .then((res) => {
+              if (res.code.toString() === "0") {
+                commit("SET_USER_UNREAD_COUNT", res.data);
+                resolve(res);
+              } else {
+                reject(res);
+              }
+            })
+            .catch((_) => {
+              reject(_);
+            });
         }
-      })
+      });
     },
     // 获取用户详情
-    GET_USER_INFO({dispatch, commit}) {
+    GET_USER_INFO({ dispatch, commit }) {
       return new Promise((resolve, reject) => {
-        const token = uni.getStorageSync("token");
-        if (token) {
-          getOneById().then((res) => {
-            if (res.code.toString() === '0') {
-              commit("SAVE_USER_INFO", {userInfo: res.data});
-              resolve(res)
-            } else {
-              reject(res)
+        memberInfo()
+          .then((res) => {
+            if (res.code == 200) {
+              storage.set("userInfo", res.data);
+              commit('SAVE_USER_INFO', res.data)
+              resolve(res.data);
             }
-          }).catch(_ => {
-            reject(_)
           })
-        }
-      })
+          .catch(() => {
+            resolve(false);
+          });
+      });
     },
     /**
      * 获取认证详情
@@ -115,26 +117,28 @@ export default {
      * @returns {Promise<unknown>}
      * @constructor
      */
-    GET_IDENTITY_INFO({dispatch, commit}) {
+    GET_IDENTITY_INFO({ dispatch, commit }) {
       return new Promise((resolve, reject) => {
-        queryIdentityInfo().then((res) => {
-          if (res.code.toString() === '0'){
-            commit("SAVE_IDENTITY_INFO", res.data)
-            resolve(res)
-          } else {
-            reject(res)
-          }
-        }).catch(_ => {
-          reject(_)
-        })
-      })
+        queryIdentityInfo()
+          .then((res) => {
+            if (res.code.toString() === "0") {
+              commit("SAVE_IDENTITY_INFO", res.data);
+              resolve(res);
+            } else {
+              reject(res);
+            }
+          })
+          .catch((_) => {
+            reject(_);
+          });
+      });
     },
     // 获取银行卡列表
-    GET_BANK_LIST({dispatch, commit}) {
+    GET_BANK_LIST({ dispatch, commit }) {
       return new Promise((resolve, reject) => {
         getBankList()
           .then((res) => {
-            if (res.code.toString() === '0') commit("SAVE_BANK_LIST", res.data);
+            if (res.code.toString() === "0") commit("SAVE_BANK_LIST", res.data);
             resolve(res.data);
           })
           .catch(() => {
@@ -148,57 +152,61 @@ export default {
      * @returns {Promise<unknown>}
      * @constructor
      */
-    GET_MEMBER_ASSETS({commit}) {
+    GET_MEMBER_ASSETS({ commit }) {
       return new Promise((resolve, reject) => {
-        const token = uni.getStorageSync("token")
+        const token = uni.getStorageSync("token");
         if (token) {
-          getMemberAssets().then((res) => {
-            if (res.code.toString() === '0') {
-              commit("SAVE_MEMBER_ASSETS", res.data)
-              resolve(res)
-            }
-            reject(res)
-          }).catch(_ => {
-            console.error(_)
-            reject(_)
-          })
+          getMemberAssets()
+            .then((res) => {
+              if (res.code.toString() === "0") {
+                commit("SAVE_MEMBER_ASSETS", res.data);
+                resolve(res);
+              }
+              reject(res);
+            })
+            .catch((_) => {
+              console.error(_);
+              reject(_);
+            });
         } else {
-          reject()
+          reject();
         }
-      })
+      });
     },
     // 登出
-    LOG_OUT({commit, dispatch}) {
+    LOG_OUT({ commit, dispatch }) {
       return new Promise((resolve, reject) => {
-        logout().then((res) => {
-          if (res.code.toString() === '0') {
-            commit("socket/CLOSE_SOCKET", {}, {root: true});
-            commit("CLEAR_STORAGE");
-            resolve(res);
-          } else {
+        logout()
+          .then((res) => {
+            if (res.code.toString() === "0") {
+              commit("socket/CLOSE_SOCKET", {}, { root: true });
+              commit("CLEAR_STORAGE");
+              resolve(res);
+            } else {
+              reject();
+            }
+          })
+          .catch((_) => {
+            console.error(_);
             reject();
-          }
-        }).catch(_ => {
-          console.error(_)
-          reject();
-        });
+          });
       });
     },
     // 获取充值地址
-    GET_QR_CODE_URL({commit}) {
+    GET_QR_CODE_URL({ commit }) {
       return new Promise((resolve) => {
         getQrCodeUrl().then((res) => {
-          if (res.code.toString() === '0') {
+          if (res.code.toString() === "0") {
             commit("SAVE_QR_CODE_URL", res.message);
           }
         });
       });
     },
     // 获取全局交易配置
-    GET_GLOBAL_CONFIG({commit}) {
+    GET_GLOBAL_CONFIG({ commit }) {
       return new Promise((resolve) => {
-        getOtcGlobalConfigByType({searchValue: "app_user"}).then((res) => {
-          if (res.code.toString() === '0') {
+        getOtcGlobalConfigByType({ searchValue: "app_user" }).then((res) => {
+          if (res.code.toString() === "0") {
             commit("SAVE_GLOBAL_CONFIG", res.data);
           }
         });

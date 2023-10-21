@@ -9,22 +9,22 @@
 
     <view class="info-page-content content-box">
       <view class="item">
-        <text>数字人民币姓名</text>
+        <text>姓名</text>
         <input
-          
+        :disabled="form.id && !editing"
           class="item-ipt"
-          placeholder="请输入数字人民币姓名"
+          placeholder="请输入姓名"
           type="text"
           v-model.trim="form.idName"
         />
       </view>
 
       <view class="item">
-        <text>数字人民币账号</text>
+        <text>钱包编号</text>
         <input
           :disabled="form.id && !editing"
           class="item-ipt"
-          placeholder="请输入数字人民币账号"
+          placeholder="请输入数字人民币钱包编号"
           type="text"
           v-model.trim="form.accountName"
         />

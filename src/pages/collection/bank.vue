@@ -11,7 +11,7 @@
       <view class="item">
         <text class="subtitle">姓名</text>
         <input
-          
+        :disabled="form.id && !editing"
           class="item-ipt"
           placeholder="请输入银行卡姓名"
           type="text"

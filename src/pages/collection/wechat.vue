@@ -11,7 +11,7 @@
       <view class="item">
         <text>微信姓名</text>
         <input
-          
+        :disabled="form.id && !editing"
           class="item-ipt"
           placeholder="请输入微信姓名"
           type="text"

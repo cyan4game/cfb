@@ -317,6 +317,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.page-box {
+  padding: 60rpx 40rpx 200rpx 40rpx;
+}
 .form {
   ::v-deep .u-form-item__body__right__message {
     margin-left: 0!important;
@@ -370,7 +373,8 @@ export default {
 }
 
 .item-content {
-  height: 96rpx;
+  height: 72rpx;
+  box-sizing: border-box;
 }
 
 .item-area {

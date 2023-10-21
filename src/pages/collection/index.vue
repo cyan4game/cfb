@@ -30,8 +30,8 @@
         <u-image
           class="icon"
           src="@/static/images/mine/icon-digt.png"
-          width="48rpx"
-          height="48rpx"
+          width="41rpx"
+          height="41rpx"
           style="margin-right:21rpx"
         ></u-image>
         <view>数字人民币</view>

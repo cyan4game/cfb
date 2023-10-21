@@ -515,7 +515,7 @@ export default {
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 120rpx;
+    bottom: 140rpx;
   }
 }
 </style>
