@@ -5,7 +5,7 @@
     <view class="info-page-content content-box">
 
       <!-- 银行卡 -->
-      <view class="item" @click="jump('/pages/collection/bank')">
+      <view class="item" @click="jump('/pages/collection/bank', 'bankCardStatus')">
         <u-image
           class="icon"
           src="@/static/images/mine/icon-bank.png"
@@ -13,7 +13,8 @@
           height="41rpx"
         ></u-image>
         <view>银行卡</view>
-        <view class="info" :class="{ 'info-ed': status.bank }">{{
+        <view class="info info-ed" v-if="!openStaus.bankCardStatus">关闭</view>
+        <view class="info" v-else :class="{ 'info-ed': status.bank }">{{
           status.bank ? "已绑定" : "未绑定"
         }}</view>
         <u-image
@@ -25,7 +26,7 @@
       </view>
 
       <!-- 数字人民币 -->
-      <view class="item" @click="jump('/pages/collection/digt')">
+      <view class="item" @click="jump('/pages/collection/digt', 'cnyStatus')">
         <u-image
           class="icon"
           src="@/static/images/mine/icon-digt.png"
@@ -34,7 +35,8 @@
           style="margin-right:21rpx"
         ></u-image>
         <view>数字人民币</view>
-        <view class="info" :class="{ 'info-ed': status.digt }">{{
+        <view class="info info-ed" v-if="!openStaus.cnyStatus">关闭</view>
+        <view class="info" v-else :class="{ 'info-ed': status.digt }">{{
           status.digt ? "已绑定" : "未绑定"
         }}</view>
         <u-image
@@ -47,7 +49,7 @@
 
       
       <!-- 支付宝 -->
-      <view class="item" @click="jump('/pages/collection/alipay')">
+      <view class="item" @click="jump('/pages/collection/alipay', 'aliPayStatus')">
         <u-image
           class="icon"
           src="@/static/images/mine/icon-alipay.png"
@@ -55,7 +57,8 @@
           height="41rpx"
         ></u-image>
         <view>支付宝</view>
-        <view class="info" :class="{ 'info-ed': status.alipay }">{{
+        <view class="info info-ed" v-if="!openStaus.aliPayStatus">关闭</view>
+        <view class="info" v-else :class="{ 'info-ed': status.alipay }">{{
           status.alipay ? "已绑定" : "未绑定"
         }}</view>
         <u-image
@@ -67,7 +70,7 @@
       </view>
 
       <!-- 微信 -->
-      <view class="item" @click="jump('/pages/collection/wechat')">
+      <view class="item" @click="jump('/pages/collection/wechat', 'weixinPayStatus')">
         <u-image
           class="icon"
           src="@/static/images/mine/icon-wechat.png"
@@ -75,7 +78,8 @@
           height="41rpx"
         ></u-image>
         <view>微信</view>
-        <view class="info" :class="{ 'info-ed': status.wechat }">{{
+        <view class="info info-ed" v-if="!openStaus.weixinPayStatus">关闭</view>
+        <view class="info" v-else :class="{ 'info-ed': status.wechat }">{{
           status.wechat ? "已绑定" : "未绑定"
         }}</view>
         <u-image
@@ -112,6 +116,12 @@ export default {
     return {
       userInfo: {},
       list: [],
+      openStaus: { // 开放状态
+        bankCardStatus: true,
+        weixinPayStatus: true,
+        aliPayStatus: true,
+        cnyStatus: true
+      },
       status: {}, // 状态 wechat  alipay   bank
 
       idenInfo: {}, // 认证信息
@@ -121,6 +131,10 @@ export default {
     this.userInfo = storage.get("userInfo") || {};
     this.idenInfo = storage.get("idenInfo") || {};
     this.checkStatus();
+    this.openStaus.bankCardStatus = this.userInfo.bankCardStatus
+    this.openStaus.weixinPayStatus = this.userInfo.weixinPayStatus
+    this.openStaus.aliPayStatus = this.userInfo.aliPayStatus
+    this.openStaus.cnyStatus = this.userInfo.cnyStatus
   },
   methods: {
     btnHandle() {
@@ -130,7 +144,12 @@ export default {
       });
     },
     // 跳转
-    jump(name) {
+    jump(name, status) {
+      if (!this.openStaus[status]) return uni.showToast({
+        title: '该支付方式已关闭',
+        icon: 'none',
+        duration: 2000
+      });
       // if (this.idenInfo.certificationType <= 1) return this.$refs.idDialog.open();
       uni.navigateTo({
         url: name,
