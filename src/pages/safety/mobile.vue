@@ -219,7 +219,6 @@ export default {
           countryCode: this.userInfo.countryCode || "+86",
           phone: this.userInfo.phoneNumber,
           phoneCode: this.form.code,
-          // memberId: this.userInfo.id,
         })
           .then((res) => {
             if (res.code == 200) {
@@ -247,7 +246,6 @@ export default {
           countryCode: this.form.areaCode,
           phone: this.form.newPhone,
           phoneCode: this.form.code,
-          // memberId: this.userInfo.id,
         })
           .then(async (res) => {
             if (res.code == 200) {

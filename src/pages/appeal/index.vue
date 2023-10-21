@@ -214,7 +214,6 @@ export default {
         orderNo: this.item.orderNo,
         remark: this.form.text,
         video: videoSrc,
-        // modifyUser: this.userInfo.id,
         images: images,
       };
       this.successHandle(params);

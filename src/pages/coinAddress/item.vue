@@ -160,7 +160,6 @@ export default {
                 ...form,
                 ...codes,
                 coin: form.currency + '_' + form.chain
-                // memberId: this.userInfo.id
             }).then(res => {
                 if (res.code == 200) {
                     uni.showToast({

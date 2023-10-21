@@ -123,7 +123,6 @@ export default {
         mask: true,
       });
       queryPayBindInfo({
-        // memberId: this.userInfo.id,
         payType: this.form.payType,
       })
         .then((res) => {

@@ -365,7 +365,6 @@ export default {
         // maxTotalAmount: this.params.range.max,
         startTime: Date.parse(new Date(this.params.time.start + " 00:00:00")),
         endTime: Date.parse(new Date(this.params.time.end + " 23:59:59")),
-        // memberId: this.userInfo.id,
       };
       if (!data.coinType) delete data.coinType;
       return data;

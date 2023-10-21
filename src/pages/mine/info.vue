@@ -47,7 +47,7 @@
         <view class="item">
           <text class="name">账户ID</text>
           <view class="value copy-box">
-            <text>{{ userInfo.id }}</text>
+            <text>{{ userInfo.userId }}</text>
             <u-image
               @click="copy"
               class="copy"
@@ -181,7 +181,7 @@ export default {
     },
     // 复制
     copy() {
-      copyTxt(this.userInfo.id);
+      copyTxt(this.userInfo.userId);
       uni.showToast({
         title: "已复制",
         icon: "none",
