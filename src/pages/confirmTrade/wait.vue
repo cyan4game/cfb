@@ -1,7 +1,11 @@
 <!-- 待付款 -->
 <template>
   <view class="info-page-bg self-body wait-to-pay">
-    <u-navbar :safeAreaInsetTop="false" :title="'待付款'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="false"
+      :title="'待付款'"
+      @leftClick="() => $routers.back()"
+    />
     <view class="info-page-content content-box">
       <view class="title">
         <view>剩余付款时间</view>

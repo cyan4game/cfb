@@ -145,6 +145,14 @@
       }
     },
     {
+      "path": "pages/collection/digt", // 数字人民币
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
       "path": "pages/collection/wechat", // 微信
       "style": {
         "app-plus": {

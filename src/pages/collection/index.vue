@@ -3,6 +3,49 @@
   <view class="info-page-bg self-body page-collection-list">
     <u-navbar :safeAreaInsetTop="false" :title="'收款方式'" @leftClick="() => $routers.back()" />
     <view class="info-page-content content-box">
+
+      <!-- 银行卡 -->
+      <view class="item" @click="jump('/pages/collection/bank')">
+        <u-image
+          class="icon"
+          src="@/static/images/mine/icon-bank.png"
+          width="41rpx"
+          height="41rpx"
+        ></u-image>
+        <view>银行卡</view>
+        <view class="info" :class="{ 'info-ed': status.bank }">{{
+          status.bank ? "已绑定" : "未绑定"
+        }}</view>
+        <u-image
+          class="right"
+          src="@/static/images/mine/right.png"
+          width="15rpx"
+          height="29rpx"
+        ></u-image>
+      </view>
+
+      <!-- 数字人民币 -->
+      <view class="item" @click="jump('/pages/collection/digt')">
+        <u-image
+          class="icon"
+          src="@/static/images/mine/icon-digt.png"
+          width="48rpx"
+          height="48rpx"
+          style="margin-right:21rpx"
+        ></u-image>
+        <view>数字人民币</view>
+        <view class="info" :class="{ 'info-ed': status.digt }">{{
+          status.digt ? "已绑定" : "未绑定"
+        }}</view>
+        <u-image
+          class="right"
+          src="@/static/images/mine/right.png"
+          width="15rpx"
+          height="29rpx"
+        ></u-image>
+      </view>
+
+      
       <!-- 支付宝 -->
       <view class="item" @click="jump('/pages/collection/alipay')">
         <u-image
@@ -43,25 +86,7 @@
         ></u-image>
       </view>
 
-      <!-- 银行卡 -->
-      <view class="item" @click="jump('/pages/collection/bank')">
-        <u-image
-          class="icon"
-          src="@/static/images/mine/icon-bank.png"
-          width="41rpx"
-          height="41rpx"
-        ></u-image>
-        <view>银行卡</view>
-        <view class="info" :class="{ 'info-ed': status.bank }">{{
-          status.bank ? "已绑定" : "未绑定"
-        }}</view>
-        <u-image
-          class="right"
-          src="@/static/images/mine/right.png"
-          width="15rpx"
-          height="29rpx"
-        ></u-image>
-      </view>
+      
     </view>
 
     <!-- 未绑定身份信息的提示 -->
@@ -80,7 +105,7 @@
 import { queryPayBindInfo } from "@/api/api";
 import storage from "@/utils/storage";
 
-// payType	支付方式类型 1支付宝 2微信 3银行卡 4云闪付
+// payType	支付方式类型 1支付宝 2微信 3银行卡 4数字人民币
 export default {
   name: "collectionList",
   data() {
@@ -123,6 +148,7 @@ export default {
             alipay: res.data.some(item => item.payType == 1),
             wechat: res.data.some(item => item.payType == 2),
             bank: res.data.some(item => item.payType == 3),
+            digt: res.data.some(item => item.payType == 4),
           }
           storage.set("paywayMap", this.status);
         }

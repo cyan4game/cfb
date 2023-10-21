@@ -35,6 +35,7 @@
           >￥{{ (info.entrustAmount * info.referenceRate).toFixed(2) }}</text
         >
       </view>
+      <!-- 终态才有结束时间 -->
       <view class="item">
         <text>结束时间</text>
         <text class="val">{{ info.endTime }}天</text>
@@ -84,8 +85,8 @@
         </template>
         <!-- 交易中 -->
         <template v-if="info.state == 1">
-          <view class="btn" @click="goOrderInfo">查看收款信息</view>
-          <view class="submit" @click="() => $refs.uploadDialog.open()">确认付款</view>
+          <view class="btn" @click="goOrderInfo">{{ info.type == 1 ? '查看收款信息' : '查看付款信息' }}</view>
+          <view v-if="info.type == 1" class="submit" @click="() => $refs.uploadDialog.open()">确认付款</view>
         </template>
         <!-- 已关闭-配对成功 -->
         <template v-if="info.state == -1">
@@ -143,7 +144,7 @@ export default {
       paywayMap,
       stateMap,
       id: "",
-      info: {},
+      info: {}, // type 1-购买 2-出售
     };
   },
   onLoad(data) {
@@ -152,7 +153,7 @@ export default {
   onShow() {
     setTimeout(() => {
       this.getInfo();
-    }, 200);
+    }, 100);
   },
   methods: {
     getTimestr,
@@ -163,7 +164,7 @@ export default {
         mask: true,
       });
       confirmPay({
-        orderId: this.info.id, // 
+        orderId: this.info.orderId,
         paymentVoucher: pic,
       })
         .then((res) => {
@@ -191,7 +192,7 @@ export default {
     },
     // 跳转订单详情
     goOrderInfo() {
-      storage.set("curr-order", this.info);
+      storage.set("curr-order", { id: this.info.orderId });
       setTimeout(() => {
         uni.navigateTo({
           url: "/pages/myOrder/info",
@@ -261,6 +262,7 @@ export default {
     font-weight: 400;
     padding-left: 50rpx;
     padding-right: 50rpx;
+    padding-bottom: 200rpx;
   }
   .title {
     color: #38363b;
@@ -307,10 +309,15 @@ export default {
     margin: 40rpx 0;
   }
   .btns {
-    margin: 80rpx 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: fixed;
+    width: 630rpx;
+    bottom: 60rpx;
+    z-index: 99;
+    left: 50%;
+    transform: translateX(-50%);
   }
   .btn {
     box-sizing: border-box;
@@ -329,7 +336,7 @@ export default {
   .submit {
     box-sizing: border-box;
     border-radius: 6rpx;
-    flex: 2;
+    flex: 1;
     height: 96rpx;
     background-color: #449367;
     display: flex;

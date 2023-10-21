@@ -6,10 +6,14 @@
       :title="'订单详情'"
       @leftClick="() => $routers.back()"
     />
-    <view class="info-page-content content-box"> 
+    <view class="info-page-content content-box">
       <view class="title">
-        <text>{{ getOrderStatusMap(item.orderType)[item.orderStatus] || "--" }}</text>
-        <text class="money" v-if="item.orderStatus==2">￥{{ item.payAmount }}</text>
+        <text>{{
+          getOrderStatusMap(item.orderType)[item.orderStatus] || "--"
+        }}</text>
+        <text class="money" v-if="item.orderStatus == 2"
+          >￥{{ item.payAmount }}</text
+        >
       </view>
 
       <!-- 
@@ -30,7 +34,7 @@
         <!-- 成功 -->
         <text v-if="item.orderStatus == 0"
           >{{ orderTypeMap[item.orderType] }} {{ item.buyAmount }}
-          {{ item.buyCoin || item.payCoin || 'CFB' }}</text
+          {{ item.buyCoin || item.payCoin || "CFB" }}</text
         >
       </view>
 
@@ -50,7 +54,7 @@
         />
         <text
           >{{ orderTypeMap[item.orderType]
-          }}{{ item.buyCoin || item.payCoin || 'CFB' }}</text
+          }}{{ item.buyCoin || item.payCoin || "CFB" }}</text
         >
       </view>
 
@@ -61,13 +65,16 @@
         </view>
         <view class="info-item">
           <view class="item-name">数量</view>
-          <view class="item-box" :style="{color: item.orderStatus==2?'#449367':''}"
-            >{{ item.buyAmount }}{{ item.buyCoin || item.payCoin || 'CFB' }}</view
+          <view
+            class="item-box"
+            :style="{ color: item.orderStatus == 2 ? '#449367' : '' }"
+            >{{ item.buyAmount
+            }}{{ item.buyCoin || item.payCoin || "CFB" }}</view
           >
         </view>
-        <view class="info-item" v-if="item.orderStatus!=2">
+        <view class="info-item" v-if="item.orderStatus != 2">
           <view class="item-name">金额</view>
-          <view class="item-box" :style="{color: '#449367'}"
+          <view class="item-box" :style="{ color: '#449367' }"
             >￥{{ item.payAmount }}</view
           >
         </view>
@@ -77,7 +84,12 @@
         class="container"
         style="border-bottom: 1px solid #dfdfdf; padding: 84rpx 0 43rpx 0"
       >
-        收款信息
+        <text>收款信息</text>
+        <view
+          v-if="item.orderStatus == 2 && item.buyUserId == userInfo.id"
+          style="color: #ff4040; margin-top: 8rpx"
+          >请使用您本人的支付宝向以下账号转账，如使用其他姓名转账会导致购买失败！</view
+        >
       </view>
 
       <view class="container" style="border-bottom: 1px solid #dfdfdf">
@@ -98,6 +110,14 @@
           <view class="item-name">收款人姓名</view>
           <view class="item-box">
             <text>{{ item.gatherUserName }}</text>
+            <u-image
+              v-if="item.gatherUserName"
+              @click="copy(item.gatherUserName)"
+              class="copy"
+              src="/static/images/funds/copy.png"
+              width="26rpx"
+              height="31rpx"
+            ></u-image>
           </view>
         </view>
         <view class="info-item">
@@ -142,10 +162,23 @@
           <view class="item-name">交易时间</view>
           <view class="item-box">{{ getTimestr(item.dealTime) }}</view>
         </view>
-        <view class="info-item">
+        <!-- 终态才有结束时间 -->
+        <view class="info-item" v-if="[0, 4, 5, 7, 8, 9].includes(item.orderStatus)">
           <view class="item-name">交易结束时间</view>
           <view class="item-box">{{ getTimestr(item.finishTime) }}</view>
         </view>
+      </view>
+      <view class="tip-box" v-if="item.orderStatus == 2 && item.buyUserId == userInfo.id">
+        <u-image
+          class="icon"
+          src="/static/images/mine/warnning.png"
+          width="32rpx"
+          height="32rpx"
+        ></u-image>
+        <text
+          >转账完成后，请点击下方【确认付款】按钮，如果
+          未点击该按钮，15分钟后订单会自动失败，您的资金也会有损失的风险</text
+        >
       </view>
 
       <view class="btns">
@@ -161,7 +194,10 @@
             >取消交易</view
           >
           <!-- 购买才有此按钮 -->
-          <view v-if="item.buyUserId == userInfo.id" class="submit" @click="() => $refs.uploadDialog.open()"
+          <view
+            v-if="item.buyUserId == userInfo.id"
+            class="submit"
+            @click="() => $refs.uploadDialog.open()"
             >确认付款</view
           >
         </template>
@@ -169,7 +205,10 @@
         <template v-if="item.orderStatus == 3">
           <view class="btn" @click="appeal">申诉</view>
           <!-- 卖家才有此按钮 -->
-          <view v-if="item.sellUserId == userInfo.id" class="submit" @click="() => $refs.sureGet.open()"
+          <view
+            v-if="item.sellUserId == userInfo.id"
+            class="submit"
+            @click="() => $refs.sureGet.open()"
             >确认收款</view
           >
         </template>
@@ -258,7 +297,7 @@ export default {
     getTimestr,
     // 获取订单详情
     getInfo() {
-      if (!this.item.entrustId && !this.item.id) return;
+      if (!this.item.id) return;
       pageOtcMyOrder({
         id: this.item.id,
         orderId: this.item.id,
@@ -379,7 +418,7 @@ export default {
   .content-box {
     border-top-right-radius: 6rpx;
     border-top-left-radius: 6rpx;
-    padding: 74rpx 60rpx 20rpx 60rpx;
+    padding: 74rpx 60rpx 200rpx 60rpx;
     overflow: auto;
   }
   .title {
@@ -447,8 +486,24 @@ export default {
       margin-right: 16rpx;
     }
   }
+  .tip-box {
+      margin-top: 80rpx;
+      background-color: #f1f1f1;
+      padding: 27rpx 20rpx 20rpx 80rpx;
+      border-radius: 4rpx;
+      color: #444242;
+      font-size: 26rpx;
+      line-height: 40rpx;
+      position: relative;
+      .icon {
+        position: absolute;
+        left: 30rpx;
+        top: 30rpx;
+      }
+    }
   .container {
     padding: 44rpx 0 0 0;
+    
     .info-item {
       display: flex;
       align-items: center;
@@ -471,12 +526,18 @@ export default {
         line-height: 20rpx;
       }
     }
+    
   }
   .btns {
-    margin: 100rpx 0 0 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: fixed;
+    width: 630rpx;
+    bottom: 60rpx;
+    z-index: 99;
+    left: 50%;
+    transform: translateX(-50%);
     .btn {
       box-sizing: border-box;
       height: 96rpx;
