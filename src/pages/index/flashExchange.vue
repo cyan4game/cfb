@@ -110,8 +110,11 @@
       <!-- <text class="num">{{ form.rate }}</text> -->
     </view>
 
-    <u-button type="primary" class="btn" :disabled="disabled" @click="submit"
+    <u-button v-show="state == 1" type="primary" class="btn" :disabled="disabled" @click="submit"
       >闪兑</u-button
+    >
+    <u-button v-show="state == 2" type="primary" class="btn" :disabled="disabled" 
+      >暂未开启</u-button
     >
 
   </view>
@@ -144,6 +147,7 @@ export default {
         rate: "--", // 汇率
       },
       loading: false,
+      state: 2, // 1-启用 2-禁用
     };
   },
   computed: {
@@ -233,6 +237,7 @@ export default {
             const d = res.data;
             this.form.amount = d.balance;
             this.form.rate = d.exchangeRate;
+            this.state = d.state
           }
         })
         .finally(() => {

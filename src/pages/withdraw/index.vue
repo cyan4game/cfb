@@ -48,7 +48,7 @@
 
         <!-- 转账数量 -->
         <view class="form-item">
-          <view class="item-title">转账数量</view>
+          <view class="item-title">转账数量 <text class="use">可用转账余额 {{ money }} {{ form.currency.replace("_TRC20", "") }}</text></view>
           <view class="item-content">
             <input
               @input="inputNum"
@@ -67,12 +67,18 @@
             />
           </view>
           <view class="tip">
-            <view style="margin-bottom: 28rpx"
-              >可用转账余额 {{ money }}
-              {{ form.currency.replace("_TRC20", "") }}</view
-            >
-            <view style="margin-bottom: 8rpx">手续费</view>
-            <view>{{ fee }} {{ form.currency }}</view>
+            <view class="tip-flex">
+              <text class="tip-title">最小转账数量：</text> {{ state.minWithdrawAmount || '--' }} 
+            </view>
+            <view class="tip-flex">
+              <text class="tip-title">最大转账数量：</text> {{ state.maxWithdrawAmount || '--' }} 
+            </view>
+            <view class="tip-flex">
+              <text class="tip-title">手续费：</text> {{ fee }} 
+            </view>
+            <view class="tip-flex">
+              <text class="tip-title">实际到账：</text> <text class="num">{{ form.amount - fee < 0 ? 0 : form.amount - fee }}</text> <text class="tail">{{ form.currency }}</text>
+            </view>
           </view>
         </view>
       </view>
@@ -359,6 +365,10 @@ export default {
           color: #7a7a7a;
           font-size: 26rpx;
           margin-bottom: 34rpx;
+          .use {
+            font-size: 20rpx;
+            margin-left: 24rpx;
+          }
         }
 
         .item-content {
@@ -398,6 +408,24 @@ export default {
           font-size: 26rpx;
           color: #3c3c3c;
           margin-top: 50rpx;
+          .tip-flex {
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+          }
+          .tip-title {
+            width: 180rpx;
+            text-align: right;
+            font-size: 24rpx;
+          }
+          .num {
+            color: #dc2727;
+          }
+          .tail {
+            font-size: 20rpx;
+            color: #666;
+            margin-left: 12rpx;
+          }
         }
       }
     }

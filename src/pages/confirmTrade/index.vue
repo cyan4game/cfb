@@ -52,7 +52,7 @@
         <view class="title">
           <text>{{ type == 2 ? "出售" : "请选择购买金额" }}</text>
           <text class="amount" v-show="type == 2">可用余额{{cfb}}CFB</text>
-          <view class="refresh" @click="getFaters">
+          <view class="refresh" @click="getFaters(true)">
             <text>刷新</text>
             <u-image
               class="refresh-icon"
@@ -201,7 +201,7 @@ export default {
       this.getFaters()
     },
     // 获取快捷支付
-    getFaters() {
+    getFaters(showTip) {
       this.fasters = []
       this.buyFasters = []
       this.buy.chooseMoney = ''
@@ -212,17 +212,30 @@ export default {
       });
       if (this.type == 1) { // 购买
         quickPayAmount().then(res => {
-          console.error('购买', res)
           this.buyFasters = res.data || []
           this.fasters = (this.buyFasters.map(item => {
             return item.coinAmount
           })).slice(0, 8)
+          if (showTip) {
+            uni.showToast({
+              title: '金额已刷新',
+              icon: 'none',
+              duration: 500
+            });
+          }
         }).finally(() => {
           uni.hideLoading();
         })
       } else { // 出售
         paymentBehalf().then(res => {
           this.fasters = (res.data || []).slice(0, 6)
+          if (showTip) {
+            uni.showToast({
+              title: '金额已刷新',
+              icon: 'none',
+              duration: 500
+            });
+          }
         }).finally(() => {
           uni.hideLoading();
         })
