@@ -74,10 +74,10 @@
               <text class="tip-title">最大转账数量：</text> {{ state.maxWithdrawAmount || '--' }} 
             </view>
             <view class="tip-flex">
-              <text class="tip-title">手续费：</text> {{ fee }} 
+              <text class="tip-title">手续费：</text> {{ _fixed(fee, 4) }} 
             </view>
             <view class="tip-flex">
-              <text class="tip-title">实际到账：</text> <text class="num">{{ form.amount - fee < 0 ? 0 : form.amount - fee }}</text> <text class="tail">{{ form.currency }}</text>
+              <text class="tip-title">实际到账：</text> <text class="num">{{ _fixed(form.amount - fee < 0 ? 0 : form.amount - fee, 4) }}</text> <text class="tail">{{ form.currency }}</text>
             </view>
           </view>
         </view>
@@ -106,8 +106,7 @@
       :coin="form.currency"
       :width="'691rpx'"
       @select="clickCurrency"
-      :top="'calc(204rpx + env(safe-area-inset-top))'"
-      :left="'30rpx'"
+      :top="'calc(218rpx + env(safe-area-inset-top))'"
     />
 
     <!-- 转账地址选择 -->
@@ -144,12 +143,12 @@
           </view>
           <view class="sure-item">
             <text>手续费</text>
-            <text class="sure-val">{{ fee }} {{ form.currency }}</text>
+            <text class="sure-val">{{ _fixed(fee, 4) }} {{ form.currency }}</text>
           </view>
           <view class="sure-item">
             <text>实际到账</text>
             <text class="sure-val"
-              >{{ form.amount - fee }} {{ form.currency }}</text
+              >{{ _fixed(form.amount - fee, 4) }} {{ form.currency }}</text
             >
           </view>
         </view>
@@ -162,7 +161,7 @@
 <script>
 import { withdraw, getCoinConfig } from "@/api/api";
 import storage from "@/utils/storage";
-import { isValidTRONAddress, updateBalance, _fixed } from "@/utils/utils";
+import { isValidTRONAddress, updateBalance, _fixed, updatUserInfo } from "@/utils/utils";
 import { coinList } from "@/utils/dataMap";
 
 export default {
@@ -198,7 +197,7 @@ export default {
         !(this.form.toAddress && this.form.amount) ||
         this.loading ||
         this.form.amount > this.money ||
-        this.form.amount <= 0
+        this.form.amount - fee <= 0
         || minLimit
         || maxLimit
       );
@@ -247,10 +246,12 @@ export default {
     }
   },
   onShow() {
+    updatUserInfo()
     this.getAmounts();
     this.getConfig();
   },
   methods: {
+    _fixed,
     // 输入数量过滤
     inputNum() {
       setTimeout(() => {
@@ -310,7 +311,7 @@ export default {
     },
     // 提交
     submit() {
-      if (this.disabled) return;
+      // if (this.disabled) return;
       this.$refs.popup.open();
     },
     next() {

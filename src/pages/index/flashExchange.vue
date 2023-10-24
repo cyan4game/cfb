@@ -113,7 +113,7 @@
     <u-button v-show="state == 1" type="primary" class="btn" :disabled="disabled" @click="submit"
       >闪兑</u-button
     >
-    <u-button v-show="state == 2" type="primary" class="btn" :disabled="disabled" 
+    <u-button v-show="state == 2" type="primary" class="btn" :disabled="true" 
       >暂未开启</u-button
     >
 

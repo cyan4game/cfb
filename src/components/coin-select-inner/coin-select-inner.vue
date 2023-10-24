@@ -1,7 +1,7 @@
 <!-- 币种选择-非弹窗 -->
 <template>
   <view class="coin-select-inner" @click="show = false" v-if="show">
-    <view :style="{ top: top, left: left, width: width }" class="select-box">
+    <view :style="{ top: top, width: width }" class="select-box">
       <view
         class="item"
         :class="{ 'active-item': coin == item.coin }"
@@ -70,6 +70,8 @@ export default {
     background-color: #fff;
     border: 1px solid #5c5c5c;
     border-radius: 6rpx;
+    transform: translateX(-50%);
+    left: 50%;
     .item {
       height: 72rpx;
       display: flex;

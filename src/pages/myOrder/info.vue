@@ -160,7 +160,8 @@
         </view>
         <view class="info-item">
           <view class="item-name">交易时间</view>
-          <view class="item-box">{{ getTimestr(item.dealTime) }}</view>
+          <!-- CFB-739 -->
+          <view class="item-box">{{ getTimestr(item.createDate) }}</view>
         </view>
         <!-- 终态才有结束时间 -->
         <view class="info-item" v-if="[0, 4, 5, 7, 8, 9].includes(item.orderStatus)">
