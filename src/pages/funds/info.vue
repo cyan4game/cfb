@@ -58,7 +58,7 @@
         <template v-if="info.type != 3">
           <view class="detail">
             <view class="name">手续费</view>
-            <view class="content">{{ info.fee }}{{ info.payCoin }}</view>
+            <view class="content">{{ _fixed(info.fee, 4) }}{{ info.payCoin }}</view>
           </view>
           <view class="detail">
             <view class="name">转出地址</view>
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { copyTxt } from "@/utils/utils";
+import { copyTxt, _fixed } from "@/utils/utils";
 import { businessDetail } from "@/api/api";
 import storage from "@/utils/storage";
 import { getTimestr } from "@/utils/time";
@@ -125,6 +125,7 @@ export default {
     this.getInfoData();
   },
   methods: {
+    _fixed,
     getTimestr,
     getCoinStr(str) {
       if (str && str.includes("_")) return str.split("_")[0];

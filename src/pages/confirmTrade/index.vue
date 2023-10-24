@@ -243,8 +243,8 @@ export default {
     },
     // 购买
     submit() {
-      if (this.isDisabled) return
       if (this.type == 1) { // 购买
+        if (this.isDisabled) return
         // 如果是快捷金额则直接下单，如果不是则请求撮合，如果结果只有一个则直接下单，否则弹窗让用户选择金额后下单
         const target = this.buyFasters.find(item => item.coinAmount == this.buy.chooseMoney)
         if (!target) {
@@ -273,6 +273,12 @@ export default {
         }
         // this.$refs.matchBox.open();
       } else { // 出售
+        if (this.form.payAmount > this.cfb) return uni.showToast({
+          title: '余额不足',
+          icon: 'none',
+          duration: 2000
+        })
+        if (this.isDisabled) return
         this.$refs.sellBox.open();
       }
     },

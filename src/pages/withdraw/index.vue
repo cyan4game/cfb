@@ -197,7 +197,7 @@ export default {
         !(this.form.toAddress && this.form.amount) ||
         this.loading ||
         this.form.amount > this.money ||
-        this.form.amount - fee <= 0
+        this.form.amount - this.fee <= 0
         || minLimit
         || maxLimit
       );
@@ -311,7 +311,7 @@ export default {
     },
     // 提交
     submit() {
-      // if (this.disabled) return;
+      if (this.disabled) return;
       this.$refs.popup.open();
     },
     next() {
