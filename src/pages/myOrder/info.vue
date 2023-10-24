@@ -134,13 +134,12 @@
             ></u-image>
           </view>
         </view>
-        <!-- v-if="[2, 3].includes(item.payWay) && item.orderStatus==2" item.gatherQR -->
-        <!-- <view class="info-item">
+        <view class="info-item" v-if="[2, 3, 4].includes(item.payWay) && item.orderStatus==2">
           <view class="item-name">收款二维码</view>
-          <view class="item-box">
-            <text style="color: #F71919;">查看二维码</text>
+          <view class="item-box" @click="showQRcode = true">
+            <text style="color: #f71919">查看二维码</text>
           </view>
-        </view> -->
+        </view>
       </view>
 
       <view class="container">
@@ -164,12 +163,18 @@
           <view class="item-box">{{ getTimestr(item.createDate) }}</view>
         </view>
         <!-- 终态才有结束时间 -->
-        <view class="info-item" v-if="[0, 4, 5, 7, 8, 9].includes(item.orderStatus)">
+        <view
+          class="info-item"
+          v-if="[0, 4, 5, 7, 8, 9].includes(item.orderStatus)"
+        >
           <view class="item-name">交易结束时间</view>
           <view class="item-box">{{ getTimestr(item.finishTime) }}</view>
         </view>
       </view>
-      <view class="tip-box" v-if="item.orderStatus == 2 && item.buyUserId == userInfo.id">
+      <view
+        class="tip-box"
+        v-if="item.orderStatus == 2 && item.buyUserId == userInfo.id"
+      >
         <u-image
           class="icon"
           src="/static/images/mine/warnning.png"
@@ -255,8 +260,13 @@
     <!-- 提交凭证弹窗 -->
     <upload-dialog @success="submitPic" ref="uploadDialog" />
     <!-- 二维码弹窗 -->
-    <view class="qrcode-dialog">
-      <view></view>
+    <view class="qrcode-dialog" v-if="showQRcode" @click="showQRcode = false">
+      <u-image
+        mode="contain"
+        class="qrcode-img"
+        :src="item.gatherQR"
+        width="100%"
+      ></u-image>
     </view>
   </view>
 </template>
@@ -284,6 +294,7 @@ export default {
       paywayMap,
       orderTypeMap,
       item: {},
+      showQRcode: false,
     };
   },
   onShow() {
@@ -488,23 +499,23 @@ export default {
     }
   }
   .tip-box {
-      margin-top: 80rpx;
-      background-color: #f1f1f1;
-      padding: 27rpx 20rpx 20rpx 80rpx;
-      border-radius: 4rpx;
-      color: #444242;
-      font-size: 26rpx;
-      line-height: 40rpx;
-      position: relative;
-      .icon {
-        position: absolute;
-        left: 30rpx;
-        top: 30rpx;
-      }
+    margin-top: 80rpx;
+    background-color: #f1f1f1;
+    padding: 27rpx 20rpx 20rpx 80rpx;
+    border-radius: 4rpx;
+    color: #444242;
+    font-size: 26rpx;
+    line-height: 40rpx;
+    position: relative;
+    .icon {
+      position: absolute;
+      left: 30rpx;
+      top: 30rpx;
     }
+  }
   .container {
     padding: 44rpx 0 0 0;
-    
+
     .info-item {
       display: flex;
       align-items: center;
@@ -527,7 +538,6 @@ export default {
         line-height: 20rpx;
       }
     }
-    
   }
   .btns {
     display: flex;
@@ -565,6 +575,25 @@ export default {
       color: #fff;
       font-size: 32rpx;
     }
+  }
+}
+
+.qrcode-dialog {
+  position: fixed;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .qrcode-img {
+    width: 100%;
+    background-color: #fff;
+    padding: 24rpx;
+    box-sizing: border-box;
   }
 }
 </style>
