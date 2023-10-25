@@ -1,7 +1,12 @@
 <!-- 委托详情 -->
 <template>
   <view class="info-page-bg self-body page-entrust-info">
-    <u-navbar :safeAreaInsetTop="false" :title="'委托详情'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="true"
+      :title="'委托详情'"
+      @leftClick="() => $routers.back()"
+    />
+    <view class="self-status-bar"></view>
     <view class="info-page-content content-box">
       <view class="title">{{ stateMap[info.state] || "--" }}</view>
       <view class="info">
@@ -85,8 +90,15 @@
         </template>
         <!-- 交易中 -->
         <template v-if="info.state == 1">
-          <view class="btn" @click="goOrderInfo">{{ info.type == 1 ? '查看收款信息' : '查看付款信息' }}</view>
-          <view v-if="info.type == 1" class="submit" @click="() => $refs.uploadDialog.open()">确认付款</view>
+          <view class="btn" @click="goOrderInfo">{{
+            info.type == 1 ? "查看收款信息" : "查看付款信息"
+          }}</view>
+          <view
+            v-if="info.type == 1"
+            class="submit"
+            @click="() => $refs.uploadDialog.open()"
+            >确认付款</view
+          >
         </template>
         <!-- 已关闭-配对成功 -->
         <template v-if="info.state == -1">
@@ -111,17 +123,15 @@
     ></confirm-dialog>
 
     <!-- 提交凭证弹窗 -->
-   <upload-dialog @success="submitPic" ref="uploadDialog" />
+    <upload-dialog @success="submitPic" ref="uploadDialog" />
   </view>
-
-   
 </template>
 
 <script>
 import { entrustPage, entrustCancel, confirmPay } from "@/api/api";
 import { getTimestr } from "@/utils/time";
 import { copyTxt } from "@/utils/utils";
-import storage from '@/utils/storage'
+import storage from "@/utils/storage";
 
 // 状态：-1关闭,0发布中,1交易中，2完成
 const stateMap = {

@@ -1,6 +1,7 @@
 <!-- 我的 -->
 <template>
   <view class="page-mine">
+    <view class="self-status-bar"></view>
     <!-- 顶部 -->
     <u-sticky offsetTop="0" customNavHeight="0">
       <view class="top">

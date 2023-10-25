@@ -1,7 +1,12 @@
 <!-- 申诉 -->
 <template>
   <view class="info-page-bg self-body page-appeal">
-    <u-navbar :safeAreaInsetTop="false" :title="'申诉'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="true"
+      :title="'申诉'"
+      @leftClick="() => $routers.back()"
+    />
+    <view class="self-status-bar"></view>
     <!-- 表单 -->
     <view class="info-page-content content-box">
       <!-- 订单编号 -->
@@ -15,7 +20,12 @@
       <view class="form-item">
         <view class="item-title">订单金额</view>
         <view class="item-content">
-          <input v-model.trim="item.payAmount" disabled type="text" class="ipt" />
+          <input
+            v-model.trim="item.payAmount"
+            disabled
+            type="text"
+            class="ipt"
+          />
         </view>
       </view>
 
@@ -394,7 +404,7 @@ export default {
       .tip {
         font-size: 20rpx;
         margin-top: 10rpx;
-        color: #433F48;
+        color: #433f48;
       }
     }
 

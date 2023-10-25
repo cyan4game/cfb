@@ -1,8 +1,12 @@
 <!-- 修改昵称 -->
 <template>
   <view class="info-page-bg self-body page-setting">
-    <u-navbar :safeAreaInsetTop="false" :title="'修改昵称'" @leftClick="() => $routers.back()" />
-
+    <u-navbar
+      :safeAreaInsetTop="true"
+      :title="'修改昵称'"
+      @leftClick="() => $routers.back()"
+    />
+    <view class="self-status-bar"></view>
     <view class="info-page-content page-content">
       <!-- 内容 -->
       <view class="content-box">

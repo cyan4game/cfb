@@ -2,10 +2,11 @@
 <template>
   <view class="info-page-bg self-body page-iden-1">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'实名认证'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
     <view class="info-page-content content-box">
       <view class="title">姓名</view>
       <view class="box">
@@ -143,7 +144,13 @@ export default {
     disabled() {
       return (
         this.loading ||
-        !(this.form.realName && this.form.idCard && this.files.idCardFrontImage.path && this.files.idCardBackImage.path && this.files.idCardHand.path)
+        !(
+          this.form.realName &&
+          this.form.idCard &&
+          this.files.idCardFrontImage.path &&
+          this.files.idCardBackImage.path &&
+          this.files.idCardHand.path
+        )
       );
     },
     nameOk() {
@@ -157,31 +164,43 @@ export default {
   },
   onLoad() {
     this.idenInfo = storage.get("idenInfo") || {};
-    console.error('??', this.idenInfo)
+    console.error("??", this.idenInfo);
     this.form.realName = this.idenInfo.realName || "";
     this.form.idCard = this.idenInfo.idCard || "";
-    this.form.realName = this.idenInfo.idName
-    this.files.idCardFrontImage.path = this.form.idCardFrontImage = this.idenInfo.idCardFrontPictureUrl
-    this.files.idCardBackImage.path = this.form.idCardBackImage = this.idenInfo.idCardBackPictureUrl
-    this.files.idCardHand.path = this.form.idCardHand = this.idenInfo.faceContrastPictureUrl
+    this.form.realName = this.idenInfo.idName;
+    this.files.idCardFrontImage.path = this.form.idCardFrontImage =
+      this.idenInfo.idCardFrontPictureUrl;
+    this.files.idCardBackImage.path = this.form.idCardBackImage =
+      this.idenInfo.idCardBackPictureUrl;
+    this.files.idCardHand.path = this.form.idCardHand =
+      this.idenInfo.faceContrastPictureUrl;
   },
   methods: {
     // 判断并提交
     async submit() {
       if (!this.form.idCardFrontImage) {
-          this.form.idCardFrontImage = await this.uploadItem(this.files.idCardFrontImage)
+        this.form.idCardFrontImage = await this.uploadItem(
+          this.files.idCardFrontImage
+        );
       }
       if (!this.form.idCardBackImage) {
-          this.form.idCardBackImage = await this.uploadItem(this.files.idCardBackImage)
+        this.form.idCardBackImage = await this.uploadItem(
+          this.files.idCardBackImage
+        );
       }
       if (!this.form.idCardHand) {
-          this.form.idCardHand = await this.uploadItem(this.files.idCardHand)
+        this.form.idCardHand = await this.uploadItem(this.files.idCardHand);
       }
-      if (!this.form.idCardFrontImage || !this.form.idCardBackImage || !this.form.idCardHand) return uni.showToast({
-          title: '上传失败，请重新提交',
-          icon: 'none',
-          duration: 2000
-      })
+      if (
+        !this.form.idCardFrontImage ||
+        !this.form.idCardBackImage ||
+        !this.form.idCardHand
+      )
+        return uni.showToast({
+          title: "上传失败，请重新提交",
+          icon: "none",
+          duration: 2000,
+        });
       const params = this.form;
       this.loading = true;
       standardCertification({

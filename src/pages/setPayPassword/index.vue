@@ -1,10 +1,11 @@
 <template>
   <view class="info-page-bg self-body mobile-view">
-    <u-navbar :safeAreaInsetTop="false" :title="'设置支付密码'" :leftIcon="''"  />
-    <view class=" info-page-content  page-box">
+    <u-navbar :safeAreaInsetTop="true" :title="'设置支付密码'" :leftIcon="''" />
+    <view class="self-status-bar"></view>
+    <view class="info-page-content page-box">
       <u-form class="form" :model="form" ref="form" :rules="rules">
         <u-form-item prop="password" class="item">
-          <view style="width:100%">
+          <view style="width: 100%">
             <u-text color="#535353" text="支付密码 "></u-text>
             <u-input
               class="ipt"
@@ -16,14 +17,15 @@
                 <u-icon
                   @click="showPassWord = !showPassWord"
                   :name="showPassWord ? 'eye-off' : 'eye-fill'"
-                  :size="showPassWord ? 22 : 20" color="#787878"
+                  :size="showPassWord ? 22 : 20"
+                  color="#787878"
                 ></u-icon>
               </template>
             </u-input>
           </view>
         </u-form-item>
         <u-form-item prop="confirmPassword" class="item">
-          <view style="width:100%">
+          <view style="width: 100%">
             <u-text color="#535353" text="确认密码"></u-text>
             <u-input
               class="ipt"
@@ -36,7 +38,8 @@
                 <u-icon
                   @click="showConfirmPassWord = !showConfirmPassWord"
                   :name="showConfirmPassWord ? 'eye-off' : 'eye-fill'"
-                  :size="showPassWord ? 22 : 20" color="#787878"
+                  :size="showPassWord ? 22 : 20"
+                  color="#787878"
                 ></u-icon>
               </template>
             </u-input>
@@ -58,8 +61,8 @@
 
 <script>
 import { paypasswordSet } from "../../api/api";
-import { updatUserInfo, _md5 } from '@/utils/utils'
-import storage from '@/utils/storage'
+import { updatUserInfo, _md5 } from "@/utils/utils";
+import storage from "@/utils/storage";
 
 const pawReg = /^[0-9]{6}$/;
 export default {
@@ -145,9 +148,9 @@ export default {
             });
             // 手动设置缓存状态
             const userInfo = storage.get("userInfo") || {};
-            userInfo.payPasswordStatus = true
-            storage.set("userInfo", userInfo)
-            updatUserInfo()
+            userInfo.payPasswordStatus = true;
+            storage.set("userInfo", userInfo);
+            updatUserInfo();
             setTimeout(() => {
               uni.switchTab({
                 url: "/pages/index/index",
@@ -205,7 +208,7 @@ export default {
 .item {
   width: 100%;
   ::v-deep .u-form-item__body__right__message {
-    margin-left: 0!important;
+    margin-left: 0 !important;
   }
 }
 </style>

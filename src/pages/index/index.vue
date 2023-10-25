@@ -1,6 +1,7 @@
 <!-- 首页 -->
 <template>
-  <view class="page-index">
+  <view class="page-index" :style="{paddingBottom:window?'100rpx':'0'}">
+    <view class="self-status-bar"></view>
     <!-- 顶部 -->
     <u-sticky offsetTop="0" customNavHeight="0">
       <view class="top">
@@ -65,6 +66,7 @@ import storage from "@/utils/storage";
 export default {
   data() {
     return {
+      window,
       userInfo: {},
     };
   },
@@ -108,7 +110,7 @@ export default {
 
 <style lang="scss">
 .page-index {
-  padding-bottom: 100rpx;
+  // padding-bottom: 100rpx;
   background-color: #fff;
   background: linear-gradient(
     to bottom,

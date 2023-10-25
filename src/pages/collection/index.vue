@@ -1,11 +1,18 @@
 <!-- 收款方式 -->
 <template>
   <view class="info-page-bg self-body page-collection-list">
-    <u-navbar :safeAreaInsetTop="false" :title="'收款方式'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="true"
+      :title="'收款方式'"
+      @leftClick="() => $routers.back()"
+    />
+    <view class="self-status-bar"></view>
     <view class="info-page-content content-box">
-
       <!-- 银行卡 -->
-      <view class="item" @click="jump('/pages/collection/bank', 'bankCardStatus')">
+      <view
+        class="item"
+        @click="jump('/pages/collection/bank', 'bankCardStatus')"
+      >
         <u-image
           class="icon"
           src="@/static/images/mine/icon-bank.png"
@@ -32,7 +39,7 @@
           src="@/static/images/mine/icon-digt.png"
           width="41rpx"
           height="41rpx"
-          style="margin-right:21rpx"
+          style="margin-right: 21rpx"
         ></u-image>
         <view>数字人民币</view>
         <view class="info info-ed" v-if="!openStaus.cnyStatus">关闭</view>
@@ -47,9 +54,11 @@
         ></u-image>
       </view>
 
-      
       <!-- 支付宝 -->
-      <view class="item" @click="jump('/pages/collection/alipay', 'aliPayStatus')">
+      <view
+        class="item"
+        @click="jump('/pages/collection/alipay', 'aliPayStatus')"
+      >
         <u-image
           class="icon"
           src="@/static/images/mine/icon-alipay.png"
@@ -70,7 +79,10 @@
       </view>
 
       <!-- 微信 -->
-      <view class="item" @click="jump('/pages/collection/wechat', 'weixinPayStatus')">
+      <view
+        class="item"
+        @click="jump('/pages/collection/wechat', 'weixinPayStatus')"
+      >
         <u-image
           class="icon"
           src="@/static/images/mine/icon-wechat.png"
@@ -89,8 +101,6 @@
           height="29rpx"
         ></u-image>
       </view>
-
-      
     </view>
 
     <!-- 未绑定身份信息的提示 -->
@@ -116,11 +126,12 @@ export default {
     return {
       userInfo: {},
       list: [],
-      openStaus: { // 开放状态
+      openStaus: {
+        // 开放状态
         bankCardStatus: true,
         weixinPayStatus: true,
         aliPayStatus: true,
-        cnyStatus: true
+        cnyStatus: true,
       },
       status: {}, // 状态 wechat  alipay   bank
 
@@ -131,10 +142,10 @@ export default {
     this.userInfo = storage.get("userInfo") || {};
     this.idenInfo = storage.get("idenInfo") || {};
     this.checkStatus();
-    this.openStaus.bankCardStatus = this.userInfo.bankCardStatus
-    this.openStaus.weixinPayStatus = this.userInfo.weixinPayStatus
-    this.openStaus.aliPayStatus = this.userInfo.aliPayStatus
-    this.openStaus.cnyStatus = this.userInfo.cnyStatus
+    this.openStaus.bankCardStatus = this.userInfo.bankCardStatus;
+    this.openStaus.weixinPayStatus = this.userInfo.weixinPayStatus;
+    this.openStaus.aliPayStatus = this.userInfo.aliPayStatus;
+    this.openStaus.cnyStatus = this.userInfo.cnyStatus;
   },
   methods: {
     btnHandle() {
@@ -145,11 +156,12 @@ export default {
     },
     // 跳转
     jump(name, status) {
-      if (!this.openStaus[status]) return uni.showToast({
-        title: '该支付方式已关闭',
-        icon: 'none',
-        duration: 2000
-      });
+      if (!this.openStaus[status])
+        return uni.showToast({
+          title: "该支付方式已关闭",
+          icon: "none",
+          duration: 2000,
+        });
       // if (this.idenInfo.certificationType <= 1) return this.$refs.idDialog.open();
       uni.navigateTo({
         url: name,
@@ -164,11 +176,11 @@ export default {
       queryPayBindInfo().then((res) => {
         if (res.code == 200 && res.data && res.data.length) {
           this.status = {
-            alipay: res.data.some(item => item.payType == 1),
-            wechat: res.data.some(item => item.payType == 2),
-            bank: res.data.some(item => item.payType == 3),
-            digt: res.data.some(item => item.payType == 4),
-          }
+            alipay: res.data.some((item) => item.payType == 1),
+            wechat: res.data.some((item) => item.payType == 2),
+            bank: res.data.some((item) => item.payType == 3),
+            digt: res.data.some((item) => item.payType == 4),
+          };
           storage.set("paywayMap", this.status);
         }
       });

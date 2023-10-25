@@ -2,10 +2,11 @@
 <template>
   <view class="page-deposit">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'充值'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
     <!-- 浮标 -->
     <!-- <u-image class="right-icon" style="right:130rpx" src="/static/images/index/icon-help.png" width="42rpx" height="42rpx"></u-image>
         <u-image class="right-icon" src="/static/images/index/icon-his.png" width="45rpx" height="42rpx"></u-image> -->
@@ -108,7 +109,14 @@
     </uni-popup>
 
     <!-- 币种选择 -->
-    <coin-select-inner ref="coinSelect" :coin="currency" :width="'690rpx'" @select="selectCoin" :top="'calc(214rpx + env(safe-area-inset-top))'" :left="'30rpx'" />
+    <coin-select-inner
+      ref="coinSelect"
+      :coin="currency"
+      :width="'690rpx'"
+      @select="selectCoin"
+      :top="'calc(214rpx + env(safe-area-inset-top))'"
+      :left="'30rpx'"
+    />
   </view>
 </template>
 

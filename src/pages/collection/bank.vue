@@ -2,16 +2,17 @@
 <template>
   <view class="info-page-bg self-body page-collection-alipay">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'银行卡'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
 
     <view class="info-page-content content-box">
       <view class="item">
         <text class="subtitle">姓名</text>
         <input
-        :disabled="form.id && !editing"
+          :disabled="form.id && !editing"
           class="item-ipt"
           placeholder="请输入银行卡姓名"
           type="text"
@@ -33,10 +34,19 @@
 
       <view class="item">
         <text class="subtitle">开户银行</text>
-        <view class="item-ipt" v-if="form.id && !editing">{{ form.bankName }}</view>
-        <picker v-else class="item-ipt" @change="bindPickerChange" :range-key="'name'" :value="bankIndex" :range="bankList">
-						<view>{{ form.bankName || '请选择开户银行'}}</view>
-					</picker>
+        <view class="item-ipt" v-if="form.id && !editing">{{
+          form.bankName
+        }}</view>
+        <picker
+          v-else
+          class="item-ipt"
+          @change="bindPickerChange"
+          :range-key="'name'"
+          :value="bankIndex"
+          :range="bankList"
+        >
+          <view>{{ form.bankName || "请选择开户银行" }}</view>
+        </picker>
         <u-image
           class="icon"
           src="/static/images/index/more.png"
@@ -113,7 +123,12 @@
 
 <script>
 import storage from "@/utils/storage";
-import { _upload, memberPayModelUpdate, queryPayBindInfo, bankList } from "@/api/api";
+import {
+  _upload,
+  memberPayModelUpdate,
+  queryPayBindInfo,
+  bankList,
+} from "@/api/api";
 
 export default {
   name: "collectionBank",
@@ -130,7 +145,7 @@ export default {
         branchName: "", // 支行名称
       },
       bankList: [], // 银行列表
-      bankIndex: '',
+      bankIndex: "",
     };
   },
   onShow() {
@@ -140,24 +155,26 @@ export default {
     this.getInfo();
   },
   onLoad() {
-    this.getBankList()
+    this.getBankList();
   },
   methods: {
     bindPickerChange(e) {
-      const i = e.target.value
-      this.bankIndex = i
-      this.form.bankName = this.bankList[i].name
+      const i = e.target.value;
+      this.bankIndex = i;
+      this.form.bankName = this.bankList[i].name;
     },
     // 获取银行列表
     getBankList() {
-      bankList().then(res => {
+      bankList().then((res) => {
         if (res.code == 200) {
-          this.bankList = res.data || []
+          this.bankList = res.data || [];
           if (this.form.bankName) {
-            this.bankIndex = this.bankList.findIndex(item => item.name == this.form.bankName)
+            this.bankIndex = this.bankList.findIndex(
+              (item) => item.name == this.form.bankName
+            );
           }
         }
-      })
+      });
     },
     // 获取绑定详情
     getInfo() {
@@ -178,8 +195,10 @@ export default {
               this.form.branchName = target.branchBankName;
               this.form.bankName = target.bankName;
               if (this.bankList.length) {
-              this.bankIndex = this.bankList.findIndex(item => item.name == this.form.bankName)
-            }
+                this.bankIndex = this.bankList.findIndex(
+                  (item) => item.name == this.form.bankName
+                );
+              }
             }
           }
         })

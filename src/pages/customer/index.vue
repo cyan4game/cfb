@@ -2,10 +2,11 @@
 <template>
   <view class="info-page-bg self-body page-customer">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'在线客服'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
     <view class="info-page-content content-box">
       <!-- <view class="top"
         >您好，很抱歉我们暂时无法为您提供服务，如需帮助，
@@ -31,22 +32,31 @@
           placeholder="请输入"
         />
       </view>
-      <view v-show="showPhoneTip" style="font-size: 24rpx;color: #f56c6c;line-height: 24rpx;position: relative;top: -30rpx;">请输入正确的手机号</view>
+      <view
+        v-show="showPhoneTip"
+        style="
+          font-size: 24rpx;
+          color: #f56c6c;
+          line-height: 24rpx;
+          position: relative;
+          top: -30rpx;
+        "
+        >请输入正确的手机号</view
+      >
       <view class="title">
         <text>*</text>留言内容：
         <text class="tip">您好如需帮助请留言，我们将尽快解决您的问题</text>
       </view>
-      <view style="position: relative;">
+      <view style="position: relative">
         <textarea
-        v-model="form.content"
-        class="ipt textarea"
-        auto-height
-        maxlength="200"
-        placeholder="请输入"
-      />
-      <view class="num-tip">{{form.content.length}}/200</view>
+          v-model="form.content"
+          class="ipt textarea"
+          auto-height
+          maxlength="200"
+          placeholder="请输入"
+        />
+        <view class="num-tip">{{ form.content.length }}/200</view>
       </view>
-      
 
       <view class="upload-box">
         <view
@@ -116,8 +126,11 @@
       :columns="areaCode"
     ></u-picker>
 
-     <!-- 区号弹窗 -->
-     <area-code @sure="item => form.countryCode = item.code" ref="areaCode" />
+    <!-- 区号弹窗 -->
+    <area-code
+      @sure="(item) => (form.countryCode = item.code)"
+      ref="areaCode"
+    />
   </view>
 </template>
 
@@ -153,15 +166,16 @@ export default {
   },
   computed: {
     disabled() {
-      if (this.form.phoneNumber && this.form.countryCode == '+86') {
-        if (!chPhoneReg.test(this.form.phoneNumber)) return true
+      if (this.form.phoneNumber && this.form.countryCode == "+86") {
+        if (!chPhoneReg.test(this.form.phoneNumber)) return true;
       }
       return !(this.form.phoneNumber && this.form.content) || this.loading;
     },
     showPhoneTip() {
-      if (this.form.phoneNumber && this.form.countryCode == '+86') return !(chPhoneReg.test(this.form.phoneNumber))
-      return false
-    }
+      if (this.form.phoneNumber && this.form.countryCode == "+86")
+        return !chPhoneReg.test(this.form.phoneNumber);
+      return false;
+    },
   },
   methods: {
     handleAreaCodeConfirm(e) {

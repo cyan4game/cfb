@@ -279,6 +279,8 @@ uni-button:after {
   height: 100%;
   background-color: #0c1114;
   box-sizing: border-box;
+  overflow: hidden;
+  padding-bottom: var(--status-bar-height);
   /* padding-top: 20rpx; */
 }
 .info-page-content {
@@ -346,5 +348,9 @@ uni-button:after {
 
 .page-help-info img {
   max-width: 100% !important;
+}
+.self-status-bar {
+  height: var(--status-bar-height);
+  width: 100%;
 }
 </style>

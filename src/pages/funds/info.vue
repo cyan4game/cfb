@@ -2,10 +2,11 @@
 <template>
   <view class="info-page-bg self-body page-fundsinfo">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'资金详情'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
     <view class="info-page-content content-box">
       <!-- 状态 -->
       <view class="status-box">
@@ -38,7 +39,11 @@
           <view class="detail">
             <view class="name">闪兑币种</view>
             <view class="content">
-              {{ info.incomeType == 0 ? `${info.payCoin}-${info.receiveCoin}` : `${info.receiveCoin}-${info.payCoin}` }}
+              {{
+                info.incomeType == 0
+                  ? `${info.payCoin}-${info.receiveCoin}`
+                  : `${info.receiveCoin}-${info.payCoin}`
+              }}
             </view>
           </view>
           <view class="detail">
@@ -58,7 +63,9 @@
         <template v-if="info.type != 3">
           <view class="detail">
             <view class="name">手续费</view>
-            <view class="content">{{ _fixed(info.fee, 4) }}{{ info.payCoin }}</view>
+            <view class="content"
+              >{{ _fixed(info.fee, 4) }}{{ info.payCoin }}</view
+            >
           </view>
           <view class="detail">
             <view class="name">转出地址</view>
@@ -75,7 +82,6 @@
           <view class="detail" v-if="info.payCoin == 'CFB'">
             <view class="name">订单编号</view>
             <view class="content" @click="copy(info.orderNo)">
-              
               <text>{{ info.orderNo }}</text>
               <u-image
                 class="copy-icon"

@@ -2,10 +2,11 @@
 <template>
   <view class="info-page-bg self-body page-funds">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'资金明细'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
     <view class="info-page-content content-box">
       <!-- 类型选择 -->
       <view class="tabs">
@@ -84,10 +85,18 @@
           ></u-image> -->
           <view class="info">
             <view class="title">
-              <text v-if="item.type != 3">{{ typeMap[item.type] || "--" }}&nbsp;&nbsp;{{ item.payCoin }}</text>
+              <text v-if="item.type != 3"
+                >{{ typeMap[item.type] || "--" }}&nbsp;&nbsp;{{
+                  item.payCoin
+                }}</text
+              >
               <text v-if="item.type == 3">
                 {{ typeMap[item.type] || "--" }}&nbsp;&nbsp;
-                {{ item.incomeType == 0 ? `${item.payCoin}-${item.receiveCoin}` : `${item.receiveCoin}-${item.payCoin}` }}
+                {{
+                  item.incomeType == 0
+                    ? `${item.payCoin}-${item.receiveCoin}`
+                    : `${item.receiveCoin}-${item.payCoin}`
+                }}
               </text>
             </view>
             <view>{{ getTimestr(item.createDate) }}</view>
@@ -245,11 +254,11 @@
 import storage from "@/utils/storage";
 import { financeList } from "@/api/api";
 import { getTimestr } from "@/utils/time";
-import { fundTypeMap } from '@/utils/dataMap.js'
+import { fundTypeMap } from "@/utils/dataMap.js";
 
 // 前端定义 -1  全部 类型列表（多类型查询） 1充币 2转账 3闪兑 4购买 5出售
 // 	类型 (转账)(1充币 2转账) 3闪兑 (交易)(4购买 5出售)
-const typeMap = fundTypeMap
+const typeMap = fundTypeMap;
 const tabsMap = {
   1: "转账",
   2: "交易",
@@ -646,14 +655,13 @@ export default {
           margin-left: 17rpx;
         }
       }
-      
     }
     .nodata-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 60rpx auto 0 auto;
-      }
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 60rpx auto 0 auto;
+    }
 
     .total {
       height: 96rpx;

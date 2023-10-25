@@ -1,7 +1,12 @@
 <!-- 消息中心 -->
 <template>
   <view class="info-page-bg self-body page-message">
-    <u-navbar :safeAreaInsetTop="false" :title="'消息'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="true"
+      :title="'消息'"
+      @leftClick="() => $routers.back()"
+    />
+    <view class="self-status-bar"></view>
     <view class="info-page-content content-box">
       <view class="item" @click="goList(3)">
         <view class="icon">
@@ -148,7 +153,7 @@ export default {
       line-height: 40rpx;
       height: 180rpx;
       box-sizing: border-box;
-      border-bottom: 1px solid #CECECE;
+      border-bottom: 1px solid #cecece;
       .icon {
         width: 80rpx;
         height: 80rpx;

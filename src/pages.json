@@ -1,7 +1,8 @@
 {
   "app-plus": {
     "animationType": "pop-in",
-    "animationDuration": 300
+    "animationDuration": 300,
+    "bounce": "none"
   },
   "easycom": {
     "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue",
@@ -13,14 +14,18 @@
       "path": "pages/index/index",
       "style": {
         "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
+        "navigationBarTextStyle": "white",
+        "app-plus": {
+          "bounce": "none"
+        }
       }
     },
     {
       "path": "pages/setPayPassword/index", // 设置支付密码
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -28,7 +33,8 @@
       "path": "pages/setting/index", // 设置
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -36,7 +42,8 @@
       "path": "pages/helpInfo/index", // 帮助中心
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -44,7 +51,8 @@
       "path": "pages/helpInfo/info", // 帮助中心详情
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -52,7 +60,8 @@
       "path": "pages/safety/index", // 安全中心
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -60,7 +69,8 @@
       "path": "pages/safety/paymentPWD", // 变更支付密码
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -68,7 +78,8 @@
       "path": "pages/safety/mobile", // 绑定手机号
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -76,7 +87,8 @@
       "path": "pages/safety/email", // 绑定邮箱
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -84,7 +96,8 @@
       "path": "pages/identification/index", // 实名认证
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -92,23 +105,26 @@
       "path": "pages/identification/step1", // 实名认证
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
     {
-      "path": "pages/identification/step2",  // 实名认证
+      "path": "pages/identification/step2", // 实名认证
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
     {
-      "path": "pages/identification/step3",  // 人脸认证
+      "path": "pages/identification/step3", // 人脸认证
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -116,7 +132,8 @@
       "path": "pages/coinAddress/index", // 地址簿
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -124,7 +141,8 @@
       "path": "pages/coinAddress/item", // 地址
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -132,7 +150,8 @@
       "path": "pages/collection/index", // 收款方式
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -140,7 +159,8 @@
       "path": "pages/collection/alipay", // 支付宝
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -148,7 +168,8 @@
       "path": "pages/collection/digt", // 数字人民币
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -156,7 +177,8 @@
       "path": "pages/collection/wechat", // 微信
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -164,7 +186,8 @@
       "path": "pages/collection/bank", // 银行卡
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -172,7 +195,8 @@
       "path": "pages/funds/index", // 资金明细
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -180,7 +204,8 @@
       "path": "pages/funds/info", // 交易详情
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -188,7 +213,8 @@
       "path": "pages/mine/info", // 个人资料
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -196,7 +222,8 @@
       "path": "pages/mine/editName", // 修改昵称
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -204,7 +231,8 @@
       "path": "pages/message/index", // 消息
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -212,7 +240,8 @@
       "path": "pages/message/list", // 消息列表
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -220,7 +249,8 @@
       "path": "pages/customer/index", // 在线客服
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -228,7 +258,8 @@
       "path": "pages/index/scan", // 扫码
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -236,7 +267,8 @@
       "path": "pages/withdraw/index", // 转账
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -244,7 +276,8 @@
       "path": "pages/index/deposit", // 充值
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -252,7 +285,8 @@
       "path": "pages/index/flashExchange", // 闪兑
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -260,7 +294,8 @@
       "path": "pages/myOrder/index", // 订单
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -268,7 +303,8 @@
       "path": "pages/myOrder/info", // 订单详情
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -276,7 +312,8 @@
       "path": "pages/appeal/index", // 申诉
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -284,7 +321,8 @@
       "path": "pages/entrust/index", // 委托
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -292,7 +330,8 @@
       "path": "pages/entrust/info", // 委托详情
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -300,7 +339,8 @@
       "path": "pages/entrust/post", // 发布委托
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -308,7 +348,8 @@
       "path": "pages/confirmTrade/index", // 交易
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -316,7 +357,8 @@
       "path": "pages/confirmTrade/wait", // 待付款
       "style": {
         "app-plus": {
-          "titleNView": false
+          "titleNView": false,
+          "bounce": "none"
         }
       }
     },
@@ -324,42 +366,60 @@
       "path": "pages/trade/index", // 交易
       "style": {
         "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
+        "navigationBarTextStyle": "white",
+        "app-plus": {
+          "bounce": "none"
+        }
       }
     },
     {
       "path": "pages/mine/index", // 我的
       "style": {
         "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
+        "navigationBarTextStyle": "white",
+        "app-plus": {
+          "bounce": "none"
+        }
       }
     },
     {
       "path": "pages/trade/index",
       "style": {
         "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
+        "navigationBarTextStyle": "white",
+        "app-plus": {
+          "bounce": "none"
+        }
       }
     },
     {
       "path": "pages/mine/index",
       "style": {
         "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
+        "navigationBarTextStyle": "white",
+        "app-plus": {
+          "bounce": "none"
+        }
       }
     },
     {
       "path": "pages/login/index",
       "style": {
         "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
+        "navigationBarTextStyle": "white",
+        "app-plus": {
+          "bounce": "none"
+        }
       }
     },
     {
       "path": "pages/login/resetPhone",
       "style": {
         "navigationStyle": "custom",
-        "navigationBarTextStyle": "white"
+        "navigationBarTextStyle": "white",
+        "app-plus": {
+          "bounce": "none"
+        }
       }
     }
   ],

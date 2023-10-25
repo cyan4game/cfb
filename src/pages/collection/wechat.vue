@@ -2,16 +2,17 @@
 <template>
   <view class="info-page-bg self-body page-collection-alipay">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'微信'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
 
     <view class="info-page-content content-box">
       <view class="item">
         <text>微信姓名</text>
         <input
-        :disabled="form.id && !editing"
+          :disabled="form.id && !editing"
           class="item-ipt"
           placeholder="请输入微信姓名"
           type="text"

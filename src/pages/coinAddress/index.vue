@@ -1,7 +1,12 @@
 <!-- 地址管理 -->
 <template>
   <view class="info-page-bg self-body page-address-list">
-    <u-navbar :safeAreaInsetTop="false" :title="'地址簿'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="true"
+      :title="'地址簿'"
+      @leftClick="() => $routers.back()"
+    />
+    <view class="self-status-bar"></view>
     <scroll-view scroll-y="true" class="info-page-content content-box">
       <!-- 列表 -->
       <uni-swipe-action>
@@ -9,7 +14,9 @@
         <uni-swipe-action-item v-for="(item, i) in list" :key="i">
           <view class="item">
             <view class="title">
-              <view style="margin-right:20rpx" v-if="item.name">{{ item.name }}</view>
+              <view style="margin-right: 20rpx" v-if="item.name">{{
+                item.name
+              }}</view>
               <view class="type">{{
                 item.coin || item.currency + "_" + item.chain
               }}</view>

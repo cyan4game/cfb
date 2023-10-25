@@ -1,8 +1,12 @@
 <template>
   <view class="info-page-bg self-body safety-page">
-    <u-navbar :safeAreaInsetTop="false" :title="'安全中心'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="true"
+      :title="'安全中心'"
+      @leftClick="() => $routers.back()"
+    />
+    <view class="self-status-bar"></view>
     <view class="info-page-content page-box">
-
       <!-- <view class="safety-item">
         <view class="title">解锁方式</view>
         <view class="item">
@@ -20,7 +24,12 @@
         <view class="item">
           <text>支付密码</text>
           <view class="item-right">
-            <u-image class="icon" src="/static/images/mine/right.png" width="10rpx" height="18rpx"></u-image>
+            <u-image
+              class="icon"
+              src="/static/images/mine/right.png"
+              width="10rpx"
+              height="18rpx"
+            ></u-image>
           </view>
         </view>
       </view>
@@ -30,8 +39,17 @@
         <view class="item">
           <text>手机号</text>
           <view class="item-right">
-            <text>{{ userInfo.phoneNumber ? hiddenPhone(userInfo.phoneNumber) : '未绑定' }}</text>
-            <u-image class="icon" src="/static/images/mine/right.png" width="10rpx" height="18rpx"></u-image>
+            <text>{{
+              userInfo.phoneNumber
+                ? hiddenPhone(userInfo.phoneNumber)
+                : "未绑定"
+            }}</text>
+            <u-image
+              class="icon"
+              src="/static/images/mine/right.png"
+              width="10rpx"
+              height="18rpx"
+            ></u-image>
           </view>
         </view>
       </view>
@@ -53,7 +71,12 @@
           <text>登陆设备</text>
           <view class="item-right">
             <text>查看登录设备</text>
-            <u-image class="icon" src="/static/images/mine/right.png" width="10rpx" height="18rpx"></u-image>
+            <u-image
+              class="icon"
+              src="/static/images/mine/right.png"
+              width="10rpx"
+              height="18rpx"
+            ></u-image>
           </view>
         </view>
       </view>
@@ -62,18 +85,18 @@
 </template>
 
 <script>
-import { hiddenEmail, hiddenPhone } from '@/utils/utils'
-import storage from '@/utils/storage'
+import { hiddenEmail, hiddenPhone } from "@/utils/utils";
+import storage from "@/utils/storage";
 
 export default {
   name: "safety",
   data() {
     return {
       userInfo: {},
-    }
+    };
   },
   onShow() {
-    this.userInfo = storage.get('userInfo') || {}
+    this.userInfo = storage.get("userInfo") || {};
   },
   methods: {
     hiddenEmail,
@@ -81,24 +104,25 @@ export default {
     // 跳转
     pageTo(name) {
       uni.navigateTo({
-        url: name
+        url: name,
       });
     },
     // 设置/修改 支付密码
     changePayPass() {
-      if (this.userInfo.payPasswordStatus) { // 修改
-        this.pageTo('/pages/safety/paymentPWD')
-      } else { // 设置
-        this.pageTo('/pages/setPayPassword/index')
+      if (this.userInfo.payPasswordStatus) {
+        // 修改
+        this.pageTo("/pages/safety/paymentPWD");
+      } else {
+        // 设置
+        this.pageTo("/pages/setPayPassword/index");
       }
-    }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .safety-page {
-  
   .page-box {
     background-color: #fff;
   }
@@ -110,7 +134,7 @@ export default {
     margin-bottom: 27rpx;
     font-size: 26rpx;
     color: #757575;
-    border-bottom: 1px solid #CECECE;
+    border-bottom: 1px solid #cecece;
 
     .title {
       font-size: 32rpx;

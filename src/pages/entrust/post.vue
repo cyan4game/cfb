@@ -1,38 +1,63 @@
 <!-- 发布委托 -->
 <template>
   <view class="info-page-bg self-body entrust-post">
-    <u-navbar :safeAreaInsetTop="false" :title="form.id ? '编辑委托' : '发布委托'" @leftClick="() => $routers.back()" />
-    <view class="info-page-content content-box" :class="{'edit-page': form.id}">
+    <u-navbar
+      :safeAreaInsetTop="true"
+      :title="form.id ? '编辑委托' : '发布委托'"
+      @leftClick="() => $routers.back()"
+    />
+    <view class="self-status-bar"></view>
+    <view
+      class="info-page-content content-box"
+      :class="{ 'edit-page': form.id }"
+    >
       <view class="types">
         <text class="name">广告类型</text>
         <view class="type">
-          <view class="check" @click="changeType('buy')" :class="{'checked':type=='buy'}"><view class="in"></view></view>
+          <view
+            class="check"
+            @click="changeType('buy')"
+            :class="{ checked: type == 'buy' }"
+            ><view class="in"></view
+          ></view>
           <text>购买</text>
         </view>
         <view class="line"></view>
         <view class="type">
-          <view class="check" @click="changeType('sell')" :class="{'checked':type=='sell'}"><view class="in"></view></view>
+          <view
+            class="check"
+            @click="changeType('sell')"
+            :class="{ checked: type == 'sell' }"
+            ><view class="in"></view
+          ></view>
           <text>出售</text>
         </view>
       </view>
 
-      
       <view class="subtitle">
         数量
-        <text v-show="type=='sell'" class="balance">可用余额{{ cfb }}CFB</text>
+        <text v-show="type == 'sell'" class="balance"
+          >可用余额{{ cfb }}CFB</text
+        >
       </view>
       <view class="ipt">
-        <input v-model="form.entrustAmount" @input="inputNum" class="input" type="number" placeholder="数量" />
+        <input
+          v-model="form.entrustAmount"
+          @input="inputNum"
+          class="input"
+          type="number"
+          placeholder="数量"
+        />
         <text>CFB</text>
       </view>
-      <view style="display: flex;">
-        <view style="flex:1">
+      <view style="display: flex">
+        <view style="flex: 1">
           <view class="subtitle">参考汇率</view>
           <view class="ipt disabled-box">
             <text class="input">{{ form.referenceRate }}</text>
           </view>
         </view>
-        <view style="flex:2;margin-left: 20rpx;">
+        <view style="flex: 2; margin-left: 20rpx">
           <view class="subtitle">预估成交金额</view>
           <view class="ipt disabled-box">
             <text class="input">{{ form.estimatedAmount }}</text>
@@ -42,8 +67,14 @@
       <view class="subtitle">结束时间</view>
       <view class="ipt">
         <!-- <text class="input">3天</text> -->
-        <picker class="input" @change="bindPickerChange" :range-key="'name'" :value="index" :range="array">
-						<view >{{ array[index].name }}</view>
+        <picker
+          class="input"
+          @change="bindPickerChange"
+          :range-key="'name'"
+          :value="index"
+          :range="array"
+        >
+          <view>{{ array[index].name }}</view>
         </picker>
         <u-image
           class="icon"
@@ -52,11 +83,24 @@
           height="9rpx"
         ></u-image>
       </view>
-      <view class="subtitle" v-show="type=='sell'">收款账号</view>
-      <view class="ipt" v-show="type=='sell'">
-        <text class="input" v-if="!payways.length" @click="goBind">请选择收款账号</text>
-        <picker class="input" v-if="payways.length" @change="bindPayWayChange" :range-key="'_accountName'" :value="paywayIndex" :range="payways">
-						<view >{{ paywayIndex == -1 ? '请选择收款账号' : payways[paywayIndex]._accountName }}</view>
+      <view class="subtitle" v-show="type == 'sell'">收款账号</view>
+      <view class="ipt" v-show="type == 'sell'">
+        <text class="input" v-if="!payways.length" @click="goBind"
+          >请选择收款账号</text
+        >
+        <picker
+          class="input"
+          v-if="payways.length"
+          @change="bindPayWayChange"
+          :range-key="'_accountName'"
+          :value="paywayIndex"
+          :range="payways"
+        >
+          <view>{{
+            paywayIndex == -1
+              ? "请选择收款账号"
+              : payways[paywayIndex]._accountName
+          }}</view>
         </picker>
         <u-image
           class="icon"
@@ -66,48 +110,55 @@
         ></u-image>
       </view>
 
-
-      <u-button type="primary" class="submit" :disabled="disabled" @click="post">{{ form.id?'编辑':'发布' }}委托</u-button>
+      <u-button type="primary" class="submit" :disabled="disabled" @click="post"
+        >{{ form.id ? "编辑" : "发布" }}委托</u-button
+      >
     </view>
 
     <!-- 跳转绑定弹窗 -->
-    <confirm-dialog ref="bindDialog" :title="'绑定收款账号'" :content="'你还未绑定收款账号，去绑定？'" :borderBtn="'取消'" :btn="'去绑定'" :btnHandle="goBindPage"></confirm-dialog>
+    <confirm-dialog
+      ref="bindDialog"
+      :title="'绑定收款账号'"
+      :content="'你还未绑定收款账号，去绑定？'"
+      :borderBtn="'取消'"
+      :btn="'去绑定'"
+      :btnHandle="goBindPage"
+    ></confirm-dialog>
   </view>
 </template>
 
 <script>
-import { entrustRelease, queryPayBindInfo, entrustUpdate } from '@/api/api'
-import storage from '@/utils/storage'
-import { updateBalance, _fixed } from '@/utils/utils'
-
+import { entrustRelease, queryPayBindInfo, entrustUpdate } from "@/api/api";
+import storage from "@/utils/storage";
+import { updateBalance, _fixed } from "@/utils/utils";
 
 const payWayMap = {
-  1: '支付宝',
-  2: '微信',
-  3: '银行卡'
-}
+  1: "支付宝",
+  2: "微信",
+  3: "银行卡",
+};
 
 export default {
   name: "entrustPost",
   data() {
     return {
       loading: false,
-      type: 'buy', // 出售-sell  购买-buy
+      type: "buy", // 出售-sell  购买-buy
       form: {
-        currency: 'CFB', // 币种
-        payModelId: '', // 收款方式id
-        entrustAmount: '', // 委托数量
-        estimatedAmount: '', // 预估成交金额
-        referenceRate: '1.00', // 汇率
+        currency: "CFB", // 币种
+        payModelId: "", // 收款方式id
+        entrustAmount: "", // 委托数量
+        estimatedAmount: "", // 预估成交金额
+        referenceRate: "1.00", // 汇率
         endTime: 3, // 结束时间
         type: 1, // 类型：1 购买，2出售
       },
       array: [
-        { name: '3天', val: 3 },
-        { name: '5天', val: 5 },
-        { name: '10天', val: 10 },
-        { name: '15天', val: 15 },
-        { name: '30天', val: 30 },
+        { name: "3天", val: 3 },
+        { name: "5天", val: 5 },
+        { name: "10天", val: 10 },
+        { name: "15天", val: 15 },
+        { name: "30天", val: 30 },
       ],
       index: 0, // 结束时间下标
 
@@ -115,125 +166,139 @@ export default {
       paywayIndex: -1,
 
       amountMap: [], // 余额列表
-    }
+    };
   },
   computed: {
     disabled() {
-      if (this.type == 'buy') { // 购买
-        if (Number(this.form.entrustAmount) && !this.loading) return false
-        return true
-      } else { // 出售
-        if (Number(this.form.entrustAmount) && Number(this.form.entrustAmount) > 0 && Number(this.form.entrustAmount) <= this.cfb && this.form.payModelId && !this.loading) return false
-        return true
+      if (this.type == "buy") {
+        // 购买
+        if (Number(this.form.entrustAmount) && !this.loading) return false;
+        return true;
+      } else {
+        // 出售
+        if (
+          Number(this.form.entrustAmount) &&
+          Number(this.form.entrustAmount) > 0 &&
+          Number(this.form.entrustAmount) <= this.cfb &&
+          this.form.payModelId &&
+          !this.loading
+        )
+          return false;
+        return true;
       }
     },
     cfb() {
-      const target = this.amountMap.find(item => item.currency == 'CFB')
-      if (target) return Number(target.balance)
-      return 0
-    }
+      const target = this.amountMap.find((item) => item.currency == "CFB");
+      if (target) return Number(target.balance);
+      return 0;
+    },
   },
   onLoad(data) {
-    this.type = data.type == 2 ? 'sell' : 'buy'
+    this.type = data.type == 2 ? "sell" : "buy";
     // 'currency', 'payModelId', 'entrustAmount', 'estimatedAmount', 'referenceRate', 'endTime', 'type'
-    Object.assign(this.form, data)
-    this.index = this.array.findIndex(item => item.val == this.form.endTime)
+    Object.assign(this.form, data);
+    this.index = this.array.findIndex((item) => item.val == this.form.endTime);
   },
   onShow() {
-    this.getPayways()
-    this.getAmounts()
+    this.getPayways();
+    this.getAmounts();
   },
   methods: {
     inputNum() {
       setTimeout(() => {
         this.form.entrustAmount = _fixed(this.form.entrustAmount, 4);
-        this.form.estimatedAmount = this.form.referenceRate * this.form.entrustAmount
+        this.form.estimatedAmount =
+          this.form.referenceRate * this.form.entrustAmount;
       }, 0);
     },
     // 获取币种余额
     getAmounts() {
-      this.amountMap = storage.get('balanceList') || []
+      this.amountMap = storage.get("balanceList") || [];
       updateBalance().then((res) => {
         if (res) {
-          this.amountMap = res
+          this.amountMap = res;
         }
       });
     },
     // 改变类型  如果编辑模式就不能变更
     changeType(key) {
-      if (this.form.id) return
-      this.type = key
+      if (this.form.id) return;
+      this.type = key;
     },
     // 跳转绑定
     goBind() {
-      this.$refs.bindDialog.open()
+      this.$refs.bindDialog.open();
     },
     // 跳转绑定页面
     goBindPage() {
-      this.$refs.bindDialog.close()
+      this.$refs.bindDialog.close();
       uni.navigateTo({
-         url: '/pages/collection/index'
-      })
+        url: "/pages/collection/index",
+      });
     },
     // 选择时间
     bindPickerChange(e) {
-      this.index = e.target.value
-      this.form.endTime = this.array[this.index].val
+      this.index = e.target.value;
+      this.form.endTime = this.array[this.index].val;
     },
     // 选择支付方式
     bindPayWayChange(e) {
-      this.paywayIndex = e.target.value
-      this.form.payModelId = this.payways[this.paywayIndex].id
+      this.paywayIndex = e.target.value;
+      this.form.payModelId = this.payways[this.paywayIndex].id;
     },
     // 查询支付方式
     getPayways() {
-      this.payways = storage.get('mypayways') || []
-      queryPayBindInfo().then(res => {
+      this.payways = storage.get("mypayways") || [];
+      queryPayBindInfo().then((res) => {
         if (res.code == 200) {
-          this.payways = res.data.map(item => {
-            item._accountName = payWayMap[item.payType] + '-' + item.account
-            return item
-          })
-          storage.set('mypayways', this.payways)
+          this.payways = res.data.map((item) => {
+            item._accountName = payWayMap[item.payType] + "-" + item.account;
+            return item;
+          });
+          storage.set("mypayways", this.payways);
           if (this.form.payModelId) {
-            this.paywayIndex = this.payways.findIndex(item => item.id == this.form.payModelId)
+            this.paywayIndex = this.payways.findIndex(
+              (item) => item.id == this.form.payModelId
+            );
           }
         }
-      })
+      });
     },
     // 发布
     post() {
-      this.form.type = this.type == 'buy' ? 1 : 2
-      this.loading = true
-      const Req = this.form.id ? entrustUpdate : entrustRelease
-      Req(this.form).then(res => {
-        if (res.code == 200) {
-          uni.showToast({
-            title: this.form.id ? '编辑成功' : '发布成功',
-            icon: 'none',
-            duration: 2000
-          })
-          this.form.payModelId = ''
-          this.form.entrustAmount = ''
-          this.form.estimatedAmount = ''
-          setTimeout(() => {
-            uni.navigateBack()
-          }, 500)
-        }
-      }).finally(() => {
-        this.loading = false
-      })
-    }
-  }
+      this.form.type = this.type == "buy" ? 1 : 2;
+      this.loading = true;
+      const Req = this.form.id ? entrustUpdate : entrustRelease;
+      Req(this.form)
+        .then((res) => {
+          if (res.code == 200) {
+            uni.showToast({
+              title: this.form.id ? "编辑成功" : "发布成功",
+              icon: "none",
+              duration: 2000,
+            });
+            this.form.payModelId = "";
+            this.form.entrustAmount = "";
+            this.form.estimatedAmount = "";
+            setTimeout(() => {
+              uni.navigateBack();
+            }, 500);
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .edit-page {
   .checked {
-    border-color: #DFDEDE;
+    border-color: #dfdede;
     .in {
-      background-color: #DFDEDE;
+      background-color: #dfdede;
     }
   }
 }
@@ -269,12 +334,12 @@ export default {
     font-size: 26rpx;
     margin: 35rpx 0;
     .balance {
-      color: #FB2B2B;
+      color: #fb2b2b;
       margin-left: 30rpx;
     }
   }
   .title2 {
-    color: #433F48;
+    color: #433f48;
     font-size: 26rpx;
     margin-top: 50rpx;
     margin-bottom: 30rpx;
@@ -284,13 +349,13 @@ export default {
     align-items: center;
     justify-content: space-between;
     .pay {
-        display: flex;
-        color: #433F48;
-        font-size: 26rpx;
-        align-items: center;
-        .icon {
-            margin-right: 10rpx;
-        }
+      display: flex;
+      color: #433f48;
+      font-size: 26rpx;
+      align-items: center;
+      .icon {
+        margin-right: 10rpx;
+      }
     }
   }
   .ipt {
@@ -310,7 +375,7 @@ export default {
     }
   }
   .disabled-box {
-    background-color: #DBDADA;
+    background-color: #dbdada;
   }
   .submit {
     width: 451rpx;
@@ -332,16 +397,16 @@ export default {
     margin: 30rpx 0;
     line-height: 50rpx;
     .price-item {
-        width: 40%;
-        color: #433F48;
-        font-size: 26rpx;
-        .price-info {
-            display: flex;
-            align-items: center;
-            .icon {
-                margin-left: 10rpx;
-            }
+      width: 40%;
+      color: #433f48;
+      font-size: 26rpx;
+      .price-info {
+        display: flex;
+        align-items: center;
+        .icon {
+          margin-left: 10rpx;
         }
+      }
     }
   }
 }

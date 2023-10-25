@@ -1,7 +1,12 @@
 <!-- h5 扫码页 -->
 <template>
   <view class="h5-scan">
-    <u-navbar :safeAreaInsetTop="false" :title="'扫码'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="true"
+      :title="'扫码'"
+      @leftClick="() => $routers.back()"
+    />
+    <view class="self-status-bar"></view>
     <view class="xc" @click="chooseFile">相册</view>
 
     <view class="scan-box">
@@ -45,7 +50,7 @@ export default {
     this.type = data.type;
   },
   onShow() {
-    this.stop = false
+    this.stop = false;
   },
   methods: {
     // 初始化
@@ -125,8 +130,8 @@ export default {
       const pages = getCurrentPages();
       const prevPage = pages[pages.length - 2]; //上一个页面
       if (isValidTRONAddress(rs)) {
-        if (this.stop) return
-        this.stop = true
+        if (this.stop) return;
+        this.stop = true;
         // 解析成功
         // 根据不同页面 跳转不同结果
         switch (this.type) {

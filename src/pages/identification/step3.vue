@@ -2,10 +2,11 @@
 <template>
   <view class="info-page-bg self-body page-iden-3">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'人脸认证'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
     <view class="info-page-content content-box">
       <view class="bottom-box">
         <u-image
@@ -29,15 +30,27 @@
     </view>
 
     <!-- 认证成功弹窗 -->
-    <confirm-dialog :showClose="false" ref="successDialog" :title="'认证成功'" :btn="'确定'" :content="'人脸认证成功！'" :btnHandle="reGo" />
+    <confirm-dialog
+      :showClose="false"
+      ref="successDialog"
+      :title="'认证成功'"
+      :btn="'确定'"
+      :content="'人脸认证成功！'"
+      :btnHandle="reGo"
+    />
     <!-- 认证失败弹窗 -->
-    <confirm-dialog  ref="failDialog" :title="'认证失败'" :btn="'确定'" :content="errorReason"/>
+    <confirm-dialog
+      ref="failDialog"
+      :title="'认证失败'"
+      :btn="'确定'"
+      :content="errorReason"
+    />
   </view>
 </template>
 
 <script>
 import { initFaceVerify, describeFaceVerify } from "@/api/api";
-import storage from '@/utils/storage'
+import storage from "@/utils/storage";
 
 export default {
   name: "iden3",
@@ -46,7 +59,7 @@ export default {
       loading: false,
       userInfo: {},
       verifyPlugin: {},
-      errorReason: '', // 失败原因
+      errorReason: "", // 失败原因
     };
   },
   onShow() {
@@ -82,15 +95,19 @@ export default {
       // #ifdef APP-PLUS
       const verifySource = 2;
       // #endif
-      describeFaceVerify(verifySource).then(res => {
-        console.error('认证结果', res)
-        if (res.code == 200) { // 认证成功
-          this.$refs.successDialog.open()
-        } else { // 认证失败
-          this.errorReason = res.message ? '失败原因：'+res.message: '认证失败，请重试'
-          this.$refs.failDialog.open()
+      describeFaceVerify(verifySource).then((res) => {
+        console.error("认证结果", res);
+        if (res.code == 200) {
+          // 认证成功
+          this.$refs.successDialog.open();
+        } else {
+          // 认证失败
+          this.errorReason = res.message
+            ? "失败原因：" + res.message
+            : "认证失败，请重试";
+          this.$refs.failDialog.open();
         }
-      })
+      });
     },
     // 开始认证
     start() {
@@ -121,13 +138,13 @@ export default {
                 (response) => {
                   console.error("认证结果", response);
                   setTimeout(() => {
-                    this.checkResult()
-                  }, 1000)
+                    this.checkResult();
+                  }, 1000);
                 }
               );
               // #endif
               // #ifdef H5
-              window.location.href = res.data.certifyUrl
+              window.location.href = res.data.certifyUrl;
               // #endif
             }, 500);
           }
@@ -144,6 +161,7 @@ export default {
 
 <style lang="scss" scoped>
 .page-iden-3 {
+  height: calc(100% - var(--status-bar-height));
   .content-box {
     padding-top: 148rpx;
     padding-bottom: 60rpx;

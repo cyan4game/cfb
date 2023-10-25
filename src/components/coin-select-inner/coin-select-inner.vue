@@ -1,7 +1,7 @@
 <!-- 币种选择-非弹窗 -->
 <template>
   <view class="coin-select-inner" @click="show = false" v-if="show">
-    <view :style="{ top: top, width: width }" class="select-box">
+    <view :style="{ top: `calc(${top} + var(--status-bar-height))`, width: width }" class="select-box">
       <view
         class="item"
         :class="{ 'active-item': coin == item.coin }"

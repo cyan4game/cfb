@@ -1,10 +1,11 @@
 <template>
   <view class="info-page-bg self-body mobile-view">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'绑定手机号'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
     <view class="info-page-content page-box">
       <u-form class="form" :model="form" ref="form">
         <u-form-item v-if="userInfo.phoneNumber && step == 1">
@@ -109,7 +110,7 @@
     ></u-picker>
 
     <!-- 区号弹窗 -->
-    <area-code @sure="item => form.areaCode = item.code" ref="areaCode" />
+    <area-code @sure="(item) => (form.areaCode = item.code)" ref="areaCode" />
   </view>
 </template>
 

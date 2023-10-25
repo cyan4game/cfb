@@ -2,10 +2,11 @@
 <template>
   <view class="info-page-bg self-body page-myorder">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'订单'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
     <view class="info-page-content content-box">
       <!-- 状态导航 -->
       <view class="tabs">
@@ -177,7 +178,7 @@ export default {
       form: {
         pageNo: 0,
         pageSize: 10,
-        orderType: '', // 1-购买 2-支付
+        orderType: "", // 1-购买 2-支付
         createTimeStart: "",
         createTimeEnd: "",
       },
@@ -206,7 +207,7 @@ export default {
     },
     // 重置弹框参数
     resetParams() {
-      this.form.orderType = '';
+      this.form.orderType = "";
       this.form.createTimeStart = "";
       this.form.createTimeEnd = "";
       this.activeTime = "";

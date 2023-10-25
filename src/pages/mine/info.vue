@@ -1,8 +1,12 @@
 <!-- 个人资料 -->
 <template>
   <view class="info-page-bg self-body mine-info">
-    <u-navbar :safeAreaInsetTop="false" :title="'个人资料'" @leftClick="() => $routers.back()" />
-
+    <u-navbar
+      :safeAreaInsetTop="true"
+      :title="'个人资料'"
+      @leftClick="() => $routers.back()"
+    />
+    <view class="self-status-bar"></view>
     <view class="info-page-content content-box">
       <!-- 信息面板 -->
       <view class="info-box">
@@ -95,7 +99,7 @@ export default {
       if (!this.userInfo.avatarYearUpdateLastCount)
         return uni.showToast({
           title: "头像可更改次数：0",
-          icon: 'none',
+          icon: "none",
           duration: 2000,
         });
       this.$refs.tipDialog.open();
@@ -170,7 +174,7 @@ export default {
             updatUserInfo();
             uni.showToast({
               title: "更新成功",
-              icon: 'none',
+              icon: "none",
               duration: 2000,
             });
           }

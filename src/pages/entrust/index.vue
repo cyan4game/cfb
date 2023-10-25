@@ -2,10 +2,11 @@
 <template>
   <view class="info-page-bg self-body page-entrust">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'委托管理'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
     <view class="info-page-content content-box">
       <!-- 发布委托 -->
       <view class="post" @click="goPost">发布委托</view>
@@ -32,7 +33,12 @@
           ></u-image>
         </view>
         <view class="show" @click="changeHidden">
-          <checkbox value="cb" :checked="params.isHide == 1" color="#449367" style="transform:scale(0.7)" />
+          <checkbox
+            value="cb"
+            :checked="params.isHide == 1"
+            color="#449367"
+            style="transform: scale(0.7)"
+          />
           <text>{{ params.isHide == 1 ? "隐藏" : "显示" }}已关闭委托</text>
         </view>
       </view>
@@ -50,7 +56,6 @@
           <view class="top">
             <view class="status">{{ item.type == 2 ? "出售" : "购买" }}</view>
             <view class="name">{{ item.currency }}</view>
-            
           </view>
 
           <view class="body">
@@ -95,9 +100,14 @@
     <!-- 类型选择 -->
     <view class="picker-box" v-if="showPicker" @click="showPicker = false">
       <view class="select-box">
-        <view class="select-item" :class="{'active-item':index == i}" @click="bindPickerChange(i)" v-for="(item, i) in array" :key="i">{{
-          item.name
-        }}</view>
+        <view
+          class="select-item"
+          :class="{ 'active-item': index == i }"
+          @click="bindPickerChange(i)"
+          v-for="(item, i) in array"
+          :key="i"
+          >{{ item.name }}</view
+        >
       </view>
     </view>
   </view>
@@ -215,7 +225,7 @@ export default {
     padding: 0;
     .post {
       position: fixed;
-      top: 36rpx;
+      top: calc(36rpx + var(--status-bar-height)); 
       right: 40rpx;
       color: #fff;
       z-index: 9999;
@@ -235,7 +245,7 @@ export default {
       color: #38363b;
       font-weight: bold;
       font-size: 32rpx;
-      border: 1px solid #5C5C5C;
+      border: 1px solid #5c5c5c;
       padding: 0 20rpx;
       height: 70rpx;
       width: 196rpx;
@@ -268,7 +278,7 @@ export default {
     }
     .item {
       border-radius: 9rpx;
-      background-color: #F6F5F5;
+      background-color: #f6f5f5;
       margin-bottom: 10rpx;
       padding: 0 50rpx 0 40rpx;
       box-sizing: border-box;
@@ -324,7 +334,7 @@ export default {
           height: 56rpx;
           padding: 0 20rpx;
           // background-color: #449367;
-          color: #827E88;
+          color: #827e88;
           border-radius: 6rpx;
           margin-left: 17rpx;
           font-size: 26rpx;
@@ -380,9 +390,9 @@ export default {
     box-sizing: border-box;
     font-size: 26rpx;
     width: 196rpx;
-    border: 1px solid #5C5C5C;
+    border: 1px solid #5c5c5c;
     position: absolute;
-    top: calc(200rpx + var(--status-bar-height))!important;
+    top: calc(200rpx + var(--status-bar-height)) !important;
     left: 30rpx;
     .select-item {
       height: 72rpx;

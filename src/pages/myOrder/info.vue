@@ -2,10 +2,11 @@
 <template>
   <view class="info-page-bg self-body order-info">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'订单详情'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
     <view class="info-page-content content-box">
       <view class="title">
         <text>{{
@@ -61,7 +62,7 @@
       <view class="container" style="border-bottom: 1px solid #dfdfdf">
         <view class="info-item">
           <view class="item-name">汇率</view>
-          <view class="item-box">{{ item.exchange }}:1</view>
+          <view class="item-box">{{ item.exchange || "1" }}:1</view>
         </view>
         <view class="info-item">
           <view class="item-name">数量</view>
@@ -134,7 +135,10 @@
             ></u-image>
           </view>
         </view>
-        <view class="info-item" v-if="[2, 3, 4].includes(item.payWay) && item.orderStatus==2">
+        <view
+          class="info-item"
+          v-if="[2, 3, 4].includes(item.payWay) && item.orderStatus == 2"
+        >
           <view class="item-name">收款二维码</view>
           <view class="item-box" @click="showQRcode = true">
             <text style="color: #f71919">查看二维码</text>

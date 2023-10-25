@@ -2,27 +2,33 @@
 <template>
   <view class="info-page-bg self-body page-customer">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'帮助中心'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
     <view class="info-page-content content-box">
       <uni-collapse accordion v-model="collapse">
         <uni-collapse-item
-        :class="{'active': collapse == i, 'unactive': collapse != i}"
+          :class="{ active: collapse == i, unactive: collapse != i }"
           :title="item.title"
           v-for="(item, i) in list"
           :key="i"
         >
           <view>
-            <view class="link" @click="handleClick(link)" v-for="link in item.list" :key="link.id">
+            <view
+              class="link"
+              @click="handleClick(link)"
+              v-for="link in item.list"
+              :key="link.id"
+            >
               <text>{{ link.title }}</text>
               <u-image
-            class="more"
-            src="/static/images/mine/right.png"
-            width="10rpx"
-            height="18rpx"
-          ></u-image>
+                class="more"
+                src="/static/images/mine/right.png"
+                width="10rpx"
+                height="18rpx"
+              ></u-image>
             </view>
             <view v-if="!item.list.length" class="nodata">暂无数据</view>
           </view>
@@ -34,13 +40,13 @@
 
 <script>
 import { articlePage } from "@/api/api";
-import storage from '@/utils/storage'
+import storage from "@/utils/storage";
 
 export default {
   name: "pageCustomer",
   data() {
     return {
-      collapse: '-1',
+      collapse: "-1",
       list: [
         { title: "帮助中心", type: 1, list: [] },
         { title: "用户协议", type: 2, list: [] },
@@ -52,10 +58,10 @@ export default {
   },
   methods: {
     handleClick(link) {
-      storage.set('help-info', link)
+      storage.set("help-info", link);
       uni.navigateTo({
-         url: '/pages/helpInfo/info'
-      })
+        url: "/pages/helpInfo/info",
+      });
     },
     // 获取帮助中心列表
     getList() {
@@ -100,7 +106,7 @@ export default {
     .link {
       width: 100vw;
       height: 100rpx;
-      background-color: #F1F1F1;
+      background-color: #f1f1f1;
       border-bottom: 1px solid #e4e4e4;
       display: flex;
       align-items: center;

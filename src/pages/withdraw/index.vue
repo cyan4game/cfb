@@ -2,10 +2,11 @@
 <template>
   <view class="info-page-bg self-body page-withdraw">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'转账'"
       @leftClick="() => $routers.back()"
     />
+    <view class="self-status-bar"></view>
     <!-- 表单 -->
     <view class="info-page-content content-box">
       <view class="form">
@@ -48,7 +49,13 @@
 
         <!-- 转账数量 -->
         <view class="form-item">
-          <view class="item-title">转账数量 <text class="use">可用转账余额 {{ money }} {{ form.currency.replace("_TRC20", "") }}</text></view>
+          <view class="item-title"
+            >转账数量
+            <text class="use"
+              >可用转账余额 {{ money }}
+              {{ form.currency.replace("_TRC20", "") }}</text
+            ></view
+          >
           <view class="item-content">
             <input
               @input="inputNum"
@@ -68,16 +75,22 @@
           </view>
           <view class="tip">
             <view class="tip-flex">
-              <text class="tip-title">最小转账数量：</text> {{ state.minWithdrawAmount || '--' }} 
+              <text class="tip-title">最小转账数量：</text>
+              {{ state.minWithdrawAmount || "--" }}
             </view>
             <view class="tip-flex">
-              <text class="tip-title">最大转账数量：</text> {{ state.maxWithdrawAmount || '--' }} 
+              <text class="tip-title">最大转账数量：</text>
+              {{ state.maxWithdrawAmount || "--" }}
             </view>
             <view class="tip-flex">
-              <text class="tip-title">手续费：</text> {{ _fixed(fee, 4) }} 
+              <text class="tip-title">手续费：</text> {{ _fixed(fee, 4) }}
             </view>
             <view class="tip-flex">
-              <text class="tip-title">实际到账：</text> <text class="num">{{ _fixed(form.amount - fee < 0 ? 0 : form.amount - fee, 4) }}</text> <text class="tail">{{ form.currency }}</text>
+              <text class="tip-title">实际到账：</text>
+              <text class="num">{{
+                _fixed(form.amount - fee < 0 ? 0 : form.amount - fee, 4)
+              }}</text>
+              <text class="tail">{{ form.currency }}</text>
             </view>
           </view>
         </view>
@@ -143,7 +156,9 @@
           </view>
           <view class="sure-item">
             <text>手续费</text>
-            <text class="sure-val">{{ _fixed(fee, 4) }} {{ form.currency }}</text>
+            <text class="sure-val"
+              >{{ _fixed(fee, 4) }} {{ form.currency }}</text
+            >
           </view>
           <view class="sure-item">
             <text>实际到账</text>
@@ -161,7 +176,12 @@
 <script>
 import { withdraw, getCoinConfig } from "@/api/api";
 import storage from "@/utils/storage";
-import { isValidTRONAddress, updateBalance, _fixed, updatUserInfo } from "@/utils/utils";
+import {
+  isValidTRONAddress,
+  updateBalance,
+  _fixed,
+  updatUserInfo,
+} from "@/utils/utils";
 import { coinList } from "@/utils/dataMap";
 
 export default {
@@ -185,21 +205,21 @@ export default {
   },
   computed: {
     disabled() {
-      let minLimit = false
-      let maxLimit = false
+      let minLimit = false;
+      let maxLimit = false;
       if (this.state.minWithdrawAmount) {
         minLimit = this.form.amount < this.state.minWithdrawAmount;
       }
       if (this.state.maxWithdrawAmount) {
-        maxLimit =  this.form.amount > this.state.maxWithdrawAmount;
+        maxLimit = this.form.amount > this.state.maxWithdrawAmount;
       }
       return (
         !(this.form.toAddress && this.form.amount) ||
         this.loading ||
         this.form.amount > this.money ||
-        this.form.amount - this.fee <= 0
-        || minLimit
-        || maxLimit
+        this.form.amount - this.fee <= 0 ||
+        minLimit ||
+        maxLimit
       );
     },
     money() {
@@ -246,7 +266,7 @@ export default {
     }
   },
   onShow() {
-    updatUserInfo()
+    updatUserInfo();
     this.getAmounts();
     this.getConfig();
   },

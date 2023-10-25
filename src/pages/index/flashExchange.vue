@@ -2,12 +2,11 @@
 <template>
   <view class="page-fe">
     <u-navbar
-      :safeAreaInsetTop="false"
+      :safeAreaInsetTop="true"
       :title="'闪兑'"
       @leftClick="() => $routers.back()"
     />
-
-   
+    <view class="self-status-bar"></view>
 
     <view class="main-box">
       <view class="box">
@@ -97,9 +96,9 @@
         <view class="bottom">
           <view class="total">
             <text>汇率：</text>
-            <text class="money" style="color:#E63C3C"
-              >{{ form.rate || "--" }}</text
-            >
+            <text class="money" style="color: #e63c3c">{{
+              form.rate || "--"
+            }}</text>
           </view>
         </view>
       </view>
@@ -110,13 +109,17 @@
       <!-- <text class="num">{{ form.rate }}</text> -->
     </view>
 
-    <u-button v-show="state == 1" type="primary" class="btn" :disabled="disabled" @click="submit"
+    <u-button
+      v-show="state == 1"
+      type="primary"
+      class="btn"
+      :disabled="disabled"
+      @click="submit"
       >闪兑</u-button
     >
-    <u-button v-show="state == 2" type="primary" class="btn" :disabled="true" 
+    <u-button v-show="state == 2" type="primary" class="btn" :disabled="true"
       >暂未开启</u-button
     >
-
   </view>
 </template>
 
@@ -203,17 +206,17 @@ export default {
       // }
       setTimeout(() => {
         if (type == "from") {
-        if (!this.form.from) return this.form.to = ''
-        this.form.from = _fixed(this.form.from, 4)
-        let num = this.form.from * this.form.rate;
-        this.form.to = _fixed(num, 4);
-      } else {
-        if (!this.form.to) return this.form.from = ''
-        this.form.to = _fixed(this.form.to, 4)
-        let num = this.form.to / this.form.rate;
-        this.form.from = _fixed(num, 4);
-      }
-      }, 0)
+          if (!this.form.from) return (this.form.to = "");
+          this.form.from = _fixed(this.form.from, 4);
+          let num = this.form.from * this.form.rate;
+          this.form.to = _fixed(num, 4);
+        } else {
+          if (!this.form.to) return (this.form.from = "");
+          this.form.to = _fixed(this.form.to, 4);
+          let num = this.form.to / this.form.rate;
+          this.form.from = _fixed(num, 4);
+        }
+      }, 0);
     },
     // 全部
     all() {
@@ -237,7 +240,7 @@ export default {
             const d = res.data;
             this.form.amount = d.balance;
             this.form.rate = d.exchangeRate;
-            this.state = d.state
+            this.state = d.state;
           }
         })
         .finally(() => {
@@ -290,7 +293,7 @@ export default {
   .box {
     box-sizing: border-box;
     flex: 1;
-    border: 1px solid #CDCDCD;
+    border: 1px solid #cdcdcd;
     height: 236rpx;
     padding: 34rpx 44rpx 50rpx 50rpx;
     border-radius: 15rpx;

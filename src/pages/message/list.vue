@@ -1,7 +1,12 @@
 <!-- 消息列表 -->
 <template>
   <view class="info-page-bg self-body page-message">
-    <u-navbar :safeAreaInsetTop="false" :title="'消息列表'" @leftClick="() => $routers.back()" />
+    <u-navbar
+      :safeAreaInsetTop="true"
+      :title="'消息列表'"
+      @leftClick="() => $routers.back()"
+    />
+    <view class="self-status-bar"></view>
     <scroll-view
       class="info-page-content content-box"
       scroll-y="true"
@@ -116,7 +121,7 @@ export default {
       color: #8c8c8c;
       font-size: 24rpx;
       line-height: 40rpx;
-      border-bottom: 1px solid #CECECE;
+      border-bottom: 1px solid #cecece;
 
       .title {
         font-size: 36rpx;

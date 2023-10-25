@@ -1,7 +1,8 @@
 <!-- 重设手机号 -->
 <template>
   <view class="info-page-bg self-body mobile-view">
-    <u-navbar :safeAreaInsetTop="false" :title="'重置手机号'" :leftIcon="''" />
+    <u-navbar :safeAreaInsetTop="true" :title="'重置手机号'" :leftIcon="''" />
+    <view class="self-status-bar"></view>
     <view class="info-page-content page-box">
       <u-form class="form" :model="form" ref="form" :rules="rules">
         <!-- 旧手机 -->
@@ -165,7 +166,8 @@ export default {
           },
           {
             validator: (rule, value, callback) => {
-              if (this.form.newCountryCode == "+86") return chPhoneReg.test(value);
+              if (this.form.newCountryCode == "+86")
+                return chPhoneReg.test(value);
               return true;
             },
             message: "请输入正确的手机号",
@@ -191,7 +193,11 @@ export default {
   },
   computed: {
     isDisabled() {
-      if (this.form.newCountryCode == "+86" && !chPhoneReg.test(this.form.newPhoneNumber)) return true
+      if (
+        this.form.newCountryCode == "+86" &&
+        !chPhoneReg.test(this.form.newPhoneNumber)
+      )
+        return true;
       return !(
         this.form.oldPhoneNumber &&
         this.form.oldVerifyCode &&
@@ -200,14 +206,18 @@ export default {
       );
     },
     disabledSms() {
-      return !this.form.newPhoneNumber || ( this.form.newCountryCode == "+86" && !chPhoneReg.test(this.form.newPhoneNumber) )
-    }
+      return (
+        !this.form.newPhoneNumber ||
+        (this.form.newCountryCode == "+86" &&
+          !chPhoneReg.test(this.form.newPhoneNumber))
+      );
+    },
   },
   onShow() {
     const userInfo = storage.get("userInfo") || {};
     const loginInfo = storage.get("login-info") || {};
-    this.form.oldPhoneNumber = loginInfo.phoneNumber || userInfo.phoneNumber
-    this.form.oldPhoneNumber = loginInfo.phoneNumber || userInfo.phoneNumber
+    this.form.oldPhoneNumber = loginInfo.phoneNumber || userInfo.phoneNumber;
+    this.form.oldPhoneNumber = loginInfo.phoneNumber || userInfo.phoneNumber;
   },
   methods: {
     // 发送验证码
@@ -222,7 +232,7 @@ export default {
         };
         this.loading = true;
         uni.showLoading({
-          title: '',
+          title: "",
           mask: true,
         });
         sendSMS(form)
@@ -255,7 +265,7 @@ export default {
         };
         this.loading = true;
         uni.showLoading({
-          title: '',
+          title: "",
           mask: true,
         });
         sendSMS(form)
@@ -286,9 +296,9 @@ export default {
       if (this.disabled || this.loading) return;
       this.loading = true;
       uni.showLoading({
-          title: '',
-          mask: true,
-        });
+        title: "",
+        mask: true,
+      });
       restPhone(this.form)
         .then((res) => {
           console.error(res);
@@ -322,7 +332,7 @@ export default {
 }
 .form {
   ::v-deep .u-form-item__body__right__message {
-    margin-left: 0!important;
+    margin-left: 0 !important;
   }
 }
 .ipt {
